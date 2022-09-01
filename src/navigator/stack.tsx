@@ -1,6 +1,9 @@
 import React from "react";
-import {createStackNavigator} from "@react-navigation/stack";
-import {Authorisation} from "../pages/authorisation/authorisation";
+import { createStackNavigator } from "@react-navigation/stack";
+import { Authorisation } from "../pages/authorisation/authorisation";
+import { PickRegistration } from "../pages/pick-registration-type/pick-registration";
+import { EnterPhoneNumber } from "../pages/enter-phone-number/enter-phone-number";
+import { EnterName } from "../pages/enter-name/enter-name";
 
 type RootStackParamList = {
   InitialPage: undefined;
@@ -25,4 +28,47 @@ export const ScreenForAuthorisation = () => {
   );
 };
 
+const PickRegistrationTypeNavigator = createStackNavigator();
+export const ScreenForPickRegistrationType = () => {
+  return (
+    <PickRegistrationTypeNavigator.Navigator>
+      <PickRegistrationTypeNavigator.Screen
+        name="PickRegistrationStack"
+        component={PickRegistration}
+        options={{
+          headerShown: false,
+        }}
+      />
+    </PickRegistrationTypeNavigator.Navigator>
+  );
+};
 
+const EnterPhoneNumberNavigator = createStackNavigator();
+export const ScreenForEnterPhoneNumber = () => {
+  return (
+    <EnterPhoneNumberNavigator.Navigator>
+      <EnterPhoneNumberNavigator.Screen
+        name="EnterPhoneNumberStack"
+        component={EnterPhoneNumber}
+        options={{
+          headerShown: false,
+        }}
+      />
+    </EnterPhoneNumberNavigator.Navigator>
+  );
+};
+
+const EnterNameNavigator = createStackNavigator();
+export const ScreenForEnterName = () => {
+  return (
+    <EnterNameNavigator.Navigator>
+      <EnterNameNavigator.Screen
+        name="EnterNameStack"
+        component={EnterName}
+        options={{
+          headerShown: false,
+        }}
+      />
+    </EnterNameNavigator.Navigator>
+  );
+};

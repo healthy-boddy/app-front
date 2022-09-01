@@ -1,14 +1,16 @@
 import React from "react";
-import { Text, View } from "react-native";
+import { SafeAreaView, Text, View } from "react-native";
 import { LogoSvg } from "./logo-svg";
 import { LinearGradient } from "expo-linear-gradient";
 import { styles } from "./authorisation-styles";
 import MaskedView from "@react-native-masked-view/masked-view";
 import { Button } from "../../components/core/button/button";
+import { useNavigation } from "@react-navigation/native";
 
 export const Authorisation = () => {
+  const navigation: any = useNavigation();
   return (
-    <View
+    <SafeAreaView
       style={{
         flex: 1,
         alignItems: "center",
@@ -52,10 +54,17 @@ export const Authorisation = () => {
           bottom: 20,
         }}
       >
-        <Button title={"Зарегистрироваться"} />
+        <Button
+          onPress={() => navigation.navigate("EnterName")}
+          title={"Зарегистрироваться"}
+        />
         <View style={{ marginTop: 16 }} />
-        <Button title={"Зарегистрироваться"} transparent />
+        <Button
+          onPress={() => console.log("pressed")}
+          title={"Войти"}
+          transparent
+        />
       </View>
-    </View>
+    </SafeAreaView>
   );
 };

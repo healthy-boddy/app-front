@@ -9,6 +9,8 @@ interface ButtonProps {
   colorFirst?: string;
   colorSecond?: string;
   transparent?: boolean;
+  onPress: () => void;
+  disable?: boolean;
 }
 
 export const Button: FC<ButtonProps> = ({
@@ -16,6 +18,8 @@ export const Button: FC<ButtonProps> = ({
   colorFirst = "#8C64FF",
   colorSecond = "#B49AFF",
   transparent,
+  onPress,
+  disable,
 }) => {
   return (
     <>
@@ -32,7 +36,11 @@ export const Button: FC<ButtonProps> = ({
             borderRadius: 58,
           }}
         >
-          <TouchableOpacity style={styles.buttonContainer}>
+          <TouchableOpacity
+            disabled={disable}
+            onPress={onPress}
+            style={styles.buttonContainer}
+          >
             <MaskedView
               style={{
                 height: 40,
@@ -62,7 +70,7 @@ export const Button: FC<ButtonProps> = ({
               }
             >
               <LinearGradient
-                colors={["#8C64FF", "#B49AFF"]}
+                colors={disable ? ["gray", "gray"] : ["#8C64FF", "#B49AFF"]}
                 start={{ x: 1, y: 1 }}
                 end={{ x: 0, y: 1 }}
                 style={{ flex: 1 }}
@@ -72,12 +80,14 @@ export const Button: FC<ButtonProps> = ({
         </LinearGradient>
       ) : (
         <TouchableOpacity
+          disabled={disable}
+          onPress={onPress}
           style={{
             width: "100%",
           }}
         >
           <LinearGradient
-            colors={[colorFirst, colorSecond]}
+            colors={disable ? ["gray", "gray"] : [colorFirst, colorSecond]}
             start={{ x: 1, y: 1 }}
             end={{ x: 0, y: 1 }}
             style={[
