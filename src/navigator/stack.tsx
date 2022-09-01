@@ -4,6 +4,7 @@ import { Authorisation } from "../pages/authorisation/authorisation";
 import { PickRegistration } from "../pages/pick-registration-type/pick-registration";
 import { EnterPhoneNumber } from "../pages/enter-phone-number/enter-phone-number";
 import { EnterName } from "../pages/enter-name/enter-name";
+import { EnterPin } from "../pages/enter-pin/enter-pin";
 
 type RootStackParamList = {
   InitialPage: undefined;
@@ -70,5 +71,20 @@ export const ScreenForEnterName = () => {
         }}
       />
     </EnterNameNavigator.Navigator>
+  );
+};
+
+const EnterPinNavigator = createStackNavigator();
+export const ScreenForEnterPin = () => {
+  return (
+    <EnterPinNavigator.Navigator>
+      <EnterPinNavigator.Screen
+        name="EnterPinStack"
+        component={EnterPin}
+        options={{
+          headerShown: false,
+        }}
+      />
+    </EnterPinNavigator.Navigator>
   );
 };

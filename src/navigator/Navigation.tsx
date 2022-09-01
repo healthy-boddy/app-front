@@ -4,6 +4,7 @@ import {
   ScreenForAuthorisation,
   ScreenForEnterName,
   ScreenForEnterPhoneNumber,
+  ScreenForEnterPin,
   ScreenForPickRegistrationType,
 } from "./stack";
 import { TabNavigator } from "./tab-navigator/TabNavigator";
@@ -52,6 +53,14 @@ export default function myStack() {
       <Stack.Screen
         name="EnterName"
         component={ScreenForEnterName}
+        options={{
+          headerShown: false,
+        }}
+      />
+
+      <Stack.Screen
+        name="EnterPin"
+        component={ScreenForEnterPin}
         options={{
           headerShown: false,
         }}

@@ -1,8 +1,8 @@
-import React, { Ref } from 'react';
-import { NavigationContainerRef } from '@react-navigation/native';
-import { RootStackParamList } from '../Navigation';
+import { NavigationContainerRef } from "@react-navigation/native";
+import React, { Ref } from "react";
+import { RootStackParamList } from "../Navigation";
 
-export const navigationRef: any= React.createRef();
+export const navigationRef: any = React.createRef();
 
 interface NavigationRefProp {
   current: Ref<NavigationContainerRef<RootStackParamList>>;
@@ -17,5 +17,5 @@ export const goBack = () => {
 };
 export default {
   navigate,
-  goBack
+  goBack,
 };

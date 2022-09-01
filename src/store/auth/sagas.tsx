@@ -5,16 +5,18 @@ import { setLoader } from "../loader";
 import * as actions from "./action-types";
 import { setNumber } from "./actions";
 import authService from "../../service/AuthService";
+import { useNavigation } from "@react-navigation/native";
 
 function* generatePassword({ payload }: actions.GeneratePassword) {
-  console.log("NUMBER PAYLOAD", payload);
   try {
     yield put(setGeneratePasswordError(false));
     yield put(setLoader(true));
     yield put(setNumber(payload));
-    const data = yield call(authService.generatePassword, payload);
-    if (data.status === 200) {
-      console.log("data.status: ", data.status);
+    const response = yield call(authService.generatePassword, payload);
+    if (response.status === 200) {
+      return rootNavigation.navigate("EnterPin", {
+        screen: "EnterPinStack",
+      });
     }
   } catch (error) {
     yield put(setGeneratePasswordError(true));

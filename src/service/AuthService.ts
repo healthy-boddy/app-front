@@ -58,7 +58,6 @@ class AuthService extends ApiService {
   };
 
   public generatePassword = async (phoneNumber: string) => {
-    console.log("phoneNumber", phoneNumber);
     try {
       const body: { [key: string]: string } = {
         phone_number: phoneNumber,
@@ -66,7 +65,6 @@ class AuthService extends ApiService {
       const response = await this.apiClient
         .post("user/send_pin/", body)
         .then((res) => {
-          console.log("RES USER", res);
           return res;
         });
       return response;

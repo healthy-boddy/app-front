@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { generatePassword, postClientData, setNumber } from "../../store/auth";
 import { useNavigation } from "@react-navigation/native";
 import { useSelector } from "../../hooks";
+import rootNavigation from "../../navigator/helper/root-navigation";
 
 export const EnterPhoneNumber = () => {
   const [phone, setPhone] = useState("");
@@ -36,10 +37,10 @@ export const EnterPhoneNumber = () => {
 
   const name = useSelector((data) => data.auth.userName);
 
-  // const handleSendPhone = useCallback(
-  //   async (phone) => dispatch(generatePassword(phone)),
-  //   []
-  // );
+  const handleSendPhone = useCallback(
+    async (phone) => dispatch(generatePassword(phone)),
+    []
+  );
 
   const handleSetPhone = useCallback(
     async (phoneNumber) => dispatch(setNumber(phoneNumber)),
@@ -52,12 +53,15 @@ export const EnterPhoneNumber = () => {
   );
 
   const handleSubmit = (phone: string) => {
+    // handleSetPhone(phone);
+    // const dataSend = {
+    //   phone_number: phone,
+    //   username: name,
+    // };
+    // handleSubmitData(dataSend);
+    handleSendPhone(phone);
     handleSetPhone(phone);
-    const dataSend = {
-      phone_number: phone,
-      username: name,
-    };
-    handleSubmitData(dataSend);
+    // navigation.navigate("EnterPin");
   };
 
   function isButtonDisabled() {

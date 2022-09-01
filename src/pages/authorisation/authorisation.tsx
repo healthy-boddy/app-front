@@ -60,7 +60,7 @@ export const Authorisation = () => {
         />
         <View style={{ marginTop: 16 }} />
         <Button
-          onPress={() => console.log("pressed")}
+          onPress={() => navigation.navigate("PickRegistration")}
           title={"Войти"}
           transparent
         />
