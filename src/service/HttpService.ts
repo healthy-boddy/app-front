@@ -81,15 +81,15 @@ class HttpService {
     console.log("interceptors access", access);
 
     if (!refreshToken) {
-      const wallet: { id?: string | number } = useSelector(
-        (wallet) => wallet.wallet.setExistingWallet
-      );
-      try {
-        console.log("wallet id interceptor", wallet);
-        await this.client.post(`/wallet/${wallet?.id}/`);
-      } catch (error) {
-        console.log("Error delete wallet", error.response.data);
-      }
+      // const wallet: { id?: string | number } = useSelector(
+      //   (wallet) => wallet.wallet.setExistingWallet
+      // );
+      // try {
+      //   console.log("wallet id interceptor", wallet);
+      //   await this.client.post(`/wallet/${wallet?.id}/`);
+      // } catch (error) {
+      //   console.log("Error delete wallet", error.response.data);
+      // }
 
       await this.logout();
       rootNavigation.navigate("Initial", {

@@ -2,9 +2,14 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { Authorisation } from "../pages/authorisation/authorisation";
 import { PickRegistration } from "../pages/pick-registration-type/pick-registration";
-import { EnterPhoneNumber } from "../pages/enter-phone-number/enter-phone-number";
-import { EnterName } from "../pages/enter-name/enter-name";
+import { EnterPhoneNumberRegistration } from "../pages/enter-phone-number-registration/enter-phone-number";
+import { EnterNameSignIn } from "../pages/enter-name/enter-name-sign-in";
 import { EnterPin } from "../pages/enter-pin/enter-pin";
+import { PickGender } from "../pages/pick-gender/pick-gender";
+import { PickBirthDate } from "../pages/pick-birth-date/pick-birth-date";
+import { EnterWeight } from "../pages/enter-weight/enter-weight";
+import { EnterPhoneNumberSignIn } from "../pages/enter-phone-number-sign-in/enter-phone-number";
+import { EnterNameRegistration } from "../pages/enter-name/enter-name-registration";
 
 type RootStackParamList = {
   InitialPage: undefined;
@@ -44,33 +49,63 @@ export const ScreenForPickRegistrationType = () => {
   );
 };
 
-const EnterPhoneNumberNavigator = createStackNavigator();
-export const ScreenForEnterPhoneNumber = () => {
+const EnterPhoneNumberSignInNavigator = createStackNavigator();
+export const ScreenForEnterPhoneNumberSignIn = () => {
   return (
-    <EnterPhoneNumberNavigator.Navigator>
-      <EnterPhoneNumberNavigator.Screen
-        name="EnterPhoneNumberStack"
-        component={EnterPhoneNumber}
+    <EnterPhoneNumberSignInNavigator.Navigator>
+      <EnterPhoneNumberSignInNavigator.Screen
+        name="EnterPhoneNumberSignInStack"
+        component={EnterPhoneNumberSignIn}
         options={{
           headerShown: false,
         }}
       />
-    </EnterPhoneNumberNavigator.Navigator>
+    </EnterPhoneNumberSignInNavigator.Navigator>
   );
 };
 
-const EnterNameNavigator = createStackNavigator();
-export const ScreenForEnterName = () => {
+const EnterPhoneNumberRegistrationNavigator = createStackNavigator();
+export const ScreenForEnterPhoneNumberRegistration = () => {
   return (
-    <EnterNameNavigator.Navigator>
-      <EnterNameNavigator.Screen
-        name="EnterNameStack"
-        component={EnterName}
+    <EnterPhoneNumberRegistrationNavigator.Navigator>
+      <EnterPhoneNumberRegistrationNavigator.Screen
+        name="EnterPhoneNumberRegistrationStack"
+        component={EnterPhoneNumberRegistration}
         options={{
           headerShown: false,
         }}
       />
-    </EnterNameNavigator.Navigator>
+    </EnterPhoneNumberRegistrationNavigator.Navigator>
+  );
+};
+
+const EnterNameRegistrationNavigator = createStackNavigator();
+export const ScreenForEnterName = () => {
+  return (
+    <EnterNameRegistrationNavigator.Navigator>
+      <EnterNameRegistrationNavigator.Screen
+        name="EnterNameRegistrationStack"
+        component={EnterNameRegistration}
+        options={{
+          headerShown: false,
+        }}
+      />
+    </EnterNameRegistrationNavigator.Navigator>
+  );
+};
+
+const EnterNameSignInNavigator = createStackNavigator();
+export const ScreenForEnterNameSignIn = () => {
+  return (
+    <EnterNameSignInNavigator.Navigator>
+      <EnterNameSignInNavigator.Screen
+        name="EnterNameSignInStack"
+        component={EnterNameSignIn}
+        options={{
+          headerShown: false,
+        }}
+      />
+    </EnterNameSignInNavigator.Navigator>
   );
 };
 
@@ -86,5 +121,50 @@ export const ScreenForEnterPin = () => {
         }}
       />
     </EnterPinNavigator.Navigator>
+  );
+};
+
+const PickGenderNavigator = createStackNavigator();
+export const ScreenForPickGender = () => {
+  return (
+    <PickGenderNavigator.Navigator>
+      <PickGenderNavigator.Screen
+        name="PickGenderTabStack"
+        component={PickGender}
+        options={{
+          headerShown: false,
+        }}
+      />
+    </PickGenderNavigator.Navigator>
+  );
+};
+
+const EnterWeightNavigator = createStackNavigator();
+export const ScreenForEnterWeight = () => {
+  return (
+    <EnterWeightNavigator.Navigator>
+      <EnterWeightNavigator.Screen
+        name="EnterWeightStack"
+        component={EnterWeight}
+        options={{
+          headerShown: false,
+        }}
+      />
+    </EnterWeightNavigator.Navigator>
+  );
+};
+
+const PickBirthDateNavigator = createStackNavigator();
+export const ScreenForPickBirthDate = () => {
+  return (
+    <PickBirthDateNavigator.Navigator>
+      <PickBirthDateNavigator.Screen
+        name="PickBirthDateStack"
+        component={PickBirthDate}
+        options={{
+          headerShown: false,
+        }}
+      />
+    </PickBirthDateNavigator.Navigator>
   );
 };

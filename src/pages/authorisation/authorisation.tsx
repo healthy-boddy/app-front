@@ -55,7 +55,7 @@ export const Authorisation = () => {
         }}
       >
         <Button
-          onPress={() => navigation.navigate("EnterName")}
+          onPress={() => navigation.navigate("EnterNameSignIn")}
           title={"Зарегистрироваться"}
         />
         <View style={{ marginTop: 16 }} />

@@ -89,20 +89,50 @@ class AuthService extends ApiService {
     }
   };
 
-  public checkCode = async (data: any) => {
+  public checkPinCode = async (data: {
+    phoneNumber: string;
+    password: string;
+  }) => {
     try {
       const body: object = {
-        email: data.email,
+        phone_number: data.phoneNumber,
         password: data.password,
       };
       const response = await this.apiClient
-        .post(ENDPOINTS.USERCODE, body)
+        .post("/user/token/", body)
         .then((res) => {
           this.createSession(res.data.access, res.data.refresh);
-          return res.status;
+          console.log("res data", res.data, res.status);
+          return res;
         });
       return response;
     } catch (error) {
+      console.log("error response data check pi ", error.response.data);
+      return error;
+    }
+  };
+
+  public postUpdatedUserData = async (data: {
+    gender: string;
+    weight: string;
+    birthDate: string;
+  }) => {
+    try {
+      const body: object = {
+        gender: data.gender,
+        birthday: data.birthDate,
+        weight: data.weight,
+      };
+      const response = await this.apiClient
+        .post("/client/update_me/", body)
+        .then((res) => {
+          // this.createSession(res.data.access, res.data.refresh);
+          console.log("res data", res.data, res.status);
+          return res;
+        });
+      return response;
+    } catch (error) {
+      console.log("error put method", error.response);
       return error;
     }
   };
@@ -146,24 +176,6 @@ class AuthService extends ApiService {
     }
   };
 
-  public setName = (payload) => {
-    try {
-      const response = this.apiClient
-        .put(ENDPOINTS.UPDATENAME, payload)
-        .then((res) => {
-          console.log("RES set new data (email):", res.status);
-          return res;
-        })
-        .catch((error) => {
-          console.log("ERROR SET NAME", error.response.data);
-        });
-      return response;
-    } catch (error) {
-      console.log("error set name", error.response.data);
-      return error;
-    }
-  };
-
   public getUserInformation = async () => {
     try {
       const response = this.apiClient.get(ENDPOINTS.GETME).then((data) => {
@@ -171,22 +183,6 @@ class AuthService extends ApiService {
       });
       return response;
     } catch (error) {
-      return error;
-    }
-  };
-
-  public setNewEmail = async (payload) => {
-    console.log("setNewEmail payload", payload);
-    try {
-      const response = this.apiClient
-        .post(ENDPOINTS.SET_NEW_EMAIL, payload)
-        .then((res) => {
-          console.log("data", res.data);
-          return res;
-        });
-      return response;
-    } catch (error) {
-      console.log("ERROR CHANGE NAME", error.response.data);
       return error;
     }
   };

@@ -1,33 +1,49 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { SafeAreaView, Text, View } from "react-native";
 import { Button } from "../../components/core/button/button";
 import { Header } from "../../components/core/header/header";
 import { useNavigation } from "@react-navigation/native";
 import { useSelector } from "../../hooks";
 import { FormattingExample } from "./InputPassword/inputPassword";
+import { useDispatch } from "react-redux";
+import { checkPinCode } from "../../store/auth";
+import { ComponentHeaderWrapper } from "../../components/core/component-header-wrapper/component-header-wrapper";
 
 export const EnterPin = () => {
   const navigation: any = useNavigation();
+
+  const dispatch = useDispatch();
 
   const [errorAccess, setErrorAccess] = useState(false);
   const [code, setCode] = useState("");
 
   const phoneNumber = useSelector((data) => data.auth.number);
 
+  const handleCheckPin = useCallback(
+    async (data) => dispatch(checkPinCode(data)),
+    []
+  );
+
+  useEffect(() => {
+    console.log("phoneNumber", phoneNumber);
+  }, [phoneNumber]);
+
+  const handleClick = () => {
+    const data = {
+      phoneNumber,
+      password: code,
+    };
+
+    console.log("code", code);
+    handleCheckPin(data);
+  };
+
   useEffect(() => {
     console.log("phoneNumber", phoneNumber);
   }, []);
 
   return (
-    <SafeAreaView
-      style={{
-        flex: 1,
-        backgroundColor: "#fff",
-        alignItems: "flex-start",
-      }}
-    >
-      <Header onPress={() => navigation.goBack()} />
-
+    <ComponentHeaderWrapper>
       <Text
         style={{
           fontSize: 22,
@@ -91,9 +107,9 @@ export const EnterPin = () => {
         <Button
           // disable={isButtonDisabled()}
           title="Продолжить"
-          onPress={() => console.log("pressed")}
+          onPress={handleClick}
         />
       </View>
-    </SafeAreaView>
+    </ComponentHeaderWrapper>
   );
 };

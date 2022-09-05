@@ -5,7 +5,6 @@ import { setLoader } from "../loader";
 import * as actions from "./action-types";
 import { setNumber } from "./actions";
 import authService from "../../service/AuthService";
-import { useNavigation } from "@react-navigation/native";
 
 function* generatePassword({ payload }: actions.GeneratePassword) {
   try {
@@ -33,8 +32,55 @@ function* postClientData({ payload }: actions.PostClientData) {
     yield put(setLoader(true));
 
     const data = yield call(authService.postClientData, payload);
+    if (data.status === 201) {
+      return rootNavigation.navigate("EnterPin", {
+        screen: "EnterPin",
+      });
+    }
+  } catch (error) {
+    yield put(setGeneratePasswordError(true));
+    console.log("ERROR:", error);
+  } finally {
+    yield put(setLoader(false));
+  }
+}
+
+function* checkPinCode({ payload }: actions.CheckPinCode) {
+  try {
+    yield put(setGeneratePasswordError(false));
+    yield put(setLoader(true));
+
+    const response = yield call(authService.checkPinCode, payload);
+
+    console.log("response status check pincode", response.status);
+    if (response.data.access) {
+      rootNavigation.navigate("TabNavigator", {
+        screen: "TabNavigator",
+      });
+    } else {
+      rootNavigation.navigate("PickGender", {
+        screen: "PickGenderTabStack",
+      });
+    }
+  } catch (error) {
+    yield put(setGeneratePasswordError(true));
+    console.log("ERROR:", error);
+  } finally {
+    yield put(setLoader(false));
+  }
+}
+
+//PUT METHOD
+function* postUpdatedUserData({ payload }: actions.PostUpdatedData) {
+  try {
+    yield put(setGeneratePasswordError(false));
+    yield put(setLoader(true));
+
+    const data = yield call(authService.postUpdatedUserData, payload);
     if (data.status === 200) {
-      console.log("data.status: ", data.status);
+      rootNavigation.navigate("TabNavigator", {
+        screen: "TabNavigator",
+      });
     }
   } catch (error) {
     yield put(setGeneratePasswordError(true));
@@ -52,7 +98,12 @@ export function* watchPostClientData() {
   yield takeLatest(actions.POST_CLIENT_DATA, postClientData);
 }
 
+export function* watchCheckPinCode() {
+  yield takeLatest(actions.CHECK_PIN_CODE, checkPinCode);
+}
+
 export function* authSagas() {
   yield all([fork(watchGeneratePassword)]);
   yield all([fork(watchPostClientData)]);
+  yield all([fork(watchCheckPinCode)]);
 }

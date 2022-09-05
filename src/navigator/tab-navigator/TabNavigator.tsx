@@ -1,79 +1,130 @@
 import React from "react";
+import { SafeAreaView, Text } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { TabNavigatorElem } from "./tab-navigation-elems";
-import {Authorisation} from "../../pages/authorisation/authorisation";
-import {HouseIcon} from "../icons/house";
-
+import { Authorisation } from "../../pages/authorisation/authorisation";
+import { Calendar } from "../icons/calendar";
+import { HomeIcon } from "../icons/house";
+import { ForkAndKnife } from "../icons/fork-and-knife";
+import { Person } from "../icons/person";
+import { Chat } from "../icons/chat";
+import { HeaderTab } from "../../components/core/header-tab/header-tab";
 
 const Tab = createBottomTabNavigator();
 
 export const TabNavigator = () => (
   <Tab.Navigator
-    initialRouteName="Wallet"
+    initialRouteName="Главная"
     screenOptions={{
       tabBarShowLabel: false,
     }}
   >
     <Tab.Screen
-      name="Мои пациенты"
-      component={Authorisation}
+      name="Home"
+      component={React.useCallback(
+        () => (
+          <HeaderTab />
+        ),
+        []
+      )}
       options={{
         tabBarIcon: ({ focused }) => (
           <TabNavigatorElem
-            colorItem={focused ? '#CDCDCD' : "#8C64FF"}
-            icon={<HouseIcon color={focused ? '#CDCDCD' : "#8C64FF"} />}
-            navigatorName="Home"
+            colorItem={focused ? "#8C64FF" : "#CDCDCD"}
+            icon={<HomeIcon color={focused ? "#8C64FF" : "#CDCDCD"} />}
+            navigatorName="Главная"
           />
         ),
         headerShown: false,
       }}
     />
 
-      <Tab.Screen
-          name="Календарь"
-          component={Authorisation}
-          options={{
-              tabBarIcon: ({ focused }) => (
-                  <TabNavigatorElem
-                      colorItem={focused ? '#CDCDCD' : "#8C64FF"}
-                      icon={<HouseIcon color={focused ? '#CDCDCD' : "#8C64FF"} />}
-                      navigatorName="Home"
-                  />
-              ),
-              headerShown: false,
-          }}
-      />
+    <Tab.Screen
+      name="Calendar"
+      component={React.useCallback(
+        () => (
+          <SafeAreaView>
+            <Text>Calendar</Text>
+          </SafeAreaView>
+        ),
+        []
+      )}
+      options={{
+        tabBarIcon: ({ focused }) => (
+          <TabNavigatorElem
+            colorItem={focused ? "#8C64FF" : "#CDCDCD"}
+            icon={<Calendar color={focused ? "#8C64FF" : "#CDCDCD"} />}
+            navigatorName="Календарь"
+          />
+        ),
+        headerShown: false,
+      }}
+    />
 
-      <Tab.Screen
-          name="Чаты"
-          component={Authorisation}
-          options={{
-              tabBarIcon: ({ focused }) => (
-                  <TabNavigatorElem
-                      colorItem={focused ? '#CDCDCD' : "#8C64FF"}
-                      icon={<HouseIcon color={focused ? '#CDCDCD' : "#8C64FF"} />}
-                      navigatorName="Home"
-                  />
-              ),
-              headerShown: false,
-          }}
-      />
+    <Tab.Screen
+      name="Food and water"
+      component={React.useCallback(
+        () => (
+          <SafeAreaView>
+            <Text>Food and water</Text>
+          </SafeAreaView>
+        ),
+        []
+      )}
+      options={{
+        tabBarIcon: ({ focused }) => (
+          <TabNavigatorElem
+            colorItem={focused ? "#8C64FF" : "#CDCDCD"}
+            icon={<ForkAndKnife color={focused ? "#8C64FF" : "#CDCDCD"} />}
+            navigatorName="Еда и вода"
+          />
+        ),
+        headerShown: false,
+      }}
+    />
 
-      <Tab.Screen
-          name="Профиль"
-          component={Authorisation}
-          options={{
-              tabBarIcon: ({ focused }) => (
-                  <TabNavigatorElem
-                      colorItem={focused ? '#CDCDCD' : "#8C64FF"}
-                      icon={<HouseIcon color={focused ? '#CDCDCD' : "#8C64FF"} />}
-                      navigatorName="Home"
-                  />
-              ),
-              headerShown: false,
-          }}
-      />
+    <Tab.Screen
+      name="health status"
+      component={React.useCallback(
+        () => (
+          <SafeAreaView>
+            <Text>Health status</Text>
+          </SafeAreaView>
+        ),
+        []
+      )}
+      options={{
+        tabBarIcon: ({ focused }) => (
+          <TabNavigatorElem
+            colorItem={focused ? "#8C64FF" : "#CDCDCD"}
+            icon={<Person color={focused ? "#8C64FF" : "#CDCDCD"} />}
+            navigatorName="Состояние"
+          />
+        ),
+        headerShown: false,
+      }}
+    />
 
-
+    <Tab.Screen
+      name="Chat"
+      component={React.useCallback(
+        () => (
+          <SafeAreaView>
+            <Text>Chat</Text>
+          </SafeAreaView>
+        ),
+        []
+      )}
+      options={{
+        tabBarIcon: ({ focused }) => (
+          <TabNavigatorElem
+            colorItem={focused ? "#8C64FF" : "#CDCDCD"}
+            icon={<Chat color={focused ? "#8C64FF" : "#CDCDCD"} />}
+            navigatorName="Чат"
+          />
+        ),
+        headerShown: false,
+      }}
+    />
   </Tab.Navigator>
 );

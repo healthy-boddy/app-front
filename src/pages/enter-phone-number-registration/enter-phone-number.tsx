@@ -1,15 +1,14 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { Header } from "../../components/core/header/header";
-import { SafeAreaView, Text, View } from "react-native";
+import React, { useCallback, useState } from "react";
+import { Text, View } from "react-native";
 import { InputComponent } from "../../components/core/input-component";
 import { Button } from "../../components/core/button/button";
 import { useDispatch } from "react-redux";
 import { generatePassword, postClientData, setNumber } from "../../store/auth";
 import { useNavigation } from "@react-navigation/native";
 import { useSelector } from "../../hooks";
-import rootNavigation from "../../navigator/helper/root-navigation";
+import { ComponentHeaderWrapper } from "../../components/core/component-header-wrapper/component-header-wrapper";
 
-export const EnterPhoneNumber = () => {
+export const EnterPhoneNumberRegistration = () => {
   const [phone, setPhone] = useState("");
 
   const navigation: any = useNavigation();
@@ -37,10 +36,10 @@ export const EnterPhoneNumber = () => {
 
   const name = useSelector((data) => data.auth.userName);
 
-  const handleSendPhone = useCallback(
-    async (phone) => dispatch(generatePassword(phone)),
-    []
-  );
+  // const handleSendPhone = useCallback(
+  //   async (phone) => dispatch(generatePassword(phone)),
+  //   []
+  // );
 
   const handleSetPhone = useCallback(
     async (phoneNumber) => dispatch(setNumber(phoneNumber)),
@@ -53,15 +52,13 @@ export const EnterPhoneNumber = () => {
   );
 
   const handleSubmit = (phone: string) => {
-    // handleSetPhone(phone);
-    // const dataSend = {
-    //   phone_number: phone,
-    //   username: name,
-    // };
-    // handleSubmitData(dataSend);
-    handleSendPhone(phone);
     handleSetPhone(phone);
-    // navigation.navigate("EnterPin");
+    const dataSend = {
+      phone_number: phone,
+      username: name,
+    };
+    handleSubmitData(dataSend);
+    handleSetPhone(phone);
   };
 
   function isButtonDisabled() {
@@ -69,15 +66,7 @@ export const EnterPhoneNumber = () => {
   }
 
   return (
-    <SafeAreaView
-      style={{
-        flex: 1,
-        backgroundColor: "#fff",
-        alignItems: "flex-start",
-      }}
-    >
-      <Header onPress={() => navigation.goBack()} />
-
+    <ComponentHeaderWrapper>
       <View
         style={{
           width: 68,
@@ -153,6 +142,6 @@ export const EnterPhoneNumber = () => {
           onPress={() => handleSubmit(phone)}
         />
       </View>
-    </SafeAreaView>
+    </ComponentHeaderWrapper>
   );
 };

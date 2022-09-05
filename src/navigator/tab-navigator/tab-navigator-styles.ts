@@ -18,9 +18,10 @@ export const styles = StyleSheet.create({
     marginBottom: 8,
   },
 
-  tabBarFont:{
-    fontSize:10,
-    fontWeight:'500',
-    lineHeight:12,
-  }
+  tabBarFont: {
+    fontSize: 10,
+    fontWeight: "500",
+    lineHeight: 12,
+    textAlign: "center",
+  },
 });

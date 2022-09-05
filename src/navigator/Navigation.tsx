@@ -3,9 +3,13 @@ import React from "react";
 import {
   ScreenForAuthorisation,
   ScreenForEnterName,
-  ScreenForEnterPhoneNumber,
+  ScreenForEnterPhoneNumberRegistration,
+  ScreenForEnterPhoneNumberSignIn,
   ScreenForEnterPin,
+  ScreenForEnterWeight,
+  ScreenForPickBirthDate,
   ScreenForPickRegistrationType,
+  ScreenForPickGender,
 } from "./stack";
 import { TabNavigator } from "./tab-navigator/TabNavigator";
 
@@ -18,7 +22,7 @@ export type RootStackParamList = {
 
 export default function myStack() {
   return (
-    <Stack.Navigator initialRouteName="Authorisation">
+    <Stack.Navigator initialRouteName="PickGender">
       <Stack.Screen
         name="Authorisation"
         component={ScreenForAuthorisation}
@@ -44,14 +48,30 @@ export default function myStack() {
       />
 
       <Stack.Screen
-        name="EnterPhoneNumber"
-        component={ScreenForEnterPhoneNumber}
+        name="EnterPhoneNumberSignIn"
+        component={ScreenForEnterPhoneNumberSignIn}
         options={{
           headerShown: false,
         }}
       />
       <Stack.Screen
-        name="EnterName"
+        name="EnterPhoneNumberRegistration"
+        component={ScreenForEnterPhoneNumberRegistration}
+        options={{
+          headerShown: false,
+        }}
+      />
+
+      <Stack.Screen
+        name="EnterNameSignIn"
+        component={ScreenForEnterName}
+        options={{
+          headerShown: false,
+        }}
+      />
+
+      <Stack.Screen
+        name="EnterNameRegistration"
         component={ScreenForEnterName}
         options={{
           headerShown: false,
@@ -61,6 +81,30 @@ export default function myStack() {
       <Stack.Screen
         name="EnterPin"
         component={ScreenForEnterPin}
+        options={{
+          headerShown: false,
+        }}
+      />
+
+      <Stack.Screen
+        name="PickGender"
+        component={ScreenForPickGender}
+        options={{
+          headerShown: false,
+        }}
+      />
+
+      <Stack.Screen
+        name="PickBirthDate"
+        component={ScreenForPickBirthDate}
+        options={{
+          headerShown: false,
+        }}
+      />
+
+      <Stack.Screen
+        name="EnterWeight"
+        component={ScreenForEnterWeight}
         options={{
           headerShown: false,
         }}

@@ -10,6 +10,24 @@ export interface SetName {
   payload: string;
 }
 
+export const SET_BIRTHDAY = "auth/SET_BIRTHDAY";
+export interface SetBirthday {
+  type: typeof SET_BIRTHDAY;
+  payload: string;
+}
+
+export const SET_GENDER = "auth/SET_GENDER";
+export interface SetGender {
+  type: typeof SET_GENDER;
+  payload: string;
+}
+
+export const SET_WEIGHT = "auth/SET_WEIGHT";
+export interface SetWeight {
+  type: typeof SET_WEIGHT;
+  payload: string;
+}
+
 export const GENERATE_PASSWORD = "auth/GENERATE_PASSWORD";
 export interface GeneratePassword {
   type: typeof GENERATE_PASSWORD;
@@ -20,4 +38,16 @@ export const POST_CLIENT_DATA = "auth/POST_CLIENT_DATA";
 export interface PostClientData {
   type: typeof POST_CLIENT_DATA;
   payload: { phone_number: string; number: string };
+}
+
+export const CHECK_PIN_CODE = "auth/CHECK_PIN_CODE";
+export interface CheckPinCode {
+  type: typeof CHECK_PIN_CODE;
+  payload: { phoneNumber: string; password: string };
+}
+
+export const POST_UPDATED_DATE = "auth/POST_UPDATED_DATE";
+export interface PostUpdatedData {
+  type: typeof POST_UPDATED_DATE;
+  payload: { gender: string; weight: string; birthDate: string };
 }

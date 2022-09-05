@@ -14,6 +14,27 @@ export function setName(payload: string): actions.SetName {
   };
 }
 
+export function setGender(payload: string): actions.SetGender {
+  return {
+    type: actions.SET_GENDER,
+    payload,
+  };
+}
+
+export function setWeight(payload: string): actions.SetWeight {
+  return {
+    type: actions.SET_WEIGHT,
+    payload,
+  };
+}
+
+export function setBirthday(payload: string): actions.SetBirthday {
+  return {
+    type: actions.SET_BIRTHDAY,
+    payload,
+  };
+}
+
 export function generatePassword(payload: string): actions.GeneratePassword {
   return {
     type: actions.GENERATE_PASSWORD,
@@ -27,6 +48,27 @@ export function postClientData(payload: {
 }): actions.PostClientData {
   return {
     type: actions.POST_CLIENT_DATA,
+    payload,
+  };
+}
+
+export function checkPinCode(payload: {
+  phoneNumber: string;
+  password: string;
+}): actions.CheckPinCode {
+  return {
+    type: actions.CHECK_PIN_CODE,
+    payload,
+  };
+}
+
+export function postUpdatedData(payload: {
+  gender: string;
+  weight: string;
+  birthDate: string;
+}): actions.PostUpdatedData {
+  return {
+    type: actions.POST_UPDATED_DATE,
     payload,
   };
 }

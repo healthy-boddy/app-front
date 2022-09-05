@@ -1,6 +1,5 @@
-import React, { useCallback, useState } from "react";
-import { Header } from "../../components/core/header/header";
-import { SafeAreaView, Text, TextInput, View } from "react-native";
+import React, { useCallback } from "react";
+import { Text, View } from "react-native";
 import { InputComponent } from "../../components/core/input-component";
 import { Button } from "../../components/core/button/button";
 import { useDispatch } from "react-redux";
@@ -9,8 +8,9 @@ import { useNavigation } from "@react-navigation/native";
 import { Avatar } from "./icon/avatar";
 import { useFormik } from "formik";
 import { nameValidation } from "../../validation/auth";
+import { ComponentHeaderWrapper } from "../../components/core/component-header-wrapper/component-header-wrapper";
 
-export const EnterName = () => {
+export const EnterNameRegistration = () => {
   const navigation: any = useNavigation();
 
   const dispatch = useDispatch();
@@ -28,9 +28,9 @@ export const EnterName = () => {
     name: "",
   };
 
-  const onSubmit = (code: { [key: string]: string }) => {
+  const onSubmit = () => {
     handleSetNumber(values.name);
-    navigation.navigate("EnterPhoneNumber");
+    navigation.navigate("EnterPhoneNumberRegistration");
   };
 
   const formik = useFormik({
@@ -42,15 +42,7 @@ export const EnterName = () => {
   const { values, handleChange, handleSubmit, errors } = formik;
 
   return (
-    <SafeAreaView
-      style={{
-        flex: 1,
-        backgroundColor: "#fff",
-        alignItems: "flex-start",
-      }}
-    >
-      <Header onPress={() => navigation.goBack()} />
-
+    <ComponentHeaderWrapper>
       <View
         style={{
           width: "100%",
@@ -134,6 +126,6 @@ export const EnterName = () => {
           <Button title="Продолжить" onPress={handleSubmit} />
         </View>
       </View>
-    </SafeAreaView>
+    </ComponentHeaderWrapper>
   );
 };
