@@ -112,7 +112,7 @@ class AuthService extends ApiService {
     }
   };
 
-  public postUpdatedUserData = async (data: {
+  public putUpdatedUserData = async (data: {
     gender: string;
     weight: string;
     birthDate: string;
@@ -124,7 +124,7 @@ class AuthService extends ApiService {
         weight: data.weight,
       };
       const response = await this.apiClient
-        .post("/client/update_me/", body)
+        .put("/client/update_me/", body)
         .then((res) => {
           // this.createSession(res.data.access, res.data.refresh);
           console.log("res data", res.data, res.status);
@@ -132,7 +132,7 @@ class AuthService extends ApiService {
         });
       return response;
     } catch (error) {
-      console.log("error put method", error.response);
+      console.log("error put method", error.response.data);
       return error;
     }
   };

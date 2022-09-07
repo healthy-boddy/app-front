@@ -76,7 +76,7 @@ function* postUpdatedUserData({ payload }: actions.PostUpdatedData) {
     yield put(setGeneratePasswordError(false));
     yield put(setLoader(true));
 
-    const data = yield call(authService.postUpdatedUserData, payload);
+    const data = yield call(authService.putUpdatedUserData, payload);
     if (data.status === 200) {
       rootNavigation.navigate("TabNavigator", {
         screen: "TabNavigator",
@@ -102,8 +102,13 @@ export function* watchCheckPinCode() {
   yield takeLatest(actions.CHECK_PIN_CODE, checkPinCode);
 }
 
+export function* watchPostUpdatedUserData() {
+  yield takeLatest(actions.POST_UPDATED_DATE, postUpdatedUserData);
+}
+
 export function* authSagas() {
   yield all([fork(watchGeneratePassword)]);
   yield all([fork(watchPostClientData)]);
   yield all([fork(watchCheckPinCode)]);
+  yield all([fork(watchPostUpdatedUserData)]);
 }

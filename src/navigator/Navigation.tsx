@@ -22,7 +22,7 @@ export type RootStackParamList = {
 
 export default function myStack() {
   return (
-    <Stack.Navigator initialRouteName="PickGender">
+    <Stack.Navigator initialRouteName="Authorisation">
       <Stack.Screen
         name="Authorisation"
         component={ScreenForAuthorisation}

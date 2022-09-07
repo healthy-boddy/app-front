@@ -1,14 +1,15 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Text, View } from "react-native";
 import { ComponentHeaderWrapper } from "../../components/core/component-header-wrapper/component-header-wrapper";
 import { ProgressBar } from "../../components/core/progress-bar/progress-bar";
 import { Button } from "../../components/core/button/button";
 import { useDispatch } from "react-redux";
-import { setWeight } from "../../store/auth";
+import { postUpdatedData, setWeight } from "../../store/auth";
 import { useNavigation } from "@react-navigation/native";
 import WheelPickerExpo from "react-native-wheel-picker-expo";
 import { weightArr } from "../../helper/helper";
 import { useSelector } from "../../hooks";
+import { format } from "date-fns";
 
 export const EnterWeight = () => {
   const dispatch = useDispatch();
@@ -20,11 +21,24 @@ export const EnterWeight = () => {
     []
   );
 
+  const handlePutUpdatedUserData = useCallback(
+    async (data) => dispatch(postUpdatedData(data)),
+    []
+  );
+
   const birthDate = useSelector((phone) => phone.auth.birthday);
-  const gender = useSelector((phone) => phone.auth.gender);
+  const genderData = useSelector((phone) => phone.auth.gender);
 
   const handleClick = () => {
     handleSetWeight(weightData);
+    const updatedDataArr = {
+      gender: genderData.gender,
+      birthday: format(new Date(birthDate), "u-mm-dd"),
+      weight: Number(weightData),
+    };
+    console.log("updatedDataArr:", updatedDataArr);
+
+    handlePutUpdatedUserData(updatedDataArr);
   };
 
   return (
@@ -41,7 +55,7 @@ export const EnterWeight = () => {
           <Text
             style={{
               alignSelf: "center",
-              color: "#000000",
+              color: "#000",
               fontWeight: "600",
               fontSize: 17,
               lineHeight: 22,
@@ -91,7 +105,7 @@ export const EnterWeight = () => {
           }}
         >
           <WheelPickerExpo
-            backgroundColor="#fff"
+            backgroundColor="white"
             selectedStyle={{ borderColor: "#fff", borderWidth: 2 }}
             height={300}
             initialSelectedIndex={1}

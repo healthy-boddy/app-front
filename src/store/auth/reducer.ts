@@ -5,7 +5,7 @@ import * as actions from "./action-types";
 export interface AuthState {
   number: string;
   userName: string;
-  gender: string;
+  gender: { gender: string };
   weight: string;
   birthday: string;
 }
@@ -13,7 +13,7 @@ export interface AuthState {
 const initialState: AuthState = {
   number: "",
   userName: "",
-  gender: "",
+  gender: { gender: "" },
   weight: "",
   birthday: "",
 };
