@@ -168,7 +168,7 @@ export const PickRegistration = () => {
       >
         <Button
           title="Продолжить"
-          onPress={() => navigation.navigate("EnterPhoneNumberSignIn")}
+          onPress={() => navigation.navigate("EnterPhoneNumberRegistration")}
         />
       </View>
     </SafeAreaView>
