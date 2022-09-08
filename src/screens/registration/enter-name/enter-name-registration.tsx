@@ -1,17 +1,20 @@
 import React, { useCallback } from "react";
 import { Text, View } from "react-native";
-import { InputComponent } from "../../components/core/input-component";
-import { Button } from "../../components/core/button/button";
+import { InputComponent } from "../../../components/core/input-component";
+import { Button } from "../../../components/core/button/button";
 import { useDispatch } from "react-redux";
-import { generatePassword, setName } from "../../store/auth";
+import { generatePassword, postClientData, setName } from "../../../store/auth";
 import { useNavigation } from "@react-navigation/native";
 import { Avatar } from "./icon/avatar";
 import { useFormik } from "formik";
-import { nameValidation } from "../../validation/auth";
-import { ComponentHeaderWrapper } from "../../components/core/component-header-wrapper/component-header-wrapper";
+import { nameValidation } from "../../../validation/auth";
+import { ComponentHeaderWrapper } from "../../../components/core/component-header-wrapper/component-header-wrapper";
+import { useSelector } from "../../../hooks";
 
-export const EnterNameSignIn = () => {
+export const EnterNameRegistration = () => {
   const navigation: any = useNavigation();
+
+  const phoneNumber = useSelector((data) => data.auth.number);
 
   const dispatch = useDispatch();
   const handleSendPhone = useCallback(
@@ -24,13 +27,23 @@ export const EnterNameSignIn = () => {
     []
   );
 
+  const handleSubmitDataForRegistration = useCallback(
+    async (dataObj) => dispatch(postClientData(dataObj)),
+    []
+  );
+
   const initialValues = {
     name: "",
   };
 
-  const onSubmit = (code: { [key: string]: string }) => {
+  const onSubmit = () => {
+    const dataSend = {
+      phone_number: phoneNumber,
+      username: values.name,
+    };
+
     handleSetNumber(values.name);
-    navigation.navigate("EnterPhoneNumber");
+    handleSubmitDataForRegistration(dataSend);
   };
 
   const formik = useFormik({

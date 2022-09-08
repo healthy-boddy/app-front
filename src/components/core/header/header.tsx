@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { Text, TouchableOpacity } from "react-native";
-import { ChevronBack } from "../../../pages/pick-registration-type/icons/chevron-back";
+import { ChevronBack } from "../../../screens/pick-registration-type/icons/chevron-back";
 
 interface EnterPhoneNumberInterface {
   onPress: () => void;

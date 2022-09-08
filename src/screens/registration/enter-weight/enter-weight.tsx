@@ -1,14 +1,14 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Text, View } from "react-native";
-import { ComponentHeaderWrapper } from "../../components/core/component-header-wrapper/component-header-wrapper";
-import { ProgressBar } from "../../components/core/progress-bar/progress-bar";
-import { Button } from "../../components/core/button/button";
+import { ComponentHeaderWrapper } from "../../../components/core/component-header-wrapper/component-header-wrapper";
+import { ProgressBar } from "../../../components/core/progress-bar/progress-bar";
+import { Button } from "../../../components/core/button/button";
 import { useDispatch } from "react-redux";
-import { postUpdatedData, setWeight } from "../../store/auth";
+import { postUpdatedData, setWeight } from "../../../store/auth";
 import { useNavigation } from "@react-navigation/native";
 import WheelPickerExpo from "react-native-wheel-picker-expo";
-import { weightArr } from "../../helper/helper";
-import { useSelector } from "../../hooks";
+import { weightArr } from "../../../helper/helper";
+import { useSelector } from "../../../hooks";
 import { format } from "date-fns";
 
 export const EnterWeight = () => {

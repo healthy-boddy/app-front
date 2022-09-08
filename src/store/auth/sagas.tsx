@@ -16,6 +16,10 @@ function* generatePassword({ payload }: actions.GeneratePassword) {
       return rootNavigation.navigate("EnterPin", {
         screen: "EnterPinStack",
       });
+    } else if (response === "User not found") {
+      return rootNavigation.navigate("EnterNameRegistration", {
+        screen: "EnterNameRegistrationStack",
+      });
     }
   } catch (error) {
     yield put(setGeneratePasswordError(true));
@@ -26,15 +30,17 @@ function* generatePassword({ payload }: actions.GeneratePassword) {
 }
 
 function* postClientData({ payload }: actions.PostClientData) {
-  console.log("DATA", payload);
+  console.log("POST DATA METHOD:", payload);
   try {
     yield put(setGeneratePasswordError(false));
     yield put(setLoader(true));
 
     const data = yield call(authService.postClientData, payload);
+
+    console.log("data status", data?.status);
     if (data.status === 201) {
-      return rootNavigation.navigate("EnterPin", {
-        screen: "EnterPin",
+      return rootNavigation.navigate("PickGender", {
+        screen: "PickGender",
       });
     }
   } catch (error) {

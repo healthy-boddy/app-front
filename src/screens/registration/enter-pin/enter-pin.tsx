@@ -1,13 +1,12 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { SafeAreaView, Text, View } from "react-native";
-import { Button } from "../../components/core/button/button";
-import { Header } from "../../components/core/header/header";
+import { Text, View } from "react-native";
+import { Button } from "../../../components/core/button/button";
 import { useNavigation } from "@react-navigation/native";
-import { useSelector } from "../../hooks";
+import { useSelector } from "../../../hooks";
 import { FormattingExample } from "./InputPassword/inputPassword";
 import { useDispatch } from "react-redux";
-import { checkPinCode } from "../../store/auth";
-import { ComponentHeaderWrapper } from "../../components/core/component-header-wrapper/component-header-wrapper";
+import { checkPinCode } from "../../../store/auth";
+import { ComponentHeaderWrapper } from "../../../components/core/component-header-wrapper/component-header-wrapper";
 
 export const EnterPin = () => {
   const navigation: any = useNavigation();
@@ -30,7 +29,7 @@ export const EnterPin = () => {
 
   const handleClick = () => {
     const data = {
-      phoneNumber,
+      phone_number: phoneNumber,
       password: code,
     };
 

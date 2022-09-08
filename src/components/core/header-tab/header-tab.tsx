@@ -1,11 +1,15 @@
-import React from "react";
+import React, { FC } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { Path, Svg } from "react-native-svg";
 
-export const HeaderTab = () => {
+interface HeaderTabInterface {
+  height?: number;
+}
+
+export const HeaderTab: FC<HeaderTabInterface> = ({ height = 190 }) => {
   return (
     <View>
-      <View style={stylesheet.styleFrame340248}>
+      <View style={[stylesheet.styleFrame340248, { height }]}>
         <View style={stylesheet.styleFrame340219}>
           <Text style={stylesheet.styleDobriiDenAlena_}>
             Добрый день, Алена!
@@ -92,7 +96,6 @@ const stylesheet = StyleSheet.create({
     left: 0,
     top: 0,
     width: "100%",
-    height: 108,
     borderBottomRightRadius: 32,
     borderBottomLeftRadius: 32,
     backgroundColor: "#8C64FF",

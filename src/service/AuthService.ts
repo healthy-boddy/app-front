@@ -65,15 +65,18 @@ class AuthService extends ApiService {
       const response = await this.apiClient
         .post("user/send_pin/", body)
         .then((res) => {
+          console.log("response after enter phone", res);
           return res;
         });
       return response;
-    } catch (error) {}
+    } catch (error) {
+      return error.response.data.phone_number[0];
+    }
   };
 
   public postClientData = async (payload: {
     phone_number: string;
-    number: string;
+    password: string;
   }) => {
     console.log("payload", payload);
     try {
@@ -90,14 +93,15 @@ class AuthService extends ApiService {
   };
 
   public checkPinCode = async (data: {
-    phoneNumber: string;
+    phone_number: string;
     password: string;
   }) => {
     try {
       const body: object = {
-        phone_number: data.phoneNumber,
+        phone_number: data.phone_number,
         password: data.password,
       };
+      console.log("body for check pin", body);
       const response = await this.apiClient
         .post("/user/token/", body)
         .then((res) => {

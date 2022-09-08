@@ -37,13 +37,13 @@ export interface GeneratePassword {
 export const POST_CLIENT_DATA = "auth/POST_CLIENT_DATA";
 export interface PostClientData {
   type: typeof POST_CLIENT_DATA;
-  payload: { phone_number: string; number: string };
+  payload: { phone_number: string; password: string };
 }
 
 export const CHECK_PIN_CODE = "auth/CHECK_PIN_CODE";
 export interface CheckPinCode {
   type: typeof CHECK_PIN_CODE;
-  payload: { phoneNumber: string; password: string };
+  payload: { phone_number: string; password: string };
 }
 
 export const POST_UPDATED_DATE = "auth/POST_UPDATED_DATE";

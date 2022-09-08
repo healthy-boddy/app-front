@@ -1,14 +1,14 @@
 import React, { useCallback, useState } from "react";
 import { Text, View } from "react-native";
-import { ComponentHeaderWrapper } from "../../components/core/component-header-wrapper/component-header-wrapper";
-import { ProgressBar } from "../../components/core/progress-bar/progress-bar";
-import { Button } from "../../components/core/button/button";
+import { ComponentHeaderWrapper } from "../../../components/core/component-header-wrapper/component-header-wrapper";
+import { ProgressBar } from "../../../components/core/progress-bar/progress-bar";
+import { Button } from "../../../components/core/button/button";
 import { format } from "date-fns";
 import DateTimePicker, {
   DateTimePickerEvent,
 } from "@react-native-community/datetimepicker";
 import { useDispatch } from "react-redux";
-import { setBirthday } from "../../store/auth";
+import { setBirthday } from "../../../store/auth";
 import { useNavigation } from "@react-navigation/native";
 
 export const PickBirthDate = () => {

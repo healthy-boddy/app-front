@@ -1,7 +1,7 @@
 import * as React from "react";
 import Svg, { Path, Defs, LinearGradient, Stop } from "react-native-svg";
 import { FC } from "react";
-import { IconInterface } from "../../../navigator/icons/house";
+import { IconInterface } from "../../../../navigator/icons/house";
 
 export const DoneIcon: FC<IconInterface> = ({ color = "#8C64FF" }) => (
   <Svg width={16} height={16}>

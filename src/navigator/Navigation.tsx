@@ -4,12 +4,15 @@ import {
   ScreenForAuthorisation,
   ScreenForEnterName,
   ScreenForEnterPhoneNumberRegistration,
-  ScreenForEnterPhoneNumberSignIn,
   ScreenForEnterPin,
   ScreenForEnterWeight,
   ScreenForPickBirthDate,
   ScreenForPickRegistrationType,
   ScreenForPickGender,
+  ScreenForTariffPage,
+  ScreenForPickMentor,
+  ScreenForQuizPageOne,
+  ScreenForQuizPageTwo,
 } from "./stack";
 import { TabNavigator } from "./tab-navigator/TabNavigator";
 
@@ -22,7 +25,7 @@ export type RootStackParamList = {
 
 export default function myStack() {
   return (
-    <Stack.Navigator initialRouteName="Authorisation">
+    <Stack.Navigator initialRouteName="PickRegistration">
       <Stack.Screen
         name="Authorisation"
         component={ScreenForAuthorisation}
@@ -47,13 +50,6 @@ export default function myStack() {
         }}
       />
 
-      <Stack.Screen
-        name="EnterPhoneNumberSignIn"
-        component={ScreenForEnterPhoneNumberSignIn}
-        options={{
-          headerShown: false,
-        }}
-      />
       <Stack.Screen
         name="EnterPhoneNumberRegistration"
         component={ScreenForEnterPhoneNumberRegistration}
@@ -105,6 +101,38 @@ export default function myStack() {
       <Stack.Screen
         name="EnterWeight"
         component={ScreenForEnterWeight}
+        options={{
+          headerShown: false,
+        }}
+      />
+
+      <Stack.Screen
+        name="TariffPage"
+        component={ScreenForTariffPage}
+        options={{
+          headerShown: false,
+        }}
+      />
+
+      <Stack.Screen
+        name="PickMentor"
+        component={ScreenForPickMentor}
+        options={{
+          headerShown: false,
+        }}
+      />
+
+      <Stack.Screen
+        name="QuizPageOne"
+        component={ScreenForQuizPageOne}
+        options={{
+          headerShown: false,
+        }}
+      />
+
+      <Stack.Screen
+        name="QuizPageTwo"
+        component={ScreenForQuizPageTwo}
         options={{
           headerShown: false,
         }}

@@ -34,12 +34,10 @@ export const EnterPhoneNumberRegistration = () => {
   }
   const dispatch = useDispatch();
 
-  const name = useSelector((data) => data.auth.userName);
-
-  // const handleSendPhone = useCallback(
-  //   async (phone) => dispatch(generatePassword(phone)),
-  //   []
-  // );
+  const handleSendPhone = useCallback(
+    async (phone) => dispatch(generatePassword(phone)),
+    []
+  );
 
   const handleSetPhone = useCallback(
     async (phoneNumber) => dispatch(setNumber(phoneNumber)),
@@ -52,13 +50,14 @@ export const EnterPhoneNumberRegistration = () => {
   );
 
   const handleSubmit = (phone: string) => {
-    handleSetPhone(phone);
-    const dataSend = {
-      phone_number: phone,
-      username: name,
-    };
-    handleSubmitData(dataSend);
-    handleSetPhone(phone);
+    // handleSetPhone(phone);
+    // const dataSend = {
+    //   phone_number: phone,
+    //   username: name,
+    // };
+    // handleSubmitData(dataSend);
+
+    handleSendPhone(phone);
   };
 
   function isButtonDisabled() {

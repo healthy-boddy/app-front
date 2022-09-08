@@ -44,7 +44,7 @@ export function generatePassword(payload: string): actions.GeneratePassword {
 
 export function postClientData(payload: {
   phone_number: string;
-  number: string;
+  password: string;
 }): actions.PostClientData {
   return {
     type: actions.POST_CLIENT_DATA,
@@ -53,7 +53,7 @@ export function postClientData(payload: {
 }
 
 export function checkPinCode(payload: {
-  phoneNumber: string;
+  phone_number: string;
   password: string;
 }): actions.CheckPinCode {
   return {

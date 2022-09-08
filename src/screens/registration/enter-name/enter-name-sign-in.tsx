@@ -1,16 +1,16 @@
 import React, { useCallback } from "react";
 import { Text, View } from "react-native";
-import { InputComponent } from "../../components/core/input-component";
-import { Button } from "../../components/core/button/button";
+import { InputComponent } from "../../../components/core/input-component";
+import { Button } from "../../../components/core/button/button";
 import { useDispatch } from "react-redux";
-import { generatePassword, setName } from "../../store/auth";
+import { generatePassword, setName } from "../../../store/auth";
 import { useNavigation } from "@react-navigation/native";
 import { Avatar } from "./icon/avatar";
 import { useFormik } from "formik";
-import { nameValidation } from "../../validation/auth";
-import { ComponentHeaderWrapper } from "../../components/core/component-header-wrapper/component-header-wrapper";
+import { nameValidation } from "../../../validation/auth";
+import { ComponentHeaderWrapper } from "../../../components/core/component-header-wrapper/component-header-wrapper";
 
-export const EnterNameRegistration = () => {
+export const EnterNameSignIn = () => {
   const navigation: any = useNavigation();
 
   const dispatch = useDispatch();
@@ -28,9 +28,9 @@ export const EnterNameRegistration = () => {
     name: "",
   };
 
-  const onSubmit = () => {
+  const onSubmit = (code: { [key: string]: string }) => {
     handleSetNumber(values.name);
-    navigation.navigate("EnterPhoneNumberRegistration");
+    navigation.navigate("EnterPhoneNumber");
   };
 
   const formik = useFormik({

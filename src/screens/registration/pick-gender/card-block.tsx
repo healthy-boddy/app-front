@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { Gender } from "./pick-gender";
 import { DoneIcon } from "./icon/done-icon";

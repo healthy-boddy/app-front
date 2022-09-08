@@ -1,13 +1,13 @@
 import React, { useCallback } from "react";
 import { Text, View } from "react-native";
-import { ComponentHeaderWrapper } from "../../components/core/component-header-wrapper/component-header-wrapper";
-import { ProgressBar } from "../../components/core/progress-bar/progress-bar";
+import { ComponentHeaderWrapper } from "../../../components/core/component-header-wrapper/component-header-wrapper";
+import { ProgressBar } from "../../../components/core/progress-bar/progress-bar";
 import { CardBlock } from "./card-block";
 import { usePickGender } from "./hook/hooks";
-import { Button } from "../../components/core/button/button";
+import { Button } from "../../../components/core/button/button";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
-import { setGender } from "../../store/auth";
+import { setGender } from "../../../store/auth";
 
 export enum Gender {
   Initial = "",

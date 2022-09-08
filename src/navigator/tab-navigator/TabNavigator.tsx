@@ -2,13 +2,12 @@ import React from "react";
 import { SafeAreaView, Text } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { TabNavigatorElem } from "./tab-navigation-elems";
-import { Authorisation } from "../../pages/authorisation/authorisation";
 import { Calendar } from "../icons/calendar";
 import { HomeIcon } from "../icons/house";
 import { ForkAndKnife } from "../icons/fork-and-knife";
 import { Person } from "../icons/person";
 import { Chat } from "../icons/chat";
-import { HeaderTab } from "../../components/core/header-tab/header-tab";
+import { MainPage } from "../../screens/tab-screens/main-page/main-page";
 
 const Tab = createBottomTabNavigator();
 
@@ -21,12 +20,7 @@ export const TabNavigator = () => (
   >
     <Tab.Screen
       name="Home"
-      component={React.useCallback(
-        () => (
-          <HeaderTab />
-        ),
-        []
-      )}
+      component={MainPage}
       options={{
         tabBarIcon: ({ focused }) => (
           <TabNavigatorElem

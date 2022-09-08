@@ -1,15 +1,18 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import { Authorisation } from "../pages/authorisation/authorisation";
-import { PickRegistration } from "../pages/pick-registration-type/pick-registration";
-import { EnterPhoneNumberRegistration } from "../pages/enter-phone-number-registration/enter-phone-number";
-import { EnterNameSignIn } from "../pages/enter-name/enter-name-sign-in";
-import { EnterPin } from "../pages/enter-pin/enter-pin";
-import { PickGender } from "../pages/pick-gender/pick-gender";
-import { PickBirthDate } from "../pages/pick-birth-date/pick-birth-date";
-import { EnterWeight } from "../pages/enter-weight/enter-weight";
-import { EnterPhoneNumberSignIn } from "../pages/enter-phone-number-sign-in/enter-phone-number";
-import { EnterNameRegistration } from "../pages/enter-name/enter-name-registration";
+import { Authorisation } from "../screens/authorisation/authorisation";
+import { PickRegistration } from "../screens/pick-registration-type/pick-registration";
+import { EnterPhoneNumberRegistration } from "../screens/enter-phone-number-registration/enter-phone-number";
+import { EnterNameSignIn } from "../screens/registration/enter-name/enter-name-sign-in";
+import { EnterPin } from "../screens/registration/enter-pin/enter-pin";
+import { PickGender } from "../screens/registration/pick-gender/pick-gender";
+import { PickBirthDate } from "../screens/registration/pick-birth-date/pick-birth-date";
+import { EnterWeight } from "../screens/registration/enter-weight/enter-weight";
+import { EnterNameRegistration } from "../screens/registration/enter-name/enter-name-registration";
+import { TariffPage } from "../screens/pick-tarification-page/tariff-page";
+import { PickMentor } from "../screens/registration/pick-menthor/pick-mentor";
+import { QuizOne } from "../screens/registration/quiz/quize-page-one/quiz-page-one";
+import { QuizTwo } from "../screens/registration/quiz/quize-page-two/quiz-page-two";
 
 type RootStackParamList = {
   InitialPage: undefined;
@@ -46,21 +49,6 @@ export const ScreenForPickRegistrationType = () => {
         }}
       />
     </PickRegistrationTypeNavigator.Navigator>
-  );
-};
-
-const EnterPhoneNumberSignInNavigator = createStackNavigator();
-export const ScreenForEnterPhoneNumberSignIn = () => {
-  return (
-    <EnterPhoneNumberSignInNavigator.Navigator>
-      <EnterPhoneNumberSignInNavigator.Screen
-        name="EnterPhoneNumberSignInStack"
-        component={EnterPhoneNumberSignIn}
-        options={{
-          headerShown: false,
-        }}
-      />
-    </EnterPhoneNumberSignInNavigator.Navigator>
   );
 };
 
@@ -166,5 +154,65 @@ export const ScreenForPickBirthDate = () => {
         }}
       />
     </PickBirthDateNavigator.Navigator>
+  );
+};
+
+const TariffPageNavigator = createStackNavigator();
+export const ScreenForTariffPage = () => {
+  return (
+    <TariffPageNavigator.Navigator>
+      <TariffPageNavigator.Screen
+        name="TariffPageStack"
+        component={TariffPage}
+        options={{
+          headerShown: false,
+        }}
+      />
+    </TariffPageNavigator.Navigator>
+  );
+};
+
+const PickMentorNavigator = createStackNavigator();
+export const ScreenForPickMentor = () => {
+  return (
+    <PickMentorNavigator.Navigator>
+      <PickMentorNavigator.Screen
+        name="PickMentorStack"
+        component={PickMentor}
+        options={{
+          headerShown: false,
+        }}
+      />
+    </PickMentorNavigator.Navigator>
+  );
+};
+
+const QuizPageOneNavigator = createStackNavigator();
+export const ScreenForQuizPageOne = () => {
+  return (
+    <QuizPageOneNavigator.Navigator>
+      <QuizPageOneNavigator.Screen
+        name="QuizPageOneStack"
+        component={QuizOne}
+        options={{
+          headerShown: false,
+        }}
+      />
+    </QuizPageOneNavigator.Navigator>
+  );
+};
+
+const QuizPageTwoNavigator = createStackNavigator();
+export const ScreenForQuizPageTwo = () => {
+  return (
+    <QuizPageTwoNavigator.Navigator>
+      <QuizPageTwoNavigator.Screen
+        name="QuizPageTwoStack"
+        component={QuizTwo}
+        options={{
+          headerShown: false,
+        }}
+      />
+    </QuizPageTwoNavigator.Navigator>
   );
 };
