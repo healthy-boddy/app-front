@@ -84,8 +84,8 @@ function* postUpdatedUserData({ payload }: actions.PostUpdatedData) {
 
     const data = yield call(authService.putUpdatedUserData, payload);
     if (data.status === 200) {
-      rootNavigation.navigate("TabNavigator", {
-        screen: "TabNavigator",
+      rootNavigation.navigate("TariffPage", {
+        screen: "TariffPageStack",
       });
     }
   } catch (error) {

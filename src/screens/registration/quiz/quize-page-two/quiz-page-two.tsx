@@ -37,11 +37,11 @@ export const QuizTwo = () => {
   } = usePickQuizSecond();
 
   const handleClick = () => {
-    Object.keys(isActive).forEach((key) => {
-      if (isActive[key] === "") {
-        delete isActive[key];
-      }
-    });
+    // Object.keys(isActive).forEach((key) => {
+    //   if (isActive[key] === "") {
+    //     delete isActive[key];
+    //   }
+    // });
     //
     //   if (isActive["woman"]) {
     //     isActive["gender"] = isActive["woman"];
@@ -51,7 +51,7 @@ export const QuizTwo = () => {
     //     delete isActive["man"];
     //   }
     //   handlePickGender(isActive);
-    //   navigation.navigate("PickBirthDate");
+    navigation.navigate("CoachIsReady");
   };
 
   return (

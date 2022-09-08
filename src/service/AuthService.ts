@@ -128,7 +128,7 @@ class AuthService extends ApiService {
         weight: data.weight,
       };
       const response = await this.apiClient
-        .put("/client/update_me/", body)
+        .put("user/client/update_me/", body)
         .then((res) => {
           // this.createSession(res.data.access, res.data.refresh);
           console.log("res data", res.data, res.status);

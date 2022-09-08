@@ -13,6 +13,7 @@ import { PickMentor } from "../screens/registration/pick-menthor/pick-mentor";
 import { QuizOne } from "../screens/registration/quiz/quize-page-one/quiz-page-one";
 import { QuizTwo } from "../screens/registration/quiz/quize-page-two/quiz-page-two";
 import { TariffPage } from "../screens/pick-tarification-page/tarif-page";
+import { CoachIsReady } from "../screens/coach-is-ready-page/coach-is-ready";
 
 type RootStackParamList = {
   InitialPage: undefined;
@@ -214,5 +215,20 @@ export const ScreenForQuizPageTwo = () => {
         }}
       />
     </QuizPageTwoNavigator.Navigator>
+  );
+};
+
+const CoachIsReadyNavigator = createStackNavigator();
+export const ScreenForCoachIsReady = () => {
+  return (
+    <CoachIsReadyNavigator.Navigator>
+      <CoachIsReadyNavigator.Screen
+        name="CoachIsReadyStack"
+        component={CoachIsReady}
+        options={{
+          headerShown: false,
+        }}
+      />
+    </CoachIsReadyNavigator.Navigator>
   );
 };

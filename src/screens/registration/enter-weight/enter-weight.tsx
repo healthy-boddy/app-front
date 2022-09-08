@@ -30,17 +30,15 @@ export const EnterWeight = () => {
   const genderData = useSelector((phone) => phone.auth.gender);
 
   const handleClick = () => {
-    // handleSetWeight(weightData);
-    // const updatedDataArr = {
-    //   gender: genderData.gender,
-    //   birthday: format(new Date(birthDate), "u-mm-dd"),
-    //   weight: Number(weightData),
-    // };
-    // console.log("updatedDataArr:", updatedDataArr);
-    //
-    // handlePutUpdatedUserData(updatedDataArr);
+    handleSetWeight(weightData);
+    const updatedDataArr = {
+      gender: genderData.gender,
+      birthday: format(new Date(birthDate), "u-mm-dd"),
+      weight: Number(weightData),
+    };
+    console.log("updatedDataArr:", updatedDataArr);
 
-    navigation.navigate("TariffPage");
+    handlePutUpdatedUserData(updatedDataArr);
   };
 
   return (

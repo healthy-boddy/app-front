@@ -13,8 +13,10 @@ import {
   ScreenForPickMentor,
   ScreenForQuizPageOne,
   ScreenForQuizPageTwo,
+  ScreenForCoachIsReady,
 } from "./stack";
 import { TabNavigator } from "./tab-navigator/TabNavigator";
+import { CoachIsReady } from "../screens/coach-is-ready-page/coach-is-ready";
 
 const Stack = createStackNavigator();
 
@@ -25,7 +27,7 @@ export type RootStackParamList = {
 
 export default function myStack() {
   return (
-    <Stack.Navigator initialRouteName="PickRegistration">
+    <Stack.Navigator initialRouteName="CoachIsReady">
       <Stack.Screen
         name="Authorisation"
         component={ScreenForAuthorisation}
@@ -133,6 +135,13 @@ export default function myStack() {
       <Stack.Screen
         name="QuizPageTwo"
         component={ScreenForQuizPageTwo}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="CoachIsReady"
+        component={ScreenForCoachIsReady}
         options={{
           headerShown: false,
         }}
