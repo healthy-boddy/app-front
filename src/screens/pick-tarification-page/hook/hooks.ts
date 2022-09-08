@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { Tariff } from "../tariff-page";
+import { Tariff } from "../tarif-page";
 
 export const usePickTariff = () => {
   const [isActiveTariff, setIsActiveTariff] = useState({

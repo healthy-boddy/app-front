@@ -9,10 +9,10 @@ import { PickGender } from "../screens/registration/pick-gender/pick-gender";
 import { PickBirthDate } from "../screens/registration/pick-birth-date/pick-birth-date";
 import { EnterWeight } from "../screens/registration/enter-weight/enter-weight";
 import { EnterNameRegistration } from "../screens/registration/enter-name/enter-name-registration";
-import { TariffPage } from "../screens/pick-tarification-page/tariff-page";
 import { PickMentor } from "../screens/registration/pick-menthor/pick-mentor";
 import { QuizOne } from "../screens/registration/quiz/quize-page-one/quiz-page-one";
 import { QuizTwo } from "../screens/registration/quiz/quize-page-two/quiz-page-two";
+import { TariffPage } from "../screens/pick-tarification-page/tarif-page";
 
 type RootStackParamList = {
   InitialPage: undefined;

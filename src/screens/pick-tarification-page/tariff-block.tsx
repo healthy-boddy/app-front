@@ -1,6 +1,6 @@
 import React, { FC, useEffect } from "react";
 import { Text, TouchableOpacity } from "react-native";
-import { Tariff } from "./tariff-page";
+import { Tariff } from "./tarif-page";
 
 interface TariffBlockInterface {
   title: string;
