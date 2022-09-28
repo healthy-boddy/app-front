@@ -42,7 +42,7 @@ const LoginWithEmailScreen = (props: any) => {
 
     return (
         <Container containerProp={styles.inlineContainer}>
-            <View>
+            <View style={{marginTop: -20}}>
                 <BackButton onPress={() => {
                     navigation.navigate("Login")
                 }}/>

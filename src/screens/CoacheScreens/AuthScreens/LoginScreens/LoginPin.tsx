@@ -18,6 +18,8 @@ const LoginPin = (props: any) => {
     const dispatch = useDispatch()
     const navigation: any = useNavigation();
 
+    console.log(props.email, 'email_or_phone')
+
     function handleSend( pin:any ) {
         if (pin.length >= 4){
             const form = new FormData()

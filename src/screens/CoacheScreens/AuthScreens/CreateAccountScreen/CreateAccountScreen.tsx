@@ -45,7 +45,9 @@ const CreateAccountScreen = (props: any) => {
             })
             console.log(response1, 'sended-pin')
             if (response1.status === 200){
-                navigation.navigate('PinCode')
+                navigation.navigate('PinCode',{
+                    phone_number: value
+                })
             }
         } catch (error) {
             console.log(error)
@@ -88,7 +90,9 @@ const CreateAccountScreen = (props: any) => {
                     <TouchableOpacity
                         activeOpacity={0.6}
                         style={{alignItems: 'center', marginTop: 15}}
-                        onPress={()=>{navigation.navigate('EmailReg', {role: props.role})}}
+                        onPress={()=>{navigation.navigate('EmailReg', {
+                            role: props.role,
+                        })}}
                     >
                         <Text style={styles.email_reg}>
                             Либо вы можете зарегистрироваться по{"\n"}почте

@@ -28,8 +28,9 @@ function CreateAccount({route}: any) {
 }
 
 function PinCode({route}: any) {
-    const {email_name} = route?.params
-    return <PinCodeScreen email_name={email_name}/>
+    const email_name = route?.params?.email_name
+    const phone_number = route?.params?.phone_number
+    return <PinCodeScreen phone_number={phone_number} email_name={email_name}/>
 }
 
 function Login() {
@@ -38,7 +39,7 @@ function Login() {
 
 function EmailReg({route}: any) {
     const {role} = route?.params
-    return <EmailRegistration role={role}/>
+    return <EmailRegistration  role={role}/>
 }
 
 function LoginPin({route}: any) {

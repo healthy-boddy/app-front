@@ -63,7 +63,7 @@ const PinCodeScreen = (props: any) => {
         }
     }
 
-    console.log(props.email_name, 'props-email')
+    console.log(props.phone_number, 'props-email')
 
     return (
         <Container containerProp={styles.inlineContainer}>
@@ -78,7 +78,7 @@ const PinCodeScreen = (props: any) => {
                         Введите код подтверждения
                     </Title>
                     <Text style={{marginTop: 10, color: color3}}>
-                        Введите код, который мы отправили сообщением на {props?.email_name}
+                        Введите код, который мы отправили сообщением на {props?.email_name} {props?.phone_number}
                     </Text>
                 </View>
                 <View style={{flex: 1}}>
