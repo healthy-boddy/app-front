@@ -43,11 +43,27 @@ export interface PostClientData {
 export const CHECK_PIN_CODE = "auth/CHECK_PIN_CODE";
 export interface CheckPinCode {
   type: typeof CHECK_PIN_CODE;
-  payload: { phone_number: string; password: string };
+  payload: { phone_number: string; password: string; userData: string | null };
 }
 
 export const POST_UPDATED_DATE = "auth/POST_UPDATED_DATE";
 export interface PostUpdatedData {
   type: typeof POST_UPDATED_DATE;
   payload: { gender: string; weight: string; birthDate: string };
+}
+
+export const GET_ME = "auth/GET_ME";
+export interface GetMe {
+  type: typeof GET_ME;
+}
+
+export const SET_USER_INFO = "auth/SET_USER_INFO";
+export interface SetUserInfo {
+  type: typeof SET_USER_INFO;
+  payload: any;
+}
+
+export const LOGOUT = "auth/LOGOUT";
+export interface Logout {
+  type: typeof LOGOUT;
 }

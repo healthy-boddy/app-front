@@ -92,8 +92,8 @@ class HttpService {
       // }
 
       await this.logout();
-      rootNavigation.navigate("Initial", {
-        screen: "Initial",
+      rootNavigation.navigate("PickRegistration", {
+        screen: "PickRegistrationStack",
       });
       return Promise.reject();
     }

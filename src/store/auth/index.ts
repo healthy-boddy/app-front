@@ -8,5 +8,8 @@ export {
   setGender,
   setWeight,
   postUpdatedData,
+  getMe,
+  setUserInfo,
+  logout,
 } from "./actions";
 export { default as reducer } from "./reducer";

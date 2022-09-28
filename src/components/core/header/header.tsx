@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useCallback } from "react";
 import { Text, TouchableOpacity } from "react-native";
 import { ChevronBack } from "../../../screens/pick-registration-type/icons/chevron-back";
 

@@ -9,8 +9,21 @@ import {
 } from "react-native";
 import { Path, Svg } from "react-native-svg";
 import { HeaderTab } from "../../../components/core/header-tab/header-tab";
+import { Button } from "../../../components/core/button/button";
+import { logout } from "../../../store/auth";
+import { useDispatch } from "react-redux";
+import { useNavigation } from "@react-navigation/native";
 
 export const MainPage = () => {
+  const navigation: any = useNavigation();
+  const dispatch = useDispatch();
+  const handleLogout = async () => dispatch(logout());
+
+  const handleSubmit = () => {
+    navigation.navigate("PickRegistration");
+    handleLogout();
+  };
+
   return (
     <View>
       <HeaderTab />
@@ -149,114 +162,8 @@ export const MainPage = () => {
             </View>
           </View>
         </View>
-        <View style={stylesheet.styleGroup69274}>
-          <View style={stylesheet.styleFrame340162}>
-            <Text style={stylesheet.styleMoeSostoyanie}>Мое состояние</Text>
-            <Text style={stylesheet.styleEsche}>Еще</Text>
-          </View>
-          <View style={stylesheet.styleFrame339780}>
-            <View style={stylesheet.styleFrame339781}>
-              <View style={stylesheet.styleFrame339774}>
-                <View style={stylesheet.styleFrame339778}>
-                  <View style={stylesheet.styleFrame339775Copy1}>
-                    <View style={stylesheet.styleFrame339926}>
-                      <View style={stylesheet.styleGroup11962}></View>
-                      <View style={stylesheet.styleVector}>
-                        <Svg fill="rgba(255, 210, 210, 1)">
-                          <Path d="M10.0001 1.19059C14.8332 -1.08845 17.7887 0.220446 19.0275 2.46447C19.6896 3.66384 20.2227 5.79147 19.9063 8.0116L15.4277 8.0116L14.8429 6.88936C14.601 6.35922 13.7913 6.30363 13.4762 6.81531L12.9991 7.58958L12.0217 4.00851C11.8645 3.28747 10.7446 3.24465 10.5333 3.96238L9.48652 7.50986L9.13984 6.32823C8.98575 5.79502 8.23897 5.62068 7.83219 6.04412L5.93699 8.0116L0.093682 8.0116C-0.2227 5.79147 0.310424 3.66384 0.97272 2.46447C2.21128 0.220446 5.16683 -1.08845 10.0001 1.19059L10.0001 1.19059ZM19.5856 9.42127C18.5499 12.6766 13.2115 16.476 10.0001 17C6.7888 16.4758 1.45037 12.6768 0.414686 9.42151L6.27725 9.42151C6.52892 9.42151 6.75208 9.30938 6.89152 9.13693L8.03301 7.95199L8.74462 10.3905C8.94646 11.086 10.0178 11.0789 10.2207 10.3928L11.2433 6.92957L11.9811 9.63323C12.1539 10.2705 13.0926 10.3543 13.4061 9.7773L14.0838 8.67705L14.2623 9.01936C14.393 9.27129 14.6655 9.41844 14.9498 9.41867L19.5856 9.42127Z" />
-                        </Svg>
-                      </View>
-                    </View>
-                    <View style={stylesheet.styleFrame339774Copy1}>
-                      <Text style={stylesheet.style6_}>1.8</Text>
-                    </View>
-                  </View>
-                  <View style={stylesheet.styleFrame339776}>
-                    <Text style={stylesheet.stylePloho}>Плохо</Text>
-                    <View style={stylesheet.styleFrame339777}>
-                      <Text style={stylesheet.styleKosti}>Кости</Text>
-                      <Text style={stylesheet.styleSegodnya}>Сегодня</Text>
-                    </View>
-                  </View>
-                </View>
-              </View>
-              <View style={stylesheet.styleFrame339775Copy2}>
-                <View style={stylesheet.styleFrame339778Copy1}>
-                  <View style={stylesheet.styleFrame339775Copy3}>
-                    <View style={stylesheet.styleFrame339926Copy1}>
-                      <View style={stylesheet.styleGroup11962Copy1}></View>
-                      <View style={stylesheet.styleVectorCopy1}>
-                        <Svg fill="rgba(176, 233, 199, 1)">
-                          <Path d="M10.0001 1.19059C14.8332 -1.08845 17.7887 0.220446 19.0275 2.46447C19.6896 3.66384 20.2227 5.79147 19.9063 8.0116L15.4277 8.0116L14.8429 6.88936C14.601 6.35922 13.7913 6.30363 13.4762 6.81531L12.9991 7.58958L12.0217 4.00851C11.8645 3.28747 10.7446 3.24465 10.5333 3.96238L9.48652 7.50986L9.13984 6.32823C8.98575 5.79502 8.23897 5.62068 7.83219 6.04412L5.93699 8.0116L0.093682 8.0116C-0.2227 5.79147 0.310424 3.66384 0.97272 2.46447C2.21128 0.220446 5.16683 -1.08845 10.0001 1.19059L10.0001 1.19059ZM19.5856 9.42127C18.5499 12.6766 13.2115 16.476 10.0001 17C6.7888 16.4758 1.45037 12.6768 0.414686 9.42151L6.27725 9.42151C6.52892 9.42151 6.75208 9.30938 6.89152 9.13693L8.03301 7.95199L8.74462 10.3905C8.94646 11.086 10.0178 11.0789 10.2207 10.3928L11.2433 6.92957L11.9811 9.63323C12.1539 10.2705 13.0926 10.3543 13.4061 9.7773L14.0838 8.67705L14.2623 9.01936C14.393 9.27129 14.6655 9.41844 14.9498 9.41867L19.5856 9.42127Z" />
-                        </Svg>
-                      </View>
-                    </View>
-                    <View style={stylesheet.styleFrame339774Copy2}>
-                      <Text style={stylesheet.style6_Copy1}>4.8</Text>
-                    </View>
-                  </View>
-                  <View style={stylesheet.styleFrame339776Copy1}>
-                    <Text style={stylesheet.styleHorosho}>Хорошо</Text>
-                    <View style={stylesheet.styleFrame339777Copy1}>
-                      <Text style={stylesheet.styleGormoni}>Гормоны</Text>
-                      <Text style={stylesheet.styleSegodnyaCopy1}>Сегодня</Text>
-                    </View>
-                  </View>
-                </View>
-              </View>
-            </View>
-            <View style={stylesheet.styleFrame339783}>
-              <View style={stylesheet.styleFrame339774Copy3}>
-                <View style={stylesheet.styleFrame339778Copy2}>
-                  <View style={stylesheet.styleFrame339775Copy4}>
-                    <View style={stylesheet.styleFrame339926Copy2}>
-                      <View style={stylesheet.styleGroup11962Copy2}></View>
-                      <View style={stylesheet.styleVectorCopy2}>
-                        <Svg fill="rgba(255, 210, 210, 1)">
-                          <Path d="M10.0001 1.19059C14.8332 -1.08845 17.7887 0.220446 19.0275 2.46447C19.6896 3.66384 20.2227 5.79147 19.9063 8.0116L15.4277 8.0116L14.8429 6.88936C14.601 6.35922 13.7913 6.30363 13.4762 6.81531L12.9991 7.58958L12.0217 4.00851C11.8645 3.28747 10.7446 3.24465 10.5333 3.96238L9.48652 7.50986L9.13984 6.32823C8.98575 5.79502 8.23897 5.62068 7.83219 6.04412L5.93699 8.0116L0.093682 8.0116C-0.2227 5.79147 0.310424 3.66384 0.97272 2.46447C2.21128 0.220446 5.16683 -1.08845 10.0001 1.19059L10.0001 1.19059ZM19.5856 9.42127C18.5499 12.6766 13.2115 16.476 10.0001 17C6.7888 16.4758 1.45037 12.6768 0.414686 9.42151L6.27725 9.42151C6.52892 9.42151 6.75208 9.30938 6.89152 9.13693L8.03301 7.95199L8.74462 10.3905C8.94646 11.086 10.0178 11.0789 10.2207 10.3928L11.2433 6.92957L11.9811 9.63323C12.1539 10.2705 13.0926 10.3543 13.4061 9.7773L14.0838 8.67705L14.2623 9.01936C14.393 9.27129 14.6655 9.41844 14.9498 9.41867L19.5856 9.42127Z" />
-                        </Svg>
-                      </View>
-                    </View>
-                    <View style={stylesheet.styleFrame339774Copy4}>
-                      <Text style={stylesheet.style6_Copy2}>1.8</Text>
-                    </View>
-                  </View>
-                  <View style={stylesheet.styleFrame339776Copy2}>
-                    <Text style={stylesheet.stylePlohoCopy1}>Плохо</Text>
-                    <View style={stylesheet.styleFrame339777Copy2}>
-                      <Text style={stylesheet.styleKostiCopy1}>Кости</Text>
-                      <Text style={stylesheet.styleSegodnyaCopy2}>Сегодня</Text>
-                    </View>
-                  </View>
-                </View>
-              </View>
-              <View style={stylesheet.styleFrame339775Copy5}>
-                <View style={stylesheet.styleFrame339778Copy3}>
-                  <View style={stylesheet.styleFrame339775Copy6}>
-                    <View style={stylesheet.styleFrame339926Copy3}>
-                      <View style={stylesheet.styleGroup11962Copy3}></View>
-                      <View style={stylesheet.styleVectorCopy3}>
-                        <Svg fill="rgba(176, 233, 199, 1)">
-                          <Path d="M10.0001 1.19059C14.8332 -1.08845 17.7887 0.220446 19.0275 2.46447C19.6896 3.66384 20.2227 5.79147 19.9063 8.0116L15.4277 8.0116L14.8429 6.88936C14.601 6.35922 13.7913 6.30363 13.4762 6.81531L12.9991 7.58958L12.0217 4.00851C11.8645 3.28747 10.7446 3.24465 10.5333 3.96238L9.48652 7.50986L9.13984 6.32823C8.98575 5.79502 8.23897 5.62068 7.83219 6.04412L5.93699 8.0116L0.093682 8.0116C-0.2227 5.79147 0.310424 3.66384 0.97272 2.46447C2.21128 0.220446 5.16683 -1.08845 10.0001 1.19059L10.0001 1.19059ZM19.5856 9.42127C18.5499 12.6766 13.2115 16.476 10.0001 17C6.7888 16.4758 1.45037 12.6768 0.414686 9.42151L6.27725 9.42151C6.52892 9.42151 6.75208 9.30938 6.89152 9.13693L8.03301 7.95199L8.74462 10.3905C8.94646 11.086 10.0178 11.0789 10.2207 10.3928L11.2433 6.92957L11.9811 9.63323C12.1539 10.2705 13.0926 10.3543 13.4061 9.7773L14.0838 8.67705L14.2623 9.01936C14.393 9.27129 14.6655 9.41844 14.9498 9.41867L19.5856 9.42127Z" />
-                        </Svg>
-                      </View>
-                    </View>
-                    <View style={stylesheet.styleFrame339774Copy5}>
-                      <Text style={stylesheet.style6_Copy3}>4.8</Text>
-                    </View>
-                  </View>
-                  <View style={stylesheet.styleFrame339776Copy3}>
-                    <Text style={stylesheet.styleHoroshoCopy1}>Хорошо</Text>
-                    <View style={stylesheet.styleFrame339777Copy3}>
-                      <Text style={stylesheet.styleGormoniCopy1}>Гормоны</Text>
-                      <Text style={stylesheet.styleSegodnyaCopy3}>Сегодня</Text>
-                    </View>
-                  </View>
-                </View>
-              </View>
-            </View>
-          </View>
-        </View>
+
+        <Button title="logout" onPress={handleSubmit} />
       </View>
     </View>
   );

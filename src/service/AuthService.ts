@@ -4,7 +4,6 @@ import ApiService from "./ApiService";
 const ENDPOINTS = {
   GENERATE: "/user/generate_password/",
   USERCODE: "/user/token/",
-  GETWALLET: "/wallet/",
   REFRESH: "/user/token/refresh/",
   UPDATENAME: "/user/update_me/",
   GETME: "/user/me/",
@@ -101,12 +100,13 @@ class AuthService extends ApiService {
         phone_number: data.phone_number,
         password: data.password,
       };
-      console.log("body for check pin", body);
       const response = await this.apiClient
         .post("/user/token/", body)
         .then((res) => {
-          this.createSession(res.data.access, res.data.refresh);
-          console.log("res data", res.data, res.status);
+          if (res.data.access) {
+            this.createSession(res.data.access, res.data.refresh);
+            console.log("res data", res.data, res.status);
+          }
           return res;
         });
       return response;
@@ -141,26 +141,39 @@ class AuthService extends ApiService {
     }
   };
 
+  public sendPin = async (payload: string) => {
+    const sendData = {
+      phone_number: payload,
+    };
+    try {
+      const response = await this.apiClient
+        .post("/user/send_pin/", payload)
+        .then((res) => {
+          console.log("response send pin", sendData);
+          return res;
+        });
+      return response;
+    } catch (e) {
+      console.log("get me error", e.response.data);
+      return e;
+    }
+  };
+
+  public getMe = async () => {
+    try {
+      const response = await this.apiClient.get("/user/me/").then((res) => {
+        return res;
+      });
+      return response;
+    } catch (e) {
+      console.log("get me error", e.response.data);
+      return e;
+    }
+  };
+
   public logout = async () => {
     await this.destroySession();
     return { ok: true };
-  };
-
-  public getWallet = async () => {
-    const accessToken = await this.getUser();
-    return await this.apiClient
-      .get(ENDPOINTS.GETWALLET, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      })
-      .then((res) => {
-        return res;
-      })
-      .catch((error) => {
-        console.log("error wallet get", error);
-        return error.response.data;
-      });
   };
 
   public refresh = async (payload: string) => {

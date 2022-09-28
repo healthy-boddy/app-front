@@ -27,7 +27,7 @@ export type RootStackParamList = {
 
 export default function myStack() {
   return (
-    <Stack.Navigator initialRouteName="CoachIsReady">
+    <Stack.Navigator initialRouteName="PickRegistration">
       <Stack.Screen
         name="Authorisation"
         component={ScreenForAuthorisation}

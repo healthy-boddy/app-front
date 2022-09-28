@@ -18,22 +18,21 @@ export const EnterPin = () => {
 
   const phoneNumber = useSelector((data) => data.auth.number);
 
+  const userData = useSelector((userData) => userData.auth.setUserInfo);
+
   const handleCheckPin = useCallback(
     async (data) => dispatch(checkPinCode(data)),
     []
   );
 
-  useEffect(() => {
-    console.log("phoneNumber", phoneNumber);
-  }, [phoneNumber]);
+  useEffect(() => {}, [phoneNumber]);
 
   const handleClick = () => {
     const data = {
       phone_number: phoneNumber,
       password: code,
+      userData: userData.birthday,
     };
-
-    console.log("code", code);
     handleCheckPin(data);
   };
 

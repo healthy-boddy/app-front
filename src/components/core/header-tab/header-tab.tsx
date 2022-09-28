@@ -1,18 +1,24 @@
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { Path, Svg } from "react-native-svg";
+import { useSelector } from "../../../hooks";
 
 interface HeaderTabInterface {
   height?: number;
 }
 
 export const HeaderTab: FC<HeaderTabInterface> = ({ height = 190 }) => {
+  const name = useSelector((name) => name.auth.setUserInfo);
+
+  useEffect(() => {
+    console.log("name get me", name);
+  }, [name]);
   return (
     <View>
       <View style={[stylesheet.styleFrame340248, { height }]}>
         <View style={stylesheet.styleFrame340219}>
           <Text style={stylesheet.styleDobriiDenAlena_}>
-            Добрый день, Алена!
+            {`Добрый день, ${name?.user.username}`}
           </Text>
         </View>
         <View style={stylesheet.styleFrame339716}>

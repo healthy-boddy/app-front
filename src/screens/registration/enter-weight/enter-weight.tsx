@@ -33,7 +33,7 @@ export const EnterWeight = () => {
     handleSetWeight(weightData);
     const updatedDataArr = {
       gender: genderData.gender,
-      birthday: format(new Date(birthDate), "u-mm-dd"),
+      birthday: format(new Date(), "u-MM-dd"),
       weight: Number(weightData),
     };
     console.log("updatedDataArr:", updatedDataArr);

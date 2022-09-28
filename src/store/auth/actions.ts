@@ -55,6 +55,7 @@ export function postClientData(payload: {
 export function checkPinCode(payload: {
   phone_number: string;
   password: string;
+  userData: string | null;
 }): actions.CheckPinCode {
   return {
     type: actions.CHECK_PIN_CODE,
@@ -70,5 +71,24 @@ export function postUpdatedData(payload: {
   return {
     type: actions.POST_UPDATED_DATE,
     payload,
+  };
+}
+
+export function getMe(): actions.GetMe {
+  return {
+    type: actions.GET_ME,
+  };
+}
+
+export function setUserInfo(payload: any): actions.SetUserInfo {
+  return {
+    type: actions.SET_USER_INFO,
+    payload,
+  };
+}
+
+export function logout(): actions.Logout {
+  return {
+    type: actions.LOGOUT,
   };
 }
