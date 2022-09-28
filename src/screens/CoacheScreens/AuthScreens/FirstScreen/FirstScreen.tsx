@@ -30,20 +30,6 @@ const FirstScreen: React.FC = (props) => {
         );
     };
 
-    const renderNextButton = () => {
-        return (
-            <View style={{backgroundColor: 'red'}}>
-                <CustomButton tilte={'Далее'}/>
-            </View>
-        )
-    }
-    const renderSkipButton = () => {
-        return (
-            <View style={{backgroundColor: 'red'}}>
-                <CustomButton tilte={'Далее'}/>
-            </View>
-        )
-    }
     return (
         <View style={styles.container}>
             <View style={{flex: 1}}>
@@ -54,13 +40,17 @@ const FirstScreen: React.FC = (props) => {
             <View style={styles.wrapper}>
                 <Text style={styles.line}/>
                 <AppIntroSlider
+                    style={{width: '100%'}}
                     data={slides}
                     renderItem={(data) => RenderItem(data.item)}
                     dotClickEnabled={true}
                     renderNextButton={() => (
-                        <View style={styles.next_btn}>
-                            <Text style={{color: 'white', fontSize: 16}}>Далее</Text>
+                        <View style={{alignSelf: 'flex-start', left: '-3%', width: '100%'}}>
+                            <View style={styles.next_btn}>
+                                <Text style={{color: 'white', fontSize: 16}}>Далее</Text>
+                            </View>
                         </View>
+
                     )}
                     activeDotStyle={{backgroundColor: color1, bottom: '25%'}}
                     dotStyle={{backgroundColor: color2, bottom: '25%'}}
@@ -127,13 +117,11 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     },
     next_btn: {
-        width: 450,
-        alignSelf: 'flex-start',
+        width: 420,
         backgroundColor: color1,
         padding: 15,
         borderRadius: 30,
-        textAlign: "center",
         alignItems: "center",
-        marginTop: 25
+        marginTop: 25,
     }
 })

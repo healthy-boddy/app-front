@@ -140,7 +140,7 @@ const EnterNameScreen = () => {
                             </View>
                         </View>
                     </View>
-                    <View style={{marginBottom: '25%'}}>
+                    <View style={{marginBottom: '20%'}}>
                         {roles.map((item) => (
                             <TouchableOpacity key={item.key} onPress={() => {
                                 setRole(item.role)
@@ -157,7 +157,6 @@ const EnterNameScreen = () => {
                                     />
                                 </Text>
                             </TouchableOpacity>
-
                         ))}
                     </View>
                     <View style={{marginBottom: 25}}>
