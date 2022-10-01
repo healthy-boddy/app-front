@@ -45,7 +45,7 @@ const EnterSexScreen = () => {
         dispatch(deleteUserBio());
         dispatch(deleteUserData());
     }
-    console.log(gender, 'handleSetGender')
+
     return (
         <ClientContainer>
             <Pressable onPress={logout} style={{marginTop: 25}}>

@@ -1,5 +1,6 @@
 import React from 'react';
 import {View, StyleSheet, SafeAreaView} from "react-native";
+import BackButton from "./BackButton";
 
 const Container = (props: any) => {
     const {children, containerProp} = props

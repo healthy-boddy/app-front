@@ -19,29 +19,27 @@ const PinCodeScreen = (props: any) => {
     const navigation: any = useNavigation();
     let [validPin, setValidPin] = useState(true);
     const dispatch = useDispatch();
-
     let form = useSelector((store: any) => store.auth_data.formData)
 
-    // async function handleSendPin() {
-    //     const pinForm = new FormData()
-    //     pinForm.append('email_or_phone', form._parts[2][1])
-    //     pinForm.append('password', pin)
-    //     console.log(pinForm)
-    //     try {
-    //         const response = await axios.post(baseUrl + '/token/', pinForm, {
-    //             headers: {
-    //                 'Content-Type': 'multipart/form-data'
-    //             },
-    //         })
-    //         console.log(response, 'rrr')
-    //         setValidPin(true)
-    //         dispatch(setUserToken(response.data.access))
-    //         await AsyncStorage.setItem('userToken', response.data.access)
-    //     } catch (error) {
-    //         setValidPin(false)
-    //         console.log(error)
-    //     }
-    // }
+    const [resendPin, setResendPin] = useState(false)
+
+    const [time, setTime] = React.useState(25);
+
+     useEffect(() => {
+         const timerId = setInterval(() => {
+            setTime((prev)=> --prev)
+            if (time < 1) {
+                setResendPin(true)
+                clearInterval(timerId);
+            }
+        }, 1000);
+         if (resendPin){
+             clearInterval(timerId);
+         }
+         return () => {
+             clearInterval(timerId);
+         };
+    }, [time]);
 
     async function handleSend(pin: any) {
         const pinForm = new FormData()
@@ -63,7 +61,33 @@ const PinCodeScreen = (props: any) => {
         }
     }
 
-    console.log(props.phone_number, 'props-email')
+    async function handleSendEmail() {
+        let phoneForm = new FormData;
+        await phoneForm.append('email', props.email_name);
+        try {
+            const response = await axios.post(baseUrl + '/' + props?.role + '/', form, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                },
+            })
+            console.log(response.data, 'resended-pin1')
+        } catch (error) {
+            console.log(error)
+            console.log(3333333)
+        }
+        try {
+            const response1 = await axios.post(baseUrl + '/send_pin/', phoneForm, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                },
+            })
+           console.log(response1, 'resended-pin2')
+        } catch (error) {
+            console.log(error)
+        }
+        setResendPin(false)
+        setTime(25)
+    }
 
     return (
         <Container containerProp={styles.inlineContainer}>
@@ -83,6 +107,13 @@ const PinCodeScreen = (props: any) => {
                 </View>
                 <View style={{flex: 1}}>
                     <FormattingExample handleSend={handleSend}/>
+                    {!resendPin ? <Text style={{color: color3}}>
+                        Получить новый код можно 00 : {time}
+                    </Text> : <CustomButton
+                        title={'Получить новый код'}
+                        onPress={handleSendEmail}
+                        />
+                    }
                 </View>
             </KeyboardAwareScrollView>
         </Container>
@@ -263,3 +294,25 @@ const styles = StyleSheet.create({
 }
 {/*</View>*/
 }
+
+
+// async function handleSendPin() {
+//     const pinForm = new FormData()
+//     pinForm.append('email_or_phone', form._parts[2][1])
+//     pinForm.append('password', pin)
+//     console.log(pinForm)
+//     try {
+//         const response = await axios.post(baseUrl + '/token/', pinForm, {
+//             headers: {
+//                 'Content-Type': 'multipart/form-data'
+//             },
+//         })
+//         console.log(response, 'rrr')
+//         setValidPin(true)
+//         dispatch(setUserToken(response.data.access))
+//         await AsyncStorage.setItem('userToken', response.data.access)
+//     } catch (error) {
+//         setValidPin(false)
+//         console.log(error)
+//     }
+// }

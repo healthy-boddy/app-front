@@ -9,6 +9,7 @@ import {useSelector} from "react-redux";
 import {baseUrl} from "../../../../helpers/url";
 import {useNavigation} from "@react-navigation/native";
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
+import CustomInput from "../../../../components/CustomInput";
 
 const EmailRegistration = (props: any) => {
     const navigation: any = useNavigation();
@@ -17,29 +18,30 @@ const EmailRegistration = (props: any) => {
     const [email, sendEmail] = useState('')
 
     async function handleSendEmail() {
-        let phoneForm = new FormData;
-        phoneForm.append('email', email);
-        form.append('email', email);
+        let emailForm = new FormData;
+        emailForm.append('email', email);
+        await form.append('email', email);
         try {
             const response = await axios.post(baseUrl + '/' + props?.role + '/', form, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 },
             })
-            console.log(response.data, '')
+            console.log(response.data, 'asd')
         } catch (error) {
-            console.log(error)
+            console.log(error, 'catch-error')
         }
         try {
-            const response1 = await axios.post(baseUrl + '/send_pin/', phoneForm, {
+            const response1 = await axios.post(baseUrl + '/send_pin/', emailForm, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 },
             })
             console.log(response1, 'sended-pin')
             if (response1.status === 200) {
-                navigation.navigate('PinCode',{
-                    email_name: email
+                navigation.navigate('PinCode', {
+                    email_name: email,
+                    role: props.role
                 })
             }
         } catch (error) {
@@ -47,13 +49,13 @@ const EmailRegistration = (props: any) => {
         }
     }
 
+    console.log(props.role, 'props-role-in-emailregistrationscreen')
+
     return (
         <Container containerProp={styles.inlineContainer}>
-            <View>
-                <BackButton onPress={() => {
-                    navigation.navigate('CreateAccount', {role: props.role, email_name: email})
-                }}/>
-            </View>
+            <BackButton onPress={() => {
+                navigation.navigate('CreateAccount', {role: props.role, email_name: email})
+            }}/>
             <KeyboardAwareScrollView>
                 <View style={{marginTop: 25}}>
                     <Title>
@@ -64,10 +66,9 @@ const EmailRegistration = (props: any) => {
                     </Text>
                 </View>
                 <View style={{flex: 1}}>
-                    <View style={styles.input}>
-                        <TextInput
-                            style={{left: 10}}
-                            placeholder={"Введите почту"}
+                    <View style={{marginTop: 30}}>
+                        <CustomInput
+                            placeholder={'Введите почту'}
                             onChangeText={sendEmail}
                             value={email}
                         />
@@ -82,6 +83,7 @@ const EmailRegistration = (props: any) => {
                 />
             </View>
         </Container>
+
     );
 };
 

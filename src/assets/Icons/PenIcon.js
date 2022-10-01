@@ -31,8 +31,8 @@ const PenIcon = (props) => {
                     y2={0.0610884}
                     gradientUnits="userSpaceOnUse"
                 >
-                    <Stop stopColor="#8C64FF" />
-                    <Stop offset={0.95948} stopColor="#B49AFF" />
+                    <Stop stopColor='#7454CF' />
+                    <Stop offset={0.95948} stopColor="#7454CF" />
                 </LinearGradient>
             </Defs>
         </Svg>

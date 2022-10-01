@@ -8,16 +8,8 @@ import {useNavigation} from "@react-navigation/native";
 const FirstScreen: React.FC = (props) => {
     const slides = [
         {key: 1, title: 'Health Buddy', description: 'Сервис наставников по восстановлению и сохранению здоровья.'},
-        {
-            key: 2,
-            title: 'Программы для клиентов',
-            description: 'Отслеживаем динамику назначений через цифровой аватар по всем параметрам организма'
-        },
-        {
-            key: 3,
-            title: 'Постоянная база клиентов',
-            description: 'Зарегистрируй профиль врача  и получай быстрый доступ к базе знаний и клиентов'
-        },
+        {key: 2, title: 'Программы для клиентов', description: 'Отслеживаем динамику назначений через цифровой аватар по всем параметрам организма'},
+        {key: 3, title: 'Постоянная база клиентов', description: 'Зарегистрируй профиль врача  и получай быстрый доступ к базе знаний и клиентов'},
     ]
     const navigation: any = useNavigation();
 
@@ -40,17 +32,15 @@ const FirstScreen: React.FC = (props) => {
             <View style={styles.wrapper}>
                 <Text style={styles.line}/>
                 <AppIntroSlider
-                    style={{width: '100%'}}
                     data={slides}
                     renderItem={(data) => RenderItem(data.item)}
                     dotClickEnabled={true}
                     renderNextButton={() => (
-                        <View style={{alignSelf: 'flex-start', left: '-3%', width: '100%'}}>
+                        <View style={styles.next_btn_box}>
                             <View style={styles.next_btn}>
                                 <Text style={{color: 'white', fontSize: 16}}>Далее</Text>
                             </View>
                         </View>
-
                     )}
                     activeDotStyle={{backgroundColor: color1, bottom: '25%'}}
                     dotStyle={{backgroundColor: color2, bottom: '25%'}}
@@ -116,12 +106,19 @@ const styles = StyleSheet.create({
         color: color1,
         fontWeight: 'bold'
     },
+    next_btn_box:{
+        alignSelf: "flex-end",
+        alignItems: "center",
+        width: 420
+    },
     next_btn: {
-        width: 420,
+        width: '100%',
+        maxWidth: 380,
         backgroundColor: color1,
         padding: 15,
         borderRadius: 30,
         alignItems: "center",
         marginTop: 25,
+        left: '-3%'
     }
 })

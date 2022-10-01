@@ -4,7 +4,7 @@ import {Text, StyleSheet, View, TextInput, Image, TouchableOpacity, ScrollView, 
 import BackButton from "../../../../components/BackButton";
 import {useNavigation} from "@react-navigation/native";
 import PenIcon from "../../../../assets/Icons/PenIcon";
-import {color1, color2} from "../../../../helpers/colors";
+import {color1, color2, color3} from "../../../../helpers/colors";
 import CustomButton from "../../../../components/CustomButton";
 import * as ImagePicker from 'expo-image-picker';
 import {useDispatch} from "react-redux";
@@ -12,12 +12,12 @@ import {setFormData} from "../../../../store/actions/auth_data";
 import Title from "../../../../components/Title";
 import ErrorPopUp from "../../../../components/ErrorPopUp";
 import {RadioButton} from "react-native-paper";
-import CustomInput from "../../../../components/CustomInput";
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
+import Delete from "../../../../assets/Icons/Delete";
 
 const EnterNameScreen = () => {
     const navigation: any = useNavigation();
-    const [name, setName] = useState<string>('');
+    const [name, setName] = useState('');
     const [image, setImage] = useState<any>(null);
     const [role, setRole] = useState('');
 
@@ -68,6 +68,9 @@ const EnterNameScreen = () => {
             }
             return false
         }
+        setNameValid(true)
+        setImageValid(true)
+        setRoleValid(true)
         let form = new FormData()
         form.append('username', name)
         console.log({image})
@@ -77,49 +80,53 @@ const EnterNameScreen = () => {
             role: role
         })
     }
+
+    function onPressDelete() {
+        setName('')
+    }
+
     return (
         <Container containerProp={styles.inlineContainer}>
-            <ScrollView showsVerticalScrollIndicator={false} style={{flex: 1}}>
-                <View style={{marginBottom: 15}}>
-                    <BackButton onPress={() => {
-                        navigation.navigate('Welcome')
-                    }}/>
-                </View>
-                <View>
-                    {!nameValid && <ErrorPopUp style={{marginBottom: 5}} error={'Введите имя'}/>}
-                    {!imageValid && <ErrorPopUp style={{marginBottom: 5}} error={'Добавьте фото'}/>}
-                    {!roleValid && <ErrorPopUp style={{marginBottom: 5}} error={'Выбирете роль'}/>}
-                </View>
-                <View style={{flex: 1, marginBottom: 50}}>
+            <View>
+                <BackButton onPress={() => {
+                    navigation.navigate('Welcome')
+                }}/>
+            </View>
+            <View style={{flex: 1}}>
+                <KeyboardAwareScrollView
+                    showsVerticalScrollIndicator={false}
+                    scrollEnabled={false}
+                    style={{width: '100%'}}
+                >
                     <View>
-                        <View style={styles.top_box}>
-                            <View>
-                                <Title>
-                                    Добро пожаловать !
-                                </Title>
-                            </View>
-                            <View style={{position: 'relative'}}>
-                                <TouchableOpacity onPress={pickImage} style={styles.edit_icon}>
-                                    <PenIcon/>
-                                </TouchableOpacity>
-                                <View>
-                                    {!image ? <Image
-                                        style={styles.image}
-                                        source={require('../../../../assets/images/np_img.png')}
-                                    /> : <Image
-                                        style={styles.image}
-                                        source={{uri: image.uri}}
-                                    />}
+                        {!nameValid && <ErrorPopUp style={{marginBottom: 5}} error={'Введите имя'}/>}
+                        {!imageValid && <ErrorPopUp style={{marginBottom: 5}} error={'Добавьте фото'}/>}
+                        {!roleValid && <ErrorPopUp style={{marginBottom: 5}} error={'Выбирете роль'}/>}
+                    </View>
+                    <View style={{flex: 1, marginBottom: 30}}>
+                        <View>
+                            <View style={styles.top_box}>
+                                <View style={{position: 'relative'}}>
+                                    <TouchableOpacity onPress={pickImage} style={styles.edit_icon}>
+                                        <PenIcon/>
+                                    </TouchableOpacity>
+                                    <View>
+                                        {!image ? <Image
+                                            style={styles.image}
+                                            source={require('../../../../assets/images/np_img.png')}
+                                        /> : <Image
+                                            style={styles.image}
+                                            source={{uri: image.uri}}
+                                        />}
 
+                                    </View>
                                 </View>
-                            </View>
-                            <View style={{marginTop: 15}}>
+                                <View style={{marginTop: 15}}>
 
-                                <Text style={{color: color2}}>
-                                    Загрузите ваше реальное фото
-                                </Text>
-                            </View>
-                            <KeyboardAwareScrollView style={{width: '100%'}}>
+                                    <Text style={{color: color3}}>
+                                        Загрузите ваше реальное фото
+                                    </Text>
+                                </View>
                                 <View style={styles.input_box}>
                                     <View>
                                         <Title>
@@ -127,43 +134,64 @@ const EnterNameScreen = () => {
                                         </Title>
                                     </View>
                                     <View style={{marginTop: 15}}>
-                                        <CustomInput onChangeText={(name: string) => {
-                                            setName(name)
-                                        }} placeholder={"Имя"}/>
+                                        {/*// @ts-ignore*/}
+                                        <View style={[styles.input_item_box, name && {
+                                            borderColor: color1,
+                                            borderWidth: 2
+                                        }]}>
+                                            <View>
+                                                <TextInput
+                                                    style={styles.input}
+                                                    placeholder={"Имя"}
+                                                    onChangeText={(name: string) => {
+                                                        setName(name)
+                                                    }}
+                                                    value={name}
+                                                />
+                                            </View>
+                                            <TouchableOpacity
+                                                onPress={() => {
+                                                    setName('')
+                                                }}
+                                                activeOpacity={0.6}
+                                                style={styles.delete}>
+                                                <Delete/>
+                                            </TouchableOpacity>
+                                        </View>
                                     </View>
                                 </View>
-                            </KeyboardAwareScrollView>
-                            <View style={{alignSelf: 'flex-start', marginTop: 20, marginBottom: 15}}>
-                                <Title>
-                                    Войти как
-                                </Title>
+                                <View style={{alignSelf: 'flex-start', marginTop: 20, marginBottom: 15}}>
+                                    <Title>
+                                        Войти как
+                                    </Title>
+                                </View>
                             </View>
                         </View>
+                        <View style={{marginBottom: '20%'}}>
+                            {roles.map((item) => (
+                                <TouchableOpacity key={item.key} onPress={() => {
+                                    setRole(item.role)
+                                }} style={[styles.roleBox, role === item.role && {backgroundColor: '#E5DDFD'}]}>
+                                    <Text style={styles.roleItem} key={item.key}>
+                                        {item.name}
+                                    </Text>
+                                    <Text>
+                                        <RadioButton
+                                            value="first"
+                                            status={role === item.role ? 'checked' : 'unchecked'}
+                                            uncheckedColor={color1}
+                                            color={color1}
+                                        />
+                                    </Text>
+                                </TouchableOpacity>
+                            ))}
+                        </View>
                     </View>
-                    <View style={{marginBottom: '20%'}}>
-                        {roles.map((item) => (
-                            <TouchableOpacity key={item.key} onPress={() => {
-                                setRole(item.role)
-                            }} style={styles.roleBox}>
-                                <Text style={styles.roleItem} key={item.key}>
-                                    {item.name}
-                                </Text>
-                                <Text>
-                                    <RadioButton
-                                        value="first"
-                                        status={role === item.role ? 'checked' : 'unchecked'}
-                                        uncheckedColor={color1}
-                                        color={color1}
-                                    />
-                                </Text>
-                            </TouchableOpacity>
-                        ))}
-                    </View>
-                    <View style={{marginBottom: 25}}>
+                    <View>
                         <CustomButton onPress={handleSetNameAvatar} title={"Продолжить"}/>
                     </View>
-                </View>
-            </ScrollView>
+                </KeyboardAwareScrollView>
+            </View>
         </Container>
     )
         ;
@@ -183,7 +211,7 @@ const styles = StyleSheet.create({
     },
     top_box: {
         alignItems: 'center',
-        marginTop: 45
+        marginTop: 15
     },
     image: {
         width: 120,
@@ -195,7 +223,19 @@ const styles = StyleSheet.create({
         position: 'absolute',
         alignSelf: 'flex-end',
         top: 20,
-        zIndex: 1
+        zIndex: 1,
+        backgroundColor: '#fFF',
+        borderRadius: 100,
+        padding: 5
+    },
+    input_item_box: {
+        borderRadius: 15,
+        backgroundColor: color2,
+        paddingVertical: 12,
+        paddingLeft: 15,
+        flexDirection: 'row',
+        justifyContent: "space-between",
+        width: '100%'
     },
     input_box: {
         alignSelf: 'flex-start',
@@ -203,24 +243,31 @@ const styles = StyleSheet.create({
         width: '100%',
     },
     input: {
-        borderRadius: 20,
-        backgroundColor: color2,
-        paddingVertical: 12,
-        marginTop: 20,
-        paddingLeft: 10
+        fontSize: 16,
+        width: 300,
+    },
+    delete: {
+        top: 5,
+        marginRight: 20,
     },
     roleBox: {
         width: '100%',
-        backgroundColor: color2,
+        backgroundColor: '#FFF',
         marginBottom: 10,
         borderRadius: 30,
         flexDirection: "row",
         justifyContent: "space-between",
         paddingVertical: 10,
-        paddingHorizontal: 15
+        paddingHorizontal: 15,
+        borderWidth: 2,
+        borderColor: '#dadad1'
     },
     roleItem: {
         top: 7,
         fontSize: 16
+    },
+    input_onChanged: {
+        borderColor: color1,
+        borderWidth: 2
     }
 })

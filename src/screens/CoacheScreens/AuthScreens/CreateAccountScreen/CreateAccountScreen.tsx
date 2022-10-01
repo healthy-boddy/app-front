@@ -23,6 +23,7 @@ const CreateAccountScreen = (props: any) => {
 
     let form = useSelector((store: any) => store.auth_data.formData)
     console.log(props.role, 'ROLE')
+
     async function handleSetPhoneNumber() {
         let phoneForm = new FormData;
         phoneForm.append('phone_number', value);
@@ -44,8 +45,8 @@ const CreateAccountScreen = (props: any) => {
                 },
             })
             console.log(response1, 'sended-pin')
-            if (response1.status === 200){
-                navigation.navigate('PinCode',{
+            if (response1.status === 200) {
+                navigation.navigate('PinCode', {
                     phone_number: value
                 })
             }
@@ -54,61 +55,66 @@ const CreateAccountScreen = (props: any) => {
         }
     }
 
-     return (
-        <Container containerProp={styles.inline_container}>
-            <View style={{flex: 1}}>
-                <KeyboardAwareScrollView>
+    return (
+        <View style={{flex: 1}}>
+            <Container containerProp={styles.inline_container}>
                 <View>
                     <BackButton onPress={() => {
                         navigation.navigate("EnterName")
                     }}/>
                 </View>
-                <View>
-                    <Title titlePropStyle={{marginTop: 25}}>
-                        Введите свой телефон
-                    </Title>
+                <View style={{flex: 1}}>
+                    <KeyboardAwareScrollView>
+                        <View>
+                            <Title titlePropStyle={{marginTop: 25}}>
+                                Введите свой телефон
+                            </Title>
 
-                    <View style={{marginBottom: 15}}>
-                        <Text style={styles.set_sms}>
-                            Мы отправим SMS с кодом подтверждения на {"\n"}Ваш новый номер
-                        </Text>
-                    </View>
+                            <View style={{marginBottom: 15}}>
+                                <Text style={styles.set_sms}>
+                                    Мы отправим SMS с кодом подтверждения на {"\n"}Ваш новый номер
+                                </Text>
+                            </View>
+                        </View>
+
+                        <View>
+                            <PhoneInput
+                                style={styles.phone_input}
+                                onPressFlag={onPressFlag}
+                                initialValue={'+7'}
+                                onChangePhoneNumber={setValue}
+                                initialCountry={'us'}
+                                textProps={{
+                                    placeholder: '_ _ _  _ _ _  _ _ _'
+                                }}
+                            />
+                        </View>
+                        <TouchableOpacity
+                            activeOpacity={0.6}
+                            style={styles.email_reg_box}
+                            onPress={() => {
+                                navigation.navigate('EmailReg', {
+                                    role: props.role,
+                                })
+                            }}
+                        >
+                            <Text>Либо</Text>
+                            <Text style={{marginHorizontal: 3, color: color1}}>зарегистрируйтесь</Text>
+                            <Text>по почте</Text>
+                        </TouchableOpacity>
+                    </KeyboardAwareScrollView>
                 </View>
-
-                <View>
-                    <PhoneInput
-                        style={styles.phone_input}
-                        onPressFlag={onPressFlag}
-                        initialValue={'+7'}
-                        onChangePhoneNumber={setValue}
-                        initialCountry={'us'}
-                        textProps={{
-                            placeholder: '_ _ _  _ _ _  _ _ _'
-                        }}
+                <View style={styles.button_box}>
+                    <CustomButton
+                        disabled={value.length < 5}
+                        title={'Продолжить'}
+                        buttonStyles={{backgroundColor: value.length < 5 ? '#C6B1FF' : color1}}
+                        onPress={handleSetPhoneNumber}
                     />
                 </View>
-                    <TouchableOpacity
-                        activeOpacity={0.6}
-                        style={{alignItems: 'center', marginTop: 15}}
-                        onPress={()=>{navigation.navigate('EmailReg', {
-                            role: props.role,
-                        })}}
-                    >
-                        <Text style={styles.email_reg}>
-                            Либо вы можете зарегистрироваться по{"\n"}почте
-                        </Text>
-                    </TouchableOpacity>
-                </KeyboardAwareScrollView>
-            </View>
-            <View style={styles.button_box}>
-                <CustomButton
-                    disabled={value.length < 5}
-                    title={'Продолжить'}
-                    buttonStyles={{backgroundColor: value.length < 5 ? '#C6B1FF' : color1}}
-                    onPress={handleSetPhoneNumber}
-                />
-            </View>
-        </Container>
+            </Container>
+        </View>
+
     );
 };
 
@@ -132,15 +138,20 @@ const styles = StyleSheet.create({
     phone_input: {
         backgroundColor: color2,
         padding: 15,
-        borderRadius: 30
+        borderRadius: 10
     },
     button_box: {
         marginBottom: 15
     },
-    email_reg:{
-        textDecorationLine: "underline",
-        textDecorationColor: '#7454CF',
-        color: '#7454CF',
-        textAlign: "center"
+    email_reg: {
+        textAlign: "center",
+        color: '#797979',
+        width: '100%'
+    },
+    email_reg_box: {
+        height: 20,
+        marginTop: 15,
+        flexDirection: 'row',
+        justifyContent: 'center'
     }
 })

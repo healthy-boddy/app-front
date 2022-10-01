@@ -43,7 +43,7 @@ const FormattingExample = ({handleSend}: {handleSend: any}) => {
 export default FormattingExample;
 
 const styles = StyleSheet.create({
-    root: {flex: 1, padding: 20},
+    root: {flex: 1, paddingVertical: 20},
     title: {textAlign: 'center', fontSize: 30},
     codeFieldRoot: {marginTop: 20},
     cell: {

@@ -7,7 +7,8 @@ import {
     EnterSexScreen,
     EnterAgeScreen,
     EnterRateScreen,
-    EnterWeightScreen
+    EnterWeightScreen,
+    OnBoarding
 } from '../../screens/ClientScreens/AuthScreens'
 
 function EnterSex() {
@@ -24,11 +25,18 @@ function EnterWeight() {
     return <EnterWeightScreen/>
 }
 
+function OnBoardingScreen() {
+    return <OnBoarding/>
+}
+
 export default function ClientVerifyNavigations() {
     return (
-            <Stack.Navigator  screenOptions={{
+            <Stack.Navigator
+                screenOptions={{
                 headerShown: false
             }}>
+                <Stack.Screen name={'OnBoarding'} component={OnBoardingScreen}/>
+
                 <Stack.Screen name={'EnterSex'} component={EnterSex}/>
 
                 <Stack.Screen name={'EnterAge'} component={EnterAge}/>
@@ -36,6 +44,7 @@ export default function ClientVerifyNavigations() {
                 <Stack.Screen name={'EnterWeight'} component={EnterWeight}/>
 
                 <Stack.Screen name={'EnterRate'} component={EnterRate}/>
+
 
             </Stack.Navigator>
     );

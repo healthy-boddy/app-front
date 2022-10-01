@@ -30,7 +30,8 @@ function CreateAccount({route}: any) {
 function PinCode({route}: any) {
     const email_name = route?.params?.email_name
     const phone_number = route?.params?.phone_number
-    return <PinCodeScreen phone_number={phone_number} email_name={email_name}/>
+    const role = route?.params?.role
+    return <PinCodeScreen role={role} phone_number={phone_number} email_name={email_name}/>
 }
 
 function Login() {

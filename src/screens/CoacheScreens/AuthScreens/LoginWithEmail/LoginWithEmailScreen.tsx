@@ -36,10 +36,6 @@ const LoginWithEmailScreen = (props: any) => {
         }
     }
 
-    function handleBack() {
-
-    }
-
     return (
         <Container containerProp={styles.inlineContainer}>
             <View style={{marginTop: -20}}>

@@ -20,11 +20,12 @@ const EnterWeightScreen = () => {
     let form = useSelector((store: any) => store.auth_data.formData)
 
     let user_data = useSelector((store: any) => store.user_data.user_data)
-    console.log(user_data, 'user)data')
-    console.log(form, 'form form')
+   //  console.log(user_data, 'user)data')
+   //  console.log(form, 'form form')
 
     const [number, setNumber] = useState('')
-    console.log(number, 'number')
+
+    // console.log(number, 'number')
 
     useEffect(() => {
         AsyncStorage.getItem('userToken').then(r => setUserToken(r))
@@ -55,25 +56,28 @@ const EnterWeightScreen = () => {
     }
 
     return (
-        <ClientContainer>
-            <View>
-                <BackButton onPress={() => {
-                    navigation.navigate('EnterAge')
-                }}/>
-            </View>
-            <View style={{width: '100%'}}>
-                <View style={{alignItems: 'center'}}>
+        <View style={{flex: 1}}>
+
+            <ClientContainer>
+                <View>
+                    <BackButton onPress={() => {
+                        navigation.navigate('EnterAge')
+                    }}/>
+                </View>
+                <View style={{width: '100%'}}>
+                    <View style={{alignItems: 'center'}}>
+                        <Title>
+                            3 из 4
+                        </Title>
+                    </View>
+                    <StatusBar activeWidth={{width: '75%'}}/>
+                </View>
+                <View style={{alignItems: 'center', marginVertical: 25}}>
                     <Title>
-                        3 из 4
+                        Ваш Вес
                     </Title>
                 </View>
-                <StatusBar activeWidth={{width: '75%'}}/>
-            </View>
-            <View style={{alignItems: 'center', marginVertical: 25}}>
-                <Title>
-                    Ваш Вес
-                </Title>
-            </View>
+            </ClientContainer>
             <View style={{flex: 1, alignItems: 'center'}}>
                 <WheelPickerExpo
                     height={300}
@@ -85,13 +89,17 @@ const EnterWeightScreen = () => {
                     selectedStyle={{borderWidth: 1}}
                 />
             </View>
-            <View style={{marginBottom: 25}}>
-                <CustomButton
-                    title={'Продолжить'}
-                    onPress={handleUpdateUserDate}
-                />
-            </View>
-        </ClientContainer>
+            <ClientContainer>
+                <View style={{flex: 1}}/>
+                <View style={{marginBottom: 25}}>
+                    <CustomButton
+                        title={'Продолжить'}
+                        onPress={handleUpdateUserDate}
+                    />
+                </View>
+            </ClientContainer>
+        </View>
+
     );
 };
 

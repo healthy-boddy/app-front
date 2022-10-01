@@ -1,12 +1,26 @@
 import React from 'react';
-import {TextInput, StyleSheet, View} from "react-native";
+import {TextInput, StyleSheet, View, TouchableOpacity} from "react-native";
 import {color2} from "../helpers/colors";
+import Delete from "../assets/Icons/Delete";
 
 const CustomInput = (props: any) => {
-    const {onChangeText, placeholder} = props
+    const {onChangeText, placeholder, value} = props
     return (
         <View style={styles.input_box}>
-            <TextInput onChangeText={onChangeText} placeholder={placeholder} style={styles.input}/>
+            <View>
+                <TextInput
+                    value={value}
+                    onChangeText={onChangeText}
+                    placeholder={placeholder}
+                    style={styles.input}/>
+            </View>
+            {props.delete && <TouchableOpacity
+                activeOpacity={0.6}
+                style={styles.delete}
+                onPress={props.onPressDelete}
+            >
+                <Delete/>
+            </TouchableOpacity>}
         </View>
     );
 };
@@ -14,12 +28,20 @@ const CustomInput = (props: any) => {
 export default CustomInput;
 const styles = StyleSheet.create({
     input_box: {
-        borderRadius: 30,
+        borderRadius: 15,
         backgroundColor: color2,
         paddingVertical: 12,
-        paddingLeft: 15
+        paddingLeft: 15,
+        flexDirection: 'row',
+        justifyContent: "space-between",
+        width: '100%'
     },
     input:{
-        fontSize: 16
+        fontSize: 16,
+        width: 300,
+    },
+    delete:{
+        top: 5,
+        marginRight: 20
     }
 })
