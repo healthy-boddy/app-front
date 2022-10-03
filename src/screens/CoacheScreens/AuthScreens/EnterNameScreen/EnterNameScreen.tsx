@@ -179,6 +179,7 @@ const EnterNameScreen = () => {
                         fontSize: 16,
                         textAlign: "left",
                         color: "#1E1E1E",
+                        width: 400,
                       }}
                     />
                     {name.length > 0 && (
@@ -240,9 +241,6 @@ const EnterNameScreen = () => {
               </TouchableOpacity>
             ))}
           </View>
-        </View>
-        <View>
-          <CustomButton onPress={handleSetNameAvatar} title={"Продолжить"} />
         </View>
       </KeyboardAwareScrollView>
     </WrapperPage>

@@ -8,9 +8,12 @@ import {useNavigation} from "@react-navigation/native";
 import {color1, color2, color3} from "../../../../helpers/colors";
 import CustomButton from "../../../../components/CustomButton";
 import Checked from "../../../../assets/Icons/Checked";
+import {useDispatch} from "react-redux";
+import {isLogged} from "../../../../store/actions/is_logged";
 
 const EnterRateScreen = () => {
     const navigation: any = useNavigation();
+    const dispatch = useDispatch()
     const data = [
         {
             title: 'Стандарт',
@@ -27,7 +30,9 @@ const EnterRateScreen = () => {
             price: 'от 45 000 руб'
         },
     ]
-
+    function handleMainScreen(){
+        dispatch(isLogged(true))
+    }
     return (
         <ClientContainer>
             <View style={{flex: 1}}>
@@ -142,6 +147,7 @@ const EnterRateScreen = () => {
                                 marginBottom: 25
                         }}
                             title={'Бессплатный старт 5 дней'}
+                            onPress={handleMainScreen}
                         />
                     </View>
                 </ScrollView>

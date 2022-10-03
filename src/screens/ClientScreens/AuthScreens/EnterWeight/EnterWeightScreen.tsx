@@ -21,7 +21,7 @@ const EnterWeightScreen = () => {
 
     let user_data = useSelector((store: any) => store.user_data.user_data)
    //  console.log(user_data, 'user)data')
-   //  console.log(form, 'form form')
+    console.log(form, 'form form')
 
     const [number, setNumber] = useState('')
 
@@ -37,8 +37,9 @@ const EnterWeightScreen = () => {
         try {
             const response = await axios.put(baseUrl + '/client/update_me/', {
                 body: {
-                    gender: 'male',
-                    weight: '24'
+                    gender: form._parts[0][1],
+                    weight: form._parts[1][1],
+                    birthday: form._parts[2][1]
                 }
             }, {
                 headers: {

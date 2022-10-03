@@ -10,6 +10,7 @@ import {baseUrl} from "../../../../helpers/url";
 import {useNavigation} from "@react-navigation/native";
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
 import CustomInput from "../../../../components/CustomInput";
+import {WrapperPage} from "../../../../components/core/wrapper";
 
 const EmailRegistration = (props: any) => {
     const navigation: any = useNavigation();
@@ -52,37 +53,37 @@ const EmailRegistration = (props: any) => {
     console.log(props.role, 'props-role-in-emailregistrationscreen')
 
     return (
-        <Container containerProp={styles.inlineContainer}>
-            <BackButton onPress={() => {
+        <WrapperPage
+            buttonTitle={'Продолжить'}
+            onPressButton={handleSendEmail}
+            onPressBack={() => {
                 navigation.navigate('CreateAccount', {role: props.role, email_name: email})
-            }}/>
-            <KeyboardAwareScrollView>
-                <View style={{marginTop: 25}}>
-                    <Title>
-                        Введите свой Email
-                    </Title>
-                    <Text style={{marginTop: 20, color: '#8B8B8B'}}>
-                        Мы отправим письмо с кодом подтверждения на ваш Email
-                    </Text>
-                </View>
-                <View style={{flex: 1}}>
-                    <View style={{marginTop: 30}}>
-                        <CustomInput
-                            placeholder={'Введите почту'}
-                            onChangeText={sendEmail}
-                            value={email}
-                        />
+            }}
+        >
+                <KeyboardAwareScrollView
+                    showsVerticalScrollIndicator={false}
+                    scrollEnabled={false}
+                    style={{ width: "100%", paddingHorizontal: 16 }}
+                >
+                    <View style={{marginTop: 25}}>
+                        <Title>
+                            Введите свой Email
+                        </Title>
+                        <Text style={{marginTop: 20, color: '#8B8B8B'}}>
+                            Мы отправим письмо с кодом подтверждения на ваш Email
+                        </Text>
                     </View>
-                </View>
-            </KeyboardAwareScrollView>
-
-            <View style={{marginBottom: 25}}>
-                <CustomButton
-                    onPress={handleSendEmail}
-                    title={"Продолжить"}
-                />
-            </View>
-        </Container>
+                    <View style={{flex: 1}}>
+                        <View style={{marginTop: 30}}>
+                            <CustomInput
+                                placeholder={'Введите почту'}
+                                onChangeText={sendEmail}
+                                value={email}
+                            />
+                        </View>
+                    </View>
+                </KeyboardAwareScrollView>
+        </WrapperPage>
 
     );
 };

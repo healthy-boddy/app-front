@@ -11,6 +11,7 @@ import axios from "axios";
 import Title from "../../../../components/Title";
 import {baseUrl} from "../../../../helpers/url";
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
+import {WrapperPage} from "../../../../components/core/wrapper";
 
 const CreateAccountScreen = (props: any) => {
     console.log(props?.role, 'props-role')
@@ -56,15 +57,17 @@ const CreateAccountScreen = (props: any) => {
     }
 
     return (
-        <View style={{flex: 1}}>
-            <Container containerProp={styles.inline_container}>
-                <View>
-                    <BackButton onPress={() => {
-                        navigation.navigate("EnterName")
-                    }}/>
-                </View>
+        <WrapperPage
+            onPressBack={()=>{navigation.navigate("EnterName")}}
+            buttonTitle={"Продолжить"}
+            onPressButton={handleSetPhoneNumber}
+        >
+            <KeyboardAwareScrollView
+                showsVerticalScrollIndicator={false}
+                scrollEnabled={false}
+                style={{ width: "100%", paddingHorizontal: 16 }}
+            >
                 <View style={{flex: 1}}>
-                    <KeyboardAwareScrollView>
                         <View>
                             <Title titlePropStyle={{marginTop: 25}}>
                                 Введите свой телефон
@@ -102,18 +105,9 @@ const CreateAccountScreen = (props: any) => {
                             <Text style={{marginHorizontal: 3, color: color1}}>зарегистрируйтесь</Text>
                             <Text>по почте</Text>
                         </TouchableOpacity>
-                    </KeyboardAwareScrollView>
                 </View>
-                <View style={styles.button_box}>
-                    <CustomButton
-                        disabled={value.length < 5}
-                        title={'Продолжить'}
-                        buttonStyles={{backgroundColor: value.length < 5 ? '#C6B1FF' : color1}}
-                        onPress={handleSetPhoneNumber}
-                    />
-                </View>
-            </Container>
-        </View>
+            </KeyboardAwareScrollView>
+        </WrapperPage>
 
     );
 };
