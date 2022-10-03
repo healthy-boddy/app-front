@@ -1,21 +1,19 @@
 import React, { FC, ReactNode } from "react";
 import { SafeAreaView, View } from "react-native";
+import BackButton from "../../../../../../components/BackButton";
+import CustomButton from "../../../../../../components/CustomButton";
 import { styles } from "./wrapper-styles";
-import BackButton from "../../BackButton";
-import CustomButton from "../../CustomButton";
 
-interface ButtonWrapperPageInterface {
-  onPressBack?: () => void;
-  onPressButton: () => void;
+interface ButtonWrapper {
+  onPressBack: () => void;
+  footer: ReactNode;
   children: ReactNode;
-  buttonTitle: string;
 }
 
-export const WrapperPage: FC<ButtonWrapperPageInterface> = ({
+export const WrapperPinCode: FC<ButtonWrapper> = ({
   onPressBack,
   children,
-  onPressButton,
-  buttonTitle,
+  footer,
 }) => {
   return (
     <View style={styles.container}>
@@ -27,10 +25,7 @@ export const WrapperPage: FC<ButtonWrapperPageInterface> = ({
         <BackButton onPress={onPressBack} />
       </SafeAreaView>
       <View style={styles.bodyContainer}>{children}</View>
-
-      <View style={styles.footerContainer}>
-        <CustomButton onPress={onPressButton} title={buttonTitle} />
-      </View>
+      <View style={styles.footerContainer}>{footer}</View>
     </View>
   );
 };
