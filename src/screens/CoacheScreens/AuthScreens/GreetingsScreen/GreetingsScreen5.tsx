@@ -300,7 +300,7 @@ const styles = StyleSheet.create({
         backgroundColor: color2,
         padding: 12,
         marginBottom: 15,
-        borderRadius: 30,
+        borderRadius: 12,
         maxHeight: 300,
         borderWidth: 2,
         flexDirection: 'row',

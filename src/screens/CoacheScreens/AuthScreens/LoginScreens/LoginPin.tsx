@@ -46,8 +46,6 @@ const LoginPin = (props: any) => {
     };
   }, [time]);
 
-  console.log(props.email, "email_or_phone");
-
   async function handleReSendPin() {
     let form = new FormData();
     form.append("email", props.email);

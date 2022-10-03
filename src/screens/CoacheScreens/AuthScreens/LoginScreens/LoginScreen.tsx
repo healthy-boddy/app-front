@@ -44,7 +44,7 @@ const LoginScreen = () => {
   return (
     <WrapperPage
       onPressBack={() => {
-        navigation.navigate("EnterName");
+        navigation.navigate("Welcome");
       }}
       buttonTitle={"Продолжить"}
       onPressButton={handleLogin}
@@ -87,7 +87,7 @@ const LoginScreen = () => {
         <TouchableOpacity
           activeOpacity={0.6}
           onPress={() => {
-            navigation.navigate("EmailReg");
+            navigation.navigate("LoginEmail");
           }}
         >
           <Text
