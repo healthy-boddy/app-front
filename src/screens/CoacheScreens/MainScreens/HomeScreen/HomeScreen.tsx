@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text, StyleSheet, Image} from "react-native";
 import MainContainer from "../../../../components/MainContainer";
 import {useNavigation} from "@react-navigation/native";
@@ -9,15 +9,31 @@ import Title from "../../../../components/Title";
 import CustomButton from "../../../../components/CustomButton";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {deleteUserBio, deleteUserToken} from "../../../../store/actions/user_token";
-import {deleteUserData} from "../../../../store/actions/user_data";
+import {deleteUserData, setUserData} from "../../../../store/actions/user_data";
+import axios from "axios";
+import {baseUrl} from "../../../../helpers/url";
 
 const HomeScreen = () => {
     const dispatch = useDispatch()
     const navigation: any = useNavigation();
-    let user_data = useSelector((store: any) => store.user_data?.user_data)
-    console.log(user_data, 'from home screen')
+    let AuthToken = useSelector((store: any) => store.user_token.user_token)
+    const [userDate, setUserDate] = useState<any>([])
+    console.log(AuthToken, 'from home screen')
 
-
+    useEffect(() => {
+        axios
+            .get(baseUrl + "/me/", {
+                headers: {
+                    Authorization: "Bearer " + AuthToken,
+                },
+            }).then((res) => {
+            setUserDate(res.data)
+        })
+            .catch((e) => {
+                console.log(e.message, "error while getting my profile");
+            });
+    }, [])
+    console.log(userDate, 'userDate')
     const logout = async () => {
         await AsyncStorage.removeItem('userToken');
         dispatch(deleteUserToken());
@@ -29,19 +45,19 @@ const HomeScreen = () => {
             <View style={styles.user_data}>
                 <View style={{flexDirection: 'row', marginTop: 25}}>
                     <View>
-                        <Image style={styles.image} source={{uri: user_data.photo}}/>
+                        <Image style={styles.image} source={{uri: userDate.photo}}/>
                     </View>
                     <Text style={styles.username}>
-                        {user_data?.user?.username}
+                        {userDate?.user?.username}
                     </Text>
                 </View>
                 <View style={{top: 15}}>
-                    <BellIcon/>
+                    <BellIcon fill={"#797979"}/>
                 </View>
             </View>
             <View style={{marginTop: 10}}>
                 <Title>
-                    Добрый день {user_data?.user?.username}
+                    Добрый день {userDate?.user?.username}
                 </Title>
             </View>
             <View style={{justifyContent: 'center', alignItems: 'center', flex: 1,}}>
@@ -78,11 +94,10 @@ const styles = StyleSheet.create({
         height: 50,
         borderRadius: 50
     },
-    username:{
+    username: {
         marginLeft: 15,
         top: 15,
         fontSize: 16,
-        color: color1
     }
 })
 

@@ -60,6 +60,7 @@ const App = () => {
           } else if (res.data.user.role === "client") {
             setRole(res.data.user.role);
           }
+          returnStacks()
         })
         .catch((e) => {
           console.log(e.message, "error while getting my profile");
@@ -71,17 +72,14 @@ const App = () => {
     setBio(bioFromReducer);
   }, [bioFromReducer]);
 
-  console.log(
-    { bioFromReducer },
-    "bioFromReducer && user_data?.user?.role",
-    user_data?.user?.role
-  );
-  console.log(bio, "RRRR");
-  console.log(user_data, "user_datauser_data");
+  // console.log({ bioFromReducer }, "bioFromReducer && user_data?.user?.role", user_data?.user?.role);
+  // console.log(bio, "RRRR");
+  // console.log(user_data, "user_datauser_data");
 
   const returnStacks = () => {
     if (tokenFromReducer) {
       if (user_data?.user?.role === "coach" && !bio) {
+        console.log('CoachVerify')
         return <CoachVerify />;
       } else if (bio) {
         console.log(333);
@@ -101,8 +99,8 @@ const App = () => {
 
   return (
     <NavigationContainer>
-      {/*{returnStacks()}*/}
-      <SignInFlow />
+      {returnStacks()}
+      {/*<SignInFlow />*/}
     </NavigationContainer>
   );
 };

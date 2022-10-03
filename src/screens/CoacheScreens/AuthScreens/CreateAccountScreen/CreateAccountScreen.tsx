@@ -20,16 +20,16 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import { WrapperPage } from "../../../../components/core/wrapper";
 
 const CreateAccountScreen = (props: any) => {
-  console.log(props?.role, "props-role");
   const navigation: any = useNavigation();
   const [value, setValue] = useState<string>("");
-
+  let role = useSelector((store: any) => store.auth_data.userRole)
+  console.log(role, 'role-from-number-screen');
   function onPressFlag() {
     return false;
   }
 
   let form = useSelector((store: any) => store.auth_data.formData);
-  console.log(props.role, "ROLE");
+  console.log(form, 'formmm')
 
   async function handleSetPhoneNumber() {
     let phoneForm = new FormData();
@@ -37,7 +37,7 @@ const CreateAccountScreen = (props: any) => {
     form.append("phone_number", value);
     try {
       const response = await axios.post(
-        baseUrl + "/" + props?.role + "/",
+        baseUrl + "/" + role + "/",
         form,
         {
           headers: {
@@ -105,9 +105,7 @@ const CreateAccountScreen = (props: any) => {
           activeOpacity={0.6}
           style={styles.email_reg_box}
           onPress={() => {
-            navigation.navigate("EmailReg", {
-              role: props.role,
-            });
+            navigation.navigate("EmailReg");
           }}
         >
           <Text

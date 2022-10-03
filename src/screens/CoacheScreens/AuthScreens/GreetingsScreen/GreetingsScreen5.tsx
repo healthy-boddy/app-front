@@ -14,6 +14,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import ErrorPopUp from "../../../../components/ErrorPopUp";
 import {baseUrl} from "../../../../helpers/url";
 import {setUserBio} from "../../../../store/actions/user_token";
+import {setUserData} from "../../../../store/actions/user_data";
 
 const GreetingsScreen5 = () => {
     const navigation: any = useNavigation();
@@ -153,7 +154,6 @@ const GreetingsScreen5 = () => {
             setPhotoValid(true)
             setEducationValid(true)
             setResumeValid(true)
-            //navigation.navigate('Greetings6')
             console.log(data, 'sended-all');
             dispatch(setUserBio(data.bio));
         } catch (error) {

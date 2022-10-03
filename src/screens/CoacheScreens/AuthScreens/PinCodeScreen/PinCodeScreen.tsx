@@ -27,6 +27,7 @@ const PinCodeScreen = (props: any) => {
   let [validPin, setValidPin] = useState(true);
   const dispatch = useDispatch();
   let form = useSelector((store: any) => store.auth_data.formData);
+  let role = useSelector((store: any) => store.auth_data.userRole)
 
   const [resendPin, setResendPin] = useState(false);
 
@@ -73,7 +74,7 @@ const PinCodeScreen = (props: any) => {
     await phoneForm.append("email", props.email_name);
     try {
       const response = await axios.post(
-        baseUrl + "/" + props?.role + "/",
+        baseUrl + "/" + role + "/",
         form,
         {
           headers: {
@@ -153,7 +154,7 @@ const PinCodeScreen = (props: any) => {
         {!resendPin ? (
           <Text
             style={{
-              textAlign: "left",
+              textAlign: "center",
               fontSize: 16,
               lineHeight: 20,
               fontWeight: "500",

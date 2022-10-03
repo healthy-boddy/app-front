@@ -13,7 +13,7 @@ import { color1, color2, color3 } from "../../../../helpers/colors";
 import CustomButton from "../../../../components/CustomButton";
 import * as ImagePicker from "expo-image-picker";
 import { useDispatch } from "react-redux";
-import { setFormData } from "../../../../store/actions/auth_data";
+import {setFormData, setUserRole} from "../../../../store/actions/auth_data";
 import Title from "../../../../components/Title";
 import ErrorPopUp from "../../../../components/ErrorPopUp";
 import { RadioButton } from "react-native-paper";
@@ -79,16 +79,10 @@ const EnterNameScreen = () => {
     setRoleValid(true);
     let form = new FormData();
     form.append("username", name);
-    console.log({ image });
     form.append("avatar", image);
     dispatch(setFormData(form));
-    navigation.navigate("CreateAccount", {
-      role: role,
-    });
-  }
-
-  function onPressDelete() {
-    setName("");
+    dispatch(setUserRole(role))
+    navigation.navigate("CreateAccount");
   }
 
   return (

@@ -23,15 +23,13 @@ function EnterName() {
 }
 
 function CreateAccount({route}: any) {
-    const role = route?.params?.role
-    return <CreateAccountScreen role={role}/>
+    return <CreateAccountScreen/>
 }
 
 function PinCode({route}: any) {
     const email_name = route?.params?.email_name
     const phone_number = route?.params?.phone_number
-    const role = route?.params?.role
-    return <PinCodeScreen role={role} phone_number={phone_number} email_name={email_name}/>
+    return <PinCodeScreen phone_number={phone_number} email_name={email_name}/>
 }
 
 function Login() {
@@ -39,8 +37,7 @@ function Login() {
 }
 
 function EmailReg({route}: any) {
-    const {role} = route?.params
-    return <EmailRegistration  role={role}/>
+    return <EmailRegistration/>
 }
 
 function LoginPin({route}: any) {
