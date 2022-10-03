@@ -22,29 +22,25 @@ import { WrapperPage } from "../../../../components/core/wrapper";
 const CreateAccountScreen = (props: any) => {
   const navigation: any = useNavigation();
   const [value, setValue] = useState<string>("");
-  let role = useSelector((store: any) => store.auth_data.userRole)
-  console.log(role, 'role-from-number-screen');
+  let role = useSelector((store: any) => store.auth_data.userRole);
+  console.log(role, "role-from-number-screen");
   function onPressFlag() {
     return false;
   }
 
   let form = useSelector((store: any) => store.auth_data.formData);
-  console.log(form, 'formmm')
+  console.log(form, "formmm");
 
   async function handleSetPhoneNumber() {
     let phoneForm = new FormData();
     phoneForm.append("phone_number", value);
     form.append("phone_number", value);
     try {
-      const response = await axios.post(
-        baseUrl + "/" + role + "/",
-        form,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      const response = await axios.post(baseUrl + "/" + role + "/", form, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
       console.log(response, "ыыыыыыыыыыыыы");
     } catch (error) {
       console.log(error);
@@ -80,13 +76,11 @@ const CreateAccountScreen = (props: any) => {
         style={{ width: "100%", paddingHorizontal: 16 }}
       >
         <View>
-          <Title>Введите свой телефон</Title>
+          <Title>Введите свой номер телефона</Title>
 
-          <View style={{ marginBottom: 15 }}>
-            <Text style={styles.set_sms}>
-              Мы отправим SMS с кодом подтверждения на Ваш новый номер
-            </Text>
-          </View>
+          <Text style={styles.set_sms}>
+            Мы отправим SMS с кодом подтверждения на Ваш новый номер
+          </Text>
         </View>
 
         <View>
@@ -103,24 +97,23 @@ const CreateAccountScreen = (props: any) => {
         </View>
         <TouchableOpacity
           activeOpacity={0.6}
-          style={styles.email_reg_box}
           onPress={() => {
             navigation.navigate("EmailReg");
           }}
         >
           <Text
             style={{
-              color: "#797979",
+              color: "#7454CF",
               fontSize: 16,
-              fontWeight: "500",
-              lineHeight: 20,
+              fontWeight: "600",
+              lineHeight: 19,
+              textDecorationLine: "underline",
+              alignSelf: "center",
+              marginTop: 24,
+              textAlign: "center",
             }}
           >
-            Либо{` `}
-            <Text style={{ marginHorizontal: 3, color: color1 }}>
-              зарегистрируйтесь
-            </Text>
-            <Text> по почте</Text>
+            Либо вы можете зарегистрироваться по почте
           </Text>
         </TouchableOpacity>
       </KeyboardAwareScrollView>
@@ -142,10 +135,11 @@ const styles = StyleSheet.create({
   },
   set_sms: {
     color: "#797979",
-    marginTop: 8,
+    marginTop: 41,
     fontSize: 16,
     fontWeight: "400",
     lineHeight: 20,
+    marginBottom: 34,
   },
   phone_input: {
     backgroundColor: "#F5F4F8",

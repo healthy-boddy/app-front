@@ -14,6 +14,7 @@ const CustomInput = (props: any) => {
           placeholder={placeholder}
           style={styles.input}
           placeholderTextColor={"#797979"}
+          autoCorrect={false}
         />
       </View>
       {props.delete && (

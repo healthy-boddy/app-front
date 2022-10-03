@@ -27,7 +27,7 @@ const PinCodeScreen = (props: any) => {
   let [validPin, setValidPin] = useState(true);
   const dispatch = useDispatch();
   let form = useSelector((store: any) => store.auth_data.formData);
-  let role = useSelector((store: any) => store.auth_data.userRole)
+  let role = useSelector((store: any) => store.auth_data.userRole);
 
   const [resendPin, setResendPin] = useState(false);
 
@@ -73,15 +73,11 @@ const PinCodeScreen = (props: any) => {
     let phoneForm = new FormData();
     await phoneForm.append("email", props.email_name);
     try {
-      const response = await axios.post(
-        baseUrl + "/" + role + "/",
-        form,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      const response = await axios.post(baseUrl + "/" + role + "/", form, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
       console.log(response.data, "resended-pin1");
     } catch (error) {
       console.log(error);
@@ -156,49 +152,67 @@ const PinCodeScreen = (props: any) => {
             style={{
               textAlign: "center",
               fontSize: 16,
-              lineHeight: 20,
-              fontWeight: "500",
+              lineHeight: 19,
+              fontWeight: "700",
               color: "#797979",
             }}
           >
-            Получить новый код можно через {time} сек.
+            Получить новый код можно через{" "}
+            <Text
+              style={{
+                color: "#7454CF",
+              }}
+            >
+              {time} сек.
+            </Text>
           </Text>
         ) : (
-          <CustomButton
-            title={"Получить новый код"}
-            onPress={handleSendEmail}
-          />
+          <TouchableOpacity activeOpacity={0.6} onPress={handleSendEmail}>
+            <Text
+              style={{
+                color: "#7454CF",
+                fontSize: 16,
+                fontWeight: "600",
+                lineHeight: 19,
+                textDecorationLine: "underline",
+                alignSelf: "center",
+                textAlign: "center",
+              }}
+            >
+              Получить новый код
+            </Text>
+          </TouchableOpacity>
         )}
 
-        <TouchableOpacity
-          activeOpacity={0.6}
-          style={{
-            height: 20,
-            marginTop: 15,
-            flexDirection: "row",
-            justifyContent: "center",
-          }}
-          onPress={() => {
-            navigation.navigate("EmailReg", {
-              role: props.role,
-            });
-          }}
-        >
-          <Text
-            style={{
-              color: "#797979",
-              fontSize: 16,
-              fontWeight: "500",
-              lineHeight: 20,
-            }}
-          >
-            Либо{` `}
-            <Text style={{ marginHorizontal: 3, color: color1 }}>
-              зарегистрируйтесь
-            </Text>
-            <Text> по почте</Text>
-          </Text>
-        </TouchableOpacity>
+        {/*<TouchableOpacity*/}
+        {/*  activeOpacity={0.6}*/}
+        {/*  style={{*/}
+        {/*    height: 20,*/}
+        {/*    marginTop: 15,*/}
+        {/*    flexDirection: "row",*/}
+        {/*    justifyContent: "center",*/}
+        {/*  }}*/}
+        {/*  onPress={() => {*/}
+        {/*    navigation.navigate("EmailReg", {*/}
+        {/*      role: props.role,*/}
+        {/*    });*/}
+        {/*  }}*/}
+        {/*>*/}
+        {/*  <Text*/}
+        {/*    style={{*/}
+        {/*      color: "#797979",*/}
+        {/*      fontSize: 16,*/}
+        {/*      fontWeight: "500",*/}
+        {/*      lineHeight: 20,*/}
+        {/*    }}*/}
+        {/*  >*/}
+        {/*    Либо{` `}*/}
+        {/*    <Text style={{ marginHorizontal: 3, color: color1 }}>*/}
+        {/*      зарегистрируйтесь*/}
+        {/*    </Text>*/}
+        {/*    <Text> по почте</Text>*/}
+        {/*  </Text>*/}
+        {/*</TouchableOpacity>*/}
       </KeyboardAwareScrollView>
     </WrapperPinCode>
   );
@@ -246,212 +260,3 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
 });
-
-// let pin2Ref = useRef(null)
-// let pin3Ref = useRef(null)
-// let pin4Ref = useRef(null)
-// const [pin1, setPin1] = useState('')
-// const [pin2, setPin2] = useState('')
-// const [pin3, setPin3] = useState('')
-// const [pin4, setPin4] = useState('')
-// const pin = pin1 + pin2 + pin3 + pin4
-
-{
-  /*<View style={styles.pin_input_box}>*/
-}
-{
-  /*    <View style={styles.pinInput}>*/
-}
-{
-  /*        <TextInput*/
-}
-{
-  /*            keyboardType="numeric"*/
-}
-{
-  /*            style={styles.input}*/
-}
-{
-  /*            maxLength={1}*/
-}
-{
-  /*            onChangeText={(pin1: any) => {*/
-}
-{
-  /*                setPin1(pin1)*/
-}
-{
-  /*                if (pin1 != '') {*/
-}
-{
-  /*                    // @ts-ignore*/
-}
-{
-  /*                    pin2Ref.current.focus()*/
-}
-{
-  /*                }*/
-}
-{
-  /*            }}*/
-}
-{
-  /*        />*/
-}
-{
-  /*    </View>*/
-}
-{
-  /*    <View>*/
-}
-
-{
-  /*    </View>*/
-}
-{
-  /*    <View style={styles.pinInput}>*/
-}
-{
-  /*        <TextInput*/
-}
-{
-  /*            keyboardType="numeric"*/
-}
-{
-  /*            style={styles.input}*/
-}
-{
-  /*            maxLength={1}*/
-}
-{
-  /*            ref={pin2Ref}*/
-}
-{
-  /*            onChangeText={(pin2: any) => {*/
-}
-{
-  /*                setPin2(pin2)*/
-}
-{
-  /*                if (pin2 != '') {*/
-}
-{
-  /*                    // @ts-ignore*/
-}
-{
-  /*                    pin3Ref.current.focus()*/
-}
-{
-  /*                }*/
-}
-{
-  /*            }}*/
-}
-{
-  /*        />*/
-}
-{
-  /*    </View>*/
-}
-{
-  /*    <View style={styles.pinInput}>*/
-}
-{
-  /*        <TextInput*/
-}
-{
-  /*            keyboardType="numeric"*/
-}
-{
-  /*            style={styles.input}*/
-}
-{
-  /*            maxLength={1}*/
-}
-{
-  /*            ref={pin3Ref}*/
-}
-{
-  /*            onChangeText={(pin3: any) => {*/
-}
-{
-  /*                setPin3(pin3)*/
-}
-{
-  /*                if (pin3 != '') {*/
-}
-{
-  /*                    // @ts-ignore*/
-}
-{
-  /*                    pin4Ref.current.focus()*/
-}
-{
-  /*                }*/
-}
-{
-  /*            }}*/
-}
-{
-  /*        />*/
-}
-{
-  /*    </View>*/
-}
-{
-  /*    <View style={styles.pinInput}>*/
-}
-{
-  /*        <TextInput*/
-}
-{
-  /*            keyboardType="numeric"*/
-}
-{
-  /*            style={styles.input}*/
-}
-{
-  /*            maxLength={1}*/
-}
-{
-  /*            ref={pin4Ref}*/
-}
-{
-  /*            onChangeText={(pin4: any) => {*/
-}
-{
-  /*                setPin4(pin4)*/
-}
-{
-  /*            }}*/
-}
-{
-  /*        />*/
-}
-{
-  /*    </View>*/
-}
-{
-  /*</View>*/
-}
-
-// async function handleSendPin() {
-//     const pinForm = new FormData()
-//     pinForm.append('email_or_phone', form._parts[2][1])
-//     pinForm.append('password', pin)
-//     console.log(pinForm)
-//     try {
-//         const response = await axios.post(baseUrl + '/token/', pinForm, {
-//             headers: {
-//                 'Content-Type': 'multipart/form-data'
-//             },
-//         })
-//         console.log(response, 'rrr')
-//         setValidPin(true)
-//         dispatch(setUserToken(response.data.access))
-//         await AsyncStorage.setItem('userToken', response.data.access)
-//     } catch (error) {
-//         setValidPin(false)
-//         console.log(error)
-//     }
-// }

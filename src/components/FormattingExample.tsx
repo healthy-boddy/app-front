@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { SafeAreaView, Text, StyleSheet } from "react-native";
+import { SafeAreaView, Text, StyleSheet, View } from "react-native";
 
 import {
   CodeField,
@@ -53,13 +53,13 @@ const styles = StyleSheet.create({
   codeFieldRoot: { marginTop: 10 },
   cell: {
     width: "20%",
-    height: 47,
+    height: 50,
     lineHeight: 38,
     fontSize: 20,
     borderWidth: 1,
     borderColor: "#F5F4F8",
     textAlign: "center",
-    borderRadius: 12,
+    borderRadius: 20,
     backgroundColor: "#F5F4F8",
     paddingTop: 2,
     color: "#797979",
