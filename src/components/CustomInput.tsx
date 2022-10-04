@@ -14,6 +14,9 @@ const CustomInput = (props: any) => {
           placeholder={placeholder}
           style={styles.input}
           placeholderTextColor={"#797979"}
+          textContentType="emailAddress"
+          keyboardType="email-address"
+          autoCapitalize="none"
           autoCorrect={false}
         />
       </View>

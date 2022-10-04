@@ -1,64 +1,117 @@
-import React from 'react';
+import React from "react";
 import Container from "../../../../components/Container";
 import BackButton from "../../../../components/BackButton";
-import {View, Text, StyleSheet} from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import CustomButton from "../../../../components/CustomButton";
-import {useNavigation} from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 import Title from "../../../../components/Title";
+import { WrapperPage } from "../../../../components/core/wrapper";
 
 const GreetingsScreen3 = () => {
-    const navigation: any = useNavigation();
-    return (
-        <Container containerProp={styles.inlineContainer}>
-            <View>
-                <BackButton onPress={()=>{navigation.navigate('Greetings2')}}/>
-            </View>
-            <View style={{marginTop: 25}}>
-                <Title titlePropStyle={{marginBottom: 5}}>
-                    Ваш план на ближайшую неделю:
-                </Title>
-                <Text>
-                    -Знакомство с продуктом{"\n"}
-                    {"\n"}
-                    -Обучение по продукту с методологом Ольгой Ивановой{"\n"}
-                    {"\n"}
-                    -Знакомство с командой и тестовое задание
-                </Text>
-            </View>
-            <View>
-                <Title titlePropStyle={{fontSize: 20, marginTop: 15, marginBottom: 5}}>
-                    Пройти путь клиента:
-                </Title>
-                <Text>
-                    - Первичный контакт с клиентом -видео + тестовое задание{"\n"}
-                    {"\n"}
-                    -с Ольгой Ивановой обсудите мотивацию, загруженность и график, методолог и руководитель всех Health
-                    Buddy.{"\n"}
-                    {"\n"}
-                </Text>
-            </View>
-            <View style={{flex: 1}}>
-                <Title titlePropStyle={{fontSize: 20}}>
-                    Cозвон с клиентом:
-                </Title>
-                <Text>
-                    -Коучинговые методики: мастермаинд с коллегами и тьютором (тестовое задание){"\n"}
-                    {"\n"}
-                    -Постановка целей и задач , долгосрочное ведение клиента (тестовое задание){"\n"}
-                    {"\n"}
-                </Text>
-            </View>
-            <View style={{marginBottom: 25}}>
-                <CustomButton onPress={()=>{navigation.navigate('Greetings4')}} title={"Продолжить"}/>
-            </View>
-        </Container>
-    );
+  const navigation: any = useNavigation();
+  return (
+    <WrapperPage
+      onPressBack={() => navigation.navigate("Greetings2")}
+      onPressButton={() => navigation.navigate("Greetings4")}
+      buttonTitle={"Продолжить"}
+    >
+      <View
+        style={{
+          paddingHorizontal: 16,
+        }}
+      >
+        <Text
+          style={{
+            fontWeight: "600",
+            fontSize: 24,
+            lineHeight: 28,
+            color: "#1E1E1E",
+            textAlign: "left",
+            alignSelf: "flex-start",
+          }}
+        >
+          Ваш план на ближайшую неделю:
+        </Text>
+        <Text
+          style={{
+            marginTop: 12,
+            fontWeight: "400",
+            fontSize: 16,
+            lineHeight: 20,
+            color: "#797979",
+          }}
+        >
+          -Знакомство с продуктом{"\n"}
+          -Обучение по продукту с методологом Ольгой Ивановой {"\n"}-Знакомство
+          с командой и тестовое задание
+        </Text>
+        <View>
+          <Text
+            style={{
+              fontWeight: "600",
+              fontSize: 19,
+              lineHeight: 22,
+              color: "#1E1E1E",
+              textAlign: "left",
+              alignSelf: "flex-start",
+              marginTop: 16,
+            }}
+          >
+            Ваш план на ближайшую неделю:
+          </Text>
+
+          <Text
+            style={{
+              marginTop: 12,
+              fontWeight: "400",
+              fontSize: 16,
+              lineHeight: 20,
+              color: "#797979",
+            }}
+          >
+            - Первичный контакт с клиентом -видео + тестовое задание{"\n"}
+            -с Ольгой Ивановой обсудите мотивацию, загруженность и график,
+            методолог и руководитель всех Health Buddy.{"\n"}
+          </Text>
+        </View>
+        <View style={{ flex: 1 }}>
+          <Text
+            style={{
+              fontWeight: "600",
+              fontSize: 19,
+              lineHeight: 22,
+              color: "#1E1E1E",
+              textAlign: "left",
+              alignSelf: "flex-start",
+              marginTop: 16,
+            }}
+          >
+            Cозвон с клиентом:
+          </Text>
+          <Text
+            style={{
+              marginTop: 12,
+              fontWeight: "400",
+              fontSize: 16,
+              lineHeight: 20,
+              color: "#797979",
+            }}
+          >
+            -Коучинговые методики: мастермаинд с коллегами и тьютором (тестовое
+            задание){"\n"}
+            -Постановка целей и задач , долгосрочное ведение клиента (тестовое
+            задание){"\n"}
+          </Text>
+        </View>
+      </View>
+    </WrapperPage>
+  );
 };
 
 export default GreetingsScreen3;
 const styles = StyleSheet.create({
-    inlineContainer: {
-        paddingHorizontal: 20,
-        paddingTop: 35
-    },
-})
+  inlineContainer: {
+    paddingHorizontal: 20,
+    paddingTop: 35,
+  },
+});

@@ -60,7 +60,7 @@ const App = () => {
           } else if (res.data.user.role === "client") {
             setRole(res.data.user.role);
           }
-          returnStacks()
+          returnStacks();
         })
         .catch((e) => {
           console.log(e.message, "error while getting my profile");
@@ -79,7 +79,7 @@ const App = () => {
   const returnStacks = () => {
     if (tokenFromReducer) {
       if (user_data?.user?.role === "coach" && !bio) {
-        console.log('CoachVerify')
+        console.log("CoachVerify");
         return <CoachVerify />;
       } else if (bio) {
         console.log(333);
@@ -97,11 +97,6 @@ const App = () => {
     }
   };
 
-  return (
-    <NavigationContainer>
-      {returnStacks()}
-      {/*<SignInFlow />*/}
-    </NavigationContainer>
-  );
+  return <NavigationContainer>{returnStacks()}</NavigationContainer>;
 };
 export default AppWrapper;
