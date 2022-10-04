@@ -7,6 +7,7 @@ import {
   TextInput,
   Pressable,
   TouchableOpacity,
+  Dimensions,
 } from "react-native";
 import Container from "../../../../components/Container";
 import BackButton from "../../../../components/BackButton";
@@ -231,26 +232,34 @@ const GreetingsScreen5 = () => {
               !checkBio && { borderColor: "red" },
             ]}
           >
-            <TextInput
-              style={{ width: "80%", color: "#1E1E1E" }}
-              value={bio}
-              onChangeText={setBio}
-              placeholder={"Написать"}
-              multiline={true}
-              placeholderTextColor={"#797979"}
-            />
+            <View
+              style={{
+                justifyContent: "space-between",
+                flexDirection: "row",
+                width: "100%",
+                alignItems: "center",
+              }}
+            >
+              <TextInput
+                style={{ color: "#1E1E1E" }}
+                value={bio}
+                onChangeText={setBio}
+                placeholder={"Написать"}
+                multiline={true}
+                placeholderTextColor={"#797979"}
+              />
 
-            {bio && (
-              <TouchableOpacity
-                activeOpacity={0.4}
-                style={{ marginTop: 5, right: 10 }}
-                onPress={() => {
-                  setBio("");
-                }}
-              >
-                <Delete />
-              </TouchableOpacity>
-            )}
+              {bio && (
+                <TouchableOpacity
+                  activeOpacity={0.4}
+                  onPress={() => {
+                    setBio("");
+                  }}
+                >
+                  <Delete />
+                </TouchableOpacity>
+              )}
+            </View>
           </View>
           <View>
             <View>
@@ -422,12 +431,13 @@ const styles = StyleSheet.create({
   input_box: {
     backgroundColor: "#F5F4F8",
     marginTop: 12,
-    padding: 12,
     borderRadius: 12,
     alignItems: "flex-start",
     paddingHorizontal: 16,
     paddingVertical: 14,
-    marginBottom: 12,
+    flexDirection: "row",
+    width: "100%",
+    maxWidth: Dimensions.get("screen").width - 32,
   },
   button_box: {
     marginVertical: 15,

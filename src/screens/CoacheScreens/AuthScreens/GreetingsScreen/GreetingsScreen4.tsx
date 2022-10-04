@@ -156,7 +156,6 @@ const styles = StyleSheet.create({
     borderRadius: 12,
   },
   input: {
-    maxHeight: "100%",
     color: "#1E1E1E",
   },
   button_box: {
