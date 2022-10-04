@@ -97,6 +97,8 @@ const App = () => {
     }
   };
 
-  return <NavigationContainer>{returnStacks()}</NavigationContainer>;
+  return <NavigationContainer>
+    {returnStacks()}
+  </NavigationContainer>;
 };
 export default AppWrapper;

@@ -8,7 +8,8 @@ import {
     EnterAgeScreen,
     EnterRateScreen,
     EnterWeightScreen,
-    OnBoarding
+    OnBoarding,
+    EnterRateSingleScreen
 } from '../../screens/ClientScreens/AuthScreens'
 
 function EnterSex() {
@@ -29,6 +30,11 @@ function OnBoardingScreen() {
     return <OnBoarding/>
 }
 
+function EnterRateSingle({route}: any) {
+    const status = route?.params.status
+    return <EnterRateSingleScreen status={status}/>
+}
+
 export default function ClientVerifyNavigations() {
     return (
             <Stack.Navigator
@@ -45,6 +51,7 @@ export default function ClientVerifyNavigations() {
 
                 <Stack.Screen name={'EnterRate'} component={EnterRate}/>
 
+                <Stack.Screen name={'EnterRateSingle'} component={EnterRateSingle}/>
 
             </Stack.Navigator>
     );

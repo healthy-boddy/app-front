@@ -93,7 +93,13 @@ const EnterRateScreen = () => {
                                 </Title>
                             </View>
                             <View style={{marginVertical: 14}}>
-                                <CustomButton buttonStyles={{backgroundColor: '#7454CF'}} title={"Подробнее"}/>
+                                <CustomButton
+                                    buttonStyles={{backgroundColor: '#7454CF'}}
+                                    title={"Подробнее"}
+                                    onPress={()=>{navigation.navigate('EnterRateSingle',{
+                                        status: true
+                                    })}}
+                                />
                             </View>
                         </View>
                     </View>
@@ -133,7 +139,14 @@ const EnterRateScreen = () => {
                                 </Title>
                             </View>
                             <View style={{marginVertical: 14}}>
-                                <CustomButton buttonStyles={{backgroundColor: '#7454CF'}} title={"Подробнее"}/>
+                                <CustomButton
+                                    buttonStyles={{backgroundColor: '#7454CF'}}
+                                    title={"Подробнее"}
+                                    onPress={()=>{navigation.navigate('EnterRateSingle',{
+                                        status: false
+                                    })}}
+
+                                />
                             </View>
                         </View>
                     </View>
