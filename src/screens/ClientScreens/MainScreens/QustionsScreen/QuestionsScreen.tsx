@@ -7,7 +7,6 @@ import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {ActivityIndicator, ProgressBar} from "react-native-paper";
 import {color1} from "../../../../helpers/colors";
-import Delete from "../../../../assets/Icons/Delete";
 
 const QuestionsScreen = () => {
     const navigation: any = useNavigation();
