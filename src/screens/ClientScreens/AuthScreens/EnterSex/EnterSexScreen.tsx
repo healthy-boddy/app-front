@@ -64,7 +64,16 @@ const EnterSexScreen = () => {
           {genderVerify && (
             <ErrorPopUp style={{ marginTop: 15 }} error={"Выберите пол"} />
           )}
-          <Title>1 из 4</Title>
+          <Text
+            style={{
+              color: "#1E1E1E",
+              fontWeight: "600",
+              fontSize: 19,
+              lineHeight: 22.67,
+            }}
+          >
+            1 из 4
+          </Text>
         </View>
         <StatusBar />
       </View>
