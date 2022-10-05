@@ -7,7 +7,8 @@ let Tab = createBottomTabNavigator();
 import {
     HomeScreen,
     ConditionScreen,
-    CalendarScreen
+    CalendarScreen,
+    QuestionsScreen
 } from "../../screens/ClientScreens/MainScreens";
 import HomeIcon from "./TabBarIcons/HomeIcon";
 import CalendarIcon from "./TabBarIcons/CalendarIcon";
@@ -21,6 +22,10 @@ function Calendar() {
 }
 function Condition() {
     return <ConditionScreen/>
+}
+
+function Questions() {
+    return <QuestionsScreen/>
 }
 
 export default function ClientMain(){
@@ -48,6 +53,11 @@ export default function ClientMain(){
                 ),
 
             }}/>
+            <Tab.Screen name='Questions' component={Questions}
+                        options={({route}) => ({
+                            tabBarButton: () => null,
+                            tabBarStyle: {display: 'none'},
+                        })}/>
         </Tab.Navigator>
     )
 }

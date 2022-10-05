@@ -5,8 +5,10 @@ import {useSelector} from "react-redux";
 import BellIcon from "../../../../assets/Icons/BellIcon";
 import Title from "../../../../components/Title";
 import CustomButton from "../../../../components/CustomButton";
+import {useNavigation} from "@react-navigation/native";
 
 const HomeScreen = () => {
+    const navigation: any = useNavigation();
     const user_data = useSelector((store: any) => store.user_data.user_data)
     console.log(user_data.user)
     return (
@@ -37,7 +39,7 @@ const HomeScreen = () => {
                 <Image source={require('../../AuthScreens/OnBoarding/OnBoardingImages/blob1.png')}/>
             </View>
             <View style={{marginBottom: 40}}>
-                <CustomButton title={"Пройти опрос"}/>
+                <CustomButton onPress={()=>{navigation.navigate("Questions")}} title={"Пройти опрос"}/>
             </View>
         </MainContainer>
     );
