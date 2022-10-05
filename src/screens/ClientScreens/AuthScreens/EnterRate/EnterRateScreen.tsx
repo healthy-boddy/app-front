@@ -1,217 +1,219 @@
-import React, {useState} from 'react';
-import {View, StyleSheet, Text, TouchableOpacity, FlatList, ScrollView} from "react-native";
+import React, { useState } from "react";
+import {
+  View,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  FlatList,
+  ScrollView,
+} from "react-native";
 import ClientContainer from "../../ClientScreenComponents/ClientContainer";
 import BackButton from "../../../../components/BackButton";
-import {RadioButton, Title} from "react-native-paper";
+import { RadioButton, Title } from "react-native-paper";
 import StatusBar from "../../ClientScreenComponents/StatusBar";
-import {useNavigation} from "@react-navigation/native";
-import {color1, color2, color3} from "../../../../helpers/colors";
+import { useNavigation } from "@react-navigation/native";
+import { color1, color2, color3 } from "../../../../helpers/colors";
 import CustomButton from "../../../../components/CustomButton";
 import Checked from "../../../../assets/Icons/Checked";
-import {useDispatch} from "react-redux";
-import {isLogged} from "../../../../store/actions/is_logged";
+import { useDispatch } from "react-redux";
+import { isLogged } from "../../../../store/actions/is_logged";
+import { WrapperRate } from "./wrapperRate/wrapper-rate";
 
 const EnterRateScreen = () => {
-    const navigation: any = useNavigation();
-    const dispatch = useDispatch()
-    const data = [
-        {
-            title: 'Стандарт',
-            includedAnalyzes: '46-159',
-            ScopeOfConsultations: '9-98',
-            EscortFreeze: '1 мес.',
-            price: 'от 45 000 руб'
-        },
-        {
-            title: 'Премиум',
-            includedAnalyzes: 'до 250',
-            ScopeOfConsultations: '∞',
-            EscortFreeze: '2 мес.',
-            price: 'от 45 000 руб'
-        },
-    ]
-    function handleMainScreen(){
-        dispatch(isLogged(true))
-    }
-    return (
-        <ClientContainer>
-            <View style={{flex: 1}}>
-                <View>
-                    <BackButton onPress={() => {
-                        navigation.navigate('EnterWeight')
-                    }}/>
-                </View>
-                <View style={{width: '100%'}}>
-                    <View style={{alignItems: 'center'}}>
-                        <Title>
-                            4 из 4
-                        </Title>
-                    </View>
-                    <StatusBar activeWidth={{width: '100%'}}/>
-                </View>
-                <View style={{marginVertical: 25}}>
-                    <Title>
-                        Выберите тариф
-                    </Title>
-                    <Text style={{marginTop: 10, color: '#8B8B8B'}}>
-                        Выберите подходящий для вас вариант и мы сразу с вами свяжимся.
-                    </Text>
-                </View>
-                <ScrollView style={{flex: 1}} showsVerticalScrollIndicator={false}>
-                    <View style={{flex: 1, paddingHorizontal: 25,}}>
-                        <View style={styles.item_box}>
-                            <View style={styles.item_title_box}>
-                                <Title>Стандарт</Title>
-                            </View>
-                            <View style={styles.item_param_box}>
-                                <Text>
-                                    Объем включенных анализов
-                                </Text>
-                                <Text style={styles.item_param_item}>
-                                    46-159
-                                </Text>
-                            </View>
-                            <View style={styles.item_param_box}>
-                                <Text>
-                                    Объем консультаций
-                                </Text>
-                                <Text style={styles.item_param_item}>
-                                    9-98
-                                </Text>
-                            </View>
-                            <View style={styles.item_param_box}>
-                                <Text>
-                                    Заморозка сопровождения
-                                </Text>
-                                <Text style={styles.item_param_item}>
-                                    1 мес.
-                                </Text>
-                            </View>
-                            <View style={styles.price_box}>
-                                <Title>
-                                    от 44 900 руб.
-                                </Title>
-                            </View>
-                            <View style={{marginVertical: 14}}>
-                                <CustomButton
-                                    buttonStyles={{backgroundColor: '#7454CF'}}
-                                    title={"Подробнее"}
-                                    onPress={()=>{navigation.navigate('EnterRateSingle',{
-                                        status: true
-                                    })}}
-                                />
-                            </View>
-                        </View>
-                    </View>
+  const navigation: any = useNavigation();
+  const dispatch = useDispatch();
+  const data = [
+    {
+      title: "Стандарт",
+      includedAnalyzes: "46-159",
+      ScopeOfConsultations: "9-98",
+      EscortFreeze: "1 мес.",
+      price: "от 45 000 руб",
+    },
+    {
+      title: "Премиум",
+      includedAnalyzes: "до 250",
+      ScopeOfConsultations: "∞",
+      EscortFreeze: "2 мес.",
+      price: "от 45 000 руб",
+    },
+  ];
+  function handleMainScreen() {
+    dispatch(isLogged(true));
+  }
+  return (
+    <WrapperRate
+      onPressBack={() => {
+        navigation.navigate("EnterWeight");
+      }}
+      footer={
+        <CustomButton
+          buttonTitle={{ color: color1 }}
+          buttonStyles={{
+            backgroundColor: "transparent",
+            borderWidth: 2,
+            borderColor: color1,
+            marginBottom: 25,
+          }}
+          title={"Бессплатный старт 5 дней"}
+          onPress={handleMainScreen}
+        />
+      }
+    >
+      <View
+        style={{
+          paddingHorizontal: 16,
+          width: "100%",
+        }}
+      >
+        <View style={{ width: "100%" }}>
+          <View style={{ alignItems: "center" }}>
+            <Title>4 из 4</Title>
+          </View>
 
-                    <View style={styles.premium_box}>
-                        <View style={[styles.item_box, {backgroundColor: '#E5DDFD', borderWidth: 0}]}>
-                            <View style={styles.item_title_box}>
-                                <Title>Премиум</Title>
-                            </View>
-                            <View style={styles.item_param_box}>
-                                <Text>
-                                    Объем включенных анализов
-                                </Text>
-                                <Text style={styles.item_param_item}>
-                                    до 250
-                                </Text>
-                            </View>
-                            <View style={styles.item_param_box}>
-                                <Text>
-                                    Объем консультаций
-                                </Text>
-                                <Text style={styles.item_param_item}>
-                                    ∞
-                                </Text>
-                            </View>
-                            <View style={styles.item_param_box}>
-                                <Text>
-                                    Заморозка сопровождения
-                                </Text>
-                                <Text style={styles.item_param_item}>
-                                    2 мес.
-                                </Text>
-                            </View>
-                            <View style={styles.price_box}>
-                                <Title>
-                                    от 180 900 руб.
-                                </Title>
-                            </View>
-                            <View style={{marginVertical: 14}}>
-                                <CustomButton
-                                    buttonStyles={{backgroundColor: '#7454CF'}}
-                                    title={"Подробнее"}
-                                    onPress={()=>{navigation.navigate('EnterRateSingle',{
-                                        status: false
-                                    })}}
+          <StatusBar activeWidth={{ width: "100%" }} />
+        </View>
+        <View style={{ marginVertical: 25 }}>
+          <Title>Выберите тариф</Title>
+          <Text style={{ marginTop: 10, color: "#8B8B8B" }}>
+            Выберите подходящий для вас вариант и мы сразу с вами свяжимся.
+          </Text>
+        </View>
+      </View>
 
-                                />
-                            </View>
-                        </View>
-                    </View>
-                    <View>
-                        <CustomButton
-                            buttonTitle={{color: color1}}
-                            buttonStyles={{
-                                backgroundColor: 'transparent',
-                                borderWidth: 2,
-                                borderColor: color1,
-                                marginBottom: 25
-                        }}
-                            title={'Бессплатный старт 5 дней'}
-                            onPress={handleMainScreen}
-                        />
-                    </View>
-                </ScrollView>
+      <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
+        <View style={{ flex: 1, paddingHorizontal: 25 }}>
+          <View style={styles.item_box}>
+            <View style={styles.item_title_box}>
+              <Text style={[styles.title]}>Премиум</Text>
             </View>
+            <View style={styles.item_param_box}>
+              <Text style={styles.textTitle}>Объем включенных анализов</Text>
+              <Text style={styles.item_param_item}>46-159</Text>
+            </View>
+            <View style={styles.item_param_box}>
+              <Text style={styles.textTitle}>Объем консультаций</Text>
+              <Text style={styles.item_param_item}>9-98</Text>
+            </View>
+            <View style={styles.item_param_box}>
+              <Text style={styles.textTitle}>Заморозка сопровождения</Text>
+              <Text style={styles.item_param_item}>1 мес.</Text>
+            </View>
+            <View style={styles.price_box}>
+              <Title>от 44 900 руб.</Title>
+            </View>
+            <View style={{ marginVertical: 14 }}>
+              <CustomButton
+                buttonStyles={{ backgroundColor: "#7454CF" }}
+                title={"Подробнее"}
+                onPress={() => {
+                  navigation.navigate("EnterRateSingle", {
+                    status: true,
+                  });
+                }}
+              />
+            </View>
+          </View>
+        </View>
 
-        </ClientContainer>
-    );
+        <View style={styles.premium_box}>
+          <View
+            style={[
+              styles.item_box,
+              { backgroundColor: "#E5DDFD", borderWidth: 0 },
+            ]}
+          >
+            <View style={styles.item_title_box}>
+              <Text style={[styles.title, { color: "#7454CF" }]}>Премиум</Text>
+            </View>
+            <View style={styles.item_param_box}>
+              <Text style={styles.textTitle}>Объем включенных анализов</Text>
+              <Text style={styles.item_param_item}>до 250</Text>
+            </View>
+            <View style={styles.item_param_box}>
+              <Text style={styles.textTitle}>Объем консультаций</Text>
+              <Text style={styles.item_param_item}>∞</Text>
+            </View>
+            <View style={styles.item_param_box}>
+              <Text style={styles.textTitle}>Заморозка сопровождения</Text>
+              <Text style={styles.item_param_item}>2 мес.</Text>
+            </View>
+            <View style={styles.price_box}>
+              <Title>от 180 900 руб.</Title>
+            </View>
+            <View style={{ marginVertical: 14 }}>
+              <CustomButton
+                buttonStyles={{ backgroundColor: "#7454CF" }}
+                title={"Подробнее"}
+                onPress={() => {
+                  navigation.navigate("EnterRateSingle", {
+                    status: false,
+                  });
+                }}
+              />
+            </View>
+          </View>
+        </View>
+      </ScrollView>
+    </WrapperRate>
+  );
 };
 
 export default EnterRateScreen;
 
 const styles = StyleSheet.create({
-    title_box: {
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-    },
-    title_box_text: {
-        fontWeight: 'bold',
-        fontSize: 18,
-    },
-    item_box: {
-        width: '100%',
-        borderRadius: 20,
-        borderWidth: 2,
-        borderColor: color1,
-        paddingHorizontal: 20,
-    },
-    item_title_box: {
-        marginTop: 20,
-        marginBottom: 36
-    },
-    item_param_box: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        marginBottom: 16
-    },
-    item_param_item: {
-        fontWeight: "bold"
-    },
-    price_box: {
-        marginBottom: 24
-    },
-    premium_box:{
-        flex: 1,
-        paddingHorizontal: 25,
-        marginTop: 16,
-        marginBottom: 45
-    }
-
-})
-
+  title_box: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+  },
+  title_box_text: {
+    fontWeight: "bold",
+    fontSize: 18,
+  },
+  item_box: {
+    width: "100%",
+    borderRadius: 20,
+    borderWidth: 2,
+    borderColor: color1,
+    paddingHorizontal: 20,
+  },
+  item_title_box: {
+    marginTop: 20,
+    marginBottom: 36,
+  },
+  item_param_box: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 16,
+  },
+  item_param_item: {
+    fontWeight: "bold",
+    marginLeft: 8,
+  },
+  price_box: {
+    marginBottom: 24,
+  },
+  premium_box: {
+    flex: 1,
+    paddingHorizontal: 25,
+    marginTop: 16,
+    marginBottom: 45,
+  },
+  textTitle: {
+    fontWeight: "400",
+    fontSize: 16,
+    lineHeight: 20,
+    color: "#1E1E1E",
+    textAlign: "left",
+  },
+  title: {
+    fontWeight: "600",
+    fontSize: 24,
+    lineHeight: 28,
+    color: "#1E1E1E",
+    textAlign: "left",
+  },
+});
 
 // import React, {useState} from 'react';
 // import {View, StyleSheet, Text, TouchableOpacity, FlatList} from "react-native";
