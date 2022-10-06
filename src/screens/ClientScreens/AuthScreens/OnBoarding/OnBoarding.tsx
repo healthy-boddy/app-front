@@ -1,10 +1,19 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, Image, Pressable } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  Pressable,
+  Dimensions,
+} from "react-native";
 import AppIntroSlider from "react-native-app-intro-slider";
 import { color1, color2, color3 } from "../../../../helpers/colors";
 import Title from "../../../../components/Title";
 import { useNavigation } from "@react-navigation/native";
 import Container from "../../../../components/Container";
+
+const { width, height } = Dimensions.get("window");
 
 const OnBoarding = () => {
   const navigation: any = useNavigation();
@@ -36,18 +45,42 @@ const OnBoarding = () => {
   const RenderItem = (item: any) => {
     return (
       <View
-        style={{ flex: 1, width: "100%", justifyContent: "center", bottom: 80 }}
+        style={{
+          flex: 1,
+          width: "100%",
+          justifyContent: "center",
+          bottom: 80,
+        }}
       >
         <View style={{ alignItems: "center" }}>
           <Image source={require(`./OnBoardingImages/blob1.png`)} />
         </View>
-        <View style={{ alignItems: "center" }}>
-          <Title style={{}}>{item.title}</Title>
+        <View
+          style={{
+            alignItems: "center",
+          }}
+        >
           <Text
             style={{
-              color: color3,
-              paddingHorizontal: 25,
               textAlign: "center",
+              fontWeight: "700",
+              lineHeight: 40,
+              fontSize: 34,
+              color: "#1E1E1E",
+              marginVertical: 12,
+              width: width - 32,
+            }}
+          >
+            {item.title}
+          </Text>
+          <Text
+            style={{
+              paddingHorizontal: 16,
+              textAlign: "center",
+              fontWeight: "400",
+              lineHeight: 20,
+              fontSize: 16,
+              color: "#797979",
             }}
           >
             {item.description}
@@ -67,7 +100,17 @@ const OnBoarding = () => {
         renderNextButton={() => (
           <View style={styles.next_btn_box}>
             <View style={styles.next_btn}>
-              <Text style={{ color: "white", fontSize: 16 }}>Далее</Text>
+              <Text
+                style={{
+                  color: "#fff",
+                  textAlign: "center",
+                  fontWeight: "500",
+                  lineHeight: 20,
+                  fontSize: 16,
+                }}
+              >
+                Далее
+              </Text>
             </View>
           </View>
         )}
@@ -78,7 +121,17 @@ const OnBoarding = () => {
         }}
         style={styles.skip_btn}
       >
-        <Text style={{ color: color1 }}>Пропустить</Text>
+        <Text
+          style={{
+            color: "#7454CF",
+            textAlign: "center",
+            fontWeight: "500",
+            lineHeight: 20,
+            fontSize: 16,
+          }}
+        >
+          Пропустить
+        </Text>
       </Pressable>
     </Container>
   );
@@ -93,12 +146,12 @@ const styles = StyleSheet.create({
     bottom: 35,
     transform: [
       {
-        translateX: 30,
+        translateX: width / 12,
       },
     ],
   },
   next_btn: {
-    width: "100%",
+    width: width - 32,
     maxWidth: 380,
     backgroundColor: color1,
     padding: 15,
