@@ -8,10 +8,12 @@ interface QuestionsWrapper {
     onPressButton: any,
     buttonTitle: string,
     onPressBack: () => void;
+    onPressLetter: () => void;
     children: ReactNode;
 }
 
 export const QuestionsWrapper: FC<QuestionsWrapper> = ({
+                                                           onPressLetter,
                                                            onPressButton,
                                                            buttonTitle,
                                                            onPressBack,
@@ -25,7 +27,7 @@ export const QuestionsWrapper: FC<QuestionsWrapper> = ({
                 }}
             >
                 <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                    <BackButton latter onPress={onPressBack}/>
+                    <BackButton onPressLetter={onPressLetter} latter onPress={onPressBack}/>
                 </View>
 
             </SafeAreaView>

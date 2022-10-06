@@ -26,7 +26,8 @@ const BackButton = (props: any) => {
           <Text style={styles.title}>Назад</Text>
         </View>
       </TouchableOpacity>
-      {props.latter && <TouchableOpacity style={styles.back}>
+      {props.latter && <TouchableOpacity
+          onPress={props.onPressLetter} style={styles.back}>
         <Text style={styles.latterTitle}>
           Позже
         </Text>
