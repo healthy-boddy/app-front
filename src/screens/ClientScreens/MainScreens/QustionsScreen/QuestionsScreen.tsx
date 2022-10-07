@@ -13,6 +13,7 @@ import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {ActivityIndicator, ProgressBar, RadioButton} from "react-native-paper";
 import {color1} from "../../../../helpers/colors";
+import CheckBox from "../../../../assets/Icons/CheckBox";
 
 const QuestionsScreen = () => {
     const navigation: any = useNavigation();
@@ -44,7 +45,7 @@ const QuestionsScreen = () => {
                     }).then((res) => {
                     setQuestions(res.data.questions);
                     console.log(res.data.questions);
-                    setLoading(true);
+                    setLoading(false);
                 });
             } catch (error) {
                 console.log(error, "err");
@@ -58,25 +59,22 @@ const QuestionsScreen = () => {
         <QuestionsWrapper
             buttonTitle={"Продолжить"}
             onPressBack={() => {
-                navigation.navigate("Главная");
+                if (level >= 1) {
+                    setLevel(level - 1);
+                }
             }}
             onPressButton={() => {
                 if (level < questions.length) {
                     setLevel(level + 1);
-                } else if (level === questions.length) {
-                    return;
                 }
             }}
-         onPressLetter={()=>{
-            navigation.navigate("Главная")
-         }}>
+            onPressLetter={() => {
+                navigation.navigate("Main")
+            }}>
             <View style={styles.container}>
-                {!loading && (
+                {loading && (
                     <View style={{height: "150%", marginTop: 150}}>
-                        <ActivityIndicator
-                            style={{transform: [{scaleX: 2}, {scaleY: 2}]}}
-                            size={"large"}
-                        />
+                        <ActivityIndicator size={"large"}/>
                     </View>
                 )}
 
@@ -93,24 +91,36 @@ const QuestionsScreen = () => {
                         borderRadius: 20,
                     }}
                 />
+
                 <View style={{marginTop: 32, marginBottom: 20}}>
                     <Title>{questions[level]?.text}</Title>
                 </View>
+
                 <View style={{flex: 1}}>
                     <ScrollView showsVerticalScrollIndicator={false}>
                         {questions[level]?.answers?.map((item: any) => (
                             <View>
                                 <TouchableOpacity
                                     onPress={() => {
-                                        setCheckedAnswer((prev: any) => ([...prev, {id: item.id}]))
-                                    }
-                                }
+                                       setCheckedAnswer((prev: any) => ([...prev, {
+                                                questionId: questions[level].id,
+                                                answerId: item.id,
+                                                text: item.text
+                                            }])
+                                        )
+                                    }}
                                     key={item.id}
                                     style={styles.questions_answers}
                                 >
-                                    <RadioButton
-                                        value={""}
-                                    />
+                                    <View style={styles.checkBox_box}>
+                                        {checkedAnswer.map((checked: any) => (
+                                            item.text === checked.text &&
+                                            <View style={{left: -4.14, top: -4}}>
+                                                <CheckBox/>
+                                            </View>
+                                        ))}
+
+                                    </View>
                                     <Text
                                         style={{
                                             fontWeight: "500",
@@ -118,6 +128,7 @@ const QuestionsScreen = () => {
                                             lineHeight: 20,
                                             color: "#1E1E1E",
                                             textAlign: "left",
+                                            maxWidth: 303
                                         }}
                                     >
                                         {item?.text}
@@ -156,6 +167,13 @@ const styles = StyleSheet.create({
         height: 2,
         backgroundColor: '#E2E2E2',
         width: '100%',
-
+    },
+    checkBox_box: {
+        borderColor: '#E2E2E2',
+        width: 24,
+        marginRight: 14,
+        height: 24,
+        borderRadius: 20,
+        borderWidth: 2,
     }
 });

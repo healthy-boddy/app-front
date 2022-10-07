@@ -7,11 +7,12 @@ import StatusBar from "../../ClientScreenComponents/StatusBar";
 import { useNavigation } from "@react-navigation/native";
 import WheelPickerExpo from "react-native-wheel-picker-expo";
 import CustomButton from "../../../../components/CustomButton";
-import { useSelector } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import axios from "axios";
 import { baseUrl } from "../../../../helpers/url";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { WrapperPage } from "../../../../components/core/wrapper";
+import {isLogged} from "../../../../store/actions/is_logged";
 
 const EnterWeightScreen = () => {
   const NUMBERS: string[] =
@@ -20,7 +21,7 @@ const EnterWeightScreen = () => {
     );
   const navigation: any = useNavigation();
   let [userToken, setUserToken] = useState<any>(null);
-
+  const dispatch = useDispatch()
   let form = useSelector((store: any) => store.auth_data.formData);
 
   let user_data = useSelector((store: any) => store.user_data.user_data);
@@ -56,7 +57,8 @@ const EnterWeightScreen = () => {
         }
       );
       console.log(response, "response");
-      navigation.navigate("EnterRate");
+      dispatch(isLogged(true));
+      // navigation.navigate("EnterRate");
     } catch (e) {
       console.log(e, "error");
     }
@@ -87,10 +89,10 @@ const EnterWeightScreen = () => {
                 lineHeight: 22.67,
               }}
             >
-              3 из 4
+              3 из 3
             </Text>
           </View>
-          <StatusBar activeWidth={{ width: "75%" }} />
+          <StatusBar activeWidth={{ width: "100%" }} />
         </View>
         <View style={{ alignItems: "center", marginVertical: 25 }}>
           <Text

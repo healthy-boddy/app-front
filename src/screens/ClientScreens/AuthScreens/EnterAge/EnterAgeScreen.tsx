@@ -83,10 +83,10 @@ const EnterAgeScreen = () => {
                 lineHeight: 22.67,
               }}
             >
-              2 из 4
+              2 из 3
             </Text>
           </View>
-          <StatusBar activeWidth={{ width: "50%" }} />
+          <StatusBar activeWidth={{ width: "70%" }} />
         </View>
         <View style={{ marginVertical: 25, alignItems: "center" }}>
           <Text

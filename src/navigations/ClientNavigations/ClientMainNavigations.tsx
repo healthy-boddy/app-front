@@ -103,6 +103,14 @@ export default function ClientMain() {
           tabBarShowLabel: false,
         }}
       />
+        <Tab.Screen
+        name="Questions"
+        component={Questions}
+        options={({route}) => ({
+            tabBarButton: () => null,
+            tabBarStyle: {display: 'none'},
+        })}
+      />
     </Tab.Navigator>
   );
 }

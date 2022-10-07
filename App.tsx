@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import CoachVerify from "./src/navigations/CoachNavigations/CoachVerifyNavigations";
 import axios from "axios";
 import { setUserData } from "./src/store/actions/user_data";
-import { setUserToken } from "./src/store/actions/user_token";
+import {deleteUserBio, deleteUserToken, setUserToken} from "./src/store/actions/user_token";
 import { baseUrl } from "./src/helpers/url";
 import Main from "./src/navigations/CoachNavigations/CoachMainNavigations";
 import ClientVerifyNavigations from "./src/navigations/ClientNavigations/ClientVerifyNavigations";
@@ -63,6 +63,9 @@ const App = () => {
           returnStacks();
         })
         .catch((e) => {
+          AsyncStorage.removeItem('userToken').then(r => console.log(r))
+          dispatch(deleteUserToken())
+          dispatch(deleteUserBio())
           console.log(e.message, "error while getting my profile");
         });
     }

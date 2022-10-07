@@ -72,10 +72,10 @@ const EnterSexScreen = () => {
               lineHeight: 22.67,
             }}
           >
-            1 из 4
+            1 из 3
           </Text>
         </View>
-        <StatusBar />
+        <StatusBar activeWidth={{ width: "30%" }} />
       </View>
       <View style={{ marginVertical: 25 }}>
         <Text
