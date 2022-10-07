@@ -29,6 +29,7 @@ const LoginPin = (props: any) => {
   const [resendPin, setResendPin] = useState(false);
 
   const [time, setTime] = React.useState(25);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     const timerId = setInterval(() => {
@@ -70,6 +71,7 @@ const LoginPin = (props: any) => {
   }
 
   function handleSend(pin: any) {
+    setError(false);
     if (pin.length >= 4) {
       const form = new FormData();
       form.append("phone_number", props.phone_number);
@@ -89,11 +91,16 @@ const LoginPin = (props: any) => {
             return res.json();
           })
           .then(async (res) => {
-            console.log(res, "resssss");
             if (res.access) {
               dispatch(setUserToken(res.access));
               await AsyncStorage.setItem("userToken", res.access);
               console.log(res.access, 333);
+            }
+            if (
+              res.detail ===
+              "No active account found with the given credentials"
+            ) {
+              setError(true);
             }
           });
       }
@@ -149,7 +156,7 @@ const LoginPin = (props: any) => {
           Введите код, который мы отправили сообщением на {props?.email}{" "}
           {props?.phone_number}
         </Text>
-        <FormattingExample handleSend={handleSend} />
+        <FormattingExample handleSend={handleSend} error={error} />
         {!resendPin ? (
           <Text
             style={{
@@ -192,9 +199,7 @@ const LoginPin = (props: any) => {
             }}
           >
             Либо{` `}
-            <Text style={{ marginHorizontal: 3, color: color1 }}>
-              зарегистрируйтесь
-            </Text>
+            <Text style={{ marginHorizontal: 3, color: color1 }}>войдите</Text>
             <Text> по почте</Text>
           </Text>
         </TouchableOpacity>

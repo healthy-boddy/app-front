@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { SafeAreaView, Text, StyleSheet, View } from "react-native";
 
 import {
@@ -10,7 +10,15 @@ import {
 
 const CELL_COUNT = 4;
 
-const FormattingExample = ({ handleSend }: { handleSend: any }) => {
+interface FormattingExampleProps {
+  handleSend: (data: string) => void;
+  error: boolean;
+}
+
+const FormattingExample: FC<FormattingExampleProps> = ({
+  handleSend,
+  error,
+}) => {
   const [value, setValue] = useState("");
   const ref = useBlurOnFulfill({ value, cellCount: CELL_COUNT });
   const [props, getCellOnLayoutHandler] = useClearByFocusCell({
@@ -36,13 +44,30 @@ const FormattingExample = ({ handleSend }: { handleSend: any }) => {
         renderCell={({ index, symbol, isFocused }) => (
           <Text
             key={index}
-            style={[styles.cell, isFocused && styles.focusCell]}
+            style={[
+              styles.cell,
+              isFocused && styles.focusCell,
+              error && { borderColor: "#E81313", color: "#E81313" },
+            ]}
             onLayout={getCellOnLayoutHandler(index)}
           >
             {symbol || (isFocused ? <Cursor /> : null)}
           </Text>
         )}
       />
+      {error && (
+        <Text
+          style={{
+            color: "#E81313",
+            fontSize: 16,
+            lineHeight: 20,
+            fontWeight: "400",
+            marginTop: 8,
+          }}
+        >
+          Неверный код
+        </Text>
+      )}
     </SafeAreaView>
   );
 };

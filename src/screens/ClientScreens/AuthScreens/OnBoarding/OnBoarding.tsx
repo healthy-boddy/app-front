@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
     bottom: 35,
     transform: [
       {
-        translateX: width / 12,
+        translateX: 16,
       },
     ],
   },
