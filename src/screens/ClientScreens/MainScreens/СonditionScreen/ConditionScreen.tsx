@@ -23,299 +23,378 @@ const ConditionScreen = () => {
   ]);
   return (
     <View style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={{ marginTop: 40 }}>
-          <Text
-            style={{
-              fontWeight: "600",
-              lineHeight: 19,
-              fontSize: 22.67,
-              color: "#1E1E1E",
-              textAlign: "center",
-              alignSelf: "center",
-              marginTop: 61,
-            }}
-          >
-            Мое состояние
-          </Text>
-        </View>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={{
+          width: "100%",
+        }}
+      >
+        <Text
+          style={{
+            fontWeight: "600",
+            lineHeight: 19,
+            fontSize: 22.67,
+            color: "#1E1E1E",
+            textAlign: "center",
+            alignSelf: "center",
+            marginTop: 61,
+          }}
+        >
+          Мое состояние
+        </Text>
         <View style={styles.content_box}>
           <View style={styles.content}>
-            <View style={styles.content_top_item}>
-              <Pic1 />
+            <View
+              style={{
+                width: "100%",
+                paddingHorizontal: 14,
+                paddingVertical: 16,
+              }}
+            >
+              <View style={styles.content_top_item}>
+                <Pic1 />
+                <Text
+                  style={[
+                    styles.content_item_numbers,
+                    characteristics[0].number < 2
+                      ? { color: "red" }
+                      : { color: "#FF9F0F" },
+                    characteristics[0].number >= 4 ? { color: "green" } : null,
+                  ]}
+                >
+                  {characteristics[0].number}
+                </Text>
+              </View>
               <Text
                 style={[
-                  styles.content_item_numbers,
-                  characteristics[0].number < 2
+                  styles.content_item_title,
+                  characteristics[0].state == "Нужна помощь"
                     ? { color: "red" }
                     : { color: "#FF9F0F" },
-                  characteristics[0].number >= 4 ? { color: "green" } : null,
+                  characteristics[0].state == "Отлично"
+                    ? { color: "green" }
+                    : null,
                 ]}
               >
-                {characteristics[0].number}
+                {characteristics[0].state}
               </Text>
+              <Text style={[styles.content_item_description]}>
+                {characteristics[0].organ}
+              </Text>
+              <Text style={styles.content_item_day}>Сегодня</Text>
             </View>
-            <Text
-              style={[
-                styles.content_item_title,
-                characteristics[0].state == "Нужна помощь"
-                  ? { color: "red" }
-                  : { color: "#FF9F0F" },
-                characteristics[0].state == "Отлично"
-                  ? { color: "green" }
-                  : null,
-              ]}
-            >
-              {characteristics[0].state}
-            </Text>
-            <Text style={styles.content_item_description}>
-              {characteristics[0].organ}
-            </Text>
-            <Text style={styles.content_item_day}>Сегодня</Text>
           </View>
 
+          <View style={{ marginLeft: 14 }} />
           <View style={styles.content}>
-            <View style={styles.content_top_item}>
-              <Pic2 />
+            <View
+              style={{
+                width: "100%",
+                paddingHorizontal: 14,
+                paddingVertical: 16,
+              }}
+            >
+              <View style={styles.content_top_item}>
+                <Pic2 />
+                <Text
+                  style={[
+                    styles.content_item_numbers,
+                    characteristics[1].number < 2
+                      ? { color: "red" }
+                      : { color: "#FF9F0F" },
+                    characteristics[1].number >= 4
+                      ? { color: "#0EC057" }
+                      : null,
+                  ]}
+                >
+                  {characteristics[1].number}
+                </Text>
+              </View>
               <Text
                 style={[
-                  styles.content_item_numbers,
-                  characteristics[1].number < 2
+                  styles.content_item_title,
+                  characteristics[1].state == "Нужна помощь"
                     ? { color: "red" }
                     : { color: "#FF9F0F" },
-                  characteristics[1].number >= 4 ? { color: "#0EC057" } : null,
+                  characteristics[1].state == "Отлично"
+                    ? { color: "#0EC057" }
+                    : null,
                 ]}
               >
-                {characteristics[1].number}
+                {characteristics[1].state}
               </Text>
-            </View>
-            <Text
-              style={[
-                styles.content_item_title,
-                characteristics[1].state == "Нужна помощь"
-                  ? { color: "red" }
-                  : { color: "#FF9F0F" },
-                characteristics[1].state == "Отлично"
-                  ? { color: "#0EC057" }
-                  : null,
-              ]}
-            >
-              {characteristics[1].state}
-            </Text>
-            <Text style={styles.content_item_description}>
-              {characteristics[1].organ}
-            </Text>
-            <Text style={styles.content_item_day}>Сегодня</Text>
-          </View>
-        </View>
-
-        <View style={styles.content_box}>
-          <View style={styles.content}>
-            <View style={styles.content_top_item}>
-              <Pic3 />
-              <Text
-                style={[
-                  styles.content_item_numbers,
-                  characteristics[2].number < 2
-                    ? { color: "red" }
-                    : { color: "#FF9F0F" },
-                  characteristics[2].number >= 4 ? { color: "green" } : null,
-                ]}
-              >
-                {characteristics[2].number}
+              <Text style={styles.content_item_description}>
+                {characteristics[1].organ}
               </Text>
+              <Text style={styles.content_item_day}>Сегодня</Text>
             </View>
-            <Text
-              style={[
-                styles.content_item_title,
-                characteristics[2].state == "Нужна помощь"
-                  ? { color: "red" }
-                  : { color: "#FF9F0F" },
-                characteristics[2].state == "Отлично"
-                  ? { color: "green" }
-                  : null,
-              ]}
-            >
-              {characteristics[2].state}
-            </Text>
-            <Text style={styles.content_item_description}>
-              {characteristics[2].organ}
-            </Text>
-            <Text style={styles.content_item_day}>Сегодня</Text>
-          </View>
-
-          <View style={styles.content}>
-            <View style={styles.content_top_item}>
-              <Pic4 />
-              <Text
-                style={[
-                  styles.content_item_numbers,
-                  characteristics[3].number < 2
-                    ? { color: "red" }
-                    : { color: "#FF9F0F" },
-                  characteristics[3].number >= 4 ? { color: "#0EC057" } : null,
-                ]}
-              >
-                {characteristics[3].number}
-              </Text>
-            </View>
-            <Text
-              style={[
-                styles.content_item_title,
-                characteristics[3].state == "Нужна помощь"
-                  ? { color: "red" }
-                  : { color: "#FF9F0F" },
-                characteristics[3].state == "Отлично"
-                  ? { color: "#0EC057" }
-                  : null,
-              ]}
-            >
-              {characteristics[3].state}
-            </Text>
-            <Text style={styles.content_item_description}>
-              {characteristics[3].organ}
-            </Text>
-            <Text style={styles.content_item_day}>Сегодня</Text>
           </View>
         </View>
 
         <View style={styles.content_box}>
           <View style={styles.content}>
-            <View style={styles.content_top_item}>
-              <Pic5 />
+            <View
+              style={{
+                width: "100%",
+                paddingHorizontal: 14,
+                paddingVertical: 16,
+              }}
+            >
+              <View style={styles.content_top_item}>
+                <Pic3 />
+                <Text
+                  style={[
+                    styles.content_item_numbers,
+                    characteristics[2].number < 2
+                      ? { color: "red" }
+                      : { color: "#FF9F0F" },
+                    characteristics[2].number >= 4 ? { color: "green" } : null,
+                  ]}
+                >
+                  {characteristics[2].number}
+                </Text>
+              </View>
               <Text
                 style={[
-                  styles.content_item_numbers,
-                  characteristics[4].number < 2
+                  styles.content_item_title,
+                  characteristics[2].state == "Нужна помощь"
                     ? { color: "red" }
                     : { color: "#FF9F0F" },
-                  characteristics[4].number >= 4 ? { color: "green" } : null,
+                  characteristics[2].state == "Отлично"
+                    ? { color: "green" }
+                    : null,
                 ]}
               >
-                {characteristics[4].number}
+                {characteristics[2].state}
               </Text>
+              <Text style={styles.content_item_description}>
+                {characteristics[2].organ}
+              </Text>
+              <Text style={styles.content_item_day}>Сегодня</Text>
             </View>
-            <Text
-              style={[
-                styles.content_item_title,
-                characteristics[4].state == "Нужна помощь"
-                  ? { color: "red" }
-                  : { color: "#FF9F0F" },
-                characteristics[4].state == "Отлично"
-                  ? { color: "green" }
-                  : null,
-              ]}
-            >
-              {characteristics[4].state}
-            </Text>
-            <Text style={styles.content_item_description}>
-              {characteristics[4].organ}
-            </Text>
-            <Text style={styles.content_item_day}>Сегодня</Text>
           </View>
+          <View style={{ marginLeft: 14 }} />
 
           <View style={styles.content}>
-            <View style={styles.content_top_item}>
-              <Pic6 />
+            <View
+              style={{
+                width: "100%",
+                paddingHorizontal: 14,
+                paddingVertical: 16,
+              }}
+            >
+              <View style={styles.content_top_item}>
+                <Pic4 />
+                <Text
+                  style={[
+                    styles.content_item_numbers,
+                    characteristics[3].number < 2
+                      ? { color: "red" }
+                      : { color: "#FF9F0F" },
+                    characteristics[3].number >= 4
+                      ? { color: "#0EC057" }
+                      : null,
+                  ]}
+                >
+                  {characteristics[3].number}
+                </Text>
+              </View>
               <Text
                 style={[
-                  styles.content_item_numbers,
-                  characteristics[5].number < 2
+                  styles.content_item_title,
+                  characteristics[3].state == "Нужна помощь"
                     ? { color: "red" }
                     : { color: "#FF9F0F" },
-                  characteristics[5].number >= 4 ? { color: "#0EC057" } : null,
+                  characteristics[3].state == "Отлично"
+                    ? { color: "#0EC057" }
+                    : null,
                 ]}
               >
-                {characteristics[5].number}
+                {characteristics[3].state}
               </Text>
+              <Text style={styles.content_item_description}>
+                {characteristics[3].organ}
+              </Text>
+              <Text style={styles.content_item_day}>Сегодня</Text>
             </View>
-            <Text
-              style={[
-                styles.content_item_title,
-                characteristics[5].state == "Нужна помощь"
-                  ? { color: "red" }
-                  : { color: "#FF9F0F" },
-                characteristics[5].state == "Отлично"
-                  ? { color: "#0EC057" }
-                  : null,
-              ]}
-            >
-              {characteristics[5].state}
-            </Text>
-            <Text style={styles.content_item_description}>
-              {characteristics[5].organ}
-            </Text>
-            <Text style={styles.content_item_day}>Сегодня</Text>
           </View>
         </View>
 
         <View style={styles.content_box}>
           <View style={styles.content}>
-            <View style={styles.content_top_item}>
-              <Pic7 />
+            <View
+              style={{
+                width: "100%",
+                paddingHorizontal: 14,
+                paddingVertical: 16,
+              }}
+            >
+              <View style={styles.content_top_item}>
+                <Pic5 />
+                <Text
+                  style={[
+                    styles.content_item_numbers,
+                    characteristics[4].number < 2
+                      ? { color: "red" }
+                      : { color: "#FF9F0F" },
+                    characteristics[4].number >= 4 ? { color: "green" } : null,
+                  ]}
+                >
+                  {characteristics[4].number}
+                </Text>
+              </View>
               <Text
                 style={[
-                  styles.content_item_numbers,
-                  characteristics[6].number < 2
+                  styles.content_item_title,
+                  characteristics[4].state == "Нужна помощь"
                     ? { color: "red" }
                     : { color: "#FF9F0F" },
-                  characteristics[6].number >= 4 ? { color: "green" } : null,
+                  characteristics[4].state == "Отлично"
+                    ? { color: "green" }
+                    : null,
                 ]}
               >
-                {characteristics[6].number}
+                {characteristics[4].state}
               </Text>
+              <Text style={styles.content_item_description}>
+                {characteristics[4].organ}
+              </Text>
+              <Text style={styles.content_item_day}>Сегодня</Text>
             </View>
-            <Text
-              style={[
-                styles.content_item_title,
-                characteristics[6].state == "Нужна помощь"
-                  ? { color: "red" }
-                  : { color: "#FF9F0F" },
-                characteristics[6].state == "Отлично"
-                  ? { color: "green" }
-                  : null,
-              ]}
-            >
-              {characteristics[6].state}
-            </Text>
-            <Text style={styles.content_item_description}>
-              {characteristics[6].organ}
-            </Text>
-            <Text style={styles.content_item_day}>Сегодня</Text>
           </View>
+          <View style={{ marginLeft: 14 }} />
 
           <View style={styles.content}>
-            <View style={styles.content_top_item}>
-              <Pic8 />
+            <View
+              style={{
+                width: "100%",
+                paddingHorizontal: 14,
+                paddingVertical: 16,
+              }}
+            >
+              <View style={styles.content_top_item}>
+                <Pic6 />
+                <Text
+                  style={[
+                    styles.content_item_numbers,
+                    characteristics[5].number < 2
+                      ? { color: "red" }
+                      : { color: "#FF9F0F" },
+                    characteristics[5].number >= 4
+                      ? { color: "#0EC057" }
+                      : null,
+                  ]}
+                >
+                  {characteristics[5].number}
+                </Text>
+              </View>
               <Text
                 style={[
-                  styles.content_item_numbers,
-                  characteristics[7].number < 2
+                  styles.content_item_title,
+                  characteristics[5].state == "Нужна помощь"
                     ? { color: "red" }
                     : { color: "#FF9F0F" },
-                  characteristics[7].number >= 4 ? { color: "#0EC057" } : null,
+                  characteristics[5].state == "Отлично"
+                    ? { color: "#0EC057" }
+                    : null,
                 ]}
               >
-                {characteristics[7].number}
+                {characteristics[5].state}
               </Text>
+              <Text style={styles.content_item_description}>
+                {characteristics[5].organ}
+              </Text>
+              <Text style={styles.content_item_day}>Сегодня</Text>
             </View>
-            <Text
-              style={[
-                styles.content_item_title,
-                characteristics[7].state == "Нужна помощь"
-                  ? { color: "red" }
-                  : { color: "#FF9F0F" },
-                characteristics[7].state == "Отлично"
-                  ? { color: "#0EC057" }
-                  : null,
-              ]}
+          </View>
+        </View>
+
+        <View style={styles.content_box}>
+          <View style={styles.content}>
+            <View
+              style={{
+                width: "100%",
+                paddingHorizontal: 14,
+                paddingVertical: 16,
+              }}
             >
-              {characteristics[7].state}
-            </Text>
-            <Text style={styles.content_item_description}>
-              {characteristics[7].organ}
-            </Text>
-            <Text style={styles.content_item_day}>Сегодня</Text>
+              <View style={styles.content_top_item}>
+                <Pic7 />
+                <Text
+                  style={[
+                    styles.content_item_numbers,
+                    characteristics[6].number < 2
+                      ? { color: "red" }
+                      : { color: "#FF9F0F" },
+                    characteristics[6].number >= 4 ? { color: "green" } : null,
+                  ]}
+                >
+                  {characteristics[6].number}
+                </Text>
+              </View>
+              <Text
+                style={[
+                  styles.content_item_title,
+                  characteristics[6].state == "Нужна помощь"
+                    ? { color: "red" }
+                    : { color: "#FF9F0F" },
+                  characteristics[6].state == "Отлично"
+                    ? { color: "green" }
+                    : null,
+                ]}
+              >
+                {characteristics[6].state}
+              </Text>
+              <Text style={styles.content_item_description}>
+                {characteristics[6].organ}
+              </Text>
+              <Text style={styles.content_item_day}>Сегодня</Text>
+            </View>
+          </View>
+          <View style={{ marginLeft: 14 }} />
+
+          <View style={styles.content}>
+            <View
+              style={{
+                width: "100%",
+                paddingHorizontal: 14,
+                paddingVertical: 16,
+              }}
+            >
+              <View style={styles.content_top_item}>
+                <Pic8 />
+                <Text
+                  style={[
+                    styles.content_item_numbers,
+                    characteristics[7].number < 2
+                      ? { color: "red" }
+                      : { color: "#FF9F0F" },
+                    characteristics[7].number >= 4
+                      ? { color: "#0EC057" }
+                      : null,
+                  ]}
+                >
+                  {characteristics[7].number}
+                </Text>
+              </View>
+              <Text
+                style={[
+                  styles.content_item_title,
+                  characteristics[7].state == "Нужна помощь"
+                    ? { color: "red" }
+                    : { color: "#FF9F0F" },
+                  characteristics[7].state == "Отлично"
+                    ? { color: "#0EC057" }
+                    : null,
+                ]}
+              >
+                {characteristics[7].state}
+              </Text>
+              <Text style={styles.content_item_description}>
+                {characteristics[7].organ}
+              </Text>
+              <Text style={styles.content_item_day}>Сегодня</Text>
+            </View>
           </View>
         </View>
       </ScrollView>
@@ -336,24 +415,23 @@ const styles = StyleSheet.create({
   },
   content_box: {
     flex: 1,
-    width: 375,
+    width: "48%",
     marginTop: 29,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "flex-start",
   },
   content: {
-    height: 192,
-    width: 160,
+    height: "auto",
+    width: "100%",
     backgroundColor: "#F5F4F8",
     borderRadius: 24,
-    paddingHorizontal: 16,
   },
   content_top_item: {
     flexDirection: "row",
     justifyContent: "space-between",
     paddingTop: 14,
-    width: 128,
+    width: "auto",
   },
   content_item_numbers: {
     fontSize: 40,
@@ -376,6 +454,7 @@ const styles = StyleSheet.create({
     lineHeight: 23,
     color: "#1E1E1E",
     marginTop: 20,
+    width: 120,
   },
   content_item_day: {
     marginTop: 8,
