@@ -35,4 +35,22 @@ export function deleteUserBio(){
         type: DELETE_BIO
     }
 }
+export const SET_CLIENT_DATA = 'SET_CLIENT_DATA'
+
+export function setClientData(client_data){
+    return {
+        type: SET_CLIENT_DATA,
+        payload: {
+            client_data
+        }
+    }
+}
+
+export const DELETE_CLIENT_DATA = 'DELETE_CLIENT_DATA'
+
+export function deleteClientData(){
+    return {
+        type: DELETE_CLIENT_DATA
+    }
+}
 

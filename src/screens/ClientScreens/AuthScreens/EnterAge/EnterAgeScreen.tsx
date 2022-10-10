@@ -1,16 +1,10 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useState } from "react";
 import { View, Text, Platform, Button, TouchableOpacity } from "react-native";
-import ClientContainer from "../../ClientScreenComponents/ClientContainer";
-import { Title } from "react-native-paper";
 import StatusBar from "../../ClientScreenComponents/StatusBar";
-import BackButton from "../../../../components/BackButton";
 import { useNavigation } from "@react-navigation/native";
 import DateTimePicker from "@react-native-community/datetimepicker";
-import CustomButton from "../../../../components/CustomButton";
 import moment, { Moment } from "moment";
-import NumberPlease from "react-native-number-please";
 import { useDispatch, useSelector } from "react-redux";
-import { setFormData } from "../../../../store/actions/auth_data";
 import { WrapperPage } from "../../../../components/core/wrapper";
 
 const EnterAgeScreen = () => {
@@ -21,6 +15,7 @@ const EnterAgeScreen = () => {
   const [mode, setMode] = useState("date");
 
   const format2 = "DD.MM.YYYY";
+  const format3 = "YYYY-MM-DD";
 
   const onChange = (event: any, selectedDate: any) => {
     console.log({ selectedDate, event: event.nativeEvent });
@@ -54,7 +49,7 @@ const EnterAgeScreen = () => {
     if (!date) {
       return;
     }
-    form.append("birthday", moment(date).format(format2));
+    form.append("birthday", moment(date).format(format3));
     navigation.navigate("EnterWeight");
   }
 

@@ -17,7 +17,6 @@ const EmailRegistration = (props: any) => {
     let form = useSelector((store: any) => store.auth_data.formData);
     let role = useSelector((store: any) => store.auth_data.userRole);
 
-
     const [email, sendEmail] = useState("");
 
     async function handleSendEmail() {

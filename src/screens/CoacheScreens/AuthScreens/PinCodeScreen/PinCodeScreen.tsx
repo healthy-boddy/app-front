@@ -146,7 +146,7 @@ const PinCodeScreen = (props: any) => {
           Введите код, который мы отправили сообщением на {props?.email_name}{" "}
           {props?.phone_number}
         </Text>
-        <FormattingExample handleSend={handleSend} />
+        <FormattingExample handleSend={handleSend}  error={false}/>
         {!resendPin ? (
           <Text
             style={{

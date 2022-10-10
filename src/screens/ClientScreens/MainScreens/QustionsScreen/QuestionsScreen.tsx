@@ -21,7 +21,7 @@ const QuestionsScreen = () => {
     const [userToken, setUserToken] = useState<any>("");
     let [loading, setLoading] = useState<boolean>(true);
     const [level, setLevel] = useState(0);
-    let progress = (1 / 47) * level;
+    let progress = (1 / 46) * level;
 
     let [checkedAnswer, setCheckedAnswer] = useState<any>([])
 
@@ -64,8 +64,10 @@ const QuestionsScreen = () => {
                 }
             }}
             onPressButton={() => {
-                if (level < questions.length) {
+                if (level < questions.length - 1) {
                     setLevel(level + 1);
+                }else if (level === questions.length -1){
+                    navigation.navigate("Main")
                 }
             }}
             onPressLetter={() => {
@@ -79,7 +81,7 @@ const QuestionsScreen = () => {
                 )}
 
                 <Title titlePropStyle={styles.question_level}>
-                    {level + 1} из {questions?.length + 1}
+                    {level + 1} из {questions?.length}
                 </Title>
 
                 <ProgressBar

@@ -4,7 +4,7 @@ import MainContainer from "../../../../components/MainContainer";
 import {useNavigation} from "@react-navigation/native";
 import {useDispatch, useSelector} from "react-redux";
 import {color1} from "../../../../helpers/colors";
-import BellIcon from "../../../../assets/Icons/BellIcon";
+import {BellIcon} from "../../../../assets/Icons/BellIcon";
 import Title from "../../../../components/Title";
 import CustomButton from "../../../../components/CustomButton";
 import AsyncStorage from "@react-native-async-storage/async-storage";
