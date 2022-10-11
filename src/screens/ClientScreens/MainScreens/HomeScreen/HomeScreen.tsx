@@ -3,12 +3,11 @@ import {View, StyleSheet, Text, Image} from "react-native";
 import MainContainer from "../../../../components/MainContainer";
 import {useDispatch, useSelector} from "react-redux";
 import {BellIcon} from "../../../../assets/Icons/BellIcon";
-import Title from "../../../../components/Title";
 import CustomButton from "../../../../components/CustomButton";
 import {useNavigation} from "@react-navigation/native";
-import axios from "axios";
 import {baseUrl} from "../../../../helpers/url";
-import {setUserData} from "../../../../store/actions/user_data";
+import axios from "axios";
+import LoadingAnimation from "../../ClientScreenComponents/LoadingAnimation";
 
 const HomeScreen = () => {
     const navigation: any = useNavigation();
@@ -25,11 +24,11 @@ const HomeScreen = () => {
                 },
             })
             .then((res) => {
-                console.log(res.data, "eee");
+              //  console.log(res.data, "eee");
                 setUserData(res.data)
             })
     }, [])
-    console.log(userData, 'userData')
+
     return (
         <MainContainer>
             <View
@@ -85,11 +84,15 @@ const HomeScreen = () => {
                         наставника. Это займет около 30 минут.
                     </Text>
                 </View>
-                <View style={{flex: 1, alignSelf: "center"}}>
+                {/*<LoadingAnimation*/}
+                {/*    circleLength={1000}*/}
+                {/*    imgSource={require("../../AuthScreens/OnBoarding/OnBoardingImages/blob1.png")}*/}
+                {/*/>*/}
+                <View style={{flex: 1}}>
                     <Image
-                        source={require("../../AuthScreens/OnBoarding/OnBoardingImages/blob1.png")}
-                    />
+                        source={require("../../AuthScreens/OnBoarding/OnBoardingImages/blob1.png")}/>
                 </View>
+
                 <View style={{marginBottom: 40}}>
                     <CustomButton
                         onPress={() => {
@@ -119,3 +122,25 @@ const styles = StyleSheet.create({
         borderRadius: 32
     },
 });
+
+
+{/*<ActivityIndicator*/
+}
+{/*    size={380}*/
+}
+{/*    style={{*/
+}
+{/*        position: 'absolute',*/
+}
+{/*    }}*/
+}
+{/*    color={color1}*/
+}
+{/*/>*/
+}
+{/*<Image*/
+}
+{/*    source={require("../../AuthScreens/OnBoarding/OnBoardingImages/blob1.png")}*/
+}
+{/*/>*/
+}

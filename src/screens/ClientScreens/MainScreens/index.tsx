@@ -1,4 +1,4 @@
 export * from './HomeScreen'
-export * from './СonditionScreen'
+export * from './ConditionScreen'
 export * from './CalendarScreen'
 export * from './QustionsScreen'

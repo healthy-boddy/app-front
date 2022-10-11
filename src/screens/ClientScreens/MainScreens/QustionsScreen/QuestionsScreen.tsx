@@ -15,6 +15,11 @@ import {ActivityIndicator, ProgressBar, RadioButton} from "react-native-paper";
 import {color1} from "../../../../helpers/colors";
 import CheckBox from "../../../../assets/Icons/CheckBox";
 
+type Answer = {
+    question: number;
+    answers: Array<number>;
+}
+
 const QuestionsScreen = () => {
     const navigation: any = useNavigation();
     const [questions, setQuestions] = useState<any>([]);
@@ -23,7 +28,7 @@ const QuestionsScreen = () => {
     const [level, setLevel] = useState(0);
     let progress = (1 / 46) * level;
 
-    let [checkedAnswer, setCheckedAnswer] = useState<any>([])
+    let [checkedAnswer, setCheckedAnswer] = useState<Array<Answer>>([])
 
     useEffect(() => {
         (async () => {
@@ -35,8 +40,7 @@ const QuestionsScreen = () => {
         let AuthStr = "Bearer " + userToken;
         (async () => {
             try {
-                axios
-                    .get(`http://92.53.97.238/quiz/free_user_quiz/`, {
+                axios.get(`http://92.53.97.238/quiz/free_user_quiz/`, {
                         headers: {
                             Authorization: AuthStr,
                             "Content-Type": "application/json",
@@ -53,7 +57,73 @@ const QuestionsScreen = () => {
         })();
     }, [userToken]);
 
-    console.log(checkedAnswer, 'checkedAnswer')
+    const answerPressed = (answerId: number, questionId: number) => {
+        const currentQuestion = checkedAnswer.find(item => item.question === questionId);
+        if (currentQuestion && currentQuestion.answers.length) {
+            if (currentQuestion.answers.includes(answerId)) {
+                checkedAnswer.splice(checkedAnswer.indexOf(currentQuestion), 1)
+                setCheckedAnswer([...checkedAnswer]);
+            }
+            return;
+        }
+        setCheckedAnswer(prev => ([...prev, {
+          question: questionId,
+          answers: [answerId]
+        }]));
+
+    }
+
+    const checked = (answerId: number, questionId: number) => {
+        const currentQuestion = checkedAnswer.find(item => item.question === questionId);
+        let isChecked = false;
+        if (currentQuestion) {
+            isChecked = currentQuestion.answers.includes(answerId)
+        }
+
+        return ( !isChecked ? null :
+          <View style={{left: -4.14, top: -4}}>
+              <CheckBox/>
+          </View>
+        )
+    }
+
+    async function handleSendQuestionsAnswers(){
+        console.log(JSON.stringify({response_answers: checkedAnswer}), ' 33332')
+        let AuthStr = "Bearer " + userToken;
+        try {
+            const response = axios.post('http://92.53.97.238/quiz/free_user_quiz/',
+                {body: {response_answers: JSON.stringify(checkedAnswer)}},
+                {
+                    headers:{
+                         Authorization: AuthStr,
+                        "Content-Type": "application/json"
+                    }
+                }
+        )
+            console.log(response, 'posted')
+        }catch (e){
+            console.log('axios - error')
+            console.log(e, 'res')
+        }
+
+
+       //  await fetch('http://92.53.97.238/quiz/free_user_quiz/',{
+       //     method: 'post',
+       //     headers:{
+       //         Authorization: AuthStr,
+       //         "Content-Type": "application/json",
+       //     },
+       //     body: JSON.stringify({
+       //         response_answers: checkedAnswer
+       //     })
+       // }).then((res)=>{
+       //     return res.json()
+       //  }).then((res)=>{
+       //      console.log(res, 'questions-answers-post')
+       //  })
+    }
+
+
 
     return (
         <QuestionsWrapper
@@ -67,6 +137,7 @@ const QuestionsScreen = () => {
                 if (level < questions.length - 1) {
                     setLevel(level + 1);
                 }else if (level === questions.length -1){
+                    handleSendQuestionsAnswers().then(r => console.log(r))
                     navigation.navigate("Main")
                 }
             }}
@@ -100,28 +171,15 @@ const QuestionsScreen = () => {
 
                 <View style={{flex: 1}}>
                     <ScrollView showsVerticalScrollIndicator={false}>
-                        {questions[level]?.answers?.map((item: any) => (
-                            <View>
+                        {questions[level]?.answers?.map((item: any, index: number) => (
+                            <View key={`${item.id}-${index}`}>
                                 <TouchableOpacity
-                                    onPress={() => {
-                                       setCheckedAnswer((prev: any) => ([...prev, {
-                                                questionId: questions[level].id,
-                                                answerId: item.id,
-                                                text: item.text
-                                            }])
-                                        )
-                                    }}
+                                    onPress={() => answerPressed(item.id, questions[level].id)}
                                     key={item.id}
                                     style={styles.questions_answers}
                                 >
                                     <View style={styles.checkBox_box}>
-                                        {checkedAnswer.map((checked: any) => (
-                                            item.text === checked.text &&
-                                            <View style={{left: -4.14, top: -4}}>
-                                                <CheckBox/>
-                                            </View>
-                                        ))}
-
+                                        {checked(item.id, questions[level].id)}
                                     </View>
                                     <Text
                                         style={{
