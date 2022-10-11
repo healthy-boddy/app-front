@@ -87,7 +87,7 @@ const CreateAccountScreen = (props: any) => {
           <PhoneInput
             style={styles.phone_input}
             onPressFlag={onPressFlag}
-            initialValue={"+7"}
+            initialValue={"+"}
             onChangePhoneNumber={setValue}
             initialCountry={"us"}
             textProps={{

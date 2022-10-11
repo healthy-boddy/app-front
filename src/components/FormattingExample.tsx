@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from "react";
+import React, {FC, Fragment, useEffect, useState} from "react";
 import { SafeAreaView, Text, StyleSheet, View } from "react-native";
 
 import {
@@ -42,17 +42,31 @@ const FormattingExample: FC<FormattingExampleProps> = ({
         keyboardType="number-pad"
         textContentType="oneTimeCode"
         renderCell={({ index, symbol, isFocused }) => (
+            <Fragment key={index}>
+                <View
+                    onLayout={getCellOnLayoutHandler(index)}
+                    style={[{
+                        width: "20%",
+                        height: 50,
+                        borderWidth: 1,
+                        borderColor: "#F5F4F8",
+                        borderRadius: 10,
+                        backgroundColor: "#F5F4F8",
+                        alignItems:'center',
+                        justifyContent:'center'
+                    }, error && {borderColor: '#E81313'}]}
+                >
           <Text
-            key={index}
             style={[
               styles.cell,
               isFocused && styles.focusCell,
               error && { borderColor: "#E81313", color: "#E81313" },
             ]}
-            onLayout={getCellOnLayoutHandler(index)}
           >
             {symbol || (isFocused ? <Cursor /> : null)}
           </Text>
+                </View>
+            </Fragment>
         )}
       />
       {error && (
@@ -77,18 +91,11 @@ const styles = StyleSheet.create({
   root: { marginTop: 20, marginBottom: 40 },
   codeFieldRoot: { marginTop: 10 },
   cell: {
-    width: "20%",
-    height: 50,
-    lineHeight: 38,
-    fontSize: 20,
-    borderWidth: 1,
-    borderColor: "#F5F4F8",
     textAlign: "center",
-    borderRadius: 20,
-    backgroundColor: "#F5F4F8",
-    paddingTop: 2,
     color: "#797979",
     fontWeight: "400",
+      lineHeight: 38,
+      fontSize: 20,
   },
   focusCell: {
     borderColor: "transparent",
