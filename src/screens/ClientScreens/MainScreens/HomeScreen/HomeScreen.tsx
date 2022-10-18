@@ -7,7 +7,6 @@ import CustomButton from "../../../../components/CustomButton";
 import {useNavigation} from "@react-navigation/native";
 import {baseUrl} from "../../../../helpers/url";
 import axios from "axios";
-import LoadingAnimation from "../../ClientScreenComponents/LoadingAnimation";
 
 const HomeScreen = () => {
     const navigation: any = useNavigation();

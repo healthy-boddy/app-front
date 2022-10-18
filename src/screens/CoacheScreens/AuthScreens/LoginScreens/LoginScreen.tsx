@@ -1,12 +1,9 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
-import Container from "../../../../components/Container";
-import BackButton from "../../../../components/BackButton";
 import Title from "../../../../components/Title";
 import PhoneInput from "react-native-phone-input";
 import { useNavigation } from "@react-navigation/native";
-import { color1, color2, color3 } from "../../../../helpers/colors";
-import CustomButton from "../../../../components/CustomButton";
+import { color1 } from "../../../../helpers/colors";
 import axios from "axios";
 import { baseUrl } from "../../../../helpers/url";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
@@ -15,6 +12,10 @@ import { WrapperPage } from "../../../../components/core/wrapper";
 const LoginScreen = () => {
   const navigation: any = useNavigation();
   const [value, setValue] = useState<string>("");
+    const [error, setError] = useState(false)
+  useEffect(()=>{
+        setValue("")
+  }, [])
 
   function onPressFlag() {
     return false;
@@ -29,21 +30,25 @@ const LoginScreen = () => {
           "Content-Type": "multipart/form-data",
         },
       });
-      console.log(response1, "sended-pin");
+     // console.log(response1, "sended-pin");
       if (response1.status === 200) {
-        console.log("OK");
+      //  console.log(response1);
+          setError(false)
         navigation.navigate("LoginPin", {
           phone_number: value,
         });
       }
     } catch (error) {
-      console.log(error);
+        setError(true)
+      console.log(error,);
     }
   }
 
   return (
     <WrapperPage
       onPressBack={() => {
+        setError(false)
+        setValue("")
         navigation.navigate("Welcome");
       }}
       buttonTitle={"Продолжить"}
@@ -74,16 +79,25 @@ const LoginScreen = () => {
 
         <View>
           <PhoneInput
-            style={styles.phone_input}
+            style={[styles.phone_input, error && styles.error]}
             onPressFlag={onPressFlag}
             initialValue={"+"}
             onChangePhoneNumber={setValue}
             initialCountry={"us"}
+            textStyle={error && {color: 'red'}}
             textProps={{
               placeholder: "_ _ _  _ _ _  _ _ _",
             }}
           />
         </View>
+          {error && <Text style={{
+              marginVertical: 8,
+              color: '#E81313',
+              fontWeight: '400',
+              fontSize: 16
+          }}>
+              Этот номер уже зарегистрирован
+          </Text>}
         <TouchableOpacity
           activeOpacity={0.6}
           onPress={() => {
@@ -118,4 +132,8 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
     borderRadius: 12,
   },
+    error:{
+      borderWidth: 2,
+      borderColor: '#E81313'
+    }
 });

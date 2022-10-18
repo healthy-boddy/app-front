@@ -3,18 +3,14 @@ import {
   View,
   StyleSheet,
   Text,
-  TextInput,
-  TouchableOpacity,
+
 } from "react-native";
-import Container from "../../../../components/Container";
-import BackButton from "../../../../components/BackButton";
 import Title from "../../../../components/Title";
-import CustomButton from "../../../../components/CustomButton";
 import axios from "axios";
 import { baseUrl } from "../../../../helpers/url";
 import { useNavigation } from "@react-navigation/native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { color1, color3 } from "../../../../helpers/colors";
+import { color1 } from "../../../../helpers/colors";
 import CustomInput from "../../../../components/CustomInput";
 import { WrapperPage } from "../../../../components/core/wrapper";
 

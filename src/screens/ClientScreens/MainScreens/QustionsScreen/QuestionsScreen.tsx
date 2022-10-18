@@ -41,12 +41,12 @@ const QuestionsScreen = () => {
         (async () => {
             try {
                 axios.get(`http://92.53.97.238/quiz/free_user_quiz/`, {
-                        headers: {
-                            Authorization: AuthStr,
-                            "Content-Type": "application/json",
-                            accept: "application/json",
-                        },
-                    }).then((res) => {
+                    headers: {
+                        Authorization: AuthStr,
+                        "Content-Type": "application/json",
+                        accept: "application/json",
+                    },
+                }).then((res) => {
                     setQuestions(res.data.questions);
                     console.log(res.data.questions);
                     setLoading(false);
@@ -67,8 +67,8 @@ const QuestionsScreen = () => {
             return;
         }
         setCheckedAnswer(prev => ([...prev, {
-          question: questionId,
-          answers: [answerId]
+            question: questionId,
+            answers: [answerId]
         }]));
 
     }
@@ -80,49 +80,34 @@ const QuestionsScreen = () => {
             isChecked = currentQuestion.answers.includes(answerId)
         }
 
-        return ( !isChecked ? null :
-          <View style={{left: -4.14, top: -4}}>
-              <CheckBox/>
-          </View>
+        return (!isChecked ? null :
+                <View style={{left: -4.14, top: -4}}>
+                    <CheckBox/>
+                </View>
         )
     }
 
-    async function handleSendQuestionsAnswers(){
-        console.log(JSON.stringify({response_answers: checkedAnswer}), ' 33332')
+    async function handleSendQuestionsAnswers() {
+        console.log(JSON.stringify({response_answers: checkedAnswer}), '33332')
         let AuthStr = "Bearer " + userToken;
-        try {
-            const response = axios.post('http://92.53.97.238/quiz/free_user_quiz/',
-                {body: {response_answers: JSON.stringify(checkedAnswer)}},
-                {
-                    headers:{
-                         Authorization: AuthStr,
-                        "Content-Type": "application/json"
-                    }
-                }
-        )
-            console.log(response, 'posted')
-        }catch (e){
-            console.log('axios - error')
-            console.log(e, 'res')
-        }
 
-
-       //  await fetch('http://92.53.97.238/quiz/free_user_quiz/',{
-       //     method: 'post',
-       //     headers:{
-       //         Authorization: AuthStr,
-       //         "Content-Type": "application/json",
-       //     },
-       //     body: JSON.stringify({
-       //         response_answers: checkedAnswer
-       //     })
-       // }).then((res)=>{
-       //     return res.json()
-       //  }).then((res)=>{
-       //      console.log(res, 'questions-answers-post')
-       //  })
+        await fetch('http://92.53.97.238/quiz/response/', {
+            method: 'post',
+            headers: {
+                Authorization: AuthStr,
+                "accept": "application/json",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                response_answers: checkedAnswer,
+                quiz: 1
+            })
+        }).then((response)=>{
+            return response.json()
+        }).then((response)=>{
+            console.log(response, 'fetch')
+        })
     }
-
 
 
     return (
@@ -136,7 +121,7 @@ const QuestionsScreen = () => {
             onPressButton={() => {
                 if (level < questions.length - 1) {
                     setLevel(level + 1);
-                }else if (level === questions.length -1){
+                } else if (level === questions.length - 1) {
                     handleSendQuestionsAnswers().then(r => console.log(r))
                     navigation.navigate("Main")
                 }

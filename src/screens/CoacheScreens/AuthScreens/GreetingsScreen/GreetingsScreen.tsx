@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
-import Container from "../../../../components/Container";
-import BackButton from "../../../../components/BackButton";
 import { useNavigation } from "@react-navigation/native";
 import Doctor from "../../../../assets/Icons/Doctor";
-import CustomButton from "../../../../components/CustomButton";
-import Title from "../../../../components/Title";
 import { useDispatch, useSelector } from "react-redux";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
@@ -45,7 +41,7 @@ const GreetingsScreen = (props: any) => {
           paddingLeft: 17,
         }}
       >
-        Здравствуйте, {user_data?.user?.username}!
+        Здравствуйте, {user_data?.user?.username} !
       </Text>
       <Text
         style={{
