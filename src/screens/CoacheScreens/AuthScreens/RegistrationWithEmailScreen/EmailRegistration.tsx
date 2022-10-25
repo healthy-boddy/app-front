@@ -23,6 +23,7 @@ const EmailRegistration = (props: any) => {
         let emailForm = new FormData();
         emailForm.append("email", email);
         await form.append("email", email);
+        console.log(form, 'form', emailForm, 'emailForm')
         try {
             const response = await axios.post(
                 baseUrl + "/" + role + "/",
@@ -38,7 +39,9 @@ const EmailRegistration = (props: any) => {
             console.log(error, "catch-error");
         }
         try {
-            const response1 = await axios.post(baseUrl + "/send_pin/", emailForm, {
+            const response1 = await axios.post(baseUrl + "/send_pin/",
+                emailForm,
+                {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },

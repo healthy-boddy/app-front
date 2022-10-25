@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {View, StyleSheet, Text, Image} from "react-native";
+import {View, StyleSheet, Text, Image, TouchableOpacity, ActivityIndicator} from "react-native";
 import MainContainer from "../../../../components/MainContainer";
 import {useDispatch, useSelector} from "react-redux";
 import {BellIcon} from "../../../../assets/Icons/BellIcon";
@@ -10,16 +10,24 @@ import axios from "axios";
 import LoadingAnimation from "../../ClientScreenComponents/LoadingAnimation";
 import Title from "../../../../components/Title";
 import RightIcon from "../../../../assets/Icons/RightIcon";
+import {color1} from "../../../../helpers/colors";
 
 const HomeScreen = () => {
     const navigation: any = useNavigation();
     const isFocused = useIsFocused();
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
     const user_data = useSelector((store: any) => store.user_data.user_data);
-    const [userData, setUserData] = useState<any>([])
-    const [freeQuizStatus, setFreeQuizStatus] = useState(false)
-    const [userCoach, setUserCoach] = useState(false)
+    const [userData, setUserData] = useState<any>([]);
+    const [freeQuizStatus, setFreeQuizStatus] = useState(false);
+    const [userCoach, setUserCoach] = useState<any>(false);
     let tokenFromReducer = useSelector((store: any) => store.user_token.user_token);
+    const [loading, setLoading] = useState(true)
+
+    useEffect(()=>{
+        setTimeout(()=>{
+            setLoading(false)
+        }, 2000)
+    })
     const coach = [{
         name: 'Наталья Заварзина',
         description: 'Мой Health Buddy',
@@ -36,21 +44,20 @@ const HomeScreen = () => {
             .then((res) => {
                 //  console.log(res.data, "eee");
                 setUserData(res.data)
-
             })
     }, [])
 
     useEffect(() => {
-        axios.get(baseUrl + '/quiz_status/', {
-            headers: {
-                Authorization: "Bearer " + tokenFromReducer,
-            },
-        }).then((status) => {
-            console.log(status.data, 'status')
-            setFreeQuizStatus(status.data.is_free_quiz_passed)
-            setUserCoach(status.data.coach)
-            console.log(userCoach, 'userCoach')
-        })
+                axios.get(baseUrl + '/quiz_status/', {
+                    headers: {
+                        Authorization: "Bearer " + tokenFromReducer,
+                    },
+                }).then((status) => {
+                 //   console.log(status.data, 'status')
+                    setFreeQuizStatus(status.data.is_free_quiz_passed)
+                    setUserCoach(status.data.coach)
+                 //   console.log(userCoach, 'userCoach')
+                })
     }, [isFocused])
 
 
@@ -139,11 +146,11 @@ const HomeScreen = () => {
                                             <View>
                                                 <Image
                                                     style={styles.coach_avatar}
-                                                    source={{uri: item.avatar}}/>
+                                                    source={{uri: userCoach.avatar}}/>
                                             </View>
                                             <View style={{paddingLeft: 12}}>
-                                                <Text style={styles.coach_name}>{item.name}</Text>
-                                                <Text style={styles.coach_description}>{item.description}</Text>
+                                                <Text style={styles.coach_name}>{userCoach.user.username}</Text>
+                                                <Text style={styles.coach_description}>Мой Health Buddy</Text>
                                             </View>
                                         </View>
 
@@ -171,8 +178,16 @@ const HomeScreen = () => {
                     height: "100%",
                 }}
             >
+                {loading && <ActivityIndicator
+                    size={'large'}
+                    color={color1}
+                    style={{height: '100%'}}
+                />}
                 <View style={styles.header}>
-                    <View style={{flexDirection: "row", alignItems: "center",}}>
+                    <TouchableOpacity
+                        style={{flexDirection: "row", alignItems: "center",}}
+                        onPress={()=>{navigation.navigate('UserSingle')}}
+                    >
                         {!userData.avatar ? <Image
                                 source={require("../../../../assets/images/np_img.png")}
                                 style={styles.image}
@@ -192,7 +207,7 @@ const HomeScreen = () => {
                         >
                             {user_data.user.username}
                         </Text>
-                    </View>
+                    </TouchableOpacity>
                     <BellIcon/>
                 </View>
                 {returnViews()}

@@ -15,29 +15,27 @@ import {LargeInput} from "../../../../components/core/LargeInput";
 import {FileRows} from "../../../../components/core/FileRows";
 
 const WelcomeScreen = () => {
+    const dispatch = useDispatch();
     const navigation: any = useNavigation();
     const [education, setEducation] = useState<string>("");
     const [specialisation, setSpecialisation] = useState('')
     const [resume, setResume] = useState<any>("");
-    const [photo, setPhoto] = useState<any>("");
     let [userToken, setUserToken] = useState<any>(null);
     const [valid, setValid] = useState(true);
-
 
     const [certificate, setCertificate] = useState<any>([])
 
     const [resumeValid, setResumeValid] = useState(true);
 
-    const dispatch = useDispatch();
 
     useEffect(() => {
         AsyncStorage.getItem("userToken").then((r) => setUserToken(r));
     }, []);
 
 
-    useEffect(()=>{
+    useEffect(() => {
         console.log('certificate', certificate)
-    },[certificate])
+    }, [certificate])
 
 
     const pickEducationDocument = async () => {
@@ -55,33 +53,19 @@ const WelcomeScreen = () => {
                 id: Date.now(),
                 lastModified: Date.now(),
             }
-            setCertificate(prevItem=>[...prevItem, data]);
+            setCertificate(prevItem => [...prevItem, data]);
         }
     };
 
 
-    // @ts-ignore
-
     async function handlePostInfo() {
         let AuthStr = "Bearer " + userToken;
         const dataForm = new FormData();
-
-        if (!resume || !education || !photo) {
-            if (!resume) {
-                setResumeValid(false);
-                setValid(false);
-            } else {
-                setResumeValid(true);
-            }
-
-
-
-            return false;
-        }
-
+        dataForm.append('education_description', education)
+        dataForm.append('specialization', specialisation)
+        console.log(dataForm, 'dataform')
         try {
-            const { data } = await axios.put(
-                baseUrl + "/coach/update_me/",
+            const {data} = await axios.put(baseUrl + "/coach/update_me/",
                 dataForm,
                 {
                     headers: {
@@ -90,14 +74,47 @@ const WelcomeScreen = () => {
                     },
                 }
             );
-            setValid(true);
-            setResumeValid(true);
             console.log(data, "sended-all");
-            dispatch(setUserBio(data.bio));
+            // dispatch(setUserBio(data.bio));
         } catch (error) {
             console.log(error);
         }
+
+
+        const formData = new FormData();
+
+        certificate.forEach(item => formData.append(item['name'], item));
+
+        console.log(formData, 'form Data form Data form Data')
+
+        await fetch(baseUrl + '/coach_certificate/', {
+            method: 'POST',
+            headers: {
+                Authorization: AuthStr,
+                "Content-Type": "multipart/form-data",
+            },
+            body: formData,
+        }).then((res) => {
+            return res.json()
+        }).then((res) => {
+            console.log(res, 'res')
+        })
+
+
+        //     const response = await axios.post(baseUrl + '/coach_certificate/',
+        //         {file: certificate},
+        //         {headers: {
+        //                 Authorization: AuthStr,
+        //                 "Content-Type": "multipart/form-data",
+        //             }}
+        //     )
+        //     console.log(response, '\'/user/coach_certificate/\'')
+        // }catch (error){
+        //     console.log(error)
+        // }
     }
+
+    console.log(certificate, 'photo111')
 
     const deleteFile = (id) => {
         const filteredItem = certificate?.filter(file => file.id !== id);
@@ -116,7 +133,7 @@ const WelcomeScreen = () => {
                 }}
             >
                 <ScrollView showsVerticalScrollIndicator={false}>
-                    {!valid && <ErrorPopUp error={"Необходимо заполнить все поля"} />}
+                    {!valid && <ErrorPopUp error={"Необходимо заполнить все поля"}/>}
                     <Text
                         style={{
                             fontWeight: "600",
@@ -172,6 +189,7 @@ const WelcomeScreen = () => {
                     {/*  onChangeText={setEducation}*/}
                     {/*    placeholder={'Например, ПСПбГМУ 2009 г.в.'}/>*/}
                     {/*</View>*/}
+
                     <LargeInput
                         setValue={setEducation}
                         value={education}
@@ -199,23 +217,23 @@ const WelcomeScreen = () => {
                     >
                         Загрузите файл формата PDF, JPG, PNG
                     </Text>
-                    <View  style={{marginTop:24}}/>
+                    <View style={{marginTop: 24}}/>
                     <CustomButton
-                        buttonTitle={{ color: "#7454CF" }}
+                        buttonTitle={{color: "#7454CF"}}
                         buttonStyles={[
                             styles.custom_button_styles,
-                            !resumeValid && { borderColor: "red" },
+                            !resumeValid && {borderColor: "red"},
                         ]}
                         title={resume?.name ? resume?.name : "Загрузить файл"}
                         onPress={pickEducationDocument}
                     />
 
-                    {certificate.map((data, index)=>{
+                    {certificate.map((data, index) => {
                         return (
                             <FileRows
                                 key={index}
                                 fileName={data.name}
-                                onPress={()=> deleteFile(data.id)}
+                                onPress={() => deleteFile(data.id)}
                             />
                         )
                     })}
@@ -231,7 +249,7 @@ const WelcomeScreen = () => {
                         Специализация
                     </Text>
 
-                    <View style={{marginTop:12, marginBottom:24}}>
+                    <View style={{marginTop: 12, marginBottom: 24}}>
                         <LargeInput
                             setValue={setSpecialisation}
                             value={specialisation}
