@@ -64,8 +64,8 @@ const styles = StyleSheet.create({
   },
   image: {
     position: 'absolute',
-    width: 250,
-    height: 250,
+    width: 350,
+    height: 350,
     borderRadius: 200
   }
 });

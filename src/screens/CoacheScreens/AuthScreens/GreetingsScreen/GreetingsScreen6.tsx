@@ -21,7 +21,7 @@ const GreetingsScreen6 = () => {
             </View>
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View>
-                    <Title>
+                    <Title> 
                         Теперь переходим к знакомству с клиентом
                     </Title>
                     <Text>
