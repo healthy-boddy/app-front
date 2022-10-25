@@ -9,10 +9,8 @@ import { WrapperPage } from "../../../../components/core/wrapper";
 
 const EnterAgeScreen = () => {
   const navigation: any = useNavigation();
-  const dispatch = useDispatch();
   const [date, setDate] = useState<Date>(new Date());
   const [show, setShow] = useState(Platform.OS === "ios");
-  const [mode, setMode] = useState("date");
 
   const format2 = "DD.MM.YYYY";
   const format3 = "YYYY-MM-DD";
@@ -27,22 +25,8 @@ const EnterAgeScreen = () => {
   };
   let form = useSelector((store: any) => store.auth_data.formData);
 
-  const showMode = (currentMode: string) => {
-    if (Platform.OS === "android") {
-      setShow(false);
-      setDate(date);
-      // for iOS, add a button that closes the picker
-    }
-    setMode(currentMode);
-  };
 
-  const showDatepicker = () => {
-    showMode("date");
-  };
 
-  const showTimepicker = () => {
-    showMode("time");
-  };
 
   function handleNext() {
     const dateForm = new FormData();
