@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text, StyleSheet, TouchableOpacity, Image, SafeAreaView, Dimensions, Platform} from "react-native";
+import {Dimensions, Image, SafeAreaView, StyleSheet, Text, View,} from "react-native";
 import BackButton from "../../../../components/BackButton";
 import {useDispatch, useSelector} from "react-redux";
 import PenIcon from "../../../../assets/Icons/PenIcon";
@@ -13,10 +13,10 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import {deleteClientData, deleteUserBio, deleteUserToken} from "../../../../store/actions/user_token";
 import {deleteUserData} from "../../../../store/actions/user_data";
 import {useNavigation} from "@react-navigation/native";
-import {BottomSheet} from 'react-native-btr';
 import SendMessageIcon from "./SingleScreenIcons/SendMessageIcon";
 import ChatMessageIcon from "./SingleScreenIcons/ChatMessageIcon";
 import Modal from "react-native-modal";
+import {TouchableOpacity} from "react-native-gesture-handler";
 
 const deviceWidth = Dimensions.get("window").width;
 
@@ -40,28 +40,32 @@ const UserSinglePage = () => {
     };
 
     return (
-        <View style={{
+        <SafeAreaView style={{
             flex: 1,
-            width: '100%',
             backgroundColor: "#FFFFFF",
+            width: '100%',
         }}>
-            <View style={styles.container}>
+            <View
+                pointerEvents={'auto'}
+                style={styles.container}>
                 <BackButton onPress={() => { // @ts-ignore
                     navigation.navigate('Main')
                 }}/>
                 <View style={{position: "relative", alignSelf: 'center'}}>
-                    <TouchableOpacity activeOpacity={0.2} style={styles.edit_icon}>
-                        <PenIcon/>
-                    </TouchableOpacity>
+
                     <View>
+
                         {!image ? (
                             <Image
                                 style={styles.image}
                                 source={require("../../../../assets/images/np_img.png")}
                             />
                         ) : (
-                            <Image style={styles.image} source={{uri: userData.avatar}}/>
+                            <Image style={styles.image} source={{ uri: userData.avatar }} />
                         )}
+                        <TouchableOpacity style={styles.edit_icon}>
+                            <PenIcon />
+                        </TouchableOpacity>
                     </View>
                     <Title titlePropStyle={{
                         textAlign: 'center',
@@ -72,7 +76,7 @@ const UserSinglePage = () => {
                         {userData.user.username}
                     </Title>
                 </View>
-                <View style={{flex: 1, marginTop: 40}}>
+                <View style={{ marginTop: 40}} />
                     <TouchableOpacity style={styles.button}>
                         <EmailIcon/>
                         <Text style={styles.button_title}>Имя, номер телефона, email</Text>
@@ -91,7 +95,8 @@ const UserSinglePage = () => {
                     </TouchableOpacity>
                     <View style={styles.line}/>
 
-                    <TouchableOpacity onPress={toggleBottomNavigationView} style={styles.button}>
+                    <TouchableOpacity onPress={toggleBottomNavigationView}
+                                      style={styles.button}>
                         <SmsIcon/>
                         <Text style={styles.button_title}>Помощь</Text>
                         <View style={{alignItems: 'flex-end'}}>
@@ -99,12 +104,15 @@ const UserSinglePage = () => {
                         </View>
                     </TouchableOpacity>
                     <View style={styles.line}/>
-                    <TouchableOpacity onPress={logOut}>
+                    <TouchableOpacity
+                        onPress={logOut}
+                        style={{
+                            marginTop:9
+                        }}>
                         <Text style={styles.logOut}>
                             Выйти из учетной записи
                         </Text>
                     </TouchableOpacity>
-                </View>
             </View>
 
             <View style={{flex: 1, width: '100%'}}>
@@ -127,7 +135,12 @@ const UserSinglePage = () => {
                 >
                     <View style={styles.modal}>
                         <View style={styles.modal_line}/>
-                        <Text style={{textAlign: 'center', color: '#797979', marginBottom: 30}}>
+                        <Text style={{
+                            fontWeight:'400',
+                            fontSize:16,
+                            lineHeight:20,
+                            textAlign: 'center', color: '#797979',
+                            marginBottom: 30}}>
                             Служба поддержки
                         </Text>
 
@@ -152,7 +165,7 @@ const UserSinglePage = () => {
                     </View>
                 </Modal>
             </View>
-        </View>
+        </SafeAreaView>
 
     );
 };
@@ -161,18 +174,19 @@ export default UserSinglePage;
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
         paddingHorizontal: 16,
-        backgroundColor: "#FFFFFF",
+        backgroundColor: "#fff",
     },
     edit_icon: {
         position: "absolute",
         alignSelf: "flex-end",
-        top: 20,
         zIndex: 1,
         backgroundColor: "#fFF",
         borderRadius: 100,
         padding: 5,
+        transform:[
+            {translateY: -130}
+        ]
     },
     image: {
         width: 120,
@@ -182,7 +196,7 @@ const styles = StyleSheet.create({
     },
     button: {
         flexDirection: 'row',
-        alignItems: "center"
+        alignItems: "center",
 
     },
     button_title: {
@@ -197,13 +211,14 @@ const styles = StyleSheet.create({
         height: 2,
         backgroundColor: '#BDBDBD',
         marginVertical: 15,
-        width: '1001%'
+        width: '100%'
     },
     logOut: {
         color: color1,
         fontStyle: "normal",
         fontSize: 16,
-        fontWeight: '500'
+        fontWeight: '500',
+        lineHeight:20
     },
     modal: {
         height: 212,

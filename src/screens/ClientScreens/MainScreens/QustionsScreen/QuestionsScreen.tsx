@@ -204,9 +204,10 @@ const styles = StyleSheet.create({
     questions_answers: {
         paddingVertical: 15,
         borderRadius: 30,
-        marginBottom: 12,
         flexDirection: 'row',
-        alignItems: "center"
+        alignItems: "center",
+        marginVertical:6
+
     },
     line: {
         height: 2,
