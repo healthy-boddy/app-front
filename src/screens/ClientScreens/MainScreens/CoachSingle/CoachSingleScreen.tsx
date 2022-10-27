@@ -19,6 +19,7 @@ const CoachSingleScreen = () => {
     const [coach, setCoach] = useState<any>([])
     const [educationVisible, setEducationVisible] = useState(false)
     const [reviewsVisible, setReviewsVisible] = useState(false)
+
     useEffect(() => {
         axios.get(baseUrl + '/quiz_status/', {
             headers: {
@@ -29,13 +30,15 @@ const CoachSingleScreen = () => {
         })
     }, [])
 
+    console.log(coach)
+
     return (
         <SafeAreaView
         style={{
             flex: 1,
-            backgroundColor: '#fff'
-        }}
-        >
+            backgroundColor: '#fff',
+            paddingTop: 25
+        }}>
             <View style={{
                 width:'100%',
                 paddingHorizontal:16
@@ -45,7 +48,6 @@ const CoachSingleScreen = () => {
                     justifyContent:'space-between',
                     flexDirection:'row',
                     alignItems:'center',
-
                 }}>
 
                     <TouchableOpacity
@@ -87,6 +89,9 @@ const CoachSingleScreen = () => {
                     <Text style={styles.coach_name}>
                         {coach?.user?.username}
                     </Text>
+                    {/*<Text style={styles.specialities_description}>*/}
+                    {/*    {coach?.specialities[0]?.name}*/}
+                    {/*</Text>*/}
                 </View>
                 <View style={{flexDirection: 'row', marginTop: 30, alignItems: 'center'}}>
                     <Text>
@@ -205,5 +210,12 @@ const styles = StyleSheet.create({
         fontWeight: '400',
         fontStyle: 'normal',
         lineHeight: 20
+    },
+    specialities_description:{
+        color: '#797979',
+        fontStyle: "normal",
+        fontSize: 16,
+        lineHeight: 20,
+        fontWeight: '400'
     }
 })

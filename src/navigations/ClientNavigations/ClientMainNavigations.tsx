@@ -10,7 +10,9 @@ import {
     CalendarScreen,
     QuestionsScreen,
     UserSinglePage,
-    CoachSingle
+    CoachSingle,
+    PaidQuizzesScreen,
+    TyScreen
 
 } from "../../screens/ClientScreens/MainScreens";
 import {TabNavigatorElem} from "./tab-bar-elem/tab-navigation-elems";
@@ -40,6 +42,12 @@ function UserSingle() {
 function CoachSingleScreen() {
     return <CoachSingle/>;
 }
+function PaidQuizzes() {
+    return <PaidQuizzesScreen/>;
+}
+function TyPage() {
+    return <TyScreen/>;
+}
 
 export default function ClientMain() {
     return (
@@ -67,20 +75,20 @@ export default function ClientMain() {
                 }}
             />
 
-            <Tab.Screen
-                name="Calendar"
-                component={Calendar}
-                options={{
-                    tabBarIcon: ({focused}) => (
-                        <TabNavigatorElem
-                            colorItem={focused ? "#7454CF" : "#797979"}
-                            icon={<CalendarSvg color={focused ? "#7454CF" : "#797979"}/>}
-                            navigatorName="Календарь"
-                        />
-                    ),
-                    tabBarShowLabel: false,
-                }}
-            />
+            {/*<Tab.Screen*/}
+            {/*    name="Calendar"*/}
+            {/*    component={Calendar}*/}
+            {/*    options={{*/}
+            {/*        tabBarIcon: ({focused}) => (*/}
+            {/*            <TabNavigatorElem*/}
+            {/*                colorItem={focused ? "#7454CF" : "#797979"}*/}
+            {/*                icon={<CalendarSvg color={focused ? "#7454CF" : "#797979"}/>}*/}
+            {/*                navigatorName="Календарь"*/}
+            {/*            />*/}
+            {/*        ),*/}
+            {/*        tabBarShowLabel: false,*/}
+            {/*    }}*/}
+            {/*/>*/}
 
             <Tab.Screen
                 name="Analyzes"
@@ -130,6 +138,22 @@ export default function ClientMain() {
             <Tab.Screen
                 name="CoachSingleScreen"
                 component={CoachSingleScreen}
+                options={({route}) => ({
+                    tabBarButton: () => null,
+                    tabBarStyle: {display: 'none'},
+                })}
+            />
+            <Tab.Screen
+                name="PaidQuizzes"
+                component={PaidQuizzes}
+                options={({route}) => ({
+                    tabBarButton: () => null,
+                    tabBarStyle: {display: 'none'},
+                })}
+            />
+            <Tab.Screen
+                name="TyPage"
+                component={TyPage}
                 options={({route}) => ({
                     tabBarButton: () => null,
                     tabBarStyle: {display: 'none'},

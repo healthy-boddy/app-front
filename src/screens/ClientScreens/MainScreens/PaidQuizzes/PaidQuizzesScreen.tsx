@@ -1,18 +1,14 @@
-import React, {useEffect, useState} from "react";
-import {
-    View,
-    Text,
-    StyleSheet,
-    TouchableOpacity,
-    ScrollView,
-} from "react-native";
+import React, {useEffect, useState} from 'react';
+import {View, Text, StyleSheet, ScrollView, TouchableOpacity} from "react-native";
+import MainContainer from "../../../../components/MainContainer";
+import BackButton from "../../../../components/BackButton";
 import {useNavigation} from "@react-navigation/native";
-import {QuestionsWrapper} from "./questions-wrapper";
-import Title from "../../../../components/Title";
-import axios from "axios";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import {ActivityIndicator, ProgressBar, RadioButton} from "react-native-paper";
+import {QuestionsWrapper} from "../QustionsScreen/questions-wrapper";
+import {ActivityIndicator, ProgressBar} from "react-native-paper";
 import {color1} from "../../../../helpers/colors";
+import {useSelector} from "react-redux";
+import axios from "axios";
+import Title from "../../../../components/Title";
 import CheckBox from "../../../../assets/Icons/CheckBox";
 
 type Answer = {
@@ -20,27 +16,20 @@ type Answer = {
     answers: Array<number>;
 }
 
-const QuestionsScreen = () => {
-    const navigation: any = useNavigation();
-    const [questions, setQuestions] = useState<any>([]);
-    const [userToken, setUserToken] = useState<any>("");
-    let [loading, setLoading] = useState<boolean>(true);
+const PaidQuizzesScreen = () => {
+    const navigation = useNavigation<any>()
+    let tokenFromReducer = useSelector((store: any) => store.user_token.user_token);
+    let AuthStr = "Bearer " + tokenFromReducer;
     const [level, setLevel] = useState(0);
-    let progress = (1 / 46) * level;
-
+    let [questions, setQuestions] = useState<any>([])
+    let [loading, setLoading] = useState(true)
+    let progress = (1 / 123) * level;
     let [checkedAnswer, setCheckedAnswer] = useState<Array<Answer>>([])
 
     useEffect(() => {
         (async () => {
-            await AsyncStorage.getItem("userToken").then((r) => setUserToken(r));
-        })();
-    }, []);
-
-    useEffect(() => {
-        let AuthStr = "Bearer " + userToken;
-        (async () => {
             try {
-                axios.get(`http://92.53.97.238/quiz/free_user_quiz/`, {
+                axios.get(`http://92.53.97.238/quiz/paid_user_quiz/`, {
                     headers: {
                         Authorization: AuthStr,
                         "Content-Type": "application/json",
@@ -49,13 +38,14 @@ const QuestionsScreen = () => {
                 }).then((res) => {
                     setQuestions(res.data.questions);
                     console.log(res.data.questions);
-                    setLoading(false);
+                    setLoading(false)
+                    //   setLoading(false);
                 });
             } catch (error) {
                 console.log(error, "err");
             }
         })();
-    }, [userToken]);
+    }, [])
 
     const answerPressed = (answer: any, question: any) => {
         const answerId = answer.id;
@@ -94,11 +84,8 @@ const QuestionsScreen = () => {
                 </View>
         )
     }
-
+    console.log(checkedAnswer)
     async function handleSendQuestionsAnswers() {
-        console.log(JSON.stringify({response_answers: checkedAnswer}), '33332')
-        let AuthStr = "Bearer " + userToken;
-
         await fetch('http://92.53.97.238/quiz/response/', {
             method: 'post',
             headers: {
@@ -108,18 +95,18 @@ const QuestionsScreen = () => {
             },
             body: JSON.stringify({
                 response_answers: checkedAnswer,
-                quiz: 1
+                quiz: 2
             })
-        }).then((response) => {
+        }).then((response)=>{
             return response.json()
-        }).then((response) => {
+        }).then((response)=>{
             console.log(response, 'fetch')
         })
     }
 
     return (
         <QuestionsWrapper
-            buttonTitle={"Продолжить"}
+            buttonTitle={'Продолжить'}
             onPressBack={() => {
                 if (level >= 1) {
                     setLevel(level - 1);
@@ -130,11 +117,11 @@ const QuestionsScreen = () => {
                     setLevel(level + 1);
                 } else if (level === questions.length - 1) {
                     handleSendQuestionsAnswers().then(r => console.log(r))
-                    navigation.navigate("Main")
+                    navigation.navigate("TyPage")
                 }
             }}
             onPressLetter={() => {
-                navigation.navigate("Main")
+                navigation.navigate('Main')
             }}>
             <View style={styles.container}>
                 {loading && (
@@ -195,13 +182,22 @@ const QuestionsScreen = () => {
         </QuestionsWrapper>
     );
 };
+export default PaidQuizzesScreen;
 
-export default QuestionsScreen;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        width: '100%',
         paddingHorizontal: 16,
-        width: "100%",
+    },
+    level_info: {
+        textAlign: 'center',
+        color: '#1E1E1E',
+        fontSize: 19,
+        fontWeight: '600',
+        lineHeight: 21,
+        marginTop: 7,
+        marginBottom: 12
     },
     question_level: {
         marginTop: 7,
@@ -213,7 +209,8 @@ const styles = StyleSheet.create({
         borderRadius: 30,
         flexDirection: 'row',
         alignItems: "center",
-        marginVertical: 6
+        marginVertical:6
+
     },
     line: {
         height: 2,
@@ -228,4 +225,4 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         borderWidth: 2,
     }
-});
+})

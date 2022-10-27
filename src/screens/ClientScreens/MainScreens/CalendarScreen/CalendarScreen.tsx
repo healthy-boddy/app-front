@@ -19,7 +19,7 @@ const CalendarScreen = () => {
     return (
         <MainContainer>
             <View style={{top: '20%'}}>
-                <CustomButton title={"выйти"} onPress={logout}/>
+                <CustomButton disabled={true} title={"выйти"} onPress={logout}/>
             </View>
         </MainContainer>
     );

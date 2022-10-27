@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Dimensions, Image, SafeAreaView, StyleSheet, Text, View,} from "react-native";
+import {Dimensions, TouchableOpacity, Image, SafeAreaView, StyleSheet, Text, View,} from "react-native";
 import BackButton from "../../../../components/BackButton";
 import {useDispatch, useSelector} from "react-redux";
 import PenIcon from "../../../../assets/Icons/PenIcon";
@@ -16,7 +16,6 @@ import {useNavigation} from "@react-navigation/native";
 import SendMessageIcon from "./SingleScreenIcons/SendMessageIcon";
 import ChatMessageIcon from "./SingleScreenIcons/ChatMessageIcon";
 import Modal from "react-native-modal";
-import {TouchableOpacity} from "react-native-gesture-handler";
 
 const deviceWidth = Dimensions.get("window").width;
 
@@ -37,6 +36,7 @@ const UserSinglePage = () => {
 
     const toggleBottomNavigationView = () => {
         setVisible(!visible);
+        console.log(visible)
     };
 
     return (
@@ -46,15 +46,13 @@ const UserSinglePage = () => {
             width: '100%',
         }}>
             <View
-                pointerEvents={'auto'}
+
                 style={styles.container}>
                 <BackButton onPress={() => { // @ts-ignore
                     navigation.navigate('Main')
                 }}/>
-                <View style={{position: "relative", alignSelf: 'center'}}>
-
+                <View style={{position: "relative", alignItems: 'center'}}>
                     <View>
-
                         {!image ? (
                             <Image
                                 style={styles.image}
@@ -76,7 +74,7 @@ const UserSinglePage = () => {
                         {userData.user.username}
                     </Title>
                 </View>
-                <View style={{ marginTop: 40}} />
+                <View style={{ marginTop: 40, flex: 1}} />
                     <TouchableOpacity style={styles.button}>
                         <EmailIcon/>
                         <Text style={styles.button_title}>Имя, номер телефона, email</Text>
@@ -86,7 +84,10 @@ const UserSinglePage = () => {
                     </TouchableOpacity>
                     <View style={styles.line}/>
 
-                    <TouchableOpacity style={styles.button}>
+                    <TouchableOpacity
+                        onPress={()=>{
+                            console.log('notifications')}}
+                        style={styles.button}>
                         <NotificationIcon/>
                         <Text style={styles.button_title}>Уведомления</Text>
                         <View style={{alignItems: 'flex-end'}}>
@@ -94,7 +95,6 @@ const UserSinglePage = () => {
                         </View>
                     </TouchableOpacity>
                     <View style={styles.line}/>
-
                     <TouchableOpacity onPress={toggleBottomNavigationView}
                                       style={styles.button}>
                         <SmsIcon/>
@@ -123,7 +123,7 @@ const UserSinglePage = () => {
                         width: '100%',
                         left: 0,
                         marginLeft: 'auto',
-                        marginBottom: 'auto'
+                        marginBottom: 'auto',
                     }}
                     isVisible={visible}
                     onBackdropPress={toggleBottomNavigationView}
@@ -181,12 +181,10 @@ const styles = StyleSheet.create({
         position: "absolute",
         alignSelf: "flex-end",
         zIndex: 1,
-        backgroundColor: "#fFF",
+        backgroundColor: "#fff",
         borderRadius: 100,
         padding: 5,
-        transform:[
-            {translateY: -130}
-        ]
+        top: 20
     },
     image: {
         width: 120,
@@ -197,7 +195,6 @@ const styles = StyleSheet.create({
     button: {
         flexDirection: 'row',
         alignItems: "center",
-
     },
     button_title: {
         fontSize: 16,

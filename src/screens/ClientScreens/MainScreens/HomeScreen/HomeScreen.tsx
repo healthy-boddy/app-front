@@ -19,6 +19,7 @@ const HomeScreen = () => {
     const user_data = useSelector((store: any) => store.user_data.user_data);
     const [userData, setUserData] = useState<any>([]);
     const [freeQuizStatus, setFreeQuizStatus] = useState(false);
+    const [paidQuizStatus, setPaidQuizStatus] = useState(false);
     const [userCoach, setUserCoach] = useState<any>(false);
     let tokenFromReducer = useSelector((store: any) => store.user_token.user_token);
     const [loading, setLoading] = useState(true)
@@ -53,13 +54,13 @@ const HomeScreen = () => {
                         Authorization: "Bearer " + tokenFromReducer,
                     },
                 }).then((status) => {
-                 //   console.log(status.data, 'status')
+                    console.log(status.data, 'status')
                     setFreeQuizStatus(status.data.is_free_quiz_passed)
+                    setPaidQuizStatus(status.data.is_paid_quiz_passed)
                     setUserCoach(status.data.coach)
                  //   console.log(userCoach, 'userCoach')
                 })
     }, [isFocused])
-
 
     const returnViews = () => {
         if (!freeQuizStatus) {
@@ -118,7 +119,7 @@ const HomeScreen = () => {
                     </Text>
                 </View>
             )
-        } else if (userCoach) {
+        } else if (userCoach && !paidQuizStatus) {
             return (
                 <View style={{flex: 1}}>
                     <View style={{flex: 1}}>
@@ -166,13 +167,62 @@ const HomeScreen = () => {
                             </TouchableOpacity>
                         </View>
                         <View style={{marginBottom: 40}}>
-                            <CustomButton title={'Заполнить анкету'}/>
+                            <CustomButton
+                                title={'Заполнить анкету'}
+                                onPress={()=>{navigation.navigate('PaidQuizzes')}}
+                            />
                         </View>
                     </View>
                 </View>
             )
-        }
-    }
+        }else if (userCoach && paidQuizStatus){
+            return (
+                <View>
+                    <Title titlePropStyle={{
+                        marginTop: 15,
+                        fontSize: 24,
+                        lineHeight: 28
+                    }}>Ваш коуч скоро свяжется с вами, чтобы назначить консультацию</Title>
+                    <Text style={styles.description}>
+                        На консультации вы вместе определите цели и план работ.
+                    </Text>
+                    <View style={{flex: 1}}>
+                        <TouchableOpacity
+                            activeOpacity={0.7}
+                            style={styles.coach_box}
+                            onPress={()=>{navigation.navigate('CoachSingleScreen')}}
+                        >
+                            {coach.map((item) => (
+                                <View style={{
+                                    flexDirection: 'row',
+                                    alignItems: 'center',
+                                    justifyContent: 'space-between'
+                                }}>
+                                    <View style={{
+                                        flexDirection: 'row',
+                                        alignItems: 'center',
+                                    }}>
+                                        <View>
+                                            <Image
+                                                style={styles.coach_avatar}
+                                                source={{uri: userCoach.avatar}}/>
+                                        </View>
+                                        <View style={{paddingLeft: 12}}>
+                                            <Text style={styles.coach_name}>{userCoach.user.username}</Text>
+                                            <Text style={styles.coach_description}>Мой Health Buddy</Text>
+                                        </View>
+                                    </View>
+
+                                    <View style={{}}>
+                                        <RightIcon/>
+                                    </View>
+                                </View>
+                            ))}
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            )
+    }}
 
     return (
         <MainContainer>
