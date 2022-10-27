@@ -9,8 +9,6 @@ import {
     GreetingsScreen3,
     GreetingsScreen4,
     GreetingsScreen5,
-    GreetingsScreen6,
-    GreetingsScreen7,
     FirstScreen
 } from '../../screens/CoacheScreens/AuthScreens'
 
@@ -30,12 +28,6 @@ function Greetings4() {
 }
 function Greetings5() {
     return <GreetingsScreen5/>
-}
-function Greetings6() {
-    return <GreetingsScreen6/>
-}
-function Greetings7() {
-    return <GreetingsScreen7/>
 }
 
 function First() {
@@ -80,18 +72,6 @@ export default function CoachVerify() {
                         })}
             />
             <Tab.Screen name='Greetings5' component={Greetings5}
-                        options={({route}) => ({
-                            tabBarButton: () => null,
-                            tabBarStyle: {display: 'none'},
-                        })}
-            />
-            <Tab.Screen name='Greetings6' component={Greetings6}
-                        options={({route}) => ({
-                            tabBarButton: () => null,
-                            tabBarStyle: {display: 'none'},
-                        })}
-            />
-            <Tab.Screen name='Greetings7' component={Greetings7}
                         options={({route}) => ({
                             tabBarButton: () => null,
                             tabBarStyle: {display: 'none'},

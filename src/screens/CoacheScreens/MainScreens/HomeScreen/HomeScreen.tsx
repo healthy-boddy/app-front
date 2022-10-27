@@ -45,7 +45,7 @@ const HomeScreen = () => {
             <View style={styles.user_data}>
                 <View style={{flexDirection: 'row', marginTop: 25}}>
                     <View>
-                        <Image style={styles.image} source={{uri: userDate.photo}}/>
+                        <Image style={styles.image} source={{uri: userDate.avatar}}/>
                     </View>
                     <Text style={styles.username}>
                         {userDate?.user?.username}

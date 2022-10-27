@@ -14,50 +14,53 @@ const GreetingsScreen6 = () => {
     const [status, setStatus] = React.useState({});
     return (
         <Container containerProp={styles.inlineContainer}>
-            <View style={{marginBottom: 20}}>
-                <BackButton onPress={() => {
-                    navigation.navigate('Greetings5')
-                }}/>
-            </View>
-            <ScrollView showsVerticalScrollIndicator={false}>
+            <ScrollView>
+                <View style={{marginBottom: 20}}>
+                    <BackButton onPress={() => {
+                        //  navigation.navigate('Greetings5')
+                    }}/>
+                </View>
                 <View>
-                    <Title> 
+                    <Title>
                         Теперь переходим к знакомству с клиентом
                     </Title>
-                    <Text>
+                    <Text style={styles.description}>
                         Видео о пути клиента от старшего сервис-менеджера Александрой Щербаковой
                     </Text>
                 </View>
                 <View style={styles.video_box}>
                     <Video
                         ref={video}
+                        resizeMode={'contain'}
                         style={styles.video}
                         source={{uri: 'https://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4'}}
                         useNativeControls
-                        resizeMode={"contain"}
                         isLooping
                         onPlaybackStatusUpdate={status => setStatus(() => status)}
                     />
                 </View>
-                <View style={{marginBottom: '10%'}}>
+                <View style={{flex: 1}}>
                     <View>
                         <Title titlePropStyle={{marginTop: 15, marginBottom: 10}}>
                             Задание
                         </Title>
-                        <Text>
-                            выписать чек-лист первичной консультации (основные пункты для коммуникации с клиентом)
+                        <Text style={styles.description}>
+                            Выписать чек-лист первичной консультации (основные пункты для коммуникации с клиентом)
                         </Text>
                     </View>
                     <View style={styles.input_box}>
-                        <TextInput placeholder={'Написать'}/>
+                        <TextInput
+                            placeholder={'Написать'}
+                            multiline={true}
+                        />
                     </View>
                 </View>
-                <View style={{marginBottom: 25}}>
-                    <CustomButton onPress={() => {
-                        navigation.navigate("Greetings7")
-                    }} title={'Продолжить'}/>
-                </View>
             </ScrollView>
+            <View style={{marginBottom: 25}}>
+                <CustomButton onPress={() => {
+                    navigation.navigate("Greetings7")
+                }} title={'Продолжить'}/>
+            </View>
         </Container>
     );
 };
@@ -70,7 +73,8 @@ const styles = StyleSheet.create({
         paddingTop: 35
     },
     video_box: {
-        borderRadius: 10
+        borderRadius: 10,
+        flex: 1
     },
     video: {
         width: '100%',
@@ -83,5 +87,14 @@ const styles = StyleSheet.create({
         padding: 10,
         borderRadius: 15,
         marginVertical: 15,
+        flex: 1
     },
+    description: {
+        color: '#797979',
+        fontSize: 16,
+        fontWeight: '400',
+        width: 343,
+        lineHeight: 20
+
+    }
 })

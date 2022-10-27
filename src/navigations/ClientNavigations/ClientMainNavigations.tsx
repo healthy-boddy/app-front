@@ -9,7 +9,9 @@ import {
     ConditionScreen,
     CalendarScreen,
     QuestionsScreen,
-    UserSinglePage
+    UserSinglePage,
+    CoachSingle
+
 } from "../../screens/ClientScreens/MainScreens";
 import {TabNavigatorElem} from "./tab-bar-elem/tab-navigation-elems";
 import {HomeSvg} from "./icons/home";
@@ -34,6 +36,9 @@ function Questions() {
 }
 function UserSingle() {
     return <UserSinglePage/>;
+}
+function CoachSingleScreen() {
+    return <CoachSingle/>;
 }
 
 export default function ClientMain() {
@@ -117,6 +122,14 @@ export default function ClientMain() {
             <Tab.Screen
                 name="UserSingle"
                 component={UserSingle}
+                options={({route}) => ({
+                    tabBarButton: () => null,
+                    tabBarStyle: {display: 'none'},
+                })}
+            />
+            <Tab.Screen
+                name="CoachSingleScreen"
+                component={CoachSingleScreen}
                 options={({route}) => ({
                     tabBarButton: () => null,
                     tabBarStyle: {display: 'none'},

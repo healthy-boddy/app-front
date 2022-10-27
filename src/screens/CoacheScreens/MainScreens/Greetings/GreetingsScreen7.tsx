@@ -31,7 +31,12 @@ const GreetingsScreen7 = () => {
             </View>
             <View>
                 <CustomButton  title={"Начать звонок"}/>
-                <CustomButton buttonStyles={styles.button_styles} buttonTitle={{color: color1}} title={"Позже"}/>
+                <CustomButton
+                    buttonStyles={styles.button_styles}
+                    buttonTitle={{color: color1}}
+                    title={"Позже"}
+                    onPress={()=>{navigation.navigate("Home")}}
+                />
             </View>
         </Container>
     );

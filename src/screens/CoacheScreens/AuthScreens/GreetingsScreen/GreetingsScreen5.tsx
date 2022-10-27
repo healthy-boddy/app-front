@@ -57,13 +57,32 @@ const WelcomeScreen = () => {
         }
     };
 
+    async function handleSendCertificates() {
+        let AuthStr = "Bearer " + userToken;
+        let formData = new FormData()
+        for (let i = 0; i <= certificate.length; i++) {
+            formData.append('file', certificate[i])
+
+            await fetch(baseUrl + '/coach_certificate/', {
+                method: 'POST',
+                headers: {
+                    Authorization: AuthStr,
+                    "Content-Type": "multipart/form-data",
+                },
+                body: formData,
+            }).then((res) => {
+                return res.json()
+            }).then((res) => {
+                console.log(res, 'res')
+            })
+        }
+    }
 
     async function handlePostInfo() {
         let AuthStr = "Bearer " + userToken;
         const dataForm = new FormData();
         dataForm.append('education_description', education)
         dataForm.append('specialization', specialisation)
-        console.log(dataForm, 'dataform')
         try {
             const {data} = await axios.put(baseUrl + "/coach/update_me/",
                 dataForm,
@@ -75,43 +94,11 @@ const WelcomeScreen = () => {
                 }
             );
             console.log(data, "sended-all");
-            // dispatch(setUserBio(data.bio));
+           dispatch(setUserBio(data.education_description));
         } catch (error) {
             console.log(error);
         }
-
-
-        const formData = new FormData();
-
-        certificate.forEach(item => formData.append(item['name'], item));
-
-        console.log(formData, 'form Data form Data form Data')
-
-        await fetch(baseUrl + '/coach_certificate/', {
-            method: 'POST',
-            headers: {
-                Authorization: AuthStr,
-                "Content-Type": "multipart/form-data",
-            },
-            body: formData,
-        }).then((res) => {
-            return res.json()
-        }).then((res) => {
-            console.log(res, 'res')
-        })
-
-
-        //     const response = await axios.post(baseUrl + '/coach_certificate/',
-        //         {file: certificate},
-        //         {headers: {
-        //                 Authorization: AuthStr,
-        //                 "Content-Type": "multipart/form-data",
-        //             }}
-        //     )
-        //     console.log(response, '\'/user/coach_certificate/\'')
-        // }catch (error){
-        //     console.log(error)
-        // }
+       await handleSendCertificates()
     }
 
     console.log(certificate, 'photo111')

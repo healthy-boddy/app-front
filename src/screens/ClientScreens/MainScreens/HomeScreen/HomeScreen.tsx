@@ -132,7 +132,11 @@ const HomeScreen = () => {
                             и сохранению здоровья, вам необходимо заполнить анкету для консультации с коучем.
                         </Text>
                         <View style={{flex: 1}}>
-                            <View style={styles.coach_box}>
+                            <TouchableOpacity
+                                activeOpacity={0.7}
+                                style={styles.coach_box}
+                                onPress={()=>{navigation.navigate('CoachSingleScreen')}}
+                            >
                                 {coach.map((item) => (
                                     <View style={{
                                         flexDirection: 'row',
@@ -159,7 +163,7 @@ const HomeScreen = () => {
                                         </View>
                                     </View>
                                 ))}
-                            </View>
+                            </TouchableOpacity>
                         </View>
                         <View style={{marginBottom: 40}}>
                             <CustomButton title={'Заполнить анкету'}/>
@@ -261,7 +265,6 @@ const styles = StyleSheet.create({
         paddingRight: 25
     },
     coach_avatar: {
-        backgroundColor: 'red',
         width: 56,
         height: 56,
         borderRadius: 50

@@ -56,17 +56,17 @@ const App = () => {
                 .then((res) => {
                     console.log(res.data, "eee");
                     dispatch(setUserData(res.data));
-                    if (res.data.bio) {
+                    if (res.data.education_description) {
                         setBio(res.data);
                     } else if (res.data.user.role === "client") {
                         setRole(res.data.user.role);
                     }
-                    console.log(res.data.weight, 'res')
+                    console.log(res.data.weight, 'res.data.weight')
                     if (res.data.weight){
                         setWeight(res.data.weight)
                         dispatch(setClientData(res.data.weight))
                     }
-                    console.log(weight, 'WWWWWWWW')
+
                 })
                 .catch((e) => {
                     AsyncStorage.removeItem('userToken').then(r => console.log(r))

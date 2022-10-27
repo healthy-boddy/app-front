@@ -21,9 +21,9 @@ const EmailRegistration = (props: any) => {
 
     async function handleSendEmail() {
         let emailForm = new FormData();
-        emailForm.append("email", email);
+        await emailForm.append("email", email);
         await form.append("email", email);
-        console.log(form, 'form', emailForm, 'emailForm')
+      //  console.log(form, 'form', emailForm, 'emailForm')
         try {
             const response = await axios.post(
                 baseUrl + "/" + role + "/",
