@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, Image, StyleSheet, ScrollView, TouchableOpacity} from "react-native";
+import {View, Text, Image, StyleSheet, ScrollView, TouchableOpacity, SafeAreaView} from "react-native";
 import MainContainer from "../../../../components/MainContainer";
 import BackButton from "../../../../components/BackButton";
 import axios from "axios";
@@ -11,6 +11,7 @@ import ArrowDown from "./CoachSingleIcons/ArrowDown";
 import ArrowUp from "./CoachSingleIcons/ArrowUp";
 import ReviewsIcon from "./CoachSingleIcons/ReviewsIcon";
 import {useNavigation} from "@react-navigation/native";
+import BackIcon from "../../../../assets/Icons/BackIcon";
 
 const CoachSingleScreen = () => {
     let tokenFromReducer = useSelector((store: any) => store.user_token.user_token);
@@ -29,16 +30,55 @@ const CoachSingleScreen = () => {
     }, [])
 
     return (
-        <MainContainer>
-            <ScrollView>
-                <View style={{flexDirection: 'row', alignItems: 'center', height: 50}}>
-                    <View style={{width: 150}}>
-                        <BackButton onPress={()=>{navigation.navigate('Main')}}/>
-                    </View>
-                    <View style={{alignItems: 'center', top: 20}}>
-                        <Text style={{textAlign: 'center'}}>Мой Health Buddy</Text>
-                    </View>
+        <SafeAreaView
+        style={{
+            flex: 1,
+            backgroundColor: '#fff'
+        }}
+        >
+            <View style={{
+                width:'100%',
+                paddingHorizontal:16
+            }}>
+                <View style={{
+                    width:'100%',
+                    justifyContent:'space-between',
+                    flexDirection:'row',
+                    alignItems:'center',
+
+                }}>
+
+                    <TouchableOpacity
+                        activeOpacity={0.6}
+                        onPress={()=>{navigation.navigate('Main')}}
+                        style={{
+                            alignItems:'center',
+                            justifyContent:'center',
+                            flexDirection:'row'
+
+                        }}
+                    >
+                            <BackIcon />
+                            <Text style={{
+                                color: "#7454CF",
+                                marginLeft: 10,
+                                fontSize: 18,
+                                fontWeight: "400",
+                                lineHeight: 21.48,
+                            }}>Назад</Text>
+                    </TouchableOpacity>
+                        <Text style={{
+                            color:'#1E1E1E',
+                            fontWeight:'400',
+                            fontSize:16,
+                            lineHeight:21,
+                         }}>Мой Health Buddy</Text>
+                    <View  style={{
+                        width:50,
+                        height:30,
+                    }}/>
                 </View>
+            <ScrollView>
                 <View style={{marginTop: 55, alignItems: 'center'}}>
                     <Image
                         source={{uri: coach?.avatar}}
@@ -74,7 +114,7 @@ const CoachSingleScreen = () => {
                             <EducationIcon/>
                         </Text>
                         <Text style={styles.specialisation_title}>
-                            Оброзование
+                            Образование
                         </Text>
                     </View>
                     <Text style={{alignItems: 'flex-end'}}>
@@ -109,7 +149,8 @@ const CoachSingleScreen = () => {
                     </Text>
                 </TouchableOpacity>
             </ScrollView>
-        </MainContainer>
+            </View>
+        </SafeAreaView>
     );
 };
 
