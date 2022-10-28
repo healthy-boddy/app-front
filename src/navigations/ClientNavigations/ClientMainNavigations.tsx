@@ -93,6 +93,12 @@ export default function ClientMain() {
             <Tab.Screen
                 name="Analyzes"
                 component={Calendar}
+                listeners={{
+                    tabPress: e => {
+                        // Prevent default action
+                        e.preventDefault();
+                    },
+                }}
                 options={{
                     tabBarIcon: ({focused}) => (
                         <TabNavigatorElem
