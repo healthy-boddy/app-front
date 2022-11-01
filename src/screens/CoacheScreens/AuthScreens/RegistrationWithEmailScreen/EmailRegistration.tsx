@@ -16,7 +16,7 @@ const EmailRegistration = (props: any) => {
     const navigation: any = useNavigation();
     let form = useSelector((store: any) => store.auth_data.formData);
     let role = useSelector((store: any) => store.auth_data.userRole);
-
+    let [error, setError] = useState(false)
     const [email, sendEmail] = useState("");
 
     async function handleSendEmail() {
@@ -35,8 +35,15 @@ const EmailRegistration = (props: any) => {
                 }
             );
             console.log(response.data, "asd");
-        } catch (error) {
-            console.log(error, "catch-error");
+            setError(false)
+        } catch (error: any) {
+            setError(true)
+            console.log(error.request.response, "catch-error");
+            if (error.request.response){
+                setError(true)
+                return false
+            }
+            return false
         }
         try {
             const response1 = await axios.post(baseUrl + "/send_pin/",
@@ -85,13 +92,16 @@ const EmailRegistration = (props: any) => {
                     Мы отправим письмо с кодом подтверждения на ваш Email
                 </Text>
                 <View style={{flex: 1}}>
-                    <View style={{marginTop: 30}}>
+                    <View style={[{marginTop: 30}, error && {borderColor: '#E81313', borderWidth: 2, borderRadius: 10}]}>
                         <CustomInput
                             placeholder={"Введите почту"}
                             onChangeText={sendEmail}
                             value={email}
                         />
                     </View>
+                    {error && <Text style={{marginTop: 8, color: '#E81313'}}>
+                        Почта уже используется
+                    </Text>}
                 </View>
             </KeyboardAwareScrollView>
         </WrapperPage>

@@ -6,13 +6,13 @@ import Delete from "../assets/Icons/Delete";
 const CustomInput = (props: any) => {
   const { onChangeText, placeholder, value } = props;
   return (
-    <View style={styles.input_box}>
+    <View style={[styles.input_box]}>
       <View>
         <TextInput
           value={value}
           onChangeText={onChangeText}
           placeholder={placeholder}
-          style={styles.input}
+          style={[styles.input]}
           placeholderTextColor={"#797979"}
           textContentType="emailAddress"
           keyboardType="email-address"
@@ -42,6 +42,7 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
     flexDirection: "row",
     justifyContent: "space-between",
+
   },
   input: {
     fontSize: 16,

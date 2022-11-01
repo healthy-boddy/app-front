@@ -16,17 +16,31 @@ import {useNavigation} from "@react-navigation/native";
 import SendMessageIcon from "./SingleScreenIcons/SendMessageIcon";
 import ChatMessageIcon from "./SingleScreenIcons/ChatMessageIcon";
 import Modal from "react-native-modal";
+import * as ImagePicker from "expo-image-picker";
+import {baseUrl} from "../../../../helpers/url";
+import CustomButton from "../../../../components/CustomButton";
 
 const deviceWidth = Dimensions.get("window").width;
 
 const UserSinglePage = () => {
     const userData = useSelector((store: any) => store.user_data.user_data);
+    let tokenFromReducer = useSelector((store: any) => store.user_token.user_token);
+
     const dispatch = useDispatch();
     const navigation = useNavigation();
-    let [image, setImage] = useState([]);
     const [visible, setVisible] = useState(false)
+    const [avatar, setAvatar] = useState<any>(null)
+    const [logOutModalVisible, setLogOutModalVisible] = useState(false)
 
     const logOut = async () => {
+        setLogOutModalVisible(!logOutModalVisible)
+    }
+
+    const toggleBottomNavigationView = () => {
+        setVisible(!visible);
+    };
+
+    const handleLogOut = async ()=>{
         await AsyncStorage.removeItem('userToken');
         dispatch(deleteUserToken());
         dispatch(deleteClientData());
@@ -34,9 +48,37 @@ const UserSinglePage = () => {
         dispatch(deleteUserBio())
     }
 
-    const toggleBottomNavigationView = () => {
-        setVisible(!visible);
-        console.log(visible)
+    const pickImage = async () => {
+        let AuthStr = "Bearer " + tokenFromReducer;
+        let form  = new FormData()
+        form.append('avatar', avatar)
+
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.All,
+            allowsEditing: true,
+            aspect: [4, 3],
+            quality: 1,
+        });
+
+        if (!result.cancelled) {
+            setAvatar({
+                uri: result.uri,
+                name: `IMG_` + Date.now() + `.JPG`,
+                type: result.type + "/jpeg",
+            });
+            await fetch(`http://92.53.97.238/user/client/update_me/`,{
+                method: 'PUT',
+                headers: {
+                    Authorization: AuthStr,
+                    "Content-Type": "multipart/form-data",
+                },
+                body: form
+            }).then((res) => {
+                return res.json()
+            }).then((res)=>{
+                console.log(res, 'updated')
+            })
+        }
     };
 
     return (
@@ -46,22 +88,21 @@ const UserSinglePage = () => {
             width: '100%',
         }}>
             <View
-
                 style={styles.container}>
                 <BackButton onPress={() => { // @ts-ignore
                     navigation.navigate('Main')
                 }}/>
                 <View style={{position: "relative", alignItems: 'center'}}>
                     <View>
-                        {!image ? (
+                        {avatar ? (
                             <Image
                                 style={styles.image}
-                                source={require("../../../../assets/images/np_img.png")}
+                                source={{uri: avatar.uri}}
                             />
                         ) : (
                             <Image style={styles.image} source={{ uri: userData.avatar }} />
                         )}
-                        <TouchableOpacity style={styles.edit_icon}>
+                        <TouchableOpacity onPress={pickImage} style={styles.edit_icon}>
                             <PenIcon />
                         </TouchableOpacity>
                     </View>
@@ -114,7 +155,32 @@ const UserSinglePage = () => {
                         </Text>
                     </TouchableOpacity>
             </View>
-
+            <Modal
+                isVisible={logOutModalVisible}
+                useNativeDriver={true}
+            >
+                <View style={styles.logOut_box}>
+                        <Text style={styles.logOut_text}>
+                            Вы уверены, что хотите выйти из аккаунта?
+                        </Text>
+                    <View style={styles.log_out_buttons}>
+                        <View style={{width: '40%'}}>
+                            <CustomButton
+                                title={'Остаться'}
+                                onPress={()=>{setLogOutModalVisible(false)}}
+                            />
+                        </View>
+                        <View style={{width: '40%'}}>
+                            <CustomButton
+                                buttonStyles={{backgroundColor: 'transparent', borderColor:color1, borderWidth: 2,}}
+                                buttonTitle={{color: color1}}
+                                title={'Выйти'}
+                                onPress={handleLogOut}
+                            />
+                        </View>
+                    </View>
+                </View>
+            </Modal>
             <View style={{flex: 1, width: '100%'}}>
                 <Modal
                     style={{
@@ -240,7 +306,26 @@ const styles = StyleSheet.create({
         fontWeight: '400',
         fontStyle: "normal",
         fontSize: 18
-    }
-
+    },
+    logOut_text:{
+        fontWeight: '600',
+        fontSize: 19,
+        fontStyle: 'normal',
+        lineHeight: 23
+    },
+    logOut_box:{
+        width: '100%',
+        height: 210,
+        backgroundColor: '#fff',
+        alignItems: "center",
+        borderRadius: 20,
+        paddingTop: 40
+    },
+    log_out_buttons:{
+        flexDirection: 'row',
+        width: '100%',
+        marginTop: 32,
+        justifyContent: 'space-evenly'
+    },
 
 })

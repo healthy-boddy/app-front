@@ -1,5 +1,5 @@
 import React, { FC, ReactNode } from "react";
-import { SafeAreaView, View } from "react-native";
+import {SafeAreaView, StatusBar, View} from "react-native";
 import { styles } from "./wrapper-styles";
 import BackButton from "../../BackButton";
 import CustomButton from "../../CustomButton";
@@ -19,6 +19,7 @@ export const WrapperPage: FC<ButtonWrapperPageInterface> = ({
 }) => {
   return (
     <View style={styles.container}>
+        <StatusBar/>
       <SafeAreaView
         style={{
           marginLeft: 16,
