@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, StyleSheet, Image} from "react-native";
+import {View, Text, StyleSheet, Image, TouchableOpacity} from "react-native";
 import MainContainer from "../../../../components/MainContainer";
 import {useNavigation} from "@react-navigation/native";
 import {useDispatch, useSelector} from "react-redux";
@@ -12,6 +12,7 @@ import {deleteUserBio, deleteUserToken} from "../../../../store/actions/user_tok
 import {deleteUserData, setUserData} from "../../../../store/actions/user_data";
 import axios from "axios";
 import {baseUrl} from "../../../../helpers/url";
+import {TimeSvg} from "../../../../navigations/CoachNavigations/icons/time-svg";
 
 const HomeScreen = () => {
     const dispatch = useDispatch()
@@ -42,11 +43,17 @@ const HomeScreen = () => {
     }
     return (
         <MainContainer>
+            <View style={{
+                height:'100%',
+                paddingHorizontal:16
+            }}>
             <View style={styles.user_data}>
                 <View style={{flexDirection: 'row', marginTop: 25}}>
-                    <View>
+                    <TouchableOpacity
+                    onPress={()=>navigation.navigate('CoachProfile')}
+                    >
                         <Image style={styles.image} source={{uri: userDate.avatar}}/>
-                    </View>
+                    </TouchableOpacity>
                     <Text style={styles.username}>
                         {userDate?.user?.username}
                     </Text>
@@ -55,27 +62,64 @@ const HomeScreen = () => {
                     <BellIcon fill={"#797979"}/>
                 </View>
             </View>
-            <View style={{marginTop: 10}}>
-                <Title>
-                    Добрый день {userDate?.user?.username}
-                </Title>
-            </View>
-            <View style={{justifyContent: 'center', alignItems: 'center', flex: 1,}}>
-                <Text style={{fontWeight: 'bold', fontSize: 16, marginBottom: 10}}>
-                    Завершите регистрацию
-                </Text>
-                <Text>
-                    чтобы получить первых клиентов
-                </Text>
-                <View style={{width: '100%', marginTop: 25}}>
-                    <CustomButton title={'Завершить регистрацию'}/>
+
+                <View style={{
+                    alignItems:'center',
+                    justifyContent:'center',
+                    flex:1
+                }}>
+
+
+
+
+                <TimeSvg />
+
+
+                    <Text style={{
+                        marginTop:24,
+                        color:'#1E1E1E',
+                        fontSize:19,
+                        lineHeight:22.67,
+                        fontWeight:'600',
+                        textAlign:'center'
+                    }}>
+                        Завершите регистрацию
+                    </Text>
+
+                    <Text style={{
+                        marginTop:12,
+                        color:'#797979',
+                        fontSize:16,
+                        lineHeight:20,
+                        fontWeight:'400',
+                        textAlign:'center',
+                        paddingHorizontal:75
+                    }}>
+                        После регистрации вы сможете получить первых клиентов
+                    </Text>
+
+
+                    <TouchableOpacity
+                        style={{
+                            marginTop:40
+                        }}
+                        onPress={()=> console.log('Pressed')}
+                        >
+                        <Text style={{
+                            color:'#7454CF',
+                            fontSize:16,
+                            lineHeight:20,
+                            fontWeight:'500',
+                            textAlign:'center',
+                        }}>
+                            Завершить регистрацию
+                        </Text>
+                    </TouchableOpacity>
+
                 </View>
-                <View style={{top: 25, width: 200}}>
-                    <CustomButton
-                        onPress={logout}
-                        title={'Выйти'}
-                    />
-                </View>
+
+
+
             </View>
         </MainContainer>
     );
