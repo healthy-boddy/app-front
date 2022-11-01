@@ -16,6 +16,8 @@ import CustomButton from "../../../components/CustomButton";
 import {color1} from "../../../helpers/colors";
 import ChatMessageIcon from "../../ClientScreens/MainScreens/UserSinglePage/SingleScreenIcons/ChatMessageIcon";
 import SendMessageIcon from "../../ClientScreens/MainScreens/UserSinglePage/SingleScreenIcons/SendMessageIcon";
+import {deleteUserBio, deleteUserToken} from "../../../store/actions/user_token";
+import {deleteUserData} from "../../../store/actions/user_data";
 
 const deviceWidth = Dimensions.get("window").width;
 
@@ -39,6 +41,9 @@ export const CoachSinglePage = () => {
 
     const handleLogOut = async ()=>{
         await AsyncStorage.removeItem('userToken');
+        dispatch(deleteUserToken());
+        dispatch(deleteUserBio());
+        dispatch(deleteUserData());
     }
 
     const pickImage = async () => {

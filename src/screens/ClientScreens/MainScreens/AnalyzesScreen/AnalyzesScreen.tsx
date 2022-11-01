@@ -8,9 +8,11 @@ import {deleteUserData} from "../../../../store/actions/user_data";
 import {useDispatch} from "react-redux";
 import Title from "../../../../components/Title";
 import BigIcon from "./AnalyzesScreenIcons/BigIcon";
+import {useNavigation} from "@react-navigation/native";
 
-const CalendarScreen = () => {
+const AnalyzesScreen = () => {
     const dispatch = useDispatch()
+    const navigation = useNavigation<any>()
     const logout = async () => {
         await AsyncStorage.removeItem('userToken');
         dispatch(deleteUserToken());
@@ -20,7 +22,7 @@ const CalendarScreen = () => {
 
     return (
         <MainContainer>
-            <View style={{flex: 1}}>
+            <View style={{flex: 1, paddingTop: 12}}>
                 <View>
                     <Title>
                         Анализы
@@ -30,11 +32,16 @@ const CalendarScreen = () => {
                     <BigIcon/>
                 </View>
                 <View style={{marginBottom: 25}}>
-                    <CustomButton title={'Добавить анализ'}/>
+                    <CustomButton
+                        title={'Добавить анализ'}
+                        onPress={()=>{
+                            navigation.navigate('AddAnalyzes')
+                        }}
+                    />
                 </View>
             </View>
         </MainContainer>
     );
 };
 
-export default CalendarScreen;
+export default AnalyzesScreen;

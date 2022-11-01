@@ -83,9 +83,6 @@ const App = () => {
 
     }, [bioFromReducer]);
 
-    // console.log({ bioFromReducer }, "bioFromReducer && user_data?.user?.role", user_data?.user?.role);
-    // console.log(bio, "RRRR");
-    // console.log(user_data, "user_datauser_data");
 
     const returnStacks = () => {
         if (tokenFromReducer) {

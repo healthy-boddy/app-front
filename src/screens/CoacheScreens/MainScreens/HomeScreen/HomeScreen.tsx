@@ -3,13 +3,10 @@ import {View, Text, StyleSheet, Image, TouchableOpacity} from "react-native";
 import MainContainer from "../../../../components/MainContainer";
 import {useNavigation} from "@react-navigation/native";
 import {useDispatch, useSelector} from "react-redux";
-import {color1} from "../../../../helpers/colors";
 import {BellIcon} from "../../../../assets/Icons/BellIcon";
-import Title from "../../../../components/Title";
-import CustomButton from "../../../../components/CustomButton";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {deleteUserBio, deleteUserToken} from "../../../../store/actions/user_token";
-import {deleteUserData, setUserData} from "../../../../store/actions/user_data";
+import {deleteUserData} from "../../../../store/actions/user_data";
 import axios from "axios";
 import {baseUrl} from "../../../../helpers/url";
 import {TimeSvg} from "../../../../navigations/CoachNavigations/icons/time-svg";
@@ -34,7 +31,9 @@ const HomeScreen = () => {
                 console.log(e.message, "error while getting my profile");
             });
     }, [])
+
     console.log(userDate, 'userDate')
+
     const logout = async () => {
         await AsyncStorage.removeItem('userToken');
         dispatch(deleteUserToken());
@@ -68,13 +67,7 @@ const HomeScreen = () => {
                     justifyContent:'center',
                     flex:1
                 }}>
-
-
-
-
                 <TimeSvg />
-
-
                     <Text style={{
                         marginTop:24,
                         color:'#1E1E1E',
@@ -117,15 +110,12 @@ const HomeScreen = () => {
                     </TouchableOpacity>
 
                 </View>
-
-
-
             </View>
         </MainContainer>
     );
 };
-
 export default HomeScreen;
+
 const styles = StyleSheet.create({
     user_data: {
         flexDirection: "row",

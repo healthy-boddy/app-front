@@ -7,17 +7,18 @@ let Tab = createBottomTabNavigator();
 import {
     HomeScreen,
     ConditionScreen,
-    CalendarScreen,
+    AnalyzesScreen,
     QuestionsScreen,
     UserSinglePage,
     CoachSingle,
     PaidQuizzesScreen,
-    TyScreen
+    TyScreen,
+    AddAnalyzes,
+    AddManualAnalyze
 
 } from "../../screens/ClientScreens/MainScreens";
 import {TabNavigatorElem} from "./tab-bar-elem/tab-navigation-elems";
 import {HomeSvg} from "./icons/home";
-import {CalendarSvg} from "./icons/calendar";
 import {AnalyzesSvg} from "./icons/ analyzes";
 import {PersonSvg} from "./icons/person";
 
@@ -25,8 +26,8 @@ function Home() {
     return <HomeScreen/>;
 }
 
-function Calendar() {
-    return <CalendarScreen/>;
+function Analyzes() {
+    return <AnalyzesScreen/>;
 }
 
 function Condition() {
@@ -47,6 +48,13 @@ function PaidQuizzes() {
 }
 function TyPage() {
     return <TyScreen/>;
+}
+
+function AddAnalyzesScreen() {
+    return <AddAnalyzes/>;
+}
+function AddManual() {
+    return <AddManualAnalyze/>;
 }
 
 export default function ClientMain() {
@@ -75,30 +83,9 @@ export default function ClientMain() {
                 }}
             />
 
-            {/*<Tab.Screen*/}
-            {/*    name="Calendar"*/}
-            {/*    component={Calendar}*/}
-            {/*    options={{*/}
-            {/*        tabBarIcon: ({focused}) => (*/}
-            {/*            <TabNavigatorElem*/}
-            {/*                colorItem={focused ? "#7454CF" : "#797979"}*/}
-            {/*                icon={<CalendarSvg color={focused ? "#7454CF" : "#797979"}/>}*/}
-            {/*                navigatorName="Календарь"*/}
-            {/*            />*/}
-            {/*        ),*/}
-            {/*        tabBarShowLabel: false,*/}
-            {/*    }}*/}
-            {/*/>*/}
-
             <Tab.Screen
                 name="Analyzes"
-                component={Calendar}
-                // listeners={{
-                //     tabPress: e => {
-                //         // Prevent default action
-                //         e.preventDefault();
-                //     },
-                // }}
+                component={Analyzes}
                 options={{
                     tabBarIcon: ({focused}) => (
                         <TabNavigatorElem
@@ -160,6 +147,22 @@ export default function ClientMain() {
             <Tab.Screen
                 name="TyPage"
                 component={TyPage}
+                options={({route}) => ({
+                    tabBarButton: () => null,
+                    tabBarStyle: {display: 'none'},
+                })}
+            />
+            <Tab.Screen
+                name="AddAnalyzes"
+                component={AddAnalyzesScreen}
+                options={({route}) => ({
+                    tabBarButton: () => null,
+                    tabBarStyle: {display: 'none'},
+                })}
+            />
+            <Tab.Screen
+                name="AddManual"
+                component={AddManual}
                 options={({route}) => ({
                     tabBarButton: () => null,
                     tabBarStyle: {display: 'none'},
