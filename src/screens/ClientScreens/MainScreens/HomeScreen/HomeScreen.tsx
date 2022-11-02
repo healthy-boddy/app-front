@@ -11,6 +11,8 @@ import LoadingAnimation from "../../ClientScreenComponents/LoadingAnimation";
 import Title from "../../../../components/Title";
 import RightIcon from "../../../../assets/Icons/RightIcon";
 import {color1} from "../../../../helpers/colors";
+import PicCheck from "./HomeScreenIcons/PicCheck";
+import PeoplesIcon from "./HomeScreenIcons/PeoplesIcon";
 
 const HomeScreen = () => {
     const navigation: any = useNavigation();
@@ -123,15 +125,29 @@ const HomeScreen = () => {
             return (
                 <View style={{flex: 1}}>
                     <View style={{flex: 1}}>
-                        <Title titlePropStyle={{
-                            marginTop: 15,
-                            fontSize: 24,
-                            lineHeight: 28
-                        }}>Мы подобрали для вас Health Buddy</Title>
-                        <Text style={styles.description}>
-                            Осталось совсем чуть-чуть! Чтобы начать программу по восстановлению
-                            и сохранению здоровья, вам необходимо заполнить анкету для консультации с коучем.
-                        </Text>
+                       <View style={{flex: 1, marginTop: 100, alignItems:'center', justifyContent: 'center'}}>
+                          <PicCheck/>
+                           <View style={{marginTop: 30}}>
+                               <Title titlePropStyle={{textAlign: 'center'}}>Ваш Health Buddy найден!</Title>
+                               <Text style={{
+                                   textAlign: 'center',
+                                   color: '#797979',
+                                   width: 247,
+                                   marginTop: 10
+                               }}>
+                                   Для консультации с Health buddy, вам необходимо заполнить анкету
+                               </Text>
+                               <TouchableOpacity
+                                   onPress={()=>{navigation.navigate('PaidQuizzes')}}
+                                   style={{alignItems:'center', marginVertical: 40}}>
+                                   <Text style={{
+                                       color: color1
+                                   }}>
+                                       Заполнить анкету
+                                   </Text>
+                               </TouchableOpacity>
+                           </View>
+                       </View>
                         <View style={{flex: 1}}>
                             <TouchableOpacity
                                 activeOpacity={0.7}
@@ -166,26 +182,30 @@ const HomeScreen = () => {
                                 ))}
                             </TouchableOpacity>
                         </View>
-                        <View style={{marginBottom: 40}}>
-                            <CustomButton
-                                title={'Заполнить анкету'}
-                                onPress={()=>{navigation.navigate('PaidQuizzes')}}
-                            />
-                        </View>
                     </View>
                 </View>
             )
         }else if (userCoach && paidQuizStatus){
             return (
-                <View>
-                    <Title titlePropStyle={{
-                        marginTop: 15,
-                        fontSize: 24,
-                        lineHeight: 28
-                    }}>Ваш коуч скоро свяжется с вами, чтобы назначить консультацию</Title>
-                    <Text style={styles.description}>
-                        На консультации вы вместе определите цели и план работ.
-                    </Text>
+                <View style={{flex: 1}}>
+                  <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+                      <PeoplesIcon/>
+                      <Title titlePropStyle={{
+                          textAlign: 'center',
+                          width: 343,
+                          marginTop: 20
+                      }}>
+                          Ваш Health Buddy свяжется с вами в течение 24 часов
+                      </Title>
+                      <Text style={{
+                          marginTop: 20,
+                          color: '#797979',
+                          textAlign:'center',
+                          fontSize: 16
+                      }}>
+                          Он назначит консультацию, на которой вы вместе определите цели и план работ
+                      </Text>
+                  </View>
                     <View style={{flex: 1}}>
                         <TouchableOpacity
                             activeOpacity={0.7}
