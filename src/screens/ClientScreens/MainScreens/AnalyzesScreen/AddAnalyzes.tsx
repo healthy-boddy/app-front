@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text, StyleSheet, TouchableOpacity, Platform} from "react-native";
+import {View, Text, StyleSheet, TouchableOpacity, Platform, SafeAreaView} from "react-native";
 import MainContainer from "../../../../components/MainContainer";
 import BackIcon from "../../../../assets/Icons/BackIcon";
 import {color3} from "../../../../helpers/colors";
@@ -32,49 +32,76 @@ const AddAnalyzes = () => {
     }
 
     return (
-        <MainContainer>
-            <View style={{flexDirection: 'row'}}>
-                <View>
+        <SafeAreaView style={{
+            flex:1,
+            alignItems:'center',
+            backgroundColor:'#fff',
+        }}>
+            <View style={{
+                flexDirection: 'row',
+                alignItems:'center',
+                justifyContent:'space-between',
+                width:'100%',
+                paddingHorizontal:16,
+
+            }}>
                     <TouchableOpacity
                         activeOpacity={0.6}
                         onPress={()=>{navigation.navigate('Analyzes')}}
                         style={styles.back}
                     >
-                        <View>
                             <BackIcon/>
-                        </View>
-                        <View>
                             <Text style={styles.title}>Назад</Text>
-                        </View>
                     </TouchableOpacity>
-                </View>
-                <View style={{marginTop: 35, width: '60%'}}>
                     <Text style={styles.description}>Добавить анализ</Text>
-                </View>
+                <View style={{
+                    width:'25%',
+                    height:20,
+                }} />
             </View>
-            <View style={{marginTop: 30}}>
+            <View style={{marginTop: 30, width:'100%', paddingHorizontal:16}}>
                 <TouchableOpacity
                     onPress={handleAddManualAnalyzesScreen}
                     style={styles.item_box}>
-                    <Title>
+                    <Text style={{
+                        fontWeight:'600',
+                        fontSize:18,
+                        lineHeight:21.48,
+                        color:'#1E1E1E'
+                    }}>
                         Ввести вручную
-                    </Title>
-                    <Text>
+                    </Text>
+                    <Text style={{
+                        fontWeight:'400',
+                        fontSize:16,
+                        lineHeight:20,
+                        color:'#797979'
+                    }}>
                         Результаты сразу появятся в приложении
                     </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                     onPress={pickAnalyze}
                     style={[styles.item_box, {marginTop: 16}]}>
-                    <Title>
+                    <Text style={{
+                        fontWeight:'600',
+                        fontSize:18,
+                        lineHeight:21.48,
+                        color:'#1E1E1E'
+                    }}>
                         Загрузить PDF
-                    </Title>
-                    <Text>
+                    </Text>
+                    <Text style={{
+                        fontWeight:'400',
+                        fontSize:16,
+                        lineHeight:20,
+                        color:'#797979'
+                    }}>
                         Потребуется немного времени для оцифровки
                     </Text>
                 </TouchableOpacity>
             </View>
-        </MainContainer>
+        </SafeAreaView>
     );
 };
 
@@ -100,10 +127,9 @@ const styles = StyleSheet.create({
     },
     item_box: {
         width: '100%',
-        height: 70,
         backgroundColor: '#F5F4F8',
         borderRadius: 20,
-        paddingHorizontal: 18,
+        paddingHorizontal: 16,
         paddingVertical: 12
     },
     item_description:{

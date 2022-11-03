@@ -455,6 +455,7 @@ const styles = StyleSheet.create({
     color: "#1E1E1E",
     marginTop: 20,
     width: 120,
+      height:46
   },
   content_item_day: {
     marginTop: 8,

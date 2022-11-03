@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
     bottom: 35,
     transform: [
       {
-        translateX: 16,
+        translateX: 20,
       },
     ],
   },
@@ -156,9 +156,7 @@ const styles = StyleSheet.create({
     backgroundColor: color1,
     padding: 15,
     borderRadius: 30,
-    alignItems: "center",
     marginTop: 25,
-    left: "-3%",
   },
   skip_btn: {
     top: "85%",

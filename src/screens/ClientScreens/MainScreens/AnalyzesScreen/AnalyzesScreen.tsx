@@ -23,11 +23,18 @@ const AnalyzesScreen = () => {
     return (
         <MainContainer>
             <View style={{flex: 1, paddingTop: 12}}>
-                <View>
-                    <Title>
+                <View style={{
+                    paddingHorizontal:16,
+                    height:'100%'
+                }}>
+                    <Text style={{
+                        fontSize:24,
+                        fontWeight:'600',
+                        lineHeight:28,
+                        color:'#000'
+                    }}>
                         Анализы
-                    </Title>
-                </View>
+                    </Text>
                 <View style={{alignItems: 'center', flex: 1, justifyContent: 'center'}}>
                     <BigIcon/>
                 </View>
@@ -39,6 +46,7 @@ const AnalyzesScreen = () => {
                         }}
                     />
                 </View>
+            </View>
             </View>
         </MainContainer>
     );

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {View, StyleSheet, Text, Image, TouchableOpacity, ActivityIndicator} from "react-native";
+import {View, StyleSheet, Text, Image, TouchableOpacity, ActivityIndicator, SafeAreaView} from "react-native";
 import MainContainer from "../../../../components/MainContainer";
 import {useDispatch, useSelector} from "react-redux";
 import {BellIcon} from "../../../../assets/Icons/BellIcon";
@@ -257,7 +257,7 @@ const HomeScreen = () => {
                     color={color1}
                     style={{height: '100%'}}
                 />}
-                <View style={styles.header}>
+                <SafeAreaView style={styles.header}>
                     <TouchableOpacity
                         style={{flexDirection: "row", alignItems: "center",}}
                         onPress={()=>{navigation.navigate('UserSingle')}}
@@ -283,7 +283,7 @@ const HomeScreen = () => {
                         </Text>
                     </TouchableOpacity>
                     <BellIcon/>
-                </View>
+                </SafeAreaView>
                 {returnViews()}
             </View>
 
@@ -298,7 +298,7 @@ const styles = StyleSheet.create({
     header: {
         flexDirection: "row",
         justifyContent: "space-between",
-        marginTop: 52,
+        // marginTop: 52,
         alignItems: "center",
     },
     image: {
