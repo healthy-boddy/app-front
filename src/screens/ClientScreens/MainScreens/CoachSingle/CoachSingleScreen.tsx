@@ -30,8 +30,6 @@ const CoachSingleScreen = () => {
         })
     }, [])
 
-    console.log(coach)
-
     return (
         <SafeAreaView
         style={{

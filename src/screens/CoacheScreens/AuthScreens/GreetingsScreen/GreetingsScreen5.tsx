@@ -103,7 +103,7 @@ const WelcomeScreen = () => {
 
     console.log(certificate, 'photo111')
 
-    const deleteFile = (id) => {
+    const deleteFile = (id: any) => {
         const filteredItem = certificate?.filter(file => file.id !== id);
         setCertificate(filteredItem);
     };

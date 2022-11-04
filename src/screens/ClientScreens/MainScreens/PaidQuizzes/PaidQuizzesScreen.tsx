@@ -20,10 +20,10 @@ const PaidQuizzesScreen = () => {
     const navigation = useNavigation<any>()
     let tokenFromReducer = useSelector((store: any) => store.user_token.user_token);
     let AuthStr = "Bearer " + tokenFromReducer;
-    const [level, setLevel] = useState(0);
+    const [level, setLevel] = useState(170);
     let [questions, setQuestions] = useState<any>([])
     let [loading, setLoading] = useState(true)
-    let progress = (1 / 123) * level;
+    let progress = (1 / 173) * level;
     let [checkedAnswer, setCheckedAnswer] = useState<Array<Answer>>([])
 
     useEffect(() => {

@@ -7,6 +7,7 @@ import CustomButton from "../../../../components/CustomButton";
 import { useNavigation } from "@react-navigation/native";
 import Title from "../../../../components/Title";
 import { WrapperPage } from "../../../../components/core/wrapper";
+import DoctorComputer from "../../../../assets/Icons/DoctorComputer";
 
 const GreetingsScreen2 = () => {
   const navigation: any = useNavigation();
@@ -50,7 +51,7 @@ const GreetingsScreen2 = () => {
           </Text>
         </View>
         <View style={styles.image_box}>
-          <DoctorBooks />
+          <DoctorComputer />
         </View>
       </View>
     </WrapperPage>

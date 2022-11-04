@@ -9,14 +9,18 @@ import {
     GreetingsScreen3,
     GreetingsScreen4,
     GreetingsScreen5,
-    FirstScreen
+    FirstScreen,
+    ConstructorScreen,
+    CalendarScreen
 } from '../../screens/CoacheScreens/AuthScreens'
-
+import {TabNavigatorElem} from "../ClientNavigations/tab-bar-elem/tab-navigation-elems";
+import {HomeSvg} from "../ClientNavigations/icons/home";
+import {Constructor} from "./icons/constructor";
+import {CalendarSvg} from "../ClientNavigations/icons/calendar";
 
 function Greetings() {
     return <GreetingsScreen/>
 }
-
 function Greetings2() {
     return <GreetingsScreen2/>
 }
@@ -29,9 +33,14 @@ function Greetings4() {
 function Greetings5() {
     return <GreetingsScreen5/>
 }
-
 function First() {
     return <FirstScreen/>
+}
+function ConstructorPage() {
+    return <ConstructorScreen/>
+}
+function CalendarPage() {
+    return <CalendarScreen/>
 }
 
 export default function CoachVerify() {
@@ -65,18 +74,44 @@ export default function CoachVerify() {
                             tabBarStyle: {display: 'none'},
                         })}
             />
-            <Tab.Screen name='Greetings4' component={Greetings4}
-                        options={({route}) => ({
-                            tabBarButton: () => null,
-                            tabBarStyle: {display: 'none'},
-                        })}
-            />
+
             <Tab.Screen name='Greetings5' component={Greetings5}
                         options={({route}) => ({
                             tabBarButton: () => null,
                             tabBarStyle: {display: 'none'},
                         })}
             />
+
+            <Tab.Screen name='Greetings4' component={Greetings4} options={{
+                tabBarIcon: ({focused}) => (
+                    <TabNavigatorElem
+                        colorItem={focused ? "#7454CF" : "#797979"}
+                        icon={<HomeSvg color={focused ? "#7454CF" : "#797979"}/>}
+                        navigatorName="Главная"
+                    />
+                ),
+                tabBarShowLabel: false,
+            }}/>
+            <Tab.Screen name='CalendarPage' component={CalendarPage} options={{
+                tabBarIcon: ({focused}) => (
+                    <TabNavigatorElem
+                        colorItem={focused ? "#7454CF" : "#797979"}
+                        icon={<CalendarSvg color={focused ? "#7454CF" : "#797979"}/>}
+                        navigatorName="Календарь"
+                    />
+                ),
+                tabBarShowLabel: false,
+            }}/>
+            <Tab.Screen name='ConstructorPage' component={ConstructorPage} options={{
+                tabBarIcon: ({focused}) => (
+                    <TabNavigatorElem
+                        colorItem={focused ? "#7454CF" : "#797979"}
+                        icon={<Constructor color={focused ? "#7454CF" : "#797979"}/>}
+                        navigatorName="Конструктор"
+                    />
+                ),
+                tabBarShowLabel: false,
+            }}/>
         </Tab.Navigator>
     )
 }
