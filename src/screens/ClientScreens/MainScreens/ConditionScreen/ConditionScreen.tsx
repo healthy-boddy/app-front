@@ -23,12 +23,7 @@ const ConditionScreen = () => {
   ]);
   return (
     <View style={styles.container}>
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        style={{
-          width: "100%",
-        }}
-      >
+
         <Text
           style={{
             fontWeight: "600",
@@ -42,6 +37,13 @@ const ConditionScreen = () => {
         >
           Мое состояние
         </Text>
+        <ScrollView
+            showsVerticalScrollIndicator={false}
+            style={{
+                width: "100%",
+
+            }}
+        >
         <View style={styles.content_box}>
           <View style={styles.content}>
             <View
