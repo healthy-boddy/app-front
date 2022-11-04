@@ -31,6 +31,9 @@ const GreetingsScreen4 = (props: any) => {
             onPressButton={() => navigation.navigate("Greetings5")}
             buttonTitle={"Продолжить"}
         >
+            <View style={{
+                paddingHorizontal:16
+            }}>
             <View style={styles.header}>
                 <TouchableOpacity
                     activeOpacity={0.2}
@@ -60,16 +63,16 @@ const GreetingsScreen4 = (props: any) => {
             <TouchableOpacity style={styles.day_question}>
                 <Title titlePropStyle={{marginBottom: 4}}>День 1</Title>
                 <Text style={styles.day_questions_description}>
-                    Знакомство с продуктом{'\n'}
-                    Обучение по продукту с методологом
+                    {`\u2022  Знакомство с продуктом`}{'\n'}
+                    {`\u2022 Обучение по продукту с методологом`}
                 </Text>
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.day_question}>
                 <Title titlePropStyle={{marginBottom: 4}}>День 2</Title>
                 <Text style={styles.day_questions_description}>
-                    Путь клиента{'\n'}
-                    Алгоритм проведения первичной{'\n'}
+                    {`\u2022 Путь клиента`}{'\n'}
+                    {`\u2022 Алгоритм проведения первичной`}{'\n'}
                     консультации
                 </Text>
             </TouchableOpacity>
@@ -77,8 +80,8 @@ const GreetingsScreen4 = (props: any) => {
             <TouchableOpacity style={styles.day_question}>
                 <Title titlePropStyle={{marginBottom: 4}}>День 3</Title>
                 <Text style={styles.day_questions_description}>
-                    Долгосрочное ведение клиента{'\n'}
-                    Постановка целей и задач
+                    {`\u2022 Долгосрочное ведение клиента`}{'\n'}
+                    {`\u2022 Постановка целей и задач`}
                 </Text>
             </TouchableOpacity>
 
@@ -88,6 +91,7 @@ const GreetingsScreen4 = (props: any) => {
                     Для первичного знакомства с клиентом - это повысит доверие к вам, как к специалисту
                 </Text>
             </TouchableOpacity>
+            </View>
         </MainContainer>
     );
 };

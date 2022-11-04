@@ -3,6 +3,7 @@ import {View, Text, StyleSheet} from "react-native";
 import {useNavigation} from "@react-navigation/native";
 import {WrapperPage} from "../../../../components/core/wrapper";
 import Dot from "../../../../components/Dot";
+import {CoachIconOnboarding} from "../../../../navigations/CoachNavigations/icons/CoachIconOnboarding";
 
 const GreetingsScreen3 = () => {
     const navigation: any = useNavigation();
@@ -14,27 +15,27 @@ const GreetingsScreen3 = () => {
         >
             <View style={{width: '100%', flex: 1, paddingHorizontal: 16}}>
                 <View>
-                    <Text style={[styles.title, {marginVertical: 15}]}>
-                        Впереди вас ждёт трехдневное обучение!
+                    <Text style={[styles.title,{marginBottom:16}]}>
+                        {`Впереди вас ждёт трехдневное обучение!`}
                     </Text>
                     <Text style={styles.title}>
                         День 1
                     </Text>
                     <Text style={styles.description}>
-                        Знакомство с продуктом
+                        {`\u2022 Знакомство с продуктом`}
                     </Text>
                     <Text style={styles.description}>
-                        Обучение по продукту с методологом
+                        {`\u2022 Обучение по продукту с методологом`}
                     </Text>
                     <View style={{marginTop: 10}}>
                         <Text style={styles.title}>
                             День 2
                         </Text>
                         <Text style={styles.description}>
-                            Алгоритм проведения первичной консультации
+                            {`\u2022 Алгоритм проведения первичной консультации`}
                         </Text>
                         <Text style={styles.description}>
-                            Путь клиента
+                            {`\u2022 Путь клиента`}
                         </Text>
                     </View>
                     <View style={{marginTop: 10}}>
@@ -42,12 +43,20 @@ const GreetingsScreen3 = () => {
                             День 3
                         </Text>
                         <Text style={styles.description}>
-                            Долгосрочное ведение клиента
+                            {`\u2022 Долгосрочное ведение клиента`}
                         </Text>
                         <Text style={styles.description}>
-                            Постановка целей и задач
+                            {`\u2022 Постановка целей и задач`}
                         </Text>
                     </View>
+                </View>
+
+                <View style={{
+                    alignItems:'center',
+                    justifyContent:'center',
+                    marginTop: 53
+                }}>
+                    <CoachIconOnboarding />
                 </View>
             </View>
         </WrapperPage>
