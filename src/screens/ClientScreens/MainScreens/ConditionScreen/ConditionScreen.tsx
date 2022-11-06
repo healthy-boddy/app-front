@@ -1,8 +1,12 @@
 import React, {useEffect, useState} from "react";
-import {View, Text, FlatList, StyleSheet,  ScrollView} from "react-native";
+import {View, Text, FlatList, StyleSheet, ScrollView, TouchableOpacity} from "react-native";
 import {useSelector} from "react-redux";
 import axios from "axios";
-import { AnimatedCircularProgress } from 'react-native-circular-progress';
+import {AnimatedCircularProgress} from 'react-native-circular-progress';
+import MainContainer from "../../../../components/MainContainer";
+import EmptyStateIcon from "./CondationIcons/EmptyStateIcon";
+import {color1} from "../../../../helpers/colors";
+import UnicIcon from "./CondationIcons/UnicIcon";
 
 const ConditionScreen = () => {
     let tokenFromReducer = useSelector((store: any) => store.user_token.user_token);
@@ -31,7 +35,7 @@ const ConditionScreen = () => {
                         "Content-type": "application/json"
                     }
                 }).then((response) => {
-                  //  console.log(response.data, 'state')
+                    //  console.log(response.data, 'state')
                     setConditions(response.data.condition)
                 })
 
@@ -45,8 +49,7 @@ const ConditionScreen = () => {
 
     const renderConditions = ({item}: any) => {
         return (
-            <View style={{flexDirection: 'row', width: '100%'}}>
-                <View style={styles.content}>
+                <View style={styles.content} key={item.max}>
                     <View
                         style={{
                             width: "100%",
@@ -58,20 +61,41 @@ const ConditionScreen = () => {
                                 <AnimatedCircularProgress
                                     size={48}
                                     width={5}
-                                    fill={80}
-                                    tintColor="#00e0ff"
-                                    backgroundColor="grey"
-                                    children={()=>(<View><Text>asd</Text></View>)}
+                                    fill={
+                                    item.status === 'great' ? 95 :
+                                        item.status === 'good' ? 50 :
+                                            item.status === 'need_help' ? 15 : 0
+                                }
+                                    rotation={1}
+                                    // @ts-ignore
+                                    tintColor={
+                                        item.status === 'great' ? '#0EC057'
+                                        : item.status === 'need_help' ? '#E81313'
+                                        : item.status === 'good' ? '#FF9F0F'
+                                        : null
+                                    }
+                                    backgroundColor={
+                                        item.status === 'great' ? '#B0E9C7' :
+                                            item.status === 'good' ? '#FFE9B1' : '#FFD2D2'
+                                    }
+                                    children={() => (
+                                        <View>
+                                            <UnicIcon
+                                            fill={item.status === 'great' ? '#0EC057'
+                                                : item.status === 'need_help' ? '#E81313'
+                                                    : item.status === 'good' ? '#FF9F0F'
+                                                        : null}/>
+                                    </View>)}
                                 />
                             </View>
 
                             <Text
                                 style={[
                                     styles.content_item_numbers,
-                                    characteristics[1].number < 2
-                                        ? {color: "red"}
+                                    item.status == "need_help"
+                                        ? {color: "#E81313"}
                                         : {color: "#FF9F0F"},
-                                    characteristics[1].number >= 4
+                                    item.status == "great"
                                         ? {color: "#0EC057"}
                                         : null,
                                 ]}
@@ -82,15 +106,15 @@ const ConditionScreen = () => {
                         <Text
                             style={[
                                 styles.content_item_title,
-                                characteristics[1].state == "Нужна помощь"
-                                    ? {color: "red"}
+                                item.status == "need_help"
+                                    ? {color: "#E81313"}
                                     : {color: "#FF9F0F"},
-                                characteristics[1].state == "Отлично"
+                                item.status == "great"
                                     ? {color: "#0EC057"}
                                     : null,
                             ]}
                         >
-                            {characteristics[1].state}
+                            {item.status === 'need_help' ? 'Нужна помощь' : item.status === 'good' ? 'Хорошо' : 'Отлично'}
                         </Text>
                         <Text style={styles.content_item_description}>
                             {item.name}
@@ -98,41 +122,57 @@ const ConditionScreen = () => {
                         <Text style={styles.content_item_day}>Сегодня</Text>
                     </View>
                 </View>
-            </View>
         )
     }
     return (
-        <View style={styles.container}>
-            <View
+        <MainContainer>
+            <Text
                 style={{
-                    width: "100%",
-                    flex: 1
+                    fontWeight: "600",
+                    lineHeight: 19,
+                    fontSize: 22,
+                    color: "#1E1E1E",
                 }}
             >
-                <Text
-                    style={{
-                        fontWeight: "600",
-                        lineHeight: 19,
-                        fontSize: 22.67,
-                        color: "#1E1E1E",
-                        textAlign: "center",
-                        alignSelf: "center",
-                        marginTop: 61,
-                    }}
-                >
-                    Мое состояние
-                </Text>
+                Мое состояние
+            </Text>
+
+            {conditions.length ?
                 <View style={styles.content_box}>
                     <FlatList
                         data={conditions}
                         renderItem={renderConditions}
                         extraData={conditions}
+                        showsVerticalScrollIndicator={false}
+                        keyExtractor={item => item.max}
+                        numColumns={2}
+                        contentContainerStyle={{
+                            flexDirection: 'column',
+                            justifyContent: 'space-between',
+                            width: '100%'
+                    }}
                     />
                 </View>
-
-
-            </View>
-        </View>
+                :
+                <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+                    <EmptyStateIcon/>
+                    <Text style={styles.empty_state_title}>
+                        Здесь будет отображаться динамика состояния организма
+                    </Text>
+                    <Text style={styles.description}>
+                        Доступно по подписке Health Buddy
+                    </Text>
+                    <TouchableOpacity style={{paddingTop: 15}}>
+                        <Text style={{
+                            color: color1,
+                            fontSize: 16,
+                            fontWeight: '500'
+                        }}>
+                            Оформить подписку
+                        </Text>
+                    </TouchableOpacity>
+                </View>}
+        </MainContainer>
     );
 };
 
@@ -151,14 +191,14 @@ const styles = StyleSheet.create({
         flex: 1,
         width: "100%",
         marginTop: 29,
-        flexDirection: "row",
-        justifyContent: "space-between",
     },
     content: {
         height: "auto",
         width: "45%",
         backgroundColor: "#F5F4F8",
         borderRadius: 24,
+        marginBottom: 14,
+        marginRight: 20
 
     },
     content_top_item: {
@@ -198,4 +238,20 @@ const styles = StyleSheet.create({
         fontSize: 16,
         lineHeight: 20,
     },
+    description: {
+        color: '#797979',
+        fontSize: 16,
+        fontStyle: "normal",
+        fontWeight: '400',
+        textAlign: "center",
+
+    },
+    empty_state_title: {
+        color: '#1E1E1E',
+        width: 343,
+        fontWeight: '600',
+        fontSize: 19,
+        textAlign: "center",
+        marginTop: 10
+    }
 });
