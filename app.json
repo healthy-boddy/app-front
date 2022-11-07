@@ -1,12 +1,13 @@
 {
   "expo": {
-    "name": "HBapp",
-    "slug": "HBapp",
-    "version": "1.0.0",
+    "name": "Health Buddy App",
+    "version": "0.0.13",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
     "updates": {
@@ -16,13 +17,15 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.sizze.health-buddy-app"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.sizze.healthbuddyapp"
     },
     "web": {
       "favicon": "./assets/favicon.png"
