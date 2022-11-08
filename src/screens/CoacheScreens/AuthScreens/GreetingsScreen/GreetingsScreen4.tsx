@@ -1,9 +1,7 @@
-import React, {useRef} from "react";
-import {Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
-import {Video} from "expo-av";
+import React from "react";
+import {Image, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {useNavigation} from "@react-navigation/native";
 import Title from "../../../../components/Title";
-import {WrapperPage} from "../../../../components/core/wrapper";
 import MainContainer from "../../../../components/MainContainer";
 import {useDispatch, useSelector} from "react-redux";
 import {BellIcon} from "../../../../assets/Icons/BellIcon";
