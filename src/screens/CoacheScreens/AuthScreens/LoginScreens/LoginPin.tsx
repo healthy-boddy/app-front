@@ -147,7 +147,7 @@ const LoginPin = (props: any) => {
                     paddingHorizontal: 16,
                 }}
             >
-                <Title>Введите код подтверждения</Title>
+                <Title>Insert the verification code</Title>
                 <Text
                     style={{
                         marginTop: 8,
@@ -157,7 +157,7 @@ const LoginPin = (props: any) => {
                         lineHeight: 20,
                     }}
                 >
-                    Введите код, который мы отправили сообщением на {props?.email}{" "}
+                    Insert the code we sent by message to {props?.email}{" "}
                     {props?.phone_number}
                 </Text>
                 <FormattingExample handleSend={handleSend} error={error}/>
@@ -171,7 +171,7 @@ const LoginPin = (props: any) => {
                             color: "#797979",
                         }}
                     >
-                        Получить новый код можно через {time} сек.
+                        You can get a new code in {time}.
                     </Text>
                 ) : (
                     <CustomButton
@@ -202,9 +202,9 @@ const LoginPin = (props: any) => {
                             lineHeight: 20,
                         }}
                     >
-                        Либо{` `}
-                        <Text style={{marginHorizontal: 3, color: color1}}>зарегистрируйтесь</Text>
-                        <Text> по телефону</Text>
+                        Or{` `}
+                        <Text style={{marginHorizontal: 3, color: color1}}>sign up</Text>
+                        <Text>by phone number</Text>
                     </Text>
                 </TouchableOpacity>
             </KeyboardAwareScrollView>

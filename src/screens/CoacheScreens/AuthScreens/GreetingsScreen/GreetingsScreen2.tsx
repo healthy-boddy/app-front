@@ -33,7 +33,7 @@ const GreetingsScreen2 = () => {
               alignSelf: "flex-start",
             }}
           >
-            Мы желаем вам легкой адаптации в компании
+              We wish you to have an easy adaptation in the company.
           </Text>
           <Text
             style={{
@@ -44,10 +44,9 @@ const GreetingsScreen2 = () => {
               color: "#797979",
             }}
           >
-            Давайте договоримся задавать вопросы и быть открытыми.{"\n"} {"\n"}
-            Фиксируйте вопросы и отправляйте в чат-бот по мере прохождения
-            заданий , мы ответим на ваши вопросы и проведем дополнительный
-            инструктаж.
+              Let's agree to ask questions and be open.
+
+              Record your questions and send them to the chat-bot while doing exercises, we will answer your questions and we will make an additional briefing for you.
           </Text>
         </View>
         <View style={styles.image_box}>

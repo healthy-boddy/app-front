@@ -60,7 +60,7 @@ const LoginScreen = () => {
         style={{ width: "100%", paddingHorizontal: 16 }}
       >
         <View>
-          <Title>Введите свой телефон</Title>
+          <Title>Type in your mobile phone</Title>
 
           <View style={{ marginBottom: 15 }}>
             <Text
@@ -72,7 +72,7 @@ const LoginScreen = () => {
                 lineHeight: 20,
               }}
             >
-              Мы отправим SMS с кодом подтверждения на Ваш новый номер
+                We will send an SMS with a confirmation code to your number
             </Text>
           </View>
         </View>
@@ -96,7 +96,7 @@ const LoginScreen = () => {
               fontWeight: '400',
               fontSize: 16
           }}>
-              Этот номер уже зарегистрирован
+              This number is already registered
           </Text>}
         <TouchableOpacity
           activeOpacity={0.6}
@@ -115,7 +115,7 @@ const LoginScreen = () => {
               textDecorationLine: "underline",
             }}
           >
-            Войти по почте
+              Or sign up by Email
           </Text>
         </TouchableOpacity>
       </KeyboardAwareScrollView>

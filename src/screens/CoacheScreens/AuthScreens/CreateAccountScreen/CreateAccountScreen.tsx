@@ -69,7 +69,7 @@ const CreateAccountScreen = (props: any) => {
                 setValue("")
                 navigation.navigate("EnterName");
             }}
-            buttonTitle={"Продолжить"}
+            buttonTitle={"Continue"}
             onPressButton={handleSetPhoneNumber}
         >
             <KeyboardAwareScrollView
@@ -78,9 +78,9 @@ const CreateAccountScreen = (props: any) => {
                 style={{width: "100%", paddingHorizontal: 16}}
             >
                 <View>
-                    <Title>Введите свой номер телефона</Title>
+                    <Title>Type in your mobile phone</Title>
                     <Text style={styles.set_sms}>
-                        Мы отправим SMS с кодом подтверждения на Ваш новый номер
+                        We will send an SMS with a confirmation code to your number
                     </Text>
                 </View>
 
@@ -103,7 +103,7 @@ const CreateAccountScreen = (props: any) => {
                     fontWeight: '400',
                     fontSize: 16
                 }}>
-                    Этот номер уже зарегистрирован
+                    This number is already registered
                 </Text>}
                 <TouchableOpacity
                     activeOpacity={0.6}
@@ -118,7 +118,7 @@ const CreateAccountScreen = (props: any) => {
                 }}
                 >
                     <Text>
-                        Либо
+                        Or
                     </Text>
                     <Text
                         style={{
@@ -131,10 +131,10 @@ const CreateAccountScreen = (props: any) => {
                             marginHorizontal: 5
                         }}
                     >
-                        зарегистрируйтесь
+                        sign up
                     </Text>
                     <Text>
-                        по почте
+                        by Email
                     </Text>
                 </TouchableOpacity>
             </KeyboardAwareScrollView>

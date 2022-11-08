@@ -28,7 +28,7 @@ const GreetingsScreen = (props: any) => {
     <WrapperPage
       onPressBack={navigation.goBack}
       onPressButton={() => navigation.navigate("Greetings2")}
-      buttonTitle={"Отлично! Продолжить"}
+      buttonTitle={"Great! Next"}
     >
       <Text
         style={{
@@ -41,7 +41,7 @@ const GreetingsScreen = (props: any) => {
           paddingLeft: 17,
         }}
       >
-        Здравствуйте, {user_data?.user?.username} !
+        Hello, {user_data?.user?.username} !
       </Text>
       <Text
         style={{
@@ -52,7 +52,7 @@ const GreetingsScreen = (props: any) => {
           color: "#797979",
         }}
       >
-        Мы вас нашли в списке верифицированных в бадди.
+          We found you in the list of verified buddies!
       </Text>
       <View style={styles.image_box}>
         <Doctor />

@@ -116,7 +116,7 @@ export const CoachSinglePage = () => {
                 <View style={{ marginTop: 40, flex: 1}} />
                 <TouchableOpacity style={styles.button}>
                     <EmailIcon/>
-                    <Text style={styles.button_title}>Имя, номер телефона, email</Text>
+                    <Text style={styles.button_title}>Name, phone number, email</Text>
                     <View style={{alignItems: 'flex-end'}}>
                         <RightIcon fill={'#797979'}/>
                     </View>
@@ -128,7 +128,7 @@ export const CoachSinglePage = () => {
                         console.log('notifications')}}
                     style={styles.button}>
                     <NotificationIcon/>
-                    <Text style={styles.button_title}>Уведомления</Text>
+                    <Text style={styles.button_title}>Notifications</Text>
                     <View style={{alignItems: 'flex-end'}}>
                         <RightIcon fill={'#797979'}/>
                     </View>
@@ -137,7 +137,7 @@ export const CoachSinglePage = () => {
                 <TouchableOpacity onPress={toggleBottomNavigationView}
                                   style={styles.button}>
                     <SmsIcon/>
-                    <Text style={styles.button_title}>Помощь</Text>
+                    <Text style={styles.button_title}>Help</Text>
                     <View style={{alignItems: 'flex-end'}}>
                         <RightIcon fill={'#797979'}/>
                     </View>
@@ -149,7 +149,7 @@ export const CoachSinglePage = () => {
                         marginTop:9
                     }}>
                     <Text style={styles.logOut}>
-                        Выйти из учетной записи
+                        Log out
                     </Text>
                 </TouchableOpacity>
             </View>
@@ -159,12 +159,12 @@ export const CoachSinglePage = () => {
             >
                 <View style={styles.logOut_box}>
                     <Text style={styles.logOut_text}>
-                        Вы уверены, что хотите выйти из аккаунта?
+                        Are you sure you want to log out of your account?
                     </Text>
                     <View style={styles.log_out_buttons}>
                         <View style={{width: '40%'}}>
                             <CustomButton
-                                title={'Остаться'}
+                                title={'Stay'}
                                 onPress={()=>{setLogOutModalVisible(false)}}
                             />
                         </View>
@@ -172,7 +172,7 @@ export const CoachSinglePage = () => {
                             <CustomButton
                                 buttonStyles={{backgroundColor: 'transparent', borderColor:color1, borderWidth: 2,}}
                                 buttonTitle={{color: color1}}
-                                title={'Выйти'}
+                                title={'Log out'}
                                 onPress={handleLogOut}
                             />
                         </View>

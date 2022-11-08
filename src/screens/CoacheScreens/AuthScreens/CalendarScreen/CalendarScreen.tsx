@@ -5,7 +5,7 @@ import MainContainer from "../../../../components/MainContainer";
 const CalendarScreen = () => {
     return (
         <MainContainer>
-            <Text>Календарь</Text>
+            <Text>Calendar</Text>
         </MainContainer>
     );
 };

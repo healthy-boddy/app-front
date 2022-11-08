@@ -66,7 +66,7 @@ const EmailRegistration = (props: any) => {
 
     return (
         <WrapperPage
-            buttonTitle={"Продолжить"}
+            buttonTitle={"Continue"}
             onPressButton={handleSendEmail}
             onPressBack={() => {
                 navigation.navigate("CreateAccount", {
@@ -79,7 +79,7 @@ const EmailRegistration = (props: any) => {
                 scrollEnabled={false}
                 style={{width: "100%", paddingHorizontal: 16}}
             >
-                <Title>Введите свой Email</Title>
+                <Title>Type in your Email</Title>
                 <Text
                     style={{
                         marginTop: 8,
@@ -89,7 +89,7 @@ const EmailRegistration = (props: any) => {
                         lineHeight: 20,
                     }}
                 >
-                    Мы отправим письмо с кодом подтверждения на ваш Email
+                    We will send a message with a confirmation code to your Email
                 </Text>
                 <View style={{flex: 1}}>
                     <View style={[{marginTop: 30}, error && {borderColor: '#E81313', borderWidth: 2, borderRadius: 10}]}>
@@ -100,7 +100,7 @@ const EmailRegistration = (props: any) => {
                         />
                     </View>
                     {error && <Text style={{marginTop: 8, color: '#E81313'}}>
-                        Почта уже используется
+                        Mail already in use
                     </Text>}
                 </View>
             </KeyboardAwareScrollView>

@@ -56,37 +56,37 @@ const GreetingsScreen4 = (props: any) => {
                 </View>
             </View>
             <View style={{marginVertical: 16}}>
-                <Title>Мое обучение</Title>
+                <Title>My training</Title>
             </View>
             <TouchableOpacity style={styles.day_question}>
-                <Title titlePropStyle={{marginBottom: 4}}>День 1</Title>
+                <Title titlePropStyle={{marginBottom: 4}}>Day 1</Title>
                 <Text style={styles.day_questions_description}>
-                    {`\u2022  Знакомство с продуктом`}{'\n'}
-                    {`\u2022 Обучение по продукту с методологом`}
+                    {`\u2022  Familiarity with the product`}{'\n'}
+                    {`\u2022 Product training with a methodologist`}
                 </Text>
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.day_question}>
-                <Title titlePropStyle={{marginBottom: 4}}>День 2</Title>
+                <Title titlePropStyle={{marginBottom: 4}}>Day 2</Title>
                 <Text style={styles.day_questions_description}>
-                    {`\u2022 Путь клиента`}{'\n'}
-                    {`\u2022 Алгоритм проведения первичной`}{'\n'}
+                    {`\u2022 Customer's path`}{'\n'}
+                    {`\u2022 Algorithm of the initial consultation`}{'\n'}
                     консультации
                 </Text>
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.day_question}>
-                <Title titlePropStyle={{marginBottom: 4}}>День 3</Title>
+                <Title titlePropStyle={{marginBottom: 4}}>Day 3</Title>
                 <Text style={styles.day_questions_description}>
-                    {`\u2022 Долгосрочное ведение клиента`}{'\n'}
-                    {`\u2022 Постановка целей и задач`}
+                    {`\u2022 Long-term client management`}{'\n'}
+                    {`\u2022 Setting goals and objectives`}
                 </Text>
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.day_question}>
-                <Title titlePropStyle={{marginBottom: 4}}>Заполните свой профиль</Title>
+                <Title titlePropStyle={{marginBottom: 4}}>Fill out your profile</Title>
                 <Text style={styles.day_questions_description}>
-                    Для первичного знакомства с клиентом - это повысит доверие к вам, как к специалисту
+                    This will make you more trustworthy specialist for the initial acquaintance with the client
                 </Text>
             </TouchableOpacity>
             </View>

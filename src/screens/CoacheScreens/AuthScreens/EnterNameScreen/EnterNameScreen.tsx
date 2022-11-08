@@ -33,8 +33,8 @@ const EnterNameScreen = () => {
 
   const dispatch = useDispatch();
   const roles = [
-    { name: "Клиент", role: "client", key: 1, checked: false },
-    { name: "Коуч", role: "coach", key: 2, checked: false },
+    { name: "Client", role: "client", key: 1, checked: false },
+    { name: "Buddy", role: "coach", key: 2, checked: false },
     // {name: 'Врач', role: 'doctor', key: 3, checked: false},
   ];
   const pickImage = async () => {
@@ -89,7 +89,7 @@ const EnterNameScreen = () => {
     <WrapperPage
       onPressBack={navigation.goBack}
       onPressButton={handleSetNameAvatar}
-      buttonTitle={"Продолжить"}
+      buttonTitle={"Continue"}
     >
       <KeyboardAwareScrollView
         showsVerticalScrollIndicator={false}
@@ -98,13 +98,13 @@ const EnterNameScreen = () => {
       >
         <View>
           {!nameValid && (
-            <ErrorPopUp style={{ marginBottom: 5 }} error={"Введите имя"} />
+            <ErrorPopUp style={{ marginBottom: 5 }} error={"Type your name"} />
           )}
           {!imageValid && (
-            <ErrorPopUp style={{ marginBottom: 5 }} error={"Добавьте фото"} />
+            <ErrorPopUp style={{ marginBottom: 5 }} error={"Add a photo"} />
           )}
           {!roleValid && (
-            <ErrorPopUp style={{ marginBottom: 5 }} error={"Выберете роль"} />
+            <ErrorPopUp style={{ marginBottom: 5 }} error={"Choose a role"} />
           )}
         </View>
         <View style={{ flex: 1, marginBottom: 30 }}>
@@ -135,7 +135,7 @@ const EnterNameScreen = () => {
                     textAlign: "center",
                   }}
                 >
-                  Загрузите ваше реальное фото
+                  Upload your real photo
                 </Text>
               </View>
               <View style={styles.input_box}>
@@ -161,7 +161,7 @@ const EnterNameScreen = () => {
                     ]}
                   >
                     <TextInput
-                      placeholder={"Имя"}
+                      placeholder={"Name"}
                       onChangeText={(name: string) => {
                         setName(name);
                       }}
@@ -196,7 +196,7 @@ const EnterNameScreen = () => {
                   marginBottom: 15,
                 }}
               >
-                <Title>Войти как</Title>
+                <Title>Login as</Title>
               </View>
             </View>
           </View>

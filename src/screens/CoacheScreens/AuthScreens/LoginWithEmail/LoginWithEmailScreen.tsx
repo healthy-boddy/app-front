@@ -42,7 +42,7 @@ const LoginWithEmailScreen = (props: any) => {
 
   return (
     <WrapperPage
-      buttonTitle={"Продолжить"}
+      buttonTitle={"Continue"}
       onPressButton={handleSendEmail}
       onPressBack={() => {
         navigation.navigate("Login");
@@ -53,7 +53,7 @@ const LoginWithEmailScreen = (props: any) => {
         scrollEnabled={false}
         style={{ width: "100%", paddingHorizontal: 16 }}
       >
-        <Title>Введите свой Email</Title>
+        <Title>Type in your Email</Title>
         <Text
           style={{
             marginTop: 8,
@@ -63,7 +63,7 @@ const LoginWithEmailScreen = (props: any) => {
             lineHeight: 20,
           }}
         >
-          Мы отправим письмо с кодом подтверждения на ваш Email
+          We will send a message with a confirmation code to your Email
         </Text>
         <View style={{ flex: 1 }}>
           <View style={{ marginTop: 30 }}>

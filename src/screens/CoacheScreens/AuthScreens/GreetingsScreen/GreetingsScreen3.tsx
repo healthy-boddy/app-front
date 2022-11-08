@@ -10,31 +10,31 @@ const GreetingsScreen3 = () => {
         <WrapperPage
             onPressBack={() => navigation.navigate("Greetings2")}
             onPressButton={() => navigation.navigate("Greetings4")}
-            buttonTitle={"Вперед!"}
+            buttonTitle={"Go ahead!!"}
         >
             <View style={{width: '100%', flex: 1, paddingHorizontal: 16}}>
                 <View>
                     <Text style={[styles.title,{marginBottom:16}]}>
-                        {`Впереди вас ждёт трехдневное обучение!`}
+                        {`There is a three-day training ahead of you!`}
                     </Text>
                     <Text style={styles.title}>
-                        День 1
+                        Day 1
                     </Text>
                     <Text style={styles.description}>
-                        {`\u2022 Знакомство с продуктом`}
+                        {`\u2022 Familiarity with the product Product`}
                     </Text>
                     <Text style={styles.description}>
-                        {`\u2022 Обучение по продукту с методологом`}
+                        {`\u2022 Product training with a methodologist`}
                     </Text>
                     <View style={{marginTop: 10}}>
                         <Text style={styles.title}>
-                            День 2
+                            Day 2
                         </Text>
                         <Text style={styles.description}>
-                            {`\u2022 Алгоритм проведения первичной консультации`}
+                            {`\u2022 Customer's path`}
                         </Text>
                         <Text style={styles.description}>
-                            {`\u2022 Путь клиента`}
+                            {`\u2022 Algorithm of the initial consultation`}
                         </Text>
                     </View>
                     <View style={{marginTop: 10}}>
@@ -42,10 +42,10 @@ const GreetingsScreen3 = () => {
                             День 3
                         </Text>
                         <Text style={styles.description}>
-                            {`\u2022 Долгосрочное ведение клиента`}
+                            {`\u2022 Long-term client management `}
                         </Text>
                         <Text style={styles.description}>
-                            {`\u2022 Постановка целей и задач`}
+                            {`\u2022 Setting goals and objectives`}
                         </Text>
                     </View>
                 </View>

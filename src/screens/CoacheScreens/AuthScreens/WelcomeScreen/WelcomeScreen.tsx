@@ -30,14 +30,14 @@ const WelcomeScreen: React.FC = (props) => {
               </View>
               <View style={{ alignItems: "center" }}>
                 <Text style={{ color: color3, marginTop: 10 }}>
-                  Здоровье в одном приложении
+                  Health in one app
                 </Text>
               </View>
             </View>
           ) : (
             <View>
               <View>
-                <Text style={[styles.welcome_title]}>Добро Пожаловать!</Text>
+                <Text style={[styles.welcome_title]}>Welcome!</Text>
               </View>
             </View>
           )}
@@ -46,14 +46,14 @@ const WelcomeScreen: React.FC = (props) => {
           <View style={styles.buttons_box}>
             <View>
               <CustomButton
-                title={"Зарегистрироваться"}
+                title={"Sign up "}
                 buttonStyles={{ marginVertical: 15 }}
                 onPress={() => {
                   navigation.navigate("EnterName");
                 }}
               />
               <CustomButton
-                title={"Войти"}
+                title={"Login"}
                 buttonStyles={styles.loginBtn}
                 buttonTitle={{ color: color1 }}
                 onPress={() => {

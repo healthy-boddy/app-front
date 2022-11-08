@@ -109,7 +109,7 @@ const PinCodeScreen = (props: any) => {
             lineHeight: 20,
           }}
         >
-          Не приходит код?
+          Code not coming?
           <TouchableOpacity onPress={() => console.log("Pressed")}>
             <Text
               style={{
@@ -121,7 +121,7 @@ const PinCodeScreen = (props: any) => {
               }}
             >
               {" "}
-              Напишите нам
+              Write to us
             </Text>
           </TouchableOpacity>
         </Text>
@@ -133,7 +133,7 @@ const PinCodeScreen = (props: any) => {
           paddingHorizontal: 16,
         }}
       >
-        <Title>Введите код подтверждения</Title>
+        <Title>Insert the verification code</Title>
         <Text
           style={{
             marginTop: 8,
@@ -143,7 +143,7 @@ const PinCodeScreen = (props: any) => {
             lineHeight: 20,
           }}
         >
-          Введите код, который мы отправили сообщением на {props?.email_name}{" "}
+          Inswert the code we sent by message to {props?.email_name}{" "}
           {props?.phone_number}
         </Text>
         <FormattingExample handleSend={handleSend}  error={false}/>
@@ -157,13 +157,13 @@ const PinCodeScreen = (props: any) => {
               color: "#797979",
             }}
           >
-            Получить новый код можно через{" "}
+            You can get a new code in{" "}
             <Text
               style={{
                 color: "#7454CF",
               }}
             >
-              {time} сек.
+              {time}.
             </Text>
           </Text>
         ) : (
@@ -179,7 +179,7 @@ const PinCodeScreen = (props: any) => {
                 textAlign: "center",
               }}
             >
-              Получить новый код
+              Get a new code
             </Text>
           </TouchableOpacity>
         )}
