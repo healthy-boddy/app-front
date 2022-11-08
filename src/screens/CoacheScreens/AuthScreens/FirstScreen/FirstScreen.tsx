@@ -19,18 +19,18 @@ const FirstScreen: React.FC = (props) => {
   const data = [
     {
       title: "Health Buddy",
-      description: "Сервис наставников по восстановлению и сохранению здоровья",
+      description: "Service of mentors for the restoration and preservation of health",
       image: "blob1.png",
     },
     {
-      title: "Программы для клиентов",
-      description: "Отслеживаем динамику назначений через цифровой аватар по всем параметрам организма ",
+      title: "Programs for clients",
+      description: "Track prescriptions' dynamics using a digital avatar",
       image: "blob2.png",
     },
     {
-      title: "Постоянная база клиентов",
+      title: "Regular client base",
       description:
-          "Зарегистрируй профиль врача  и получай быстрый доступ к базе знаний и клиентов ",
+          "Register doctor's profile and get fast access to the knowledge and clients base",
       image: "blob3.png",
     },
   ];
@@ -47,7 +47,7 @@ const FirstScreen: React.FC = (props) => {
             }}
         >
           <View style={{ alignItems: "center" }}>
-            {/*<Image source={require(`../src/screens/CoacheScreens/AuthScreens/FirstScreen/OnBoardingImages/blob1.png`)} />*/}
+              <Image source={require(`./OnBoardingImages/blob1.png`)} />
           </View>
           <View
               style={{
@@ -104,7 +104,7 @@ const FirstScreen: React.FC = (props) => {
                           fontSize: 16,
                         }}
                     >
-                      Далее
+                        Continue
                     </Text>
                   </View>
                 </View>
@@ -125,7 +125,7 @@ const FirstScreen: React.FC = (props) => {
                 fontSize: 16,
               }}
           >
-            Пропустить
+              Skip
           </Text>
         </Pressable>
       </Container>

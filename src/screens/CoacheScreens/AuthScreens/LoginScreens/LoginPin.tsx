@@ -123,7 +123,7 @@ const LoginPin = (props: any) => {
                         lineHeight: 20,
                     }}
                 >
-                    Не приходит код?
+                    Code not coming?
                     <TouchableOpacity onPress={() => console.log("Pressed")}>
                         <Text
                             style={{
@@ -135,7 +135,7 @@ const LoginPin = (props: any) => {
                             }}
                         >
                             {" "}
-                            Напишите нам
+                            Write to us
                         </Text>
                     </TouchableOpacity>
                 </Text>
@@ -175,7 +175,7 @@ const LoginPin = (props: any) => {
                     </Text>
                 ) : (
                     <CustomButton
-                        title={"Получить новый код"}
+                        title={"Get a new code"}
                         onPress={handleReSendPin}
                     />
                 )}

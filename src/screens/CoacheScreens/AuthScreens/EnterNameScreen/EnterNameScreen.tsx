@@ -10,7 +10,6 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import PenIcon from "../../../../assets/Icons/PenIcon";
 import { color1, color2, color3 } from "../../../../helpers/colors";
-import CustomButton from "../../../../components/CustomButton";
 import * as ImagePicker from "expo-image-picker";
 import { useDispatch } from "react-redux";
 import {setFormData, setUserRole} from "../../../../store/actions/auth_data";

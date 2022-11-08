@@ -68,7 +68,7 @@ const LoginWithEmailScreen = (props: any) => {
         <View style={{ flex: 1 }}>
           <View style={{ marginTop: 30 }}>
             <CustomInput
-              placeholder={"Введите почту"}
+              placeholder={"Enter your email"}
               onChangeText={setEmail}
               value={email}
             />

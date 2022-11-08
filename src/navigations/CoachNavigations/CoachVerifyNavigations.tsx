@@ -87,31 +87,45 @@ export default function CoachVerify() {
                     <TabNavigatorElem
                         colorItem={focused ? "#7454CF" : "#797979"}
                         icon={<HomeSvg color={focused ? "#7454CF" : "#797979"}/>}
-                        navigatorName="main"
+                        navigatorName="My clients"
                     />
                 ),
                 tabBarShowLabel: false,
             }}/>
-            <Tab.Screen name='CalendarPage' component={CalendarPage} options={{
+            <Tab.Screen name='CalendarPage' component={CalendarPage}
+                        options={{
                 tabBarIcon: ({focused}) => (
                     <TabNavigatorElem
                         colorItem={focused ? "#7454CF" : "#797979"}
                         icon={<CalendarSvg color={focused ? "#7454CF" : "#797979"}/>}
-                        navigatorName="Календарь"
+                        navigatorName="Calendar"
                     />
                 ),
                 tabBarShowLabel: false,
-            }}/>
+            }}
+                        listeners={{
+                            tabPress: e => {
+                                // Prevent default action
+                                e.preventDefault();
+                            },
+                        }}/>
             <Tab.Screen name='ConstructorPage' component={ConstructorPage} options={{
                 tabBarIcon: ({focused}) => (
                     <TabNavigatorElem
                         colorItem={focused ? "#7454CF" : "#797979"}
                         icon={<Constructor color={focused ? "#7454CF" : "#797979"}/>}
-                        navigatorName="Конструктор"
+                        navigatorName="Constructor"
                     />
                 ),
                 tabBarShowLabel: false,
-            }}/>
+            }}
+                        listeners={{
+                            tabPress: e => {
+                                // Prevent default action
+                                e.preventDefault();
+                            },
+                        }}
+            />
         </Tab.Navigator>
     )
 }

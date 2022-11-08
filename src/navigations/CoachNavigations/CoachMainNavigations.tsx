@@ -35,7 +35,6 @@ export default function Main(){
         <Stack.Screen name='Greetings7' component={Greetings7}/>
         <Stack.Screen name={'Home'} component={CoachTabNavigator} />
         <Stack.Screen name={'CoachProfile'} component={CoachSinglePage} />
-
     </Stack.Navigator>
     )
 }

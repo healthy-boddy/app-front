@@ -39,7 +39,7 @@ const GreetingsScreen3 = () => {
                     </View>
                     <View style={{marginTop: 10}}>
                         <Text style={styles.title}>
-                            День 3
+                            Day 3
                         </Text>
                         <Text style={styles.description}>
                             {`\u2022 Long-term client management `}

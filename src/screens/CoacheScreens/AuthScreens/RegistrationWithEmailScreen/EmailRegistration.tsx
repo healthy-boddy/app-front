@@ -94,7 +94,7 @@ const EmailRegistration = (props: any) => {
                 <View style={{flex: 1}}>
                     <View style={[{marginTop: 30}, error && {borderColor: '#E81313', borderWidth: 2, borderRadius: 10}]}>
                         <CustomInput
-                            placeholder={"Введите почту"}
+                            placeholder={"Enter your email"}
                             onChangeText={sendEmail}
                             value={email}
                         />
