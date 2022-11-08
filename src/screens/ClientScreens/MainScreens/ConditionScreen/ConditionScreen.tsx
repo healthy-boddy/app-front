@@ -114,12 +114,12 @@ const ConditionScreen = () => {
                                     : null,
                             ]}
                         >
-                            {item.status === 'need_help' ? 'Нужна помощь' : item.status === 'good' ? 'Хорошо' : 'Отлично'}
+                            {item.status === 'need_help' ? 'Need help' : item.status === 'good' ? 'Good' : 'Excellent'}
                         </Text>
                         <Text style={styles.content_item_description}>
                             {item.name}
                         </Text>
-                        <Text style={styles.content_item_day}>Сегодня</Text>
+                        <Text style={styles.content_item_day}>Today</Text>
                     </View>
                 </View>
         )
@@ -134,7 +134,7 @@ const ConditionScreen = () => {
                     color: "#1E1E1E",
                 }}
             >
-                Мое состояние
+                My condition
             </Text>
 
             {conditions.length ?
@@ -157,10 +157,10 @@ const ConditionScreen = () => {
                 <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
                     <EmptyStateIcon/>
                     <Text style={styles.empty_state_title}>
-                        Здесь будет отображаться динамика состояния организма
+                        The dynamics of the body's condition will be displayed here
                     </Text>
                     <Text style={styles.description}>
-                        Доступно по подписке Health Buddy
+                        Available by Health Buddy subscription
                     </Text>
                     <TouchableOpacity style={{paddingTop: 15}}>
                         <Text style={{
@@ -168,7 +168,7 @@ const ConditionScreen = () => {
                             fontSize: 16,
                             fontWeight: '500'
                         }}>
-                            Оформить подписку
+                            Subscribe
                         </Text>
                     </TouchableOpacity>
                 </View>}

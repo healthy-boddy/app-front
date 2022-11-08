@@ -43,7 +43,7 @@ const EnterAgeScreen = () => {
         navigation.navigate("EnterSex");
       }}
       onPressButton={handleNext}
-      buttonTitle={"Продолжить"}
+      buttonTitle={"Continue"}
     >
       <View
         style={{
@@ -62,7 +62,7 @@ const EnterAgeScreen = () => {
                 lineHeight: 22.67,
               }}
             >
-              2 из 3
+              2 of 3
             </Text>
           </View>
           <StatusBar activeWidth={{ width: "70%" }} />
@@ -76,7 +76,7 @@ const EnterAgeScreen = () => {
               lineHeight: 28,
             }}
           >
-            Ваш возраст
+            Your age
           </Text>
           <Text style={{ fontWeight: "bold", marginTop: 10, fontSize: 28 }}>
             {moment(date).format(format2)}
@@ -89,7 +89,7 @@ const EnterAgeScreen = () => {
                 setShow(!show);
               }}
             >
-              <Text>Изменить возраст</Text>
+              <Text>Change age</Text>
             </TouchableOpacity>
           )}
 
@@ -101,7 +101,7 @@ const EnterAgeScreen = () => {
               onChange={onChange}
               maximumDate={new Date()}
               display={Platform.OS === "android" ? "default" : "spinner"}
-              locale="ru"
+              locale="eu"
             />
           )}
         </View>

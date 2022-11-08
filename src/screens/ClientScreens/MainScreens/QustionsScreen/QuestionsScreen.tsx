@@ -1,17 +1,11 @@
 import React, {useEffect, useState} from "react";
-import {
-    View,
-    Text,
-    StyleSheet,
-    TouchableOpacity,
-    ScrollView,
-} from "react-native";
+import {ScrollView, StyleSheet, Text, TouchableOpacity, View,} from "react-native";
 import {useNavigation} from "@react-navigation/native";
 import {QuestionsWrapper} from "./questions-wrapper";
 import Title from "../../../../components/Title";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import {ActivityIndicator, ProgressBar, RadioButton} from "react-native-paper";
+import {ActivityIndicator, ProgressBar} from "react-native-paper";
 import {color1} from "../../../../helpers/colors";
 import CheckBox from "../../../../assets/Icons/CheckBox";
 
@@ -144,7 +138,7 @@ const QuestionsScreen = () => {
                 )}
 
                 <Title titlePropStyle={styles.question_level}>
-                    {level + 1} из {questions?.length}
+                    {level + 1} of {questions?.length}
                 </Title>
 
                 <ProgressBar

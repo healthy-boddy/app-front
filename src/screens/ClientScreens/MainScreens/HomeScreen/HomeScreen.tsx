@@ -77,7 +77,7 @@ const HomeScreen = () => {
                                 fontWeight: "600",
                             }}
                         >
-                            Найдите своего наставника
+                            Find your coach
                         </Text>
                         <Text
                             style={{
@@ -87,8 +87,7 @@ const HomeScreen = () => {
                                 fontWeight: "400",
                             }}
                         >
-                            Пройдите опрос, чтобы мы подобрали для вас наиболее подходящего
-                            наставника. Это займет около 30 минут.
+                            Answer a few questions and we will find a coach that suits you the best.
                         </Text>
                     </View>
                     <View style={{flex: 1}}>
@@ -101,7 +100,7 @@ const HomeScreen = () => {
                             onPress={() => {
                                 navigation.navigate("Questions");
                             }}
-                            title={"Пройти опрос"}
+                            title={"Take a survey"}
                         />
                     </View>
                 </View>
@@ -114,10 +113,10 @@ const HomeScreen = () => {
                         imgSource={require("../../AuthScreens/OnBoarding/OnBoardingImages/blob1.png")}
                     />
                     <Title titlePropStyle={{textAlign: 'center'}}>
-                        Подбираем коуча
+                        Selecting a coach
                     </Title>
                     <Text style={styles.subTitle}>
-                        Может занять до 5 минут..
+                        May take up to 5 minutes...
                     </Text>
                 </View>
             )
@@ -128,14 +127,14 @@ const HomeScreen = () => {
                        <View style={{flex: 1, marginTop: 100, alignItems:'center', justifyContent: 'center'}}>
                           <PicCheck/>
                            <View style={{marginTop: 30}}>
-                               <Title titlePropStyle={{textAlign: 'center'}}>Ваш Health Buddy найден!</Title>
+                               <Title titlePropStyle={{textAlign: 'center'}}>Your Health Buddy's been found!</Title>
                                <Text style={{
                                    textAlign: 'center',
                                    color: '#797979',
                                    width: 247,
                                    marginTop: 10
                                }}>
-                                   Для консультации с Health buddy, вам необходимо заполнить анкету
+                                   To consult with Health buddy, you need to fill out the survey
                                </Text>
                                <TouchableOpacity
                                    onPress={()=>{navigation.navigate('PaidQuizzes')}}
@@ -143,7 +142,7 @@ const HomeScreen = () => {
                                    <Text style={{
                                        color: color1
                                    }}>
-                                       Заполнить анкету
+                                       Fill out the survey
                                    </Text>
                                </TouchableOpacity>
                            </View>
@@ -171,7 +170,7 @@ const HomeScreen = () => {
                                             </View>
                                             <View style={{paddingLeft: 12}}>
                                                 <Text style={styles.coach_name}>{userCoach.user.username}</Text>
-                                                <Text style={styles.coach_description}>Мой Health Buddy</Text>
+                                                <Text style={styles.coach_description}>My Health Buddy</Text>
                                             </View>
                                         </View>
 
@@ -195,7 +194,8 @@ const HomeScreen = () => {
                           width: 343,
                           marginTop: 20
                       }}>
-                          Ваш Health Buddy свяжется с вами в течение 24 часов
+                          Your Health Buddy will contact you
+                          within 24 hours
                       </Title>
                       <Text style={{
                           marginTop: 20,
@@ -203,7 +203,7 @@ const HomeScreen = () => {
                           textAlign:'center',
                           fontSize: 16
                       }}>
-                          Он назначит консультацию, на которой вы вместе определите цели и план работ
+                          They will appoint a consultation where together you will determine  goals and work out further plan.
                       </Text>
                   </View>
                     <View style={{flex: 1}}>
@@ -229,7 +229,7 @@ const HomeScreen = () => {
                                         </View>
                                         <View style={{paddingLeft: 12}}>
                                             <Text style={styles.coach_name}>{userCoach.user.username}</Text>
-                                            <Text style={styles.coach_description}>Мой Health Buddy</Text>
+                                            <Text style={styles.coach_description}>My Health Buddy</Text>
                                         </View>
                                     </View>
 

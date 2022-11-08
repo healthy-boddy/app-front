@@ -1,6 +1,6 @@
 import React, {FC, ReactNode} from "react";
 import {styles} from "../../../../components/core/wrapper/wrapper-styles";
-import {SafeAreaView, Pressable, Text, View, } from "react-native";
+import {SafeAreaView, View,} from "react-native";
 import BackButton from "../../../../components/BackButton";
 import CustomButton from "../../../../components/CustomButton";
 

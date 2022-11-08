@@ -1,16 +1,8 @@
-import React, { useState } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  Pressable,
-  Dimensions,
-} from "react-native";
+import React from "react";
+import {Dimensions, Image, Pressable, StyleSheet, Text, View,} from "react-native";
 import AppIntroSlider from "react-native-app-intro-slider";
-import { color1, color2, color3 } from "../../../../helpers/colors";
-import Title from "../../../../components/Title";
-import { useNavigation } from "@react-navigation/native";
+import {color1, color2} from "../../../../helpers/colors";
+import {useNavigation} from "@react-navigation/native";
 import Container from "../../../../components/Container";
 
 const { width, height } = Dimensions.get("window");
@@ -20,25 +12,25 @@ const OnBoarding = () => {
 
   const data = [
     {
-      title: "Раскрой потенциал здоровья",
-      description: "Трансформируем твои биоданные в простые графики",
+      title: "Unleash your health potential",
+      description: "We transform your biodata into simple graphs",
       image: "blob1.png",
     },
     {
-      title: "Персональная программа",
-      description: "Разработана практикующими врачами и нутрициологами для вас",
+      title: "Personalized plan",
+      description: "Created by practising doctors and nutritionist",
       image: "blob2.png",
     },
     {
-      title: "Наставник здоровья",
+      title: "Health-coach",
       description:
-        "Твой личный Health-coach - персональный тренер в прокачке здоровья",
+        "Your personal Health-coach - personal mentor in health improvement",
       image: "blob3.png",
     },
     {
-      title: "Отслеживание состояния здоровья",
+      title: "Health tracking",
       description:
-        "Пройдите первый опрос, чтобы ваши данные появились в прилжении",
+        "Complete the first survey to have your data appear in the app",
       image: "blob4.png",
     },
   ];
@@ -109,7 +101,7 @@ const OnBoarding = () => {
                   fontSize: 16,
                 }}
               >
-                Далее
+                  Next
               </Text>
             </View>
           </View>
@@ -130,7 +122,7 @@ const OnBoarding = () => {
             fontSize: 16,
           }}
         >
-          Пропустить
+            Skip
         </Text>
       </Pressable>
     </Container>

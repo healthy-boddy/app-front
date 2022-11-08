@@ -1,7 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, Image, StyleSheet, ScrollView, TouchableOpacity, SafeAreaView} from "react-native";
-import MainContainer from "../../../../components/MainContainer";
-import BackButton from "../../../../components/BackButton";
+import {Image, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import axios from "axios";
 import {baseUrl} from "../../../../helpers/url";
 import {useSelector} from "react-redux";
@@ -65,14 +63,14 @@ const CoachSingleScreen = () => {
                                 fontSize: 18,
                                 fontWeight: "400",
                                 lineHeight: 21.48,
-                            }}>Назад</Text>
+                            }}>Back</Text>
                     </TouchableOpacity>
                         <Text style={{
                             color:'#1E1E1E',
                             fontWeight:'400',
                             fontSize:16,
                             lineHeight:21,
-                         }}>Мой Health Buddy</Text>
+                         }}>My Health Buddy</Text>
                     <View  style={{
                         width:50,
                         height:30,
@@ -96,7 +94,7 @@ const CoachSingleScreen = () => {
                         <DocxIcon/>
                     </Text>
                     <Text style={styles.specialisation_title}>
-                        Специализация
+                        Specialisation
                     </Text>
                 </View>
                 <View>
@@ -117,7 +115,7 @@ const CoachSingleScreen = () => {
                             <EducationIcon/>
                         </Text>
                         <Text style={styles.specialisation_title}>
-                            Образование
+                            Education
                         </Text>
                     </View>
                     <Text style={{alignItems: 'flex-end'}}>
@@ -144,7 +142,7 @@ const CoachSingleScreen = () => {
                             <ReviewsIcon/>
                         </Text>
                         <Text style={styles.specialisation_title}>
-                            Отзывы
+                            Reviews
                         </Text>
                     </View>
                     <Text style={{alignItems: 'flex-end'}}>

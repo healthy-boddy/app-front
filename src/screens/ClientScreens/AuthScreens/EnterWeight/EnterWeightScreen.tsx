@@ -1,19 +1,13 @@
 import React, {useEffect, useState} from "react";
-import {View, Text} from "react-native";
-import ClientContainer from "../../ClientScreenComponents/ClientContainer";
-import BackButton from "../../../../components/BackButton";
-import {Title} from "react-native-paper";
+import {Text, View} from "react-native";
 import StatusBar from "../../ClientScreenComponents/StatusBar";
 import {useNavigation} from "@react-navigation/native";
 import WheelPickerExpo from "react-native-wheel-picker-expo";
-import CustomButton from "../../../../components/CustomButton";
 import {useDispatch, useSelector} from "react-redux";
-import axios from "axios";
 import {baseUrl} from "../../../../helpers/url";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {WrapperPage} from "../../../../components/core/wrapper";
-import {isLogged} from "../../../../store/actions/is_logged";
-import {deleteUserBio, setClientData, setUserBio} from "../../../../store/actions/user_token";
+import {setClientData} from "../../../../store/actions/user_token";
 
 const EnterWeightScreen = () => {
     const NUMBERS: string[] =
@@ -59,7 +53,7 @@ const EnterWeightScreen = () => {
                 navigation.navigate("EnterAge");
             }}
             onPressButton={handeSendUpdatedDate}
-            buttonTitle={"Продолжить"}
+            buttonTitle={"Continue"}
         >
             <View
                 style={{
@@ -78,7 +72,7 @@ const EnterWeightScreen = () => {
                                 lineHeight: 22.67,
                             }}
                         >
-                            3 из 3
+                            3 of 3
                         </Text>
                     </View>
                     <StatusBar activeWidth={{width: "100%"}}/>
@@ -92,7 +86,7 @@ const EnterWeightScreen = () => {
                             lineHeight: 28,
                         }}
                     >
-                        Ваш вес
+                        Your weight
                     </Text>
                 </View>
                 <View style={{flex: 1, alignItems: "center"}}>

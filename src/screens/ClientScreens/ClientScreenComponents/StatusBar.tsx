@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, StyleSheet} from "react-native";
+import {StyleSheet, View} from "react-native";
 import {color1} from "../../../helpers/colors";
 
 const StatusBar = (props: any) => {

@@ -131,7 +131,7 @@ const PaidQuizzesScreen = () => {
                 )}
 
                 <Title titlePropStyle={styles.question_level}>
-                    {level + 1} из {questions?.length}
+                    {level + 1} of {questions?.length}
                 </Title>
 
                 <ProgressBar

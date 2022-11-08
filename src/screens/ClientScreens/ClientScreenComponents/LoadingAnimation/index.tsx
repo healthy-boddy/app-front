@@ -1,6 +1,6 @@
-import {Dimensions, StyleSheet, Image, View, ViewStyle} from 'react-native';
+import {Dimensions, Image, StyleSheet, View, ViewStyle} from 'react-native';
 import Svg, {Circle} from "react-native-svg";
-import Animated, {useSharedValue, useAnimatedStyle, withTiming, withRepeat, Easing} from 'react-native-reanimated';
+import Animated, {Easing, useAnimatedStyle, useSharedValue, withRepeat, withTiming} from 'react-native-reanimated';
 import {useEffect} from "react";
 import {color1} from "../../../../helpers/colors";
 

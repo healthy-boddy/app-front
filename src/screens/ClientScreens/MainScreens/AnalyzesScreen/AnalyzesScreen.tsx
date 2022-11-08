@@ -1,12 +1,11 @@
 import React from 'react';
-import {View, Text} from "react-native";
+import {Text, View} from "react-native";
 import MainContainer from "../../../../components/MainContainer";
 import CustomButton from "../../../../components/CustomButton";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import {deleteClientData, deleteUserBio, deleteUserToken} from "../../../../store/actions/user_token";
+import {deleteClientData, deleteUserToken} from "../../../../store/actions/user_token";
 import {deleteUserData} from "../../../../store/actions/user_data";
 import {useDispatch} from "react-redux";
-import Title from "../../../../components/Title";
 import BigIcon from "./AnalyzesScreenIcons/BigIcon";
 import {useNavigation} from "@react-navigation/native";
 
@@ -33,14 +32,14 @@ const AnalyzesScreen = () => {
                         lineHeight:28,
                         color:'#000'
                     }}>
-                        Анализы
+                        Analysis
                     </Text>
                 <View style={{alignItems: 'center', flex: 1, justifyContent: 'center'}}>
                     <BigIcon/>
                 </View>
                 <View style={{marginBottom: 25}}>
                     <CustomButton
-                        title={'Добавить анализ'}
+                        title={'Add analysis'}
                         onPress={()=>{
                             navigation.navigate('AddAnalyzes')
                         }}

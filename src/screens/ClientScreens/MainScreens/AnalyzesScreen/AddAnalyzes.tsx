@@ -1,9 +1,6 @@
 import React, {useState} from 'react';
-import {View, Text, StyleSheet, TouchableOpacity, Platform, SafeAreaView} from "react-native";
-import MainContainer from "../../../../components/MainContainer";
+import {Platform, SafeAreaView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import BackIcon from "../../../../assets/Icons/BackIcon";
-import {color3} from "../../../../helpers/colors";
-import Title from "../../../../components/Title";
 import {useNavigation} from "@react-navigation/native";
 import * as ImagePicker from "expo-image-picker";
 
@@ -51,9 +48,9 @@ const AddAnalyzes = () => {
                         style={styles.back}
                     >
                             <BackIcon/>
-                            <Text style={styles.title}>Назад</Text>
+                            <Text style={styles.title}>Back</Text>
                     </TouchableOpacity>
-                    <Text style={styles.description}>Добавить анализ</Text>
+                    <Text style={styles.description}>Add analysis</Text>
                 <View style={{
                     width:'25%',
                     height:20,
@@ -69,7 +66,7 @@ const AddAnalyzes = () => {
                         lineHeight:21.48,
                         color:'#1E1E1E'
                     }}>
-                        Ввести вручную
+                        Enter manually
                     </Text>
                     <Text style={{
                         fontWeight:'400',
@@ -77,7 +74,7 @@ const AddAnalyzes = () => {
                         lineHeight:20,
                         color:'#797979'
                     }}>
-                        Результаты сразу появятся в приложении
+                        Results will be displayed in the app immediately
                     </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
@@ -89,7 +86,7 @@ const AddAnalyzes = () => {
                         lineHeight:21.48,
                         color:'#1E1E1E'
                     }}>
-                        Загрузить PDF
+                        Upload PDF
                     </Text>
                     <Text style={{
                         fontWeight:'400',
@@ -97,7 +94,7 @@ const AddAnalyzes = () => {
                         lineHeight:20,
                         color:'#797979'
                     }}>
-                        Потребуется немного времени для оцифровки
+                        May take some time for digitization
                     </Text>
                 </TouchableOpacity>
             </View>

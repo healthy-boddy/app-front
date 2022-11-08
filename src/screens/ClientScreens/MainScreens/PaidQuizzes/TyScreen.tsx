@@ -15,19 +15,19 @@ const TyScreen = () => {
                 </View>
                 <View style={{marginTop: 40}}>
                     <Title>
-                        Спасибо за уделенное время!
+                        Thank you for your time!
                     </Title>
                     <View/>
                     <View>
                         <Text style={styles.description}>
-                            Ваш коуч скоро с вами свяжется
+                            Your coach will contact you soon.
                         </Text>
                     </View>
                 </View>
             </View>
             <View style={{paddingBottom: 40, paddingHorizontal: 16}}>
                 <CustomButton
-                    title={'Перейти на главную'}
+                    title={'Go to the Main page'}
                     onPress={()=>{navigation.navigate('Main')}}
                 />
             </View>

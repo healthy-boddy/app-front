@@ -28,8 +28,8 @@ const EnterSexScreen = () => {
   const navigation: any = useNavigation();
 
   const genderItems = [
-    { gender: "Мужской", value: "male", key: 1 },
-    { gender: "Женский", value: "female", key: 2 },
+    { gender: "Male", value: "male", key: 1 },
+    { gender: "Female", value: "female", key: 2 },
   ];
   const [gender, setGender] = useState("");
   const [radioGender, setRadioGender] = useState("");
@@ -62,7 +62,7 @@ const EnterSexScreen = () => {
       <View style={{ width: "100%" }}>
         <View style={{ alignItems: "center" }}>
           {genderVerify && (
-            <ErrorPopUp style={{ marginTop: 15 }} error={"Выберите пол"} />
+            <ErrorPopUp style={{ marginTop: 15 }} error={"Sex"} />
           )}
           <Text
             style={{
@@ -72,7 +72,7 @@ const EnterSexScreen = () => {
               lineHeight: 22.67,
             }}
           >
-            1 из 3
+            1 of 3
           </Text>
         </View>
         <StatusBar activeWidth={{ width: "30%" }} />
@@ -86,7 +86,7 @@ const EnterSexScreen = () => {
             lineHeight: 22.67,
           }}
         >
-          Пол
+            Sex
         </Text>
       </View>
       <View style={{ flex: 1 }}>
@@ -121,7 +121,7 @@ const EnterSexScreen = () => {
         ))}
       </View>
       <View style={{ marginBottom: 25 }}>
-        <CustomButton onPress={handleNavigate} title={"Продолжить"} />
+        <CustomButton onPress={handleNavigate} title={"Continue"} />
       </View>
     </ClientContainer>
   );

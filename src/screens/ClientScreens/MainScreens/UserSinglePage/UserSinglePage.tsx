@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Dimensions, TouchableOpacity, Image, SafeAreaView, StyleSheet, Text, View,} from "react-native";
+import {Dimensions, Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View,} from "react-native";
 import BackButton from "../../../../components/BackButton";
 import {useDispatch, useSelector} from "react-redux";
 import PenIcon from "../../../../assets/Icons/PenIcon";
@@ -17,7 +17,6 @@ import SendMessageIcon from "./SingleScreenIcons/SendMessageIcon";
 import ChatMessageIcon from "./SingleScreenIcons/ChatMessageIcon";
 import Modal from "react-native-modal";
 import * as ImagePicker from "expo-image-picker";
-import {baseUrl} from "../../../../helpers/url";
 import CustomButton from "../../../../components/CustomButton";
 
 const deviceWidth = Dimensions.get("window").width;
@@ -118,7 +117,7 @@ const UserSinglePage = () => {
                 <View style={{ marginTop: 40, flex: 1}} />
                     <TouchableOpacity style={styles.button}>
                         <EmailIcon/>
-                        <Text style={styles.button_title}>Имя, номер телефона, email</Text>
+                        <Text style={styles.button_title}>Name, phone number, email</Text>
                         <View style={{alignItems: 'flex-end'}}>
                             <RightIcon fill={'#797979'}/>
                         </View>
@@ -130,7 +129,7 @@ const UserSinglePage = () => {
                             console.log('notifications')}}
                         style={styles.button}>
                         <NotificationIcon/>
-                        <Text style={styles.button_title}>Уведомления</Text>
+                        <Text style={styles.button_title}>Notifications</Text>
                         <View style={{alignItems: 'flex-end'}}>
                             <RightIcon fill={'#797979'}/>
                         </View>
@@ -139,7 +138,7 @@ const UserSinglePage = () => {
                     <TouchableOpacity onPress={toggleBottomNavigationView}
                                       style={styles.button}>
                         <SmsIcon/>
-                        <Text style={styles.button_title}>Помощь</Text>
+                        <Text style={styles.button_title}>Help</Text>
                         <View style={{alignItems: 'flex-end'}}>
                             <RightIcon fill={'#797979'}/>
                         </View>
@@ -151,7 +150,7 @@ const UserSinglePage = () => {
                             marginTop:9
                         }}>
                         <Text style={styles.logOut}>
-                            Выйти из учетной записи
+                            Log out
                         </Text>
                     </TouchableOpacity>
             </View>
@@ -161,12 +160,12 @@ const UserSinglePage = () => {
             >
                 <View style={styles.logOut_box}>
                         <Text style={styles.logOut_text}>
-                            Вы уверены, что хотите выйти из аккаунта?
+                            Are you sure you want to log out of your account?
                         </Text>
                     <View style={styles.log_out_buttons}>
                         <View style={{width: '40%'}}>
                             <CustomButton
-                                title={'Остаться'}
+                                title={'Stay'}
                                 onPress={()=>{setLogOutModalVisible(false)}}
                             />
                         </View>
@@ -174,7 +173,7 @@ const UserSinglePage = () => {
                             <CustomButton
                                 buttonStyles={{backgroundColor: 'transparent', borderColor:color1, borderWidth: 2,}}
                                 buttonTitle={{color: color1}}
-                                title={'Выйти'}
+                                title={'Log out'}
                                 onPress={handleLogOut}
                             />
                         </View>
@@ -207,7 +206,7 @@ const UserSinglePage = () => {
                             lineHeight:20,
                             textAlign: 'center', color: '#797979',
                             marginBottom: 30}}>
-                            Служба поддержки
+                            Support
                         </Text>
 
                         <TouchableOpacity style={{
@@ -215,7 +214,7 @@ const UserSinglePage = () => {
                         }}>
                             <ChatMessageIcon/>
                             <Text style={styles.modal_text}>
-                                Написать на почту
+                                Write to email
                             </Text>
                         </TouchableOpacity>
                         <View style={{marginVertical: 10}}/>
@@ -224,7 +223,7 @@ const UserSinglePage = () => {
                         }}>
                             <SendMessageIcon/>
                             <Text style={styles.modal_text}>
-                                Написать в чат
+                                Write to the chat
                             </Text>
                         </TouchableOpacity>
 

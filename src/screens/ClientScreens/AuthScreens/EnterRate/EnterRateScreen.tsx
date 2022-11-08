@@ -1,43 +1,17 @@
-import React, { useState } from "react";
-import {
-  View,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  FlatList,
-  ScrollView,
-} from "react-native";
-import ClientContainer from "../../ClientScreenComponents/ClientContainer";
-import BackButton from "../../../../components/BackButton";
-import { RadioButton, Title } from "react-native-paper";
+import React from "react";
+import {ScrollView, StyleSheet, Text, View,} from "react-native";
+import {Title} from "react-native-paper";
 import StatusBar from "../../ClientScreenComponents/StatusBar";
-import { useNavigation } from "@react-navigation/native";
-import { color1, color2, color3 } from "../../../../helpers/colors";
+import {useNavigation} from "@react-navigation/native";
+import {color1} from "../../../../helpers/colors";
 import CustomButton from "../../../../components/CustomButton";
-import Checked from "../../../../assets/Icons/Checked";
-import { useDispatch } from "react-redux";
-import { isLogged } from "../../../../store/actions/is_logged";
-import { WrapperRate } from "./wrapperRate/wrapper-rate";
+import {useDispatch} from "react-redux";
+import {isLogged} from "../../../../store/actions/is_logged";
+import {WrapperRate} from "./wrapperRate/wrapper-rate";
 
 const EnterRateScreen = () => {
   const navigation: any = useNavigation();
   const dispatch = useDispatch();
-  const data = [
-    {
-      title: "Стандарт",
-      includedAnalyzes: "46-159",
-      ScopeOfConsultations: "9-98",
-      EscortFreeze: "1 мес.",
-      price: "от 45 000 руб",
-    },
-    {
-      title: "Премиум",
-      includedAnalyzes: "до 250",
-      ScopeOfConsultations: "∞",
-      EscortFreeze: "2 мес.",
-      price: "от 45 000 руб",
-    },
-  ];
   function handleMainScreen() {
     dispatch(isLogged(true));
   }
@@ -55,7 +29,7 @@ const EnterRateScreen = () => {
             borderColor: color1,
             marginBottom: 25,
           }}
-          title={"Бессплатный старт 5 дней"}
+          title={"5-day Free Trial"}
           onPress={handleMainScreen}
         />
       }
@@ -68,15 +42,15 @@ const EnterRateScreen = () => {
       >
         <View style={{ width: "100%" }}>
           <View style={{ alignItems: "center" }}>
-            <Title>4 из 4</Title>
+            <Title>4 of 4</Title>
           </View>
 
           <StatusBar activeWidth={{ width: "100%" }} />
         </View>
         <View style={{ marginVertical: 25 }}>
-          <Title>Выберите тариф</Title>
+          <Title>Choose your plan</Title>
           <Text style={{ marginTop: 10, color: "#8B8B8B" }}>
-            Выберите подходящий для вас вариант и мы сразу с вами свяжимся.
+            Choose the option that suits you and we will contact you.
           </Text>
         </View>
       </View>
@@ -85,27 +59,27 @@ const EnterRateScreen = () => {
         <View style={{ flex: 1, paddingHorizontal: 25 }}>
           <View style={styles.item_box}>
             <View style={styles.item_title_box}>
-              <Text style={[styles.title]}>Премиум</Text>
+              <Text style={[styles.title]}>Standard</Text>
             </View>
             <View style={styles.item_param_box}>
-              <Text style={styles.textTitle}>Объем включенных анализов</Text>
+              <Text style={styles.textTitle}>Scope of included analyzes</Text>
               <Text style={styles.item_param_item}>46-159</Text>
             </View>
             <View style={styles.item_param_box}>
-              <Text style={styles.textTitle}>Объем консультаций</Text>
+              <Text style={styles.textTitle}>Scope of consultations</Text>
               <Text style={styles.item_param_item}>9-98</Text>
             </View>
             <View style={styles.item_param_box}>
-              <Text style={styles.textTitle}>Заморозка сопровождения</Text>
-              <Text style={styles.item_param_item}>1 мес.</Text>
+              <Text style={styles.textTitle}>Tariff freeze</Text>
+              <Text style={styles.item_param_item}>1 month</Text>
             </View>
             <View style={styles.price_box}>
-              <Title>от 44 900 руб.</Title>
+              <Title>from 44 900 rub.</Title>
             </View>
             <View style={{ marginVertical: 14 }}>
               <CustomButton
                 buttonStyles={{ backgroundColor: "#7454CF" }}
-                title={"Подробнее"}
+                title={"More"}
                 onPress={() => {
                   navigation.navigate("EnterRateSingle", {
                     status: true,
@@ -124,27 +98,27 @@ const EnterRateScreen = () => {
             ]}
           >
             <View style={styles.item_title_box}>
-              <Text style={[styles.title, { color: "#7454CF" }]}>Премиум</Text>
+              <Text style={[styles.title, { color: "#7454CF" }]}>Premium</Text>
             </View>
             <View style={styles.item_param_box}>
-              <Text style={styles.textTitle}>Объем включенных анализов</Text>
-              <Text style={styles.item_param_item}>до 250</Text>
+              <Text style={styles.textTitle}>Scope of included analyzes</Text>
+              <Text style={styles.item_param_item}>till 250</Text>
             </View>
             <View style={styles.item_param_box}>
-              <Text style={styles.textTitle}>Объем консультаций</Text>
+              <Text style={styles.textTitle}>Scope of consultations</Text>
               <Text style={styles.item_param_item}>∞</Text>
             </View>
             <View style={styles.item_param_box}>
-              <Text style={styles.textTitle}>Заморозка сопровождения</Text>
-              <Text style={styles.item_param_item}>2 мес.</Text>
+              <Text style={styles.textTitle}>Tariff freeze</Text>
+              <Text style={styles.item_param_item}>2 month.</Text>
             </View>
             <View style={styles.price_box}>
-              <Title>от 180 900 руб.</Title>
+              <Title>from 180 900 rub.</Title>
             </View>
             <View style={{ marginVertical: 14 }}>
               <CustomButton
                 buttonStyles={{ backgroundColor: "#7454CF" }}
-                title={"Подробнее"}
+                title={"More"}
                 onPress={() => {
                   navigation.navigate("EnterRateSingle", {
                     status: false,

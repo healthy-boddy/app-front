@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import { View, StyleSheet, Text, FlatList } from "react-native";
-import { WrapperPage } from "../../../../components/core/wrapper";
-import { useNavigation } from "@react-navigation/native";
-import { RadioButton, Title } from "react-native-paper";
+import React, {useState} from "react";
+import {FlatList, StyleSheet, Text, View} from "react-native";
+import {WrapperPage} from "../../../../components/core/wrapper";
+import {useNavigation} from "@react-navigation/native";
+import {RadioButton} from "react-native-paper";
 import Checked from "../../../../assets/Icons/Checked";
-import { color1, color3 } from "../../../../helpers/colors";
+import {color1, color3} from "../../../../helpers/colors";
 
 const EnterRateSingleScreen = (props: any) => {
   const navigation: any = useNavigation();
@@ -12,67 +12,67 @@ const EnterRateSingleScreen = (props: any) => {
   let status = props.status;
   let standardData = [
     {
-      title: "Объем включенных анализов",
+      title: "Scope of included analyzes",
       key: 1,
       checked: false,
       duration: "46-159",
     },
-    { title: "Объем консультаций", key: 2, checked: false, duration: "9-98" },
+    { title: "Scope of consultations", key: 2, checked: false, duration: "9-98" },
     {
-      title: "Заморозка сопровождения",
+      title: "Tariff freeze",
       key: 3,
       checked: true,
-      duration: "1 месяц",
+      duration: "1 month",
     },
-    { title: "Персональный нутрициолог", key: 4, checked: true },
-    { title: "Персональный психотерапевт", key: 5, checked: false },
+    { title: "Personal nutritionist", key: 4, checked: true },
+    { title: "Personal psychotherapist", key: 5, checked: false },
   ];
   let premiumData = [
     {
-      title: "Объем включенных анализов",
+      title: "Scope of included analyzes",
       key: 1,
       checked: true,
       duration: "до 250",
     },
-    { title: "Объем консультаций", key: 2, checked: true, duration: "∞" },
+    { title: "Scope of consultations", key: 2, checked: true, duration: "∞" },
     {
-      title: "Персональный нутрициолог",
+      title: "Personal nutritionist",
       key: 3,
       checked: true,
       duration: "2 месяца",
     },
-    { title: "Персональный психотерапевт", key: 4, checked: true },
-    { title: "Ведение консилиумом врачей", key: 6, checked: true },
+    { title: "Personal psychotherapist", key: 4, checked: true },
+    { title: 'Leading by a team of doctors', key: 6, checked: true },
     {
-      title: "Полный генетический тест, констультация и расшифровка блоков",
+      title: "Full genetic test, consultation and decoding of blocks",
       key: 7,
       checked: true,
     },
-    { title: "Выезд медсестры", key: 8, checked: true },
-    { title: "Персональный остеопат", key: 9, checked: true },
-    { title: "Диагностика внутренних органов", key: 10, checked: true },
+    { title: "Departure of the nurse", key: 8, checked: true },
+    { title: "Personal osteopath", key: 9, checked: true },
+    { title: "Diagnosis of internal organs", key: 10, checked: true },
     {
-      title: "Безлимитные консультации по вопросам здоровья семьи",
+      title: "Unlimited family health consultations",
       key: 11,
       checked: true,
     },
-    { title: "Срочные консультации в ночное время", key: 12, checked: true },
+    { title: "Emergency consultations at night", key: 12, checked: true },
     {
-      title: "Консьерж: помощь зарубежом, запись в клиники, покупка БАДов",
+      title: "Concierge: assistance abroad, registration in clinics, purchase of dietary supplements",
       key: 13,
       checked: true,
     },
-    { title: "Подарочный бокс от партнеров", key: 14, checked: true },
+    { title: "Gift box from partners", key: 14, checked: true },
   ];
 
   const standardPrice = [
-    { price: "44 900 р.", title: "3 месяца", value: "3", key: 1 },
-    { price: "74 900 р.", title: "6 месяцев", value: "6", key: 2 },
-    { price: "124 900 р.", title: "12 месяцев", value: "12", key: 3 },
+    { price: "44 900 rub.", title: "3 month", value: "3", key: 1 },
+    { price: "74 900 rub.", title: "6 month", value: "6", key: 2 },
+    { price: "124 900 rub.", title: "12 month", value: "12", key: 3 },
   ];
   const premiumPrice = [
-    { price: "180 900 р.", title: "6 месяцев", value: "6", key: 2 },
-    { price: "320 000 р.", title: "12 месяцев", value: "12", key: 3 },
+    { price: "180 900 rub.", title: "6 month", value: "6", key: 2 },
+    { price: "320 000 rub.", title: "12 month", value: "12", key: 3 },
   ];
 
   const renderStandardItem = ({ item, index }: any) => {
@@ -246,7 +246,7 @@ const EnterRateSingleScreen = (props: any) => {
 
   return (
     <WrapperPage
-      buttonTitle={"Оплатить"}
+      buttonTitle={"Pay"}
       onPressButton={() => {}}
       onPressBack={() => {
         navigation.navigate("EnterRate");
@@ -263,7 +263,7 @@ const EnterRateSingleScreen = (props: any) => {
                 lineHeight: 28,
               }}
             >
-              Стандарт
+              Standard
             </Text>
           </View>
           <View style={{ marginTop: 24 }}>
@@ -285,7 +285,7 @@ const EnterRateSingleScreen = (props: any) => {
                 lineHeight: 28,
               }}
             >
-              Премиум
+              Premium
             </Text>
           </View>
           <View style={{ marginTop: 24 }}>
