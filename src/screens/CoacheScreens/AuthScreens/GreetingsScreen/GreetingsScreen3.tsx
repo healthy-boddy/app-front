@@ -1,8 +1,7 @@
 import React from "react";
-import {View, Text, StyleSheet} from "react-native";
+import {StyleSheet, Text, View} from "react-native";
 import {useNavigation} from "@react-navigation/native";
 import {WrapperPage} from "../../../../components/core/wrapper";
-import Dot from "../../../../components/Dot";
 import {CoachIconOnboarding} from "../../../../navigations/CoachNavigations/icons/CoachIconOnboarding";
 
 const GreetingsScreen3 = () => {
