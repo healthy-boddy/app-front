@@ -76,7 +76,7 @@ export default function ClientMain() {
                         <TabNavigatorElem
                             colorItem={focused ? "#7454CF" : "#797979"}
                             icon={<HomeSvg color={focused ? "#7454CF" : "#797979"}/>}
-                            navigatorName="Главная"
+                            navigatorName="Main"
                         />
                     ),
                     tabBarShowLabel: false,
@@ -91,7 +91,7 @@ export default function ClientMain() {
                         <TabNavigatorElem
                             colorItem={focused ? "#7454CF" : "#797979"}
                             icon={<AnalyzesSvg color={focused ? "#7454CF" : "#797979"}/>}
-                            navigatorName="Анализы"
+                            navigatorName="Analyzes"
                         />
                     ),
                     tabBarShowLabel: false,
@@ -106,7 +106,7 @@ export default function ClientMain() {
                         <TabNavigatorElem
                             colorItem={focused ? "#7454CF" : "#797979"}
                             icon={<PersonSvg color={focused ? "#7454CF" : "#797979"}/>}
-                            navigatorName="Состояние"
+                            navigatorName="Condition"
                         />
                     ),
                     tabBarShowLabel: false,

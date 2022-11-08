@@ -22,7 +22,7 @@ export const CoachTabNavigator = () => {
                         <TabNavigatorElem
                             colorItem={focused ? "#7454CF" : "#797979"}
                             icon={<HomeSvg color={focused ? "#7454CF" : "#797979"}/>}
-                            navigatorName="Мои клиенты"
+                            navigatorName="My clients"
                         />
                     ),
                     tabBarShowLabel: false,
@@ -36,7 +36,7 @@ export const CoachTabNavigator = () => {
                         <TabNavigatorElem
                             colorItem={focused ? "#7454CF" : "#797979"}
                             icon={<Calendar color={focused ? "#7454CF" : "#797979"}/>}
-                            navigatorName="Календарь"
+                            navigatorName="Calendar"
                         />
                     ),
                     tabBarShowLabel: false,
@@ -50,7 +50,7 @@ export const CoachTabNavigator = () => {
                         <TabNavigatorElem
                             colorItem={focused ? "#7454CF" : "#797979"}
                             icon={<Constructor color={focused ? "#7454CF" : "#797979"}/>}
-                            navigatorName="Конструктор"
+                            navigatorName="Constructor"
                         />
                     ),
                     tabBarShowLabel: false,

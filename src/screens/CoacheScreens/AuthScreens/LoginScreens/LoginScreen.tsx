@@ -51,7 +51,7 @@ const LoginScreen = () => {
         setValue("")
         navigation.navigate("Welcome");
       }}
-      buttonTitle={"Продолжить"}
+      buttonTitle={"Continue"}
       onPressButton={handleLogin}
     >
       <KeyboardAwareScrollView

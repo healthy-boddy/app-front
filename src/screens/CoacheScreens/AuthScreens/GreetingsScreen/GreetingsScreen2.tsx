@@ -15,7 +15,7 @@ const GreetingsScreen2 = () => {
     <WrapperPage
       onPressBack={() => navigation.navigate("Greetings")}
       onPressButton={() => navigation.navigate("Greetings3")}
-      buttonTitle={"Продолжить"}
+      buttonTitle={"Continue"}
     >
       <View
         style={{

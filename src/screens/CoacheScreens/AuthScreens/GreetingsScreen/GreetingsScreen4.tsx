@@ -27,7 +27,7 @@ const GreetingsScreen4 = (props: any) => {
         <MainContainer
             onPressBack={() => navigation.navigate("Greetings3")}
             onPressButton={() => navigation.navigate("Greetings5")}
-            buttonTitle={"Продолжить"}
+            buttonTitle={"Continue"}
         >
             <View style={{
                 paddingHorizontal:16

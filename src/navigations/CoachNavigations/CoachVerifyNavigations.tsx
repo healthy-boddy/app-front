@@ -87,7 +87,7 @@ export default function CoachVerify() {
                     <TabNavigatorElem
                         colorItem={focused ? "#7454CF" : "#797979"}
                         icon={<HomeSvg color={focused ? "#7454CF" : "#797979"}/>}
-                        navigatorName="Главная"
+                        navigatorName="main"
                     />
                 ),
                 tabBarShowLabel: false,

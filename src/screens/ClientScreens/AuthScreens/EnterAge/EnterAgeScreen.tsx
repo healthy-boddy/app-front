@@ -101,7 +101,6 @@ const EnterAgeScreen = () => {
               onChange={onChange}
               maximumDate={new Date()}
               display={Platform.OS === "android" ? "default" : "spinner"}
-              locale="eu"
             />
           )}
         </View>

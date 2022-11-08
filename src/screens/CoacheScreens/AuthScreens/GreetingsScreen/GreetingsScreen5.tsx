@@ -112,7 +112,7 @@ const WelcomeScreen = () => {
         <WrapperPage
             onPressBack={() => navigation.navigate("Greetings4")}
             onPressButton={handlePostInfo}
-            buttonTitle={"Продолжить"}
+            buttonTitle={"Continue"}
         >
             <View
                 style={{

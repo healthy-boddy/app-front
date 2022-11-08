@@ -59,7 +59,7 @@ const GreetingsScreen6 = () => {
             <View style={{marginBottom: 25}}>
                 <CustomButton onPress={() => {
                     navigation.navigate("Greetings7")
-                }} title={'Продолжить'}/>
+                }} title={'Continue'}/>
             </View>
         </Container>
     );

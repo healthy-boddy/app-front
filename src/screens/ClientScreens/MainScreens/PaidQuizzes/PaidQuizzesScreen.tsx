@@ -106,7 +106,7 @@ const PaidQuizzesScreen = () => {
 
     return (
         <QuestionsWrapper
-            buttonTitle={'Продолжить'}
+            buttonTitle={'Continue'}
             onPressBack={() => {
                 if (level >= 1) {
                     setLevel(level - 1);

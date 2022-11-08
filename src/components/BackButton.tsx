@@ -23,7 +23,7 @@ const BackButton = (props: any) => {
           <BackIcon />
         </View>
         <View>
-          <Text style={styles.title}>Назад</Text>
+          <Text style={styles.title}>Back</Text>
         </View>
       </TouchableOpacity>
 
