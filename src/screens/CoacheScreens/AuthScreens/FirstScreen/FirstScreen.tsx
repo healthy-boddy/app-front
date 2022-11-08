@@ -47,7 +47,7 @@ const FirstScreen: React.FC = (props) => {
             }}
         >
           <View style={{ alignItems: "center" }}>
-            <Image source={require(`src/screens/CoacheScreens/AuthScreens/FirstScreen/OnBoardingImages/blob1.png`)} />
+            {/*<Image source={require(`../src/screens/CoacheScreens/AuthScreens/FirstScreen/OnBoardingImages/blob1.png`)} />*/}
           </View>
           <View
               style={{
