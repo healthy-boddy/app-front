@@ -126,7 +126,7 @@ const HomeScreen = () => {
                     <View style={{flex: 1}}>
                        <View style={{flex: 1, marginTop: 100, alignItems:'center', justifyContent: 'center'}}>
                           <PicCheck/>
-                           <View style={{marginTop: 30}}>
+                           <View style={{marginTop: 30, alignItems:'center'}}>
                                <Title titlePropStyle={{textAlign: 'center'}}>Your Health Buddy's been found!</Title>
                                <Text style={{
                                    textAlign: 'center',
