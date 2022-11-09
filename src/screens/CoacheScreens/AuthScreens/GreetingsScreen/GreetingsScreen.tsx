@@ -24,6 +24,7 @@ const GreetingsScreen = (props: any) => {
             <SafeAreaView style={{
                 flex:1,
                 paddingVertical: 35,
+                paddingHorizontal:16
             }}>
                     <Text
                         style={{
