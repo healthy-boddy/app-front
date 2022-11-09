@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {Dimensions, Image, Pressable, StyleSheet, Text, View,} from "react-native";
 import AppIntroSlider from "react-native-app-intro-slider";
 import {color1, color2} from "../../../../helpers/colors";
@@ -34,6 +34,8 @@ const OnBoarding = () => {
       image: "blob4.png",
     },
   ];
+  const [index, setIndex] = useState(0);
+
   const RenderItem = (item: any) => {
     return (
       <View
@@ -88,6 +90,7 @@ const OnBoarding = () => {
         activeDotStyle={{ backgroundColor: color1, top: -750 }}
         dotStyle={{ backgroundColor: color2, top: -750 }}
         data={data}
+        onSlideChange={setIndex}
         renderItem={(data) => RenderItem(data.item)}
         renderNextButton={() => (
           <View style={styles.next_btn_box}>
@@ -113,17 +116,35 @@ const OnBoarding = () => {
         }}
         style={styles.skip_btn}
       >
-        <Text
-          style={{
-            color: "#7454CF",
-            textAlign: "center",
-            fontWeight: "500",
-            lineHeight: 20,
-            fontSize: 16,
-          }}
-        >
-            Skip
-        </Text>
+          {index === 3 ? (
+              <View style={styles.next_btn_finish}>
+                  <View style={styles.next_btn}>
+                      <Text
+                          style={{
+                              color: "#fff",
+                              textAlign: "center",
+                              fontWeight: "500",
+                              lineHeight: 20,
+                              fontSize: 16,
+                          }}
+                      >
+                          Let’s start
+                      </Text>
+                  </View>
+              </View>
+          ) : (
+              <Text
+                  style={{
+                      color: "#7454CF",
+                      textAlign: "center",
+                      fontWeight: "500",
+                      lineHeight: 20,
+                      fontSize: 16,
+                  }}
+              >
+                  Skip
+              </Text>
+          )}
       </Pressable>
     </Container>
   );
@@ -155,4 +176,12 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     position: "absolute",
   },
+    next_btn_finish: {
+        alignSelf: "flex-end",
+        alignItems: "center",
+        width: 400,
+        bottom: -8,
+        left: -1
+    }
+
 });
