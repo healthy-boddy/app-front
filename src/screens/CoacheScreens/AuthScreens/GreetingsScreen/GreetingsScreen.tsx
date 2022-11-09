@@ -36,7 +36,7 @@ const GreetingsScreen = (props: any) => {
                             alignSelf: "flex-start",
                         }}
                     >
-                        Hello, {user_data?.user?.username} !
+                        Hello, {user_data?.user?.username}!
                     </Text>
                     <Text
                         style={{
@@ -47,7 +47,7 @@ const GreetingsScreen = (props: any) => {
                             color: "#797979",
                         }}
                     >
-                        We found you in the list of verified buddies!
+                        We found you in the list of verified buddies
                     </Text>
                 <View style={styles.image_box}>
                     <Doctor/>

@@ -14,6 +14,7 @@ const GreetingsScreen3 = () => {
         >
             <View style={{width: '100%', flex: 1, paddingHorizontal: 16}}>
                 <View>
+                    {/*todo: Change for h1*/}
                     <Text style={[styles.title,{marginBottom:16}]}>
                         {`There is a three-day training ahead of you!`}
                     </Text>

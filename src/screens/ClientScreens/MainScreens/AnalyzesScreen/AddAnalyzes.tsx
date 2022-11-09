@@ -34,13 +34,14 @@ const AddAnalyzes = () => {
             alignItems:'center',
             backgroundColor:'#fff',
         }}>
+            {/*// todo: add a component with the same header*/}
             <View style={{
                 flexDirection: 'row',
                 alignItems:'center',
                 justifyContent:'space-between',
                 width:'100%',
                 paddingHorizontal:16,
-
+                marginTop:12
             }}>
                     <TouchableOpacity
                         activeOpacity={0.6}
@@ -72,7 +73,8 @@ const AddAnalyzes = () => {
                         fontWeight:'400',
                         fontSize:16,
                         lineHeight:20,
-                        color:'#797979'
+                        color:'#797979',
+                        marginTop:4
                     }}>
                         Results will be displayed in the app immediately
                     </Text>
@@ -92,7 +94,8 @@ const AddAnalyzes = () => {
                         fontWeight:'400',
                         fontSize:16,
                         lineHeight:20,
-                        color:'#797979'
+                        color:'#797979',
+                        marginTop:4
                     }}>
                         May take some time for digitization
                     </Text>
@@ -120,14 +123,14 @@ const styles = StyleSheet.create({
         textAlign: "center",
         fontSize: 18,
         fontWeight: '400',
-        fontStyle: 'normal'
+        fontStyle: 'normal',
     },
     item_box: {
         width: '100%',
         backgroundColor: '#F5F4F8',
         borderRadius: 20,
         paddingHorizontal: 16,
-        paddingVertical: 12
+        paddingVertical: 16,
     },
     item_description:{
         color: '#797979',

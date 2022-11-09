@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
         fontWeight: '400',
         fontSize: 16,
         fontStyle: 'normal',
-        lineHeight: 20,
+        lineHeight: 23,
         color: '#797979'
     },
     user_name:{

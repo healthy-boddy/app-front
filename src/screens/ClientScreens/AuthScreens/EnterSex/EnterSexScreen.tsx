@@ -86,7 +86,7 @@ const EnterSexScreen = () => {
             lineHeight: 22.67,
           }}
         >
-            Sex
+            Gender
         </Text>
       </View>
       <View style={{ flex: 1 }}>

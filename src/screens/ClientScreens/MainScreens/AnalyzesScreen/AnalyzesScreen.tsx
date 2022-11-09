@@ -24,22 +24,44 @@ const AnalyzesScreen = () => {
             <View style={{flex: 1, paddingTop: 12}}>
                 <View style={{
                     paddingHorizontal:16,
-                    height:'100%'
+                    height:'100%',
                 }}>
                     <Text style={{
-                        fontSize:24,
+                        fontSize:32,
                         fontWeight:'600',
-                        lineHeight:28,
-                        color:'#000'
+                        lineHeight:34,
+                        color:'#000',
+                        marginTop:24
                     }}>
                         Analysis
                     </Text>
-                <View style={{alignItems: 'center', flex: 1, justifyContent: 'center'}}>
+                <View style={{alignItems: 'center', flex: 1, justifyContent: 'center', bottom:40}}>
                     <BigIcon/>
+                    <Text  style={{
+                        fontSize:20,
+                        fontWeight:'600',
+                        lineHeight:32,
+                        color:'#000',
+                        marginTop:4,
+                        textAlign:'center',
+                        marginHorizontal:40
+                    }}>
+                        This is where your medical records will be stored
+                    </Text>
+                    <Text style={{
+                        fontSize:18,
+                        fontWeight:'400',
+                        lineHeight:21,
+                        color:'#797979',
+                        marginTop:20,
+                        textAlign:'center'
+                    }}>
+                        You don't have any analysis results yet
+                    </Text>
                 </View>
                 <View style={{marginBottom: 25}}>
                     <CustomButton
-                        title={'Add analysis'}
+                        title={'Add analyse'}
                         onPress={()=>{
                             navigation.navigate('AddAnalyzes')
                         }}

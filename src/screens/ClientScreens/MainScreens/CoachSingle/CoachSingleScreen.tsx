@@ -68,8 +68,8 @@ const CoachSingleScreen = () => {
                         <Text style={{
                             color:'#1E1E1E',
                             fontWeight:'400',
-                            fontSize:16,
-                            lineHeight:21,
+                            fontSize:18,
+                            lineHeight:21.48,
                          }}>My Health Buddy</Text>
                     <View  style={{
                         width:50,
@@ -77,22 +77,26 @@ const CoachSingleScreen = () => {
                     }}/>
                 </View>
             <ScrollView>
-                <View style={{marginTop: 55, alignItems: 'center'}}>
+                <View style={{
+                    marginTop: 55, height:186, width:186, alignSelf:'center',
+                    shadowColor: "rgba(0, 0, 0, 0.06)",
+                    shadowOffset: { width: 4, height: 4 },
+                    shadowOpacity: 0.2,
+                    shadowRadius: 3,
+                }}>
                     <Image
                         source={{uri: coach?.avatar}}
                         style={styles.coach_avatar}
                     />
-                    <Text style={styles.coach_name}>
-                        {coach?.user?.username}
-                    </Text>
                     {/*<Text style={styles.specialities_description}>*/}
                     {/*    {coach?.specialities[0]?.name}*/}
                     {/*</Text>*/}
                 </View>
+                <Text style={styles.coach_name}>
+                    {coach?.user?.username}
+                </Text>
                 <View style={{flexDirection: 'row', marginTop: 30, alignItems: 'center'}}>
-                    <Text>
                         <DocxIcon/>
-                    </Text>
                     <Text style={styles.specialisation_title}>
                         Specialisation
                     </Text>
@@ -111,9 +115,7 @@ const CoachSingleScreen = () => {
                     }}
                 >
                     <View style={{flexDirection: 'row'}}>
-                        <Text>
                             <EducationIcon/>
-                        </Text>
                         <Text style={styles.specialisation_title}>
                             Education
                         </Text>
@@ -138,9 +140,7 @@ const CoachSingleScreen = () => {
                     }}
                 >
                     <View style={{flexDirection: 'row'}}>
-                        <Text>
                             <ReviewsIcon/>
-                        </Text>
                         <Text style={styles.specialisation_title}>
                             Reviews
                         </Text>
@@ -159,18 +159,18 @@ export default CoachSingleScreen;
 
 const styles = StyleSheet.create({
     coach_avatar: {
-        width: 186,
-        height: 186,
-        borderRadius: 24,
-        borderWidth: 1,
-        borderColor: 'solid'
+        width:'100%',
+        height:'100%',
+        resizeMode:'stretch',
+        borderRadius:24
     },
     coach_name: {
         fontSize: 24,
         fontWeight: "600",
         marginTop: 16,
         lineHeight: 28,
-        fontStyle: "normal"
+        fontStyle: "normal",
+        alignSelf:'center'
     },
     specialisation_title: {
         fontWeight: '600',
@@ -197,7 +197,8 @@ const styles = StyleSheet.create({
         width: '100%',
         height: 1,
         backgroundColor: '#BDBDBD',
-        marginTop: 15
+        marginTop: 50,
+
     },
     education_description: {
         marginTop: 14,
@@ -205,7 +206,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: '400',
         fontStyle: 'normal',
-        lineHeight: 20
+        lineHeight: 20,
     },
     specialities_description:{
         color: '#797979',

@@ -139,7 +139,7 @@ const EnterNameScreen = () => {
               </View>
               <View style={styles.input_box}>
                 <View>
-                  <Title>Введите ваше имя</Title>
+                  <Title>Enter name</Title>
                 </View>
                 <View style={{ marginTop: 12 }}>
                   <View

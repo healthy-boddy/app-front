@@ -75,16 +75,18 @@ const HomeScreen = () => {
                                 fontSize: 24,
                                 color: "#1E1E1E",
                                 fontWeight: "600",
+                                marginTop:10
                             }}
                         >
                             Find your coach
                         </Text>
                         <Text
                             style={{
-                                lineHeight: 20,
+                                lineHeight: 23,
                                 fontSize: 16,
                                 color: "#797979",
                                 fontWeight: "400",
+                                marginTop:8
                             }}
                         >
                             Answer a few questions and we will find a coach that suits you the best.
@@ -132,7 +134,8 @@ const HomeScreen = () => {
                                    textAlign: 'center',
                                    color: '#797979',
                                    width: 247,
-                                   marginTop: 10
+                                   marginTop: 14,
+                                   lineHeight:23,
                                }}>
                                    To consult with Health buddy, you need to fill out the survey
                                </Text>
@@ -259,7 +262,7 @@ const HomeScreen = () => {
                 />}
                 <SafeAreaView style={styles.header}>
                     <TouchableOpacity
-                        style={{flexDirection: "row", alignItems: "center",}}
+                        style={{flexDirection: "row", alignItems: "center", marginTop:16}}
                         onPress={()=>{navigation.navigate('UserSingle')}}
                     >
                         {!userData.avatar ? <Image

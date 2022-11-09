@@ -33,19 +33,18 @@ const GreetingsScreen2 = () => {
               alignSelf: "flex-start",
             }}
           >
-              We wish you to have an easy adaptation in the company.
+              We wish you to have an easy adaptation in the company
           </Text>
           <Text
             style={{
               marginTop: 12,
               fontWeight: "400",
               fontSize: 16,
-              lineHeight: 20,
+              lineHeight: 23,
               color: "#797979",
             }}
           >
               Let's agree to ask questions and be open.
-
               Record your questions and send them to the chat-bot while doing exercises, we will answer your questions and we will make an additional briefing for you.
           </Text>
         </View>

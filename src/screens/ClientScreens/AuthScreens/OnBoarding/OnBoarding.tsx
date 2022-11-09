@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
     bottom: 35,
     transform: [
       {
-        translateX: Dimensions.get('screen').width / 20,
+        translateX: Dimensions.get('screen').width / 100,
       },
     ],
   },

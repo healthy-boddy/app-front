@@ -145,17 +145,18 @@ const ConditionScreen = () => {
     }
     return (
         <MainContainer>
+            {/*//todo: page make as analysis */}
             <SafeAreaView style={{
                 paddingHorizontal:20,
                 height:'100%',
-                marginTop:60,
+                marginTop:35,
             }}>
             <Text
                 style={{
-                    fontWeight: "600",
-                    lineHeight: 24,
-                    fontSize: 28,
-                    color: "#000000",
+                    fontSize:32,
+                    fontWeight:'600',
+                    lineHeight:34,
+                    color:'#000',
                 }}
             >
                 My condition
@@ -192,7 +193,8 @@ const ConditionScreen = () => {
                         <Text style={{
                             color: color1,
                             fontSize: 16,
-                            fontWeight: '500'
+                            fontWeight: '500',
+                            marginTop:20
                         }}>
                             Subscribe
                         </Text>
@@ -270,6 +272,7 @@ const styles = StyleSheet.create({
         fontStyle: "normal",
         fontWeight: '400',
         textAlign: "center",
+        marginTop:10
 
     },
     empty_state_title: {
