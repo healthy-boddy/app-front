@@ -91,7 +91,7 @@ export default function ClientMain() {
                         <TabNavigatorElem
                             colorItem={focused ? "#7454CF" : "#797979"}
                             icon={<AnalyzesSvg color={focused ? "#7454CF" : "#797979"}/>}
-                            navigatorName="Analyzes"
+                            navigatorName="Medical tests"
                         />
                     ),
                     tabBarShowLabel: false,

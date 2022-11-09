@@ -23,7 +23,7 @@ const PaidQuizzesScreen = () => {
     const [level, setLevel] = useState(0);
     let [questions, setQuestions] = useState<any>([])
     let [loading, setLoading] = useState(true)
-    let progress = (1 / 173) * level;
+    let progress = (1 / 51) * level;
     let [checkedAnswer, setCheckedAnswer] = useState<Array<Answer>>([])
 
     useEffect(() => {
@@ -145,7 +145,7 @@ const PaidQuizzesScreen = () => {
                 />
 
                 <View style={{marginTop: 32, marginBottom: 20}}>
-                    <Title>{questions[level]?.text}</Title>
+                    <Title>{questions[level]?.text_en}</Title>
                 </View>
 
                 <View style={{flex: 1}}>
@@ -170,7 +170,7 @@ const PaidQuizzesScreen = () => {
                                             maxWidth: 303
                                         }}
                                     >
-                                        {item?.text}
+                                        {item?.text_en}
                                     </Text>
                                 </TouchableOpacity>
                                 <View style={styles.line}/>

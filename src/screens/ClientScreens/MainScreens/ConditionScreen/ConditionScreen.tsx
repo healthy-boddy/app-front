@@ -145,7 +145,6 @@ const ConditionScreen = () => {
     }
     return (
         <MainContainer>
-            {/*//todo: page make as analysis */}
             <SafeAreaView style={{
                 paddingHorizontal:20,
                 height:'100%',
@@ -181,7 +180,7 @@ const ConditionScreen = () => {
 
                 </View>
                 :
-                <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+                <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', bottom: 80}}>
                     <EmptyStateIcon/>
                     <Text style={styles.empty_state_title}>
                         The dynamics of the body's condition will be displayed here

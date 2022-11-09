@@ -34,6 +34,7 @@ const FirstScreen: React.FC = (props) => {
       image: "blob3.png",
     },
   ];
+  const [showNextButtonInAppIntro, setShowNextButtonInAppIntro] = useState(true)
 
 
   const RenderItem = (item: any) => {
@@ -88,6 +89,10 @@ const FirstScreen: React.FC = (props) => {
   return (
       <Container containerProp={{ width: "100%", flex: 1, marginTop: 50 }}>
         <AppIntroSlider
+            onSlideChange={(item)=>{item === 2 ?
+                setShowNextButtonInAppIntro(false)
+                :
+                setShowNextButtonInAppIntro(true)}}
             activeDotStyle={{ backgroundColor: color1, top: -750 }}
             dotStyle={{ backgroundColor: color2, top: -750 }}
             data={data}
@@ -102,32 +107,31 @@ const FirstScreen: React.FC = (props) => {
                           fontWeight: "500",
                           lineHeight: 20,
                           fontSize: 16,
-                        }}
-                    >
+                        }}>
                         Continue
                     </Text>
                   </View>
                 </View>
             )}
         />
-        <Pressable
-            onPress={() => {
-              navigation.navigate("Greetings");
-            }}
-            style={styles.skip_btn}
-        >
-          <Text
-              style={{
-                color: "#7454CF",
-                textAlign: "center",
-                fontWeight: "500",
-                lineHeight: 20,
-                fontSize: 16,
+          {showNextButtonInAppIntro && <Pressable
+              onPress={() => {
+                  navigation.navigate("Greetings");
               }}
+              style={styles.skip_btn}
           >
-              Skip
-          </Text>
-        </Pressable>
+              <Text
+                  style={{
+                      color: "#7454CF",
+                      textAlign: "center",
+                      fontWeight: "500",
+                      lineHeight: 20,
+                      fontSize: 16,
+                  }}
+              >
+                  Skip
+              </Text>
+          </Pressable>}
       </Container>
   );
 };
@@ -136,7 +140,6 @@ export default FirstScreen;
 
 const styles = StyleSheet.create({
   next_btn_box: {
-    alignSelf: "flex-end",
     alignItems: "center",
     width: 400,
     bottom: 35,

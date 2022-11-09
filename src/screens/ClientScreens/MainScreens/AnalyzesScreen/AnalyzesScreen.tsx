@@ -33,7 +33,7 @@ const AnalyzesScreen = () => {
                         color:'#000',
                         marginTop:24
                     }}>
-                        Analysis
+                        Medical tests
                     </Text>
                 <View style={{alignItems: 'center', flex: 1, justifyContent: 'center', bottom:40}}>
                     <BigIcon/>
@@ -61,7 +61,7 @@ const AnalyzesScreen = () => {
                 </View>
                 <View style={{marginBottom: 25}}>
                     <CustomButton
-                        title={'Add analyse'}
+                        title={'Add results'}
                         onPress={()=>{
                             navigation.navigate('AddAnalyzes')
                         }}

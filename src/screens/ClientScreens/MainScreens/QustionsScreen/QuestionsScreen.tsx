@@ -20,7 +20,7 @@ const QuestionsScreen = () => {
     const [userToken, setUserToken] = useState<any>("");
     let [loading, setLoading] = useState<boolean>(true);
     const [level, setLevel] = useState(0);
-    let progress = (1 / 46) * level;
+    let progress = (1 / 50) * level;
 
     let [checkedAnswer, setCheckedAnswer] = useState<Array<Answer>>([])
 
@@ -152,7 +152,7 @@ const QuestionsScreen = () => {
                 />
 
                 <View style={{marginTop: 32, marginBottom: 20}}>
-                    <Title>{questions[level]?.text}</Title>
+                    <Title>{questions[level]?.text_en}</Title>
                 </View>
 
                 <View style={{flex: 1}}>
@@ -177,7 +177,7 @@ const QuestionsScreen = () => {
                                             maxWidth: 303
                                         }}
                                     >
-                                        {item?.text}
+                                        {item?.text_en}
                                     </Text>
                                 </TouchableOpacity>
                                 <View style={styles.line}/>
