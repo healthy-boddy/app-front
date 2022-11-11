@@ -7,11 +7,13 @@ import MainContainer from "../../../../components/MainContainer";
 import EmptyStateIcon from "./CondationIcons/EmptyStateIcon";
 import {color1} from "../../../../helpers/colors";
 import UnicIcon from "./CondationIcons/UnicIcon";
+import {useIsFocused} from "@react-navigation/native";
 
 const ConditionScreen = () => {
     let tokenFromReducer = useSelector((store: any) => store.user_token.user_token);
     let AuthStr = "Bearer " + tokenFromReducer;
-
+    const isFocused = useIsFocused();
+    console.log(isFocused, 'isFocused')
     let [characteristics, setCharacteristics] = useState([
         {number: 1.9, state: "Нужна помощь", organ: "Кости"},
         {number: 4.8, state: "Отлично", organ: "Гормоны"},
@@ -43,7 +45,7 @@ const ConditionScreen = () => {
         } catch (error) {
             console.log(error, 'condition error')
         }
-    }, [])
+    }, [isFocused])
 
     console.log(conditions, 'conditions')
 

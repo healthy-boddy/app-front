@@ -97,6 +97,7 @@ const EnterAgeScreen = () => {
             <DateTimePicker
               testID="dateTimePicker"
               value={date}
+              locale={'en'}
               mode={"date"}
               onChange={onChange}
               maximumDate={new Date()}
