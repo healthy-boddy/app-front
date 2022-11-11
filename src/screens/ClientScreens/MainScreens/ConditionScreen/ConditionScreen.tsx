@@ -53,6 +53,7 @@ const ConditionScreen = () => {
                 <View style={{
                     width:'50%',
                     alignItems:'center',
+                    paddingHorizontal:16
 
                 }}>
                 <View style={{
@@ -60,7 +61,7 @@ const ConditionScreen = () => {
                 paddingVertical:16,
                 backgroundColor:'#F5F4F8',
                 borderRadius:24,
-                width:160,
+                width:'100%',
                     height:270,
                 marginVertical:15,
                 alignItems:'flex-start',
@@ -144,11 +145,14 @@ const ConditionScreen = () => {
         )
     }
     return (
-        <MainContainer>
-            <SafeAreaView style={{
-                paddingHorizontal:20,
-                height:'100%',
+        <SafeAreaView style={{
+            flex:1,
+            backgroundColor:'#fff',
+            alignItems:'center',
+        }}>
+            <View style={{
                 marginTop:35,
+
             }}>
             <Text
                 style={{
@@ -156,6 +160,7 @@ const ConditionScreen = () => {
                     fontWeight:'600',
                     lineHeight:34,
                     color:'#000',
+                    paddingHorizontal:20
                 }}
             >
                 My condition
@@ -166,7 +171,6 @@ const ConditionScreen = () => {
                     <FlatList
                         data={conditions}
                         renderItem={renderConditions}
-                        extraData={conditions}
                         showsVerticalScrollIndicator={false}
                         keyExtractor={item => item.max}
                         numColumns={2}
@@ -199,9 +203,8 @@ const ConditionScreen = () => {
                         </Text>
                     </TouchableOpacity>
                 </View>}
-            </SafeAreaView>
-        </MainContainer>
-
+            </View>
+        </SafeAreaView>
     );
 };
 
@@ -220,7 +223,6 @@ const styles = StyleSheet.create({
         marginTop: 29,
         alignItems: "center",
         justifyContent: "center",
-        paddingHorizontal: 16,
     },
     content: {
         height: "auto",
