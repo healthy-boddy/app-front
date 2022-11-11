@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  Pressable,
-  Dimensions,
+    View,
+    Text,
+    StyleSheet,
+    Image,
+    Pressable,
+    Dimensions, Platform,
 } from "react-native";
 import { color1, color2, color3 } from "../../../../helpers/colors";
 import AppIntroSlider from "react-native-app-intro-slider";
@@ -34,6 +34,7 @@ const FirstScreen: React.FC = (props) => {
       image: "blob3.png",
     },
   ];
+    const [index, setIndex] = useState(0);
 
 
   const RenderItem = (item: any) => {
@@ -91,10 +92,11 @@ const FirstScreen: React.FC = (props) => {
             activeDotStyle={{ backgroundColor: color1, top: -750 }}
             dotStyle={{ backgroundColor: color2, top: -750 }}
             data={data}
+            onSlideChange={setIndex}
             renderItem={(data) => RenderItem(data.item)}
             renderNextButton={() => (
-                <View style={styles.next_btn_box}>
-                  <View style={styles.next_btn}>
+                <View style={Platform.OS !== "android" ? styles.next_btn_box : styles.ios_next_btn_box}>
+                    <View style={Platform.OS !== "android" ? styles.next_btn : styles.ios_next_btn}>
                     <Text
                         style={{
                           color: "#fff",
@@ -116,17 +118,34 @@ const FirstScreen: React.FC = (props) => {
             }}
             style={styles.skip_btn}
         >
-          <Text
-              style={{
-                color: "#7454CF",
-                textAlign: "center",
-                fontWeight: "500",
-                lineHeight: 20,
-                fontSize: 16,
-              }}
-          >
-            Пропустить
-          </Text>
+            {index === 2 ? (
+                <View style={styles.next_btn_finish}>
+                    <View style={styles.next_btn}>
+                        <Text
+                            style={{
+                                color: "#fff",
+                                textAlign: "center",
+                                fontWeight: "500",
+                                lineHeight: 20,
+                                fontSize: 16,
+                            }}>
+                            Начать
+                        </Text>
+                    </View>
+                </View>
+            ) : (
+                <Text
+                    style={{
+                        color: "#7454CF",
+                        textAlign: "center",
+                        fontWeight: "500",
+                        lineHeight: 20,
+                        fontSize: 16,
+                    }}
+                >
+                    Пропустить
+                </Text>
+            )}
         </Pressable>
       </Container>
   );
@@ -159,4 +178,31 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     position: "absolute",
   },
+    ios_next_btn_box:{
+        alignSelf: "flex-end",
+        alignItems: "center",
+        width: 400,
+        bottom: 35,
+        transform: [
+            {
+                translateX: Dimensions.get('screen').width / 100,
+            },
+        ],
+    },
+    ios_next_btn:{
+        width: width - 5,
+        maxWidth: 390,
+        backgroundColor: color1,
+        padding: 15,
+        borderRadius: 30,
+        marginTop: 25,
+        left: -21
+    },
+    next_btn_finish: {
+        alignSelf: "flex-end",
+        alignItems: "center",
+        width: 400,
+        bottom: -8,
+        left: -1
+    },
 });
