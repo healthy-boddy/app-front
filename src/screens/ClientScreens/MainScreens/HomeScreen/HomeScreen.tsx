@@ -252,11 +252,11 @@ const HomeScreen = () => {
                     height: "100%",
                 }}
             >
-                {loading && <ActivityIndicator
+                {loading ? <ActivityIndicator
                     size={'large'}
                     color={color1}
-                    style={{height: '100%'}}
-                />}
+                    style={{height: '120%', alignItems: 'center', alignSelf: 'center'}}
+                /> : null}
                 <SafeAreaView style={styles.header}>
                     <TouchableOpacity
                         style={{flexDirection: "row", alignItems: "center",}}

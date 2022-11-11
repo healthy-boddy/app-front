@@ -1,7 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, Image, StyleSheet, ScrollView, TouchableOpacity, SafeAreaView} from "react-native";
-import MainContainer from "../../../../components/MainContainer";
-import BackButton from "../../../../components/BackButton";
+import {Image, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import axios from "axios";
 import {baseUrl} from "../../../../helpers/url";
 import {useSelector} from "react-redux";
@@ -32,126 +30,127 @@ const CoachSingleScreen = () => {
 
     return (
         <SafeAreaView
-        style={{
-            flex: 1,
-            backgroundColor: '#fff',
-            paddingTop: 25
-        }}>
+            style={{
+                flex: 1,
+                backgroundColor: '#fff',
+                paddingTop: 25
+            }}>
             <View style={{
-                width:'100%',
-                paddingHorizontal:16
+                width: '100%',
+                paddingHorizontal: 16
             }}>
                 <View style={{
-                    width:'100%',
-                    justifyContent:'space-between',
-                    flexDirection:'row',
-                    alignItems:'center',
+                    width: '100%',
+                    justifyContent: 'space-between',
+                    flexDirection: 'row',
+                    alignItems: 'center',
                 }}>
 
                     <TouchableOpacity
                         activeOpacity={0.6}
-                        onPress={()=>{navigation.navigate('Main')}}
+                        onPress={() => {
+                            navigation.navigate('Main')
+                        }}
                         style={{
-                            alignItems:'center',
-                            justifyContent:'center',
-                            flexDirection:'row'
-
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            flexDirection: 'row'
                         }}
                     >
-                            <BackIcon />
-                            <Text style={{
-                                color: "#7454CF",
-                                marginLeft: 10,
-                                fontSize: 18,
-                                fontWeight: "400",
-                                lineHeight: 21.48,
-                            }}>Назад</Text>
-                    </TouchableOpacity>
+                        <BackIcon/>
                         <Text style={{
-                            color:'#1E1E1E',
-                            fontWeight:'400',
-                            fontSize:16,
-                            lineHeight:21,
-                         }}>Мой Health Buddy</Text>
-                    <View  style={{
-                        width:50,
-                        height:30,
+                            color: "#7454CF",
+                            marginLeft: 10,
+                            fontSize: 18,
+                            fontWeight: "400",
+                            lineHeight: 21.48,
+                        }}>Назад</Text>
+                    </TouchableOpacity>
+                    <Text style={{
+                        color: '#1E1E1E',
+                        fontWeight: '400',
+                        fontSize: 18,
+                        lineHeight: 21.48,
+                    }}>My Health Buddy</Text>
+                    <View style={{
+                        width: 50,
+                        height: 30,
                     }}/>
                 </View>
-            <ScrollView>
-                <View style={{marginTop: 55, alignItems: 'center'}}>
-                    <Image
-                        source={{uri: coach?.avatar}}
-                        style={styles.coach_avatar}
-                    />
+                <ScrollView>
+                    <View style={{
+                        marginTop: 55, height: 186, width: 186, alignSelf: 'center',
+                        shadowColor: "rgba(0, 0, 0, 0.06)",
+                        shadowOffset: {width: 4, height: 4},
+                        shadowOpacity: 0.2,
+                        shadowRadius: 3,
+                    }}>
+                        <Image
+                            source={{uri: coach?.avatar}}
+                            style={styles.coach_avatar}
+                        />
+                        {/*<Text style={styles.specialities_description}>*/}
+                        {/*    {coach?.specialities[0]?.name}*/}
+                        {/*</Text>*/}
+                    </View>
                     <Text style={styles.coach_name}>
                         {coach?.user?.username}
                     </Text>
-                    {/*<Text style={styles.specialities_description}>*/}
-                    {/*    {coach?.specialities[0]?.name}*/}
-                    {/*</Text>*/}
-                </View>
-                <View style={{flexDirection: 'row', marginTop: 30, alignItems: 'center'}}>
-                    <Text>
+                    <View style={{flexDirection: 'row', marginTop: 30, alignItems: 'center'}}>
                         <DocxIcon/>
-                    </Text>
-                    <Text style={styles.specialisation_title}>
-                        Специализация
-                    </Text>
-                </View>
-                <View>
-                    <Text style={styles.specialisation_description}>
-                        {coach?.specialization}
-                    </Text>
-                </View>
-                <View style={styles.line}/>
-                <TouchableOpacity
-                    style={styles.education_btn}
-                    activeOpacity={0.7}
-                    onPress={() => {
-                        setEducationVisible(!educationVisible)
-                    }}
-                >
-                    <View style={{flexDirection: 'row'}}>
-                        <Text>
+                        <Text style={styles.specialisation_title}>
+                            Специализация
+                        </Text>
+                    </View>
+                    <View>
+                        <Text style={styles.specialisation_description}>
+                            {coach?.specialization}
+                        </Text>
+                    </View>
+                    <View style={styles.line}/>
+                    <TouchableOpacity
+                        style={styles.education_btn}
+                        activeOpacity={0.7}
+                        onPress={() => {
+                            setEducationVisible(!educationVisible)
+                        }}
+                    >
+                        <View style={{flexDirection: 'row'}}>
                             <EducationIcon/>
+                            <Text style={styles.specialisation_title}>
+                                Образование
+                            </Text>
+                        </View>
+                        <Text style={{alignItems: 'flex-end'}}>
+                            {educationVisible ? <ArrowDown/> : <ArrowUp/>}
                         </Text>
-                        <Text style={styles.specialisation_title}>
-                            Образование
-                        </Text>
+                    </TouchableOpacity>
+                    <View>
+                        {educationVisible &&
+                            <Text style={styles.education_description}>
+                                {coach?.education_description}
+                            </Text>}
                     </View>
-                    <Text style={{alignItems: 'flex-end'}}>
-                        {educationVisible ? <ArrowDown/> : <ArrowUp/>}
-                    </Text>
-                </TouchableOpacity>
-                <View>
-                    {educationVisible &&
-                        <Text style={styles.education_description}>
-                            {coach?.education_description}
-                        </Text>}
-                </View>
-                <View style={styles.line}/>
+                    <View style={styles.line}/>
 
-                <TouchableOpacity
-                    style={styles.education_btn}
-                    activeOpacity={0.7}
-                    onPress={() => {
-                        setReviewsVisible(!reviewsVisible)
-                    }}
-                >
-                    <View style={{flexDirection: 'row'}}>
-                        <Text>
+                    <TouchableOpacity
+                        style={styles.education_btn}
+                        activeOpacity={0.7}
+                        onPress={() => {
+                            setReviewsVisible(!reviewsVisible)
+                        }}
+                    >
+                        <View style={{flexDirection: 'row'}}>
                             <ReviewsIcon/>
+                            <Text style={styles.specialisation_title}>
+                                Отзывы
+                            </Text>
+                        </View>
+                        <Text style={{alignItems: 'flex-end'}}>
+                            {reviewsVisible ? <ArrowDown/> : <ArrowUp/>}
                         </Text>
-                        <Text style={styles.specialisation_title}>
-                            Отзывы
-                        </Text>
-                    </View>
-                    <Text style={{alignItems: 'flex-end'}}>
-                        {reviewsVisible ? <ArrowDown/> : <ArrowUp/>}
-                    </Text>
-                </TouchableOpacity>
-            </ScrollView>
+                    </TouchableOpacity>
+                </ScrollView>
             </View>
         </SafeAreaView>
     );
@@ -161,18 +160,18 @@ export default CoachSingleScreen;
 
 const styles = StyleSheet.create({
     coach_avatar: {
-        width: 186,
-        height: 186,
-        borderRadius: 24,
-        borderWidth: 1,
-        borderColor: 'solid'
+        width: '100%',
+        height: '100%',
+        resizeMode: 'stretch',
+        borderRadius: 24
     },
     coach_name: {
         fontSize: 24,
         fontWeight: "600",
         marginTop: 16,
         lineHeight: 28,
-        fontStyle: "normal"
+        fontStyle: "normal",
+        alignSelf: 'center'
     },
     specialisation_title: {
         fontWeight: '600',
@@ -199,7 +198,8 @@ const styles = StyleSheet.create({
         width: '100%',
         height: 1,
         backgroundColor: '#BDBDBD',
-        marginTop: 15
+        marginTop: 50,
+
     },
     education_description: {
         marginTop: 14,
@@ -207,9 +207,9 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: '400',
         fontStyle: 'normal',
-        lineHeight: 20
+        lineHeight: 20,
     },
-    specialities_description:{
+    specialities_description: {
         color: '#797979',
         fontStyle: "normal",
         fontSize: 16,

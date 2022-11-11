@@ -43,7 +43,7 @@ const AddAnalyzes = () => {
                 justifyContent:'space-between',
                 width:'100%',
                 paddingHorizontal:16,
-
+                marginTop:12
             }}>
                     <TouchableOpacity
                         activeOpacity={0.6}

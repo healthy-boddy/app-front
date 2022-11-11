@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {View, Text, FlatList, StyleSheet, ScrollView, TouchableOpacity} from "react-native";
+import {View, Text, FlatList, StyleSheet, ScrollView, TouchableOpacity, SafeAreaView} from "react-native";
 import {useSelector} from "react-redux";
 import axios from "axios";
 import {AnimatedCircularProgress} from 'react-native-circular-progress';
@@ -7,10 +7,12 @@ import MainContainer from "../../../../components/MainContainer";
 import EmptyStateIcon from "./CondationIcons/EmptyStateIcon";
 import {color1} from "../../../../helpers/colors";
 import UnicIcon from "./CondationIcons/UnicIcon";
+import {useIsFocused} from "@react-navigation/native";
 
 const ConditionScreen = () => {
     let tokenFromReducer = useSelector((store: any) => store.user_token.user_token);
     let AuthStr = "Bearer " + tokenFromReducer;
+    const isFocused = useIsFocused();
 
     let [characteristics, setCharacteristics] = useState([
         {number: 1.9, state: "Нужна помощь", organ: "Кости"},
@@ -43,36 +45,49 @@ const ConditionScreen = () => {
         } catch (error) {
             console.log(error, 'condition error')
         }
-    }, [])
+    }, [isFocused])
 
     console.log(conditions, 'conditions')
 
     const renderConditions = ({item}: any) => {
         return (
-                <View style={styles.content} key={item.max}>
-                    <View
-                        style={{
-                            width: "100%",
-                            paddingHorizontal: 14,
-                            paddingVertical: 16,
+            <>
+                <View style={{
+                    width: '50%',
+                    alignItems: 'center',
+                    paddingHorizontal: 16
+
+                }}>
+                    <View style={{
+                        paddingHorizontal: 16,
+                        paddingVertical: 16,
+                        backgroundColor: '#F5F4F8',
+                        borderRadius: 24,
+                        width: '100%',
+                        height: 270,
+                        marginVertical: 15,
+                        alignItems: 'flex-start',
+                    }}>
+                        <View style={{
+                            justifyContent: 'center',
+                            flexDirection: 'row'
                         }}>
-                        <View style={styles.content_top_item}>
                             <View style={{width: 48, height: 48}}>
                                 <AnimatedCircularProgress
                                     size={48}
                                     width={5}
                                     fill={
-                                    item.status === 'great' ? 95 :
-                                        item.status === 'good' ? 50 :
-                                            item.status === 'need_help' ? 15 : 0
-                                }
+                                        item.status === 'great' ? 95 :
+                                            item.status === 'good' ? 50 :
+                                                item.status === 'need_help' ? 15 : 0
+                                    }
                                     rotation={1}
                                     // @ts-ignore
                                     tintColor={
                                         item.status === 'great' ? '#0EC057'
-                                        : item.status === 'need_help' ? '#E81313'
-                                        : item.status === 'good' ? '#FF9F0F'
-                                        : null
+                                            : item.status === 'need_help' ? '#E81313'
+                                                : item.status === 'good' ? '#FF9F0F'
+                                                    : null
                                     }
                                     backgroundColor={
                                         item.status === 'great' ? '#B0E9C7' :
@@ -81,11 +96,11 @@ const ConditionScreen = () => {
                                     children={() => (
                                         <View>
                                             <UnicIcon
-                                            fill={item.status === 'great' ? '#0EC057'
-                                                : item.status === 'need_help' ? '#E81313'
-                                                    : item.status === 'good' ? '#FF9F0F'
-                                                        : null}/>
-                                    </View>)}
+                                                fill={item.status === 'great' ? '#0EC057'
+                                                    : item.status === 'need_help' ? '#E81313'
+                                                        : item.status === 'good' ? '#FF9F0F'
+                                                            : null}/>
+                                        </View>)}
                                 />
                             </View>
 
@@ -122,56 +137,65 @@ const ConditionScreen = () => {
                         <Text style={styles.content_item_day}>Сегодня</Text>
                     </View>
                 </View>
+            </>
         )
     }
     return (
         <MainContainer>
-            <Text
-                style={{
-                    fontWeight: "600",
-                    lineHeight: 19,
-                    fontSize: 22,
-                    color: "#1E1E1E",
-                }}
-            >
-                Мое состояние
-            </Text>
-
-            {conditions.length ?
-                <View style={styles.content_box}>
-                    <FlatList
-                        data={conditions}
-                        renderItem={renderConditions}
-                        extraData={conditions}
-                        showsVerticalScrollIndicator={false}
-                        keyExtractor={item => item.max}
-                        numColumns={2}
-                        contentContainerStyle={{
-                            flexDirection: 'column',
-                            justifyContent: 'space-between',
-                            width: '100%'
+            <View style={{
+                marginTop: 35,
+                flex: 1
+            }}>
+                <Text
+                    style={{
+                        fontSize: 32,
+                        fontWeight: '600',
+                        lineHeight: 34,
+                        color: '#000',
+                        paddingHorizontal: 20
                     }}
-                    />
-                </View>
-                :
-                <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-                    <EmptyStateIcon/>
-                    <Text style={styles.empty_state_title}>
-                        Здесь будет отображаться динамика состояния организма
-                    </Text>
-                    <Text style={styles.description}>
-                        Доступно по подписке Health Buddy
-                    </Text>
-                    <TouchableOpacity style={{paddingTop: 15}}>
-                        <Text style={{
-                            color: color1,
-                            fontSize: 16,
-                            fontWeight: '500'
-                        }}>
-                            Оформить подписку
+                >
+                    Мое состояние
+                </Text>
+
+                {conditions.length ?
+                    <View style={styles.content_box}>
+                        <FlatList
+                            data={conditions}
+                            renderItem={renderConditions}
+                            extraData={conditions}
+                            showsVerticalScrollIndicator={false}
+                            keyExtractor={item => item.max}
+                            numColumns={2}
+                            style={{marginBottom: 60}}
+                            contentContainerStyle={{
+                                flexDirection: 'column',
+                                justifyContent: 'space-between',
+                                width: '100%'
+                            }}
+                        />
+                    </View>
+                    :
+                    <View style={{flex: 1, alignItems: 'center', bottom: 40, justifyContent: 'center'}}>
+                        <EmptyStateIcon/>
+                        <Text style={styles.empty_state_title}>
+                            Здесь будет отображаться динамика состояния организма
                         </Text>
-                    </TouchableOpacity>
-                </View>}
+                        <Text style={styles.description}>
+                            Доступно по подписке Health Buddy
+                        </Text>
+                        <TouchableOpacity style={{paddingTop: 15}}>
+                            <Text style={{
+                                color: color1,
+                                fontSize: 16,
+                                fontWeight: '500',
+                                marginTop: 20
+                            }}>
+                                Оформить подписку
+                            </Text>
+                        </TouchableOpacity>
+                    </View>}
+            </View>
         </MainContainer>
     );
 };
@@ -188,24 +212,20 @@ const styles = StyleSheet.create({
         paddingBottom: 25,
     },
     content_box: {
-        flex: 1,
-        width: "100%",
         marginTop: 29,
+        alignItems: "center",
+        justifyContent: "center",
     },
     content: {
         height: "auto",
-        width: "45%",
-        backgroundColor: "#F5F4F8",
-        borderRadius: 24,
-        marginBottom: 14,
-        marginRight: 20
-
+        width: "50%",
+        alignItems: "center",
+        justifyContent: 'center'
     },
     content_top_item: {
         flexDirection: "row",
         justifyContent: "space-between",
         paddingTop: 14,
-        width: "auto",
     },
     content_item_numbers: {
         fontSize: 40,
@@ -244,7 +264,7 @@ const styles = StyleSheet.create({
         fontStyle: "normal",
         fontWeight: '400',
         textAlign: "center",
-
+        marginTop: 10
     },
     empty_state_title: {
         color: '#1E1E1E',

@@ -92,7 +92,7 @@ const EmailRegistration = (props: any) => {
                     Мы отправим письмо с кодом подтверждения на ваш Email
                 </Text>
                 <View style={{flex: 1}}>
-                    <View style={[{marginTop: 30}, error && {borderColor: '#E81313', borderWidth: 2, borderRadius: 10}]}>
+                    <View style={[{marginTop: 30, width: '100%'}, error && {borderColor: '#E81313', borderWidth: 2, borderRadius: 10, width: '100%'}]}>
                         <CustomInput
                             placeholder={"Введите почту"}
                             onChangeText={sendEmail}

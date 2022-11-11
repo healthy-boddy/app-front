@@ -65,8 +65,8 @@ const LoginWithEmailScreen = (props: any) => {
         >
           Мы отправим письмо с кодом подтверждения на ваш Email
         </Text>
-        <View style={{ flex: 1 }}>
-          <View style={{ marginTop: 30 }}>
+        <View style={{ flex: 1, width: '100%' }}>
+          <View style={{ marginTop: 30, width: '100%' }}>
             <CustomInput
               placeholder={"Введите почту"}
               onChangeText={setEmail}

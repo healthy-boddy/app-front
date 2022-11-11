@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  Pressable,
-  Dimensions,
+    View,
+    Text,
+    StyleSheet,
+    Image,
+    Pressable,
+    Dimensions, Platform,
 } from "react-native";
 import AppIntroSlider from "react-native-app-intro-slider";
 import { color1, color2, color3 } from "../../../../helpers/colors";
@@ -17,6 +17,7 @@ const { width, height } = Dimensions.get("window");
 
 const OnBoarding = () => {
   const navigation: any = useNavigation();
+  const [index, setIndex] = useState(0);
 
   const data = [
     {
@@ -50,9 +51,10 @@ const OnBoarding = () => {
           width: "100%",
           justifyContent: "center",
           bottom: 80,
+          alignItems: 'center'
         }}
       >
-        <View style={{ alignItems: "center" }}>
+        <View style={{alignItems: "center", justifyContent: 'center'}}>
           <Image source={require(`./OnBoardingImages/blob1.png`)} />
         </View>
         <View
@@ -96,22 +98,23 @@ const OnBoarding = () => {
         activeDotStyle={{ backgroundColor: color1, top: -750 }}
         dotStyle={{ backgroundColor: color2, top: -750 }}
         data={data}
+        onSlideChange={setIndex}
         renderItem={(data) => RenderItem(data.item)}
         renderNextButton={() => (
-          <View style={styles.next_btn_box}>
-            <View style={styles.next_btn}>
-              <Text
-                style={{
-                  color: "#fff",
-                  textAlign: "center",
-                  fontWeight: "500",
-                  lineHeight: 20,
-                  fontSize: 16,
-                }}
-              >
-                Далее
-              </Text>
-            </View>
+          <View style={Platform.OS !== "android" ? styles.next_btn_box : styles.ios_next_btn_box}>
+             <View style={Platform.OS !== "android" ? styles.next_btn : styles.ios_next_btn}>
+                  <Text
+                      style={{
+                          color: "#fff",
+                          textAlign: "center",
+                          fontWeight: "500",
+                          lineHeight: 20,
+                          fontSize: 16,
+                      }}
+                  >
+                      Далее
+                  </Text>
+              </View>
           </View>
         )}
       />
@@ -121,17 +124,34 @@ const OnBoarding = () => {
         }}
         style={styles.skip_btn}
       >
-        <Text
-          style={{
-            color: "#7454CF",
-            textAlign: "center",
-            fontWeight: "500",
-            lineHeight: 20,
-            fontSize: 16,
-          }}
-        >
-          Пропустить
-        </Text>
+          {index === 3 ? (
+              <View style={styles.next_btn_finish}>
+                  <View style={styles.next_btn}>
+                      <Text
+                          style={{
+                              color: "#fff",
+                              textAlign: "center",
+                              fontWeight: "500",
+                              lineHeight: 20,
+                              fontSize: 16,
+                          }}>
+                          Начать
+                      </Text>
+                  </View>
+              </View>
+          ) : (
+              <Text
+                  style={{
+                      color: "#7454CF",
+                      textAlign: "center",
+                      fontWeight: "500",
+                      lineHeight: 20,
+                      fontSize: 16,
+                  }}
+              >
+                  Пропустить
+              </Text>
+          )}
       </Pressable>
     </Container>
   );
@@ -144,11 +164,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: 400,
     bottom: 35,
-    transform: [
-      {
-        translateX: 20,
-      },
-    ],
+      transform: [
+          {
+              translateX: Dimensions.get('screen').width / 100,
+          },
+      ],
   },
   next_btn: {
     width: width - 32,
@@ -163,4 +183,31 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     position: "absolute",
   },
+    next_btn_finish: {
+        alignSelf: "flex-end",
+        alignItems: "center",
+        width: 400,
+        bottom: -8,
+        left: -1
+    },
+    ios_next_btn_box:{
+        alignSelf: "flex-end",
+        alignItems: "center",
+        width: 400,
+        bottom: 35,
+        transform: [
+            {
+                translateX: Dimensions.get('screen').width / 100,
+            },
+        ],
+    },
+    ios_next_btn:{
+        width: width - 5,
+        maxWidth: 390,
+        backgroundColor: color1,
+        padding: 15,
+        borderRadius: 30,
+        marginTop: 25,
+        left: -21
+    }
 });

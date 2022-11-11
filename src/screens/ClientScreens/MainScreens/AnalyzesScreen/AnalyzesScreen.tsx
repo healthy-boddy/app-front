@@ -28,16 +28,29 @@ const AnalyzesScreen = () => {
                     height:'100%'
                 }}>
                     <Text style={{
-                        fontSize:24,
+                        fontSize:32,
                         fontWeight:'600',
-                        lineHeight:28,
-                        color:'#000'
+                        lineHeight:34,
+                        color:'#000',
+                        marginTop:24
                     }}>
                         Анализы
                     </Text>
-                <View style={{alignItems: 'center', flex: 1, justifyContent: 'center'}}>
+                <View style={{alignItems: 'center', flex: 1, justifyContent: 'center', bottom: 40}}>
                     <BigIcon/>
+                    <Text style={{
+                        fontSize:19,
+                        fontWeight:'600',
+                        lineHeight:23,
+                        color:'#1E1E1E',
+                        marginTop:20,
+                        textAlign:'center',
+                        width: 300
+                    }}>
+                        Пока у вас нет результатов анализов
+                    </Text>
                 </View>
+
                 <View style={{marginBottom: 25}}>
                     <CustomButton
                         title={'Добавить анализ'}
