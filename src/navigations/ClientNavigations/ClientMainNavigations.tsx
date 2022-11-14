@@ -57,9 +57,7 @@ function AddAnalyzesScreen() {
 function AddManual() {
     return <AddManualAnalyze/>;
 }
-function SaveAnalyzesScreen() {
-    return <SaveAnalyzes/>;
-}
+
 
 export default function ClientMain() {
     return (
@@ -174,7 +172,7 @@ export default function ClientMain() {
             />
             <Tab.Screen
                 name="SaveAnalyzesScreen"
-                component={SaveAnalyzesScreen}
+                component={SaveAnalyzes}
                 options={({route}) => ({
                     tabBarButton: () => null,
                     tabBarStyle: {display: 'none'},
