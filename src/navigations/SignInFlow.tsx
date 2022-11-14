@@ -12,8 +12,8 @@ import {
   LoginPinScreen,
   EmailRegistration,
   LoginWithEmailScreen,
+    IsNotTrustedEmailScreen
 } from "../screens/CoacheScreens/AuthScreens";
-import ClientMain from "./ClientNavigations/ClientMainNavigations";
 
 function Welcome() {
   return <WelcomeScreen />;
@@ -48,6 +48,9 @@ function LoginPin({ route }: any) {
 
 function LoginEmail() {
   return <LoginWithEmailScreen />;
+}
+function IsNotTrustedEmail() {
+  return <IsNotTrustedEmailScreen />;
 }
 
 export default function SignInFlow() {
@@ -118,6 +121,14 @@ export default function SignInFlow() {
       <Tab.Screen
         name="LoginEmail"
         component={LoginEmail}
+        options={({ route }) => ({
+          tabBarButton: () => null,
+          tabBarStyle: { display: "none" },
+        })}
+      />
+        <Tab.Screen
+        name="IsNotTrustedEmail"
+        component={IsNotTrustedEmail}
         options={({ route }) => ({
           tabBarButton: () => null,
           tabBarStyle: { display: "none" },

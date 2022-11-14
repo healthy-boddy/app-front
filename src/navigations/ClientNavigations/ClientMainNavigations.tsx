@@ -14,7 +14,8 @@ import {
     PaidQuizzesScreen,
     TyScreen,
     AddAnalyzes,
-    AddManualAnalyze
+    AddManualAnalyze,
+    SaveAnalyzes
 
 } from "../../screens/ClientScreens/MainScreens";
 import {TabNavigatorElem} from "./tab-bar-elem/tab-navigation-elems";
@@ -55,6 +56,9 @@ function AddAnalyzesScreen() {
 }
 function AddManual() {
     return <AddManualAnalyze/>;
+}
+function SaveAnalyzesScreen() {
+    return <SaveAnalyzes/>;
 }
 
 export default function ClientMain() {
@@ -163,6 +167,14 @@ export default function ClientMain() {
             <Tab.Screen
                 name="AddManual"
                 component={AddManual}
+                options={({route}) => ({
+                    tabBarButton: () => null,
+                    tabBarStyle: {display: 'none'},
+                })}
+            />
+            <Tab.Screen
+                name="SaveAnalyzesScreen"
+                component={SaveAnalyzesScreen}
                 options={({route}) => ({
                     tabBarButton: () => null,
                     tabBarStyle: {display: 'none'},

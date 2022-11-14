@@ -9,5 +9,6 @@ export * from './RegistrationWithEmailScreen'
 export * from './LoginWithEmail'
 export * from './ConstructorScreen'
 export * from './CalendarScreen'
+export * from './IsNotTrustedChoacEmail'
 
 

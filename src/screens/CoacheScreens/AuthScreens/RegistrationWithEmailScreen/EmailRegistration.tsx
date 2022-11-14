@@ -37,9 +37,11 @@ const EmailRegistration = (props: any) => {
             console.log(response.data, "asd");
             setError(false)
         } catch (error: any) {
-            setError(true)
             console.log(error.request.response, "catch-error");
-            if (error.request.response){
+            if (error.request.response == '{"email":["Email is not trusted"]}'){
+                console.log('error.request.response')
+                navigation.navigate('IsNotTrustedEmail')
+            }else {
                 setError(true)
                 return false
             }
