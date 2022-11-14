@@ -1,9 +1,6 @@
 import React, {useState} from 'react';
-import {View, Text, StyleSheet, TouchableOpacity, Platform, SafeAreaView} from "react-native";
-import MainContainer from "../../../../components/MainContainer";
+import {Platform, SafeAreaView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import BackIcon from "../../../../assets/Icons/BackIcon";
-import {color3} from "../../../../helpers/colors";
-import Title from "../../../../components/Title";
 import {useNavigation} from "@react-navigation/native";
 import * as ImagePicker from "expo-image-picker";
 
@@ -65,16 +62,16 @@ const AddAnalyzes = () => {
                     style={styles.item_box}>
                     <Text style={{
                         fontWeight:'600',
-                        fontSize:18,
-                        lineHeight:21.48,
+                        fontSize:20,
+                        lineHeight:24,
                         color:'#1E1E1E'
                     }}>
                         Ввести вручную
                     </Text>
                     <Text style={{
                         fontWeight:'400',
-                        fontSize:16,
-                        lineHeight:20,
+                        fontSize:18,
+                        lineHeight:24,
                         color:'#797979'
                     }}>
                         Результаты сразу появятся в приложении
@@ -85,16 +82,16 @@ const AddAnalyzes = () => {
                     style={[styles.item_box, {marginTop: 16}]}>
                     <Text style={{
                         fontWeight:'600',
-                        fontSize:18,
-                        lineHeight:21.48,
+                        fontSize:20,
+                        lineHeight:24,
                         color:'#1E1E1E'
                     }}>
                         Загрузить PDF
                     </Text>
                     <Text style={{
                         fontWeight:'400',
-                        fontSize:16,
-                        lineHeight:20,
+                        fontSize:18,
+                        lineHeight:24,
                         color:'#797979'
                     }}>
                         Потребуется немного времени для оцифровки
