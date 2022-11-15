@@ -11,6 +11,7 @@ import {
 import {createStackNavigator} from "@react-navigation/stack";
 import {CoachTabNavigator} from "./CoachTabNavigator";
 import {CoachSinglePage} from "../../screens/CoacheScreens/Profile/CoachProfile";
+import {ClientDetailsPage} from "../../screens/CoacheScreens/MainScreens/client-details-page";
 
 function Home() {
     return <HomeScreen/>
@@ -22,7 +23,7 @@ function Greetings6() {
 function Greetings7() {
     return <GreetingsScreen7/>
 }
-let Tab = createBottomTabNavigator();
+
 
 export default function Main(){
     return(
@@ -35,7 +36,6 @@ export default function Main(){
         <Stack.Screen name='Greetings7' component={Greetings7}/>
         <Stack.Screen name={'Home'} component={CoachTabNavigator} />
         <Stack.Screen name={'CoachProfile'} component={CoachSinglePage} />
-
     </Stack.Navigator>
     )
 }

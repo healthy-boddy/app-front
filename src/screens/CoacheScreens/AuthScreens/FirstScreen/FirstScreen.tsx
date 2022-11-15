@@ -96,7 +96,7 @@ const FirstScreen: React.FC = (props) => {
             renderItem={(data) => RenderItem(data.item)}
             renderNextButton={() => (
                 <View style={Platform.OS !== "android" ? styles.next_btn_box : styles.ios_next_btn_box}>
-                    <View style={Platform.OS !== "android" ? styles.next_btn : styles.ios_next_btn}>
+                <View style={Platform.OS !== "android" ? styles.next_btn : styles.ios_next_btn}>
                     <Text
                         style={{
                           color: "#fff",
@@ -110,6 +110,7 @@ const FirstScreen: React.FC = (props) => {
                     </Text>
                   </View>
                 </View>
+
             )}
         />
         <Pressable
@@ -159,11 +160,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: 400,
     bottom: 35,
-    transform: [
-      {
-        translateX: 20,
-      },
-    ],
+      transform: [
+          {
+              translateX: Dimensions.get('screen').width / 100,
+          },
+      ],
   },
   next_btn: {
     width: width - 32,
