@@ -65,7 +65,7 @@ const PinCodeScreen = (props: any) => {
       await AsyncStorage.setItem("userToken", response.data.access);
     } catch (error) {
       setValidPin(false);
-      console.log(error);
+   //   console.log(error);
     }
   }
 

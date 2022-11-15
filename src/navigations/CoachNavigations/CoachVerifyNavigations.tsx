@@ -11,7 +11,10 @@ import {
     GreetingsScreen5,
     FirstScreen,
     ConstructorScreen,
-    CalendarScreen
+    CalendarScreen,
+    FirstTutorialScreen,
+    SecondTutorialScreen,
+    TutorialQuestionsScreen
 } from '../../screens/CoacheScreens/AuthScreens'
 import {TabNavigatorElem} from "../ClientNavigations/tab-bar-elem/tab-navigation-elems";
 import {HomeSvg} from "../ClientNavigations/icons/home";
@@ -41,6 +44,17 @@ function ConstructorPage() {
 }
 function CalendarPage() {
     return <CalendarScreen/>
+}
+
+function FirstTutorial() {
+    return <FirstTutorialScreen/>
+}
+function SecondTutorial() {
+    return <SecondTutorialScreen/>
+}
+
+function TutorialQuestions() {
+    return <TutorialQuestionsScreen/>
 }
 
 export default function CoachVerify() {
@@ -82,6 +96,25 @@ export default function CoachVerify() {
                         })}
             />
 
+            <Tab.Screen name='FirstTutorial' component={FirstTutorial}
+                        options={({route}) => ({
+                            tabBarButton: () => null,
+                            tabBarStyle: {display: 'none'},
+                        })}
+            />
+            <Tab.Screen name='SecondTutorial' component={SecondTutorial}
+                        options={({route}) => ({
+                            tabBarButton: () => null,
+                            tabBarStyle: {display: 'none'},
+                        })}
+            />
+            <Tab.Screen name='TutorialQuestions' component={TutorialQuestions}
+                        options={({route}) => ({
+                            tabBarButton: () => null,
+                            tabBarStyle: {display: 'none'},
+                        })}
+            />
+
             <Tab.Screen name='Greetings4' component={Greetings4} options={{
                 tabBarIcon: ({focused}) => (
                     <TabNavigatorElem
@@ -92,6 +125,7 @@ export default function CoachVerify() {
                 ),
                 tabBarShowLabel: false,
             }}/>
+
             <Tab.Screen name='CalendarPage' component={CalendarPage} options={{
                 tabBarIcon: ({focused}) => (
                     <TabNavigatorElem
@@ -102,6 +136,7 @@ export default function CoachVerify() {
                 ),
                 tabBarShowLabel: false,
             }}/>
+
             <Tab.Screen name='ConstructorPage' component={ConstructorPage} options={{
                 tabBarIcon: ({focused}) => (
                     <TabNavigatorElem
@@ -112,6 +147,7 @@ export default function CoachVerify() {
                 ),
                 tabBarShowLabel: false,
             }}/>
+
         </Tab.Navigator>
     )
 }

@@ -60,7 +60,9 @@ const GreetingsScreen4 = (props: any) => {
             <View style={{marginVertical: 16}}>
                 <Title>Мое обучение</Title>
             </View>
-            <TouchableOpacity style={styles.day_question}>
+            <TouchableOpacity style={styles.day_question} onPress={()=>{
+                navigation.navigate('FirstTutorial')
+            }}>
                 <Title titlePropStyle={{marginBottom: 4}}>День 1</Title>
                 <Text style={styles.day_questions_description}>
                     {`\u2022  Знакомство с продуктом`}{'\n'}
