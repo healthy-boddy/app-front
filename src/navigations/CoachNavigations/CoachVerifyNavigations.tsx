@@ -14,8 +14,7 @@ import {
     CalendarScreen,
     FirstTutorialScreen,
     SecondTutorialScreen,
-    TutorialQuestionsScreen,
-    ThirdTutorialScreen
+    TutorialQuestionsScreen
 } from '../../screens/CoacheScreens/AuthScreens'
 import {TabNavigatorElem} from "../ClientNavigations/tab-bar-elem/tab-navigation-elems";
 import {HomeSvg} from "../ClientNavigations/icons/home";
@@ -57,9 +56,6 @@ function SecondTutorial() {
 
 function TutorialQuestions() {
     return <TutorialQuestionsScreen/>
-}
-function ThirdTutorial() {
-    return <ThirdTutorialScreen/>
 }
 
 export default function CoachVerify() {
@@ -120,13 +116,6 @@ export default function CoachVerify() {
                         })}
             />
             <Tab.Screen name='TutorialQuestions' component={TutorialQuestions}
-                        options={({route}) => ({
-                            tabBarButton: () => null,
-                            tabBarStyle: {display: 'none'},
-                        })}
-            />
-
-            <Tab.Screen name='ThirdTutorial' component={ThirdTutorial}
                         options={({route}) => ({
                             tabBarButton: () => null,
                             tabBarStyle: {display: 'none'},

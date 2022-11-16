@@ -1,17 +1,14 @@
-import React, { useEffect } from "react";
-import { Image, Text, TouchableOpacity, View } from "react-native";
-import { WrapperTwoButtons } from "../../../components/core/wrapper/wrapper-two-buttons";
+import React from "react";
+import { Image, Text, View } from "react-native";
+import { WrapperTwoButtons } from "../../../../components/core/wrapper/wrapper-two-buttons";
 import { useNavigation } from "@react-navigation/native";
-import { MoneyIcon } from "../../../components/icon/money-icon";
-import { WrapperClientData } from "../../../components/core/wrapper-client-data";
-import EmailIcon from "../../ClientScreens/MainScreens/UserSinglePage/SingleScreenIcons/EmailIcon";
-import RightIcon from "../../../assets/Icons/RightIcon";
-import { StateClient } from "../icon/state";
-import { ChevronRight } from "../../../components/icon/chevron-right";
-import { ClientsDetailsBlockProfile } from "../../../components/core/clients-details-block-profile/clients-details-block-profile";
-import { FormIcon } from "../icon/form";
-import { TargetsIcons } from "../icon/targets";
-import { ProgramsIcons } from "../icon/programms";
+import { MoneyIcon } from "../../../../components/icon/money-icon";
+import { WrapperClientData } from "../../../../components/core/wrapper-client-data";
+import { StateClient } from "../../icon/state";
+import { ClientsDetailsBlockProfile } from "../../../../components/core/clients-details-block-profile/clients-details-block-profile";
+import { FormIcon } from "../../icon/form";
+import { TargetsIcons } from "../../icon/targets";
+import { ProgramsIcons } from "../../icon/programms";
 
 export const ClientDetailsPage = ({ route: { params } }) => {
   const navigation: any = useNavigation();
@@ -100,12 +97,12 @@ export const ClientDetailsPage = ({ route: { params } }) => {
           icon={<FormIcon />}
         />
         <ClientsDetailsBlockProfile
-          onPress={() => console.log("press")}
+          onPress={() => navigation.navigate("TargetsPage")}
           title={"Цели"}
           icon={<TargetsIcons />}
         />
         <ClientsDetailsBlockProfile
-          onPress={() => console.log("press")}
+          onPress={() => navigation.navigate("TargetsPrograms")}
           title={"Программы"}
           icon={<ProgramsIcons />}
         />
