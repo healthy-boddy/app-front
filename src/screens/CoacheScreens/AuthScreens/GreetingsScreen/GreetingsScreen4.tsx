@@ -92,7 +92,10 @@ const GreetingsScreen4 = (props: any) => {
                     </Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.day_question}>
+                <TouchableOpacity style={styles.day_question}
+                onPress={()=>{
+                    navigation.navigate('SecondFirstTutorial')
+                }}>
                     <Title titlePropStyle={{marginBottom: 4}}>День 2</Title>
                     <Text style={styles.day_questions_description}>
                         {`\u2022 Путь клиента`}{'\n'}
@@ -101,7 +104,10 @@ const GreetingsScreen4 = (props: any) => {
                     </Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.day_question}>
+                <TouchableOpacity style={styles.day_question}
+                onPress={()=>{
+                    navigation.navigate("ThirdDayTutorial")
+                }}>
                     <Title titlePropStyle={{marginBottom: 4}}>День 3</Title>
                     <Text style={styles.day_questions_description}>
                         {`\u2022 Долгосрочное ведение клиента`}{'\n'}

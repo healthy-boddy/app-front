@@ -15,7 +15,11 @@ import {
     FirstTutorialScreen,
     SecondTutorialScreen,
     TutorialQuestionsScreen,
-    ThirdTutorialScreen
+    ThirdTutorialScreen,
+    SecondFirstTutorialScreen,
+    SecondTwoTutorialScreen,
+    SecondThirdTutorialScreen,
+    ThirdDayTutorialScreen
 } from '../../screens/CoacheScreens/AuthScreens'
 import {TabNavigatorElem} from "../ClientNavigations/tab-bar-elem/tab-navigation-elems";
 import {HomeSvg} from "../ClientNavigations/icons/home";
@@ -26,24 +30,31 @@ import {ClientDetailsPage} from "../../screens/CoacheScreens/MainScreens/client-
 function Greetings() {
     return <GreetingsScreen/>
 }
+
 function Greetings2() {
     return <GreetingsScreen2/>
 }
+
 function Greetings3() {
     return <GreetingsScreen3/>
 }
+
 function Greetings4() {
     return <GreetingsScreen4/>
 }
+
 function Greetings5() {
     return <GreetingsScreen5/>
 }
+
 function First() {
     return <FirstScreen/>
 }
+
 function ConstructorPage() {
     return <ConstructorScreen/>
 }
+
 function CalendarPage() {
     return <CalendarScreen/>
 }
@@ -51,6 +62,7 @@ function CalendarPage() {
 function FirstTutorial() {
     return <FirstTutorialScreen/>
 }
+
 function SecondTutorial() {
     return <SecondTutorialScreen/>
 }
@@ -58,8 +70,25 @@ function SecondTutorial() {
 function TutorialQuestions() {
     return <TutorialQuestionsScreen/>
 }
+
 function ThirdTutorial() {
     return <ThirdTutorialScreen/>
+}
+
+function SecondFirstTutorial() {
+    return <SecondFirstTutorialScreen/>
+}
+
+function SecondTwoTutorial() {
+    return <SecondTwoTutorialScreen/>
+}
+
+function SecondThirdTutorial() {
+    return <SecondThirdTutorialScreen/>
+}
+
+function ThirdDayTutorial() {
+    return <ThirdDayTutorialScreen/>
 }
 
 export default function CoachVerify() {
@@ -108,10 +137,11 @@ export default function CoachVerify() {
                         })}
             />
 
-            <Tab.Screen name={'ClientDetailsPage'} component={ClientDetailsPage} options={({route}) => ({
-                tabBarButton: () => null,
-                tabBarStyle: {display: 'none'},
-            })}/>
+            <Tab.Screen name={'ClientDetailsPage'} component={ClientDetailsPage}
+                        options={({route}) => ({
+                            tabBarButton: () => null,
+                            tabBarStyle: {display: 'none'},
+                        })}/>
 
             <Tab.Screen name='SecondTutorial' component={SecondTutorial}
                         options={({route}) => ({
@@ -127,6 +157,30 @@ export default function CoachVerify() {
             />
 
             <Tab.Screen name='ThirdTutorial' component={ThirdTutorial}
+                        options={({route}) => ({
+                            tabBarButton: () => null,
+                            tabBarStyle: {display: 'none'},
+                        })}
+            />
+            <Tab.Screen name='SecondFirstTutorial' component={SecondFirstTutorial}
+                        options={({route}) => ({
+                            tabBarButton: () => null,
+                            tabBarStyle: {display: 'none'},
+                        })}
+            />
+            <Tab.Screen name='SecondTwoTutorial' component={SecondTwoTutorial}
+                        options={({route}) => ({
+                            tabBarButton: () => null,
+                            tabBarStyle: {display: 'none'},
+                        })}
+            />
+            <Tab.Screen name='SecondThirdTutorial' component={SecondThirdTutorial}
+                        options={({route}) => ({
+                            tabBarButton: () => null,
+                            tabBarStyle: {display: 'none'},
+                        })}
+            />
+            <Tab.Screen name='ThirdDayTutorial' component={ThirdDayTutorial}
                         options={({route}) => ({
                             tabBarButton: () => null,
                             tabBarStyle: {display: 'none'},

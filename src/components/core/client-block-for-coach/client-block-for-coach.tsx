@@ -1,8 +1,9 @@
 import React, {FC} from 'react';
 import {Image, Text, TouchableOpacity, View} from "react-native";
 import {WrapperClientData} from "../wrapper-client-data";
-import {MoneyIcon} from "../../icon/money-icon";
+//import {MoneyIcon} from "../../icon/money-icon";
 import {ChevronRight} from "../../icon/chevron-right";
+import {IconDelete} from "../../icon/icon-delete";
 
 interface ClientBlockForCoachProps {
     onPress: ()=> void,
@@ -83,9 +84,15 @@ export const ClientBlockForCoach: FC <ClientBlockForCoachProps> = ({url,onPress,
                             flexDirection:'row',
                             alignItems:'center'
                         }}>
-                            <WrapperClientData icon={<MoneyIcon/>} title={subscriptionType} />
+                            <WrapperClientData
+                                //icon={<MoneyIcon/>}
+                                icon={<IconDelete/>}
+                                title={subscriptionType} />
                             <View style={{marginLeft:8}}/>
-                            <WrapperClientData borderRadiusColor={'#F2C0FF'} icon={<MoneyIcon/>} title={subscriptionDuration} />
+                            <WrapperClientData borderRadiusColor={'#F2C0FF'}
+                                             //  icon={<MoneyIcon/>}
+                                               icon={<IconDelete/>}
+                                               title={subscriptionDuration} />
                         </View>
 
                     </View>

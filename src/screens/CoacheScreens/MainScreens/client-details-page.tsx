@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import { WrapperTwoButtons } from "../../../components/core/wrapper/wrapper-two-buttons";
 import { useNavigation } from "@react-navigation/native";
-import { MoneyIcon } from "../../../components/icon/money-icon";
+//import { MoneyIcon } from "../../../components/icon/money-icon";
 import { WrapperClientData } from "../../../components/core/wrapper-client-data";
 import EmailIcon from "../../ClientScreens/MainScreens/UserSinglePage/SingleScreenIcons/EmailIcon";
 import RightIcon from "../../../assets/Icons/RightIcon";
@@ -12,6 +12,7 @@ import { ClientsDetailsBlockProfile } from "../../../components/core/clients-det
 import { FormIcon } from "../icon/form";
 import { TargetsIcons } from "../icon/targets";
 import { ProgramsIcons } from "../icon/programms";
+import {IconDelete} from "../../../components/icon/icon-delete";
 
 export const ClientDetailsPage = ({ route: { params } }) => {
   const navigation: any = useNavigation();
@@ -70,13 +71,15 @@ export const ClientDetailsPage = ({ route: { params } }) => {
           }}
         >
           <WrapperClientData
-            icon={<MoneyIcon />}
+            icon={<IconDelete />}
+           // icon={<MoneyIcon />}
             title={params.data.subscription}
           />
 
           <View style={{ marginLeft: 8 }} />
           <WrapperClientData
-            icon={<MoneyIcon />}
+            icon={<IconDelete />}
+           // icon={<MoneyIcon />}
             title={params.data.subscriptionDuration}
             borderRadiusColor={"#F2C0FF"}
           />

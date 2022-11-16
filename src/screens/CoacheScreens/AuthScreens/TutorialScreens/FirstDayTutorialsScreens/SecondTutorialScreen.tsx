@@ -34,7 +34,7 @@ const SecondTutorialScreen = () => {
             <View style={{marginBottom: 25}}>
                 <CustomButton
                     title={'Продолжить'}
-                    onPress={()=>{navigation.navigate('ThirdTutorial')}}
+                    onPress={()=>{navigation.navigate('TutorialQuestions')}}
                 />
             </View>
             </View>
