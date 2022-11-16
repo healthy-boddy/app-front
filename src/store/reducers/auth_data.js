@@ -1,8 +1,14 @@
-import {SET_FORM_DATA, SET_USER_ROLE} from "../actions/auth_data";
+import {
+    SET_FORM_DATA,
+    SET_USER_ROLE,
+    SET_USER_TUTORIAL_ARRAY
+} from "../actions/auth_data";
 
 const initialState = {
     formData: [],
-    userRole: ''
+    userRole: '',
+    setTutorialsArray: []
+
 }
 
 export default function reducer(state = initialState, action){
@@ -21,6 +27,15 @@ export default function reducer(state = initialState, action){
             return {
                 ...state,
                 userRole: userRole
+            }
+        }
+
+        case SET_USER_TUTORIAL_ARRAY:{
+            const {setTutorialsArray} = action.payload;
+            console.log(setTutorialsArray, ' SET_USER_TUTORIAL_ARRAY')
+            return {
+                ...state,
+                setTutorialsArray: setTutorialsArray
             }
         }
         default:{

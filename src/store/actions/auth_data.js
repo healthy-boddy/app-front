@@ -18,3 +18,13 @@ export function setUserRole(userRole) {
     }
 }
 
+export const SET_USER_TUTORIAL_ARRAY = 'SET_USER_TUTORIAL_ARRAY';
+export function setCoachTutorialsArray(setTutorialsArray) {
+    return{
+        type: SET_USER_TUTORIAL_ARRAY,
+        payload:{
+            setTutorialsArray
+        }
+    }
+}
+

@@ -1,19 +1,22 @@
 import React, {useState} from 'react';
 import {View, StyleSheet, Text, TextInput} from "react-native";
-import {WrapperPage} from "../../../../components/core/wrapper";
-import MainContainer from "../../../../components/MainContainer";
-import BackButton from "../../../../components/BackButton";
-import Title from "../../../../components/Title";
-import Description from "../../../../components/Description";
-import {color1} from "../../../../helpers/colors";
-import CustomButton from "../../../../components/CustomButton";
-import {LargeInput} from "../../../../components/core/LargeInput";
+import MainContainer from "../../../../../components/MainContainer";
+import BackButton from "../../../../../components/BackButton";
+import Title from "../../../../../components/Title";
+import Description from "../../../../../components/Description";
+import {color1} from "../../../../../helpers/colors";
+import CustomButton from "../../../../../components/CustomButton";
+import {LargeInput} from "../../../../../components/core/LargeInput";
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
 import {useNavigation} from "@react-navigation/native";
+import {useSelector} from "react-redux";
 
 const FirstTutorialScreen = () => {
     const [value, setValue] = useState('')
     const navigation = useNavigation<any>()
+    let coachTutorial = useSelector((store: any) => store.auth_data.setTutorialsArray);
+    console.log(coachTutorial, 'coachTutorial from first screen')
+
     return (
         <MainContainer>
             <View>
@@ -21,7 +24,7 @@ const FirstTutorialScreen = () => {
             </View>
             <KeyboardAwareScrollView>
                 <View style={{marginTop: 10, flex: 1}}>
-                    <Title>Что такое Health Buddy?</Title>
+                    <Title titlePropStyle={{fontSize: 24}}>Что такое Health Buddy?</Title>
                     <Description marginTop={8} marginBottom={24}>
                         Сервис наставников для раскрытия потенциала здоровья всех возрастов. Сегодня вы познакомитесь с
                         компанией и увидите работу изнутри.

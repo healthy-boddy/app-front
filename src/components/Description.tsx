@@ -2,7 +2,7 @@ import React from 'react';
 import {Text} from "react-native";
 
 const Description = (props: any) => {
-    const {children, marginVertical,marginTop, marginBottom} = props
+    const {children, marginVertical,marginTop, marginLeft, marginBottom} = props
     return (
         <Text style={{
             color: '#797979',
@@ -12,7 +12,8 @@ const Description = (props: any) => {
             lineHeight: 20,
             marginTop: marginTop,
             marginBottom: marginBottom,
-            marginVertical: marginVertical
+            marginVertical: marginVertical,
+            marginLeft: marginLeft
         }}
         >
             {children}
