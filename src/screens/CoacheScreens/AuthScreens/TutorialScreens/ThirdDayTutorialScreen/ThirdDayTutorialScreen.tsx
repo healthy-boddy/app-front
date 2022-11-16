@@ -210,7 +210,9 @@ const ThirdDayTutorialScreen = () => {
     }
 
     return (
-        renderPages()
+        <View style={{flex: 1}}>
+            {renderPages()}
+        </View>
     );
 };
 export default ThirdDayTutorialScreen;

@@ -24,10 +24,11 @@ const TutorialQuestionsScreen = () => {
                 </Text>
                 <View style={{marginBottom: 25}}>
                     <CustomButton
+                        title={'Продолжить'}
                         onPress={()=>{
                             navigation.navigate("Greetings4")
                         }}
-                        title={'Продолжить'}/>
+                    />
                 </View>
             </View>
         </MainContainer>
