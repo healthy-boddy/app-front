@@ -14,6 +14,10 @@ const IsNotTrustedEmailScreen = () => {
     const dispatch = useDispatch()
     return (
         <MainContainer>
+            <View style={{
+                paddingHorizontal:16,
+                height:'100%'
+            }}>
             <View style={{flex: 1}}>
                 <Title titlePropStyle={{marginTop: 25}}>
                     Мы не нашли вас в списке верифицированных в бадди
@@ -44,6 +48,7 @@ const IsNotTrustedEmailScreen = () => {
                         title={'Войти как клиент'}
                     />
                 </View>
+            </View>
             </View>
         </MainContainer>
     );

@@ -19,6 +19,10 @@ const FirstTutorialScreen = () => {
 
     return (
         <MainContainer>
+            <View style={{
+            height:'100%',
+            paddingHorizontal:16
+            }}>
             <View>
                 <BackButton latter onPress={()=>{navigation.navigate("Greetings4")}}/>
             </View>
@@ -57,6 +61,7 @@ const FirstTutorialScreen = () => {
                         navigation.navigate("SecondTutorial")
                     }}
                 />
+            </View>
             </View>
         </MainContainer>
     );

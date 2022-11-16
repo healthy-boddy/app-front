@@ -12,6 +12,10 @@ const SecondTutorialScreen = () => {
     const navigation = useNavigation<any>()
     return (
         <MainContainer>
+            <View style={{
+                height:'100%',
+                paddingHorizontal:16
+            }}>
             <View>
                 <BackButton latter onPress={() => {
                     navigation.navigate('FirstTutorial')
@@ -32,6 +36,7 @@ const SecondTutorialScreen = () => {
                     title={'Продолжить'}
                     onPress={()=>{navigation.navigate('ThirdTutorial')}}
                 />
+            </View>
             </View>
         </MainContainer>
     );

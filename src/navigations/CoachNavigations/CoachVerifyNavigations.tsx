@@ -21,6 +21,7 @@ import {TabNavigatorElem} from "../ClientNavigations/tab-bar-elem/tab-navigation
 import {HomeSvg} from "../ClientNavigations/icons/home";
 import {Constructor} from "./icons/constructor";
 import {CalendarSvg} from "../ClientNavigations/icons/calendar";
+import {ClientDetailsPage} from "../../screens/CoacheScreens/MainScreens/client-details-page";
 
 function Greetings() {
     return <GreetingsScreen/>
@@ -106,6 +107,12 @@ export default function CoachVerify() {
                             tabBarStyle: {display: 'none'},
                         })}
             />
+
+            <Tab.Screen name={'ClientDetailsPage'} component={ClientDetailsPage} options={({route}) => ({
+                tabBarButton: () => null,
+                tabBarStyle: {display: 'none'},
+            })}/>
+
             <Tab.Screen name='SecondTutorial' component={SecondTutorial}
                         options={({route}) => ({
                             tabBarButton: () => null,
