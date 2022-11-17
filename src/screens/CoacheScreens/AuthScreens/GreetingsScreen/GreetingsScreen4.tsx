@@ -31,7 +31,7 @@ const GreetingsScreen4 = (props: any) => {
 
     useEffect(() => {
         (async () => {
-            await fetch('http://92.53.97.238/coach_learn/1/',{
+            await fetch('http://92.53.97.238/coach_learn/status/',{
                 method: 'GET',
                 headers: {
                     "accept": "application/json",
@@ -45,7 +45,6 @@ const GreetingsScreen4 = (props: any) => {
             })
         })();
     }, [])
-
 
     return (
         <MainContainer

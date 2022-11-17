@@ -19,7 +19,9 @@ import {
     SecondFirstTutorialScreen,
     SecondTwoTutorialScreen,
     SecondThirdTutorialScreen,
-    ThirdDayTutorialScreen
+    ThirdDayTutorialScreen,
+    SelfLoveScreen,
+    EditingScreen
 } from '../../screens/CoacheScreens/AuthScreens'
 import {TabNavigatorElem} from "../ClientNavigations/tab-bar-elem/tab-navigation-elems";
 import {HomeSvg} from "../ClientNavigations/icons/home";
@@ -89,6 +91,12 @@ function SecondThirdTutorial() {
 
 function ThirdDayTutorial() {
     return <ThirdDayTutorialScreen/>
+}
+function SelfLove() {
+    return <SelfLoveScreen/>
+}
+function Editing() {
+    return <EditingScreen/>
 }
 
 export default function CoachVerify() {
@@ -181,6 +189,18 @@ export default function CoachVerify() {
                         })}
             />
             <Tab.Screen name='ThirdDayTutorial' component={ThirdDayTutorial}
+                        options={({route}) => ({
+                            tabBarButton: () => null,
+                            tabBarStyle: {display: 'none'},
+                        })}
+            />
+            <Tab.Screen name='SelfLove' component={SelfLove}
+                        options={({route}) => ({
+                            tabBarButton: () => null,
+                            tabBarStyle: {display: 'none'},
+                        })}
+            />
+            <Tab.Screen name='Editing' component={Editing}
                         options={({route}) => ({
                             tabBarButton: () => null,
                             tabBarStyle: {display: 'none'},
