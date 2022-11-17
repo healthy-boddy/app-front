@@ -8,7 +8,6 @@ import {
   View,
 } from "react-native";
 import MainContainer from "../../../../components/MainContainer";
-import BackButton from "../../../../components/BackButton";
 import { useNavigation } from "@react-navigation/native";
 import BackIcon from "../../../../assets/Icons/BackIcon";
 import { ProgramsTargetsBlock } from "./view/programs-targets-block";
@@ -17,6 +16,7 @@ import { AllTasksBlock } from "./view/all-tasks-block";
 const EditingScreen = () => {
   const navigation = useNavigation<any>();
   const [programTitle, setProgramTitle] = useState("");
+  const [programDescription, setProgramDescription] = useState("");
   return (
     <MainContainer>
       <View style={{ paddingHorizontal: 16, top: 30 }}>
@@ -95,14 +95,18 @@ const EditingScreen = () => {
               lineHeight: 22,
               fontSize: 16,
             }}
-            value={programTitle}
-            onChangeText={setProgramTitle}
+            value={programDescription}
+            onChangeText={setProgramDescription}
             placeholder={"Введите описание"}
           />
         </View>
 
         <View style={{ marginTop: 30 }} />
-        <ProgramsTargetsBlock number={4} title={"Цели программы"} />
+        <ProgramsTargetsBlock
+          number={4}
+          title={"Цели программы"}
+          onPress={() => navigation.navigate("TargetsEditing")}
+        />
         <View style={{ marginTop: 36 }} />
         <Text
           style={{
