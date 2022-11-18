@@ -8,7 +8,6 @@ import {
   View,
 } from "react-native";
 import MainContainer from "../../../../components/MainContainer";
-import BackButton from "../../../../components/BackButton";
 import { useNavigation } from "@react-navigation/native";
 import BackIcon from "../../../../assets/Icons/BackIcon";
 import { ProgramsTargetsBlock } from "./view/programs-targets-block";
@@ -17,6 +16,12 @@ import { AllTasksBlock } from "./view/all-tasks-block";
 const EditingScreen = () => {
   const navigation = useNavigation<any>();
   const [programTitle, setProgramTitle] = useState("");
+  const [programDescription, setProgramDescription] = useState("");
+
+  const handlePressTask = () => {
+    navigation.navigate("TaskEditing");
+  };
+
   return (
     <MainContainer>
       <View style={{ paddingHorizontal: 16, top: 30 }}>
@@ -95,14 +100,20 @@ const EditingScreen = () => {
               lineHeight: 22,
               fontSize: 16,
             }}
-            value={programTitle}
-            onChangeText={setProgramTitle}
+            value={programDescription}
+            numberOfLines={20}
+            multiline={true}
+            onChangeText={setProgramDescription}
             placeholder={"Введите описание"}
           />
         </View>
 
         <View style={{ marginTop: 30 }} />
-        <ProgramsTargetsBlock number={4} title={"Цели программы"} />
+        <ProgramsTargetsBlock
+          number={4}
+          title={"Цели программы"}
+          onPress={() => navigation.navigate("TargetsEditing")}
+        />
         <View style={{ marginTop: 36 }} />
         <Text
           style={{
@@ -116,16 +127,19 @@ const EditingScreen = () => {
         </Text>
 
         <AllTasksBlock
+          onPress={() => handlePressTask()}
           title={"Контроль текущего состояния тела"}
           duration={"В течение 2 дней"}
         />
 
         <AllTasksBlock
+          onPress={() => handlePressTask()}
           title={"Оценка уровня стресса"}
           duration={"В течение 5 дней"}
         />
 
         <AllTasksBlock
+          onPress={() => handlePressTask()}
           title={"Чек-ап обследование"}
           duration={"В течение 2 дней"}
         />

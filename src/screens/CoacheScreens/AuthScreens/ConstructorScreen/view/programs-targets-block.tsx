@@ -1,18 +1,21 @@
 import React, { FC } from "react";
-import { Text, View } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import { ChevronRight } from "../../../../../components/icon/chevron-right";
 
 interface ProgramsTargetsBlockProps {
   title: string;
   number: number;
+  onPress: () => void;
 }
 
 export const ProgramsTargetsBlock: FC<ProgramsTargetsBlockProps> = ({
   title,
   number,
+  onPress,
 }) => {
   return (
-    <View
+    <TouchableOpacity
+      onPress={onPress}
       style={{
         backgroundColor: "#F5F4F8",
         padding: 16,
@@ -43,6 +46,6 @@ export const ProgramsTargetsBlock: FC<ProgramsTargetsBlockProps> = ({
         </Text>
         <ChevronRight />
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
