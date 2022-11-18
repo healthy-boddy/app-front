@@ -59,7 +59,7 @@ const SelfLoveScreen = () => {
                 width: "100%",
               }}
             >
-              {reviewsVisible ? <ArrowDown /> : <ArrowUp />}
+              {!reviewsVisible ? <ArrowDown /> : <ArrowUp />}
             </View>
           </TouchableOpacity>
 

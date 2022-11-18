@@ -1,17 +1,20 @@
 import React from "react";
-import { Text, View } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 
 interface AllTasksBlockProps {
   title: string;
   duration: string;
+  onPress: () => void;
 }
 
 export const AllTasksBlock: React.FC<AllTasksBlockProps> = ({
   title,
   duration,
+  onPress,
 }) => {
   return (
-    <View
+    <TouchableOpacity
+      onPress={onPress}
       style={{
         borderBottomWidth: 1,
         borderColor: "#E2E2E2",
@@ -39,6 +42,6 @@ export const AllTasksBlock: React.FC<AllTasksBlockProps> = ({
       >
         {duration}
       </Text>
-    </View>
+    </TouchableOpacity>
   );
 };

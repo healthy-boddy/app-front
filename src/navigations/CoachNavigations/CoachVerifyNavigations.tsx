@@ -29,6 +29,7 @@ import { Constructor } from "./icons/constructor";
 import { CalendarSvg } from "../ClientNavigations/icons/calendar";
 import { ClientDetailsPage } from "../../screens/CoacheScreens/MainScreens/client-details-page";
 import { TargetsEditing } from "../../screens/CoacheScreens/AuthScreens/ConstructorScreen/targets-editing";
+import { TaskEditingScreen } from "../../screens/CoacheScreens/AuthScreens/ConstructorScreen/task-editing-screen";
 
 function Greetings() {
   return <GreetingsScreen />;
@@ -245,6 +246,14 @@ export default function CoachVerify() {
       <Tab.Screen
         name="TargetsEditing"
         component={TargetsEditing}
+        options={({ route }) => ({
+          tabBarButton: () => null,
+          tabBarStyle: { display: "none" },
+        })}
+      />
+      <Tab.Screen
+        name="TaskEditing"
+        component={TaskEditingScreen}
         options={({ route }) => ({
           tabBarButton: () => null,
           tabBarStyle: { display: "none" },

@@ -17,6 +17,11 @@ const EditingScreen = () => {
   const navigation = useNavigation<any>();
   const [programTitle, setProgramTitle] = useState("");
   const [programDescription, setProgramDescription] = useState("");
+
+  const handlePressTask = () => {
+    navigation.navigate("TaskEditing");
+  };
+
   return (
     <MainContainer>
       <View style={{ paddingHorizontal: 16, top: 30 }}>
@@ -96,6 +101,8 @@ const EditingScreen = () => {
               fontSize: 16,
             }}
             value={programDescription}
+            numberOfLines={20}
+            multiline={true}
             onChangeText={setProgramDescription}
             placeholder={"Введите описание"}
           />
@@ -120,16 +127,19 @@ const EditingScreen = () => {
         </Text>
 
         <AllTasksBlock
+          onPress={() => handlePressTask()}
           title={"Контроль текущего состояния тела"}
           duration={"В течение 2 дней"}
         />
 
         <AllTasksBlock
+          onPress={() => handlePressTask()}
           title={"Оценка уровня стресса"}
           duration={"В течение 5 дней"}
         />
 
         <AllTasksBlock
+          onPress={() => handlePressTask()}
           title={"Чек-ап обследование"}
           duration={"В течение 2 дней"}
         />
