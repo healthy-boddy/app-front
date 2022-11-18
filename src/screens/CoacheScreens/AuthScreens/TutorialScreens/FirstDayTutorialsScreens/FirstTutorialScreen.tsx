@@ -1,21 +1,45 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, StyleSheet, Text, TextInput} from "react-native";
 import MainContainer from "../../../../../components/MainContainer";
 import BackButton from "../../../../../components/BackButton";
 import Title from "../../../../../components/Title";
 import Description from "../../../../../components/Description";
-import {color1} from "../../../../../helpers/colors";
 import CustomButton from "../../../../../components/CustomButton";
 import {LargeInput} from "../../../../../components/core/LargeInput";
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
 import {useNavigation} from "@react-navigation/native";
 import {useSelector} from "react-redux";
+import {Video} from "expo-av";
+import {WebView} from 'react-native-webview';
 
 const FirstTutorialScreen = () => {
     const [value, setValue] = useState('')
     const navigation = useNavigation<any>()
-    let coachTutorial = useSelector((store: any) => store.auth_data.setTutorialsArray);
-    console.log(coachTutorial, 'coachTutorial from first screen')
+    let pdfAndVideo = useSelector((store: any) => store?.auth_data?.setVideoEndPresentationArray);
+
+    let tokenFromReducer = useSelector((store: any) => store.user_token.user_token);
+    let AuthStr = "Bearer " + tokenFromReducer;
+
+    //console.log(pdfAndVideo, 'pdf')
+
+    async function handleSendCheckList() {
+        let checkListForm = new FormData()
+        checkListForm.append('theses', value)
+        await fetch('http://92.53.97.238/user/coach/update_me/', {
+            method: 'put',
+            headers: {
+                Authorization: AuthStr,
+                "Content-Type": "multipart/form-data",
+
+            },
+            body: checkListForm
+        }).then((res) => {
+            return res.json()
+        }).then((res) => {
+            console.log(res, 'handleSendCheckList')
+        })
+        navigation.navigate("ThirdTutorial")
+    }
 
     return (
         <MainContainer>
@@ -39,14 +63,19 @@ const FirstTutorialScreen = () => {
                         <Text style={styles.description}>
                             Посмотрите краткое видео о продукте
                         </Text>
+
                         <View style={styles.video_box}>
-                            <Text style={{textAlign: 'center', marginTop: 15}}>тут Видео 📽</Text>
+                            <WebView
+                                style={{width: '100%', height: 200}}
+                                source={{uri: pdfAndVideo.coach_first_day_video_url}}
+                            />
                         </View>
+
                         <Title titlePropStyle={{marginVertical: 10}}>
                             Задание
                         </Title>
                         <Description>
-                            Выпишите чек-лист первичной консультации (основные пункты для коммуникации с клиентом)
+                            Напишите пять тезисов , которые отличают нас от конкурентов
                         </Description>
                         <View style={styles.input_box}>
                             <LargeInput
@@ -60,9 +89,7 @@ const FirstTutorialScreen = () => {
                 <View style={{marginBottom: 25}}>
                     <CustomButton
                         title={'Продолжить'}
-                        onPress={() => {
-                            navigation.navigate("ThirdTutorial")
-                        }}
+                        onPress={handleSendCheckList}
                     />
                 </View>
             </View>
@@ -81,7 +108,6 @@ const styles = StyleSheet.create({
     video_box: {
         width: '100%',
         height: 200,
-        backgroundColor: color1,
         borderRadius: 20,
         marginTop: 20
     },

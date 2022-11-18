@@ -21,7 +21,8 @@ import {
     SecondThirdTutorialScreen,
     ThirdDayTutorialScreen,
     SelfLoveScreen,
-    EditingScreen
+    EditingScreen,
+    TyScreenFormTutorials
 } from '../../screens/CoacheScreens/AuthScreens'
 import {TabNavigatorElem} from "../ClientNavigations/tab-bar-elem/tab-navigation-elems";
 import {HomeSvg} from "../ClientNavigations/icons/home";
@@ -97,6 +98,9 @@ function SelfLove() {
 }
 function Editing() {
     return <EditingScreen/>
+}
+function TyFormTutorials() {
+    return <TyScreenFormTutorials/>
 }
 
 export default function CoachVerify() {
@@ -201,6 +205,13 @@ export default function CoachVerify() {
                         })}
             />
             <Tab.Screen name='Editing' component={Editing}
+                        options={({route}) => ({
+                            tabBarButton: () => null,
+                            tabBarStyle: {display: 'none'},
+                        })}
+            />
+
+            <Tab.Screen name='TyFormTutorials' component={TyFormTutorials}
                         options={({route}) => ({
                             tabBarButton: () => null,
                             tabBarStyle: {display: 'none'},

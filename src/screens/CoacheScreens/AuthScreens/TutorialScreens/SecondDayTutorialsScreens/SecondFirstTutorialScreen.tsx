@@ -9,10 +9,36 @@ import Description from "../../../../../components/Description";
 import {color1} from "../../../../../helpers/colors";
 import {LargeInput} from "../../../../../components/core/LargeInput";
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
+import {useSelector} from "react-redux";
+import {WebView} from "react-native-webview";
 
 const SecondFirstTutorialScreen = () => {
     const navigation = useNavigation<any>()
     const [value, setValue] = useState('')
+
+    let pdfAndVideo = useSelector((store: any) => store?.auth_data?.setVideoEndPresentationArray);
+    let tokenFromReducer = useSelector((store: any) => store.user_token.user_token);
+    let AuthStr = "Bearer " + tokenFromReducer;
+
+    async function handleSendCheckList() {
+        let checkListForm = new FormData()
+        checkListForm.append('initial_consultation_checklist', value)
+        await fetch('http://92.53.97.238/user/coach/update_me/', {
+            method: 'put',
+            headers: {
+                Authorization: AuthStr,
+                "Content-Type": "multipart/form-data",
+
+            },
+            body: checkListForm
+        }).then((res) => {
+            return res.json()
+        }).then((res) => {
+            console.log(res, 'handleSendCheckList day 2')
+        })
+        navigation.navigate("SecondTwoTutorial")
+    }
+
     return (
         <MainContainer>
             <View style={{flex: 1, paddingHorizontal: 16}}>
@@ -34,7 +60,7 @@ const SecondFirstTutorialScreen = () => {
                         Посмоторите видео от старшего сервис-менеджера Александры Щербаковой
                     </Title>
                     <View style={styles.video_box}>
-
+                        <WebView source={{uri: pdfAndVideo.coach_second_day_video_url}} />
                     </View>
                     <Title titlePropStyle={{fontSize: 16, marginTop: 24}}>
                         Задание
@@ -51,9 +77,7 @@ const SecondFirstTutorialScreen = () => {
                 <View style={{marginBottom: 25}}>
                     <CustomButton
                         title={'Продолжить'}
-                        onPress={()=>{
-                            navigation.navigate("SecondTwoTutorial")
-                        }}
+                        onPress={handleSendCheckList}
                     />
                 </View>
             </View>
@@ -63,11 +87,10 @@ const SecondFirstTutorialScreen = () => {
 export default SecondFirstTutorialScreen;
 
 const styles = StyleSheet.create({
-    video_box:{
+    video_box: {
         width: '100%',
         height: 200,
         borderRadius: 20,
-        backgroundColor: color1,
         marginTop: 24
     }
 })

@@ -1,15 +1,25 @@
 import React from 'react';
-import {View, StyleSheet, Text} from "react-native";
+import {View, Linking, StyleSheet, Text, Dimensions, Platform, TouchableOpacity, Image} from "react-native";
 import MainContainer from "../../../../../components/MainContainer";
 import BackButton from "../../../../../components/BackButton";
 import CustomButton from "../../../../../components/CustomButton";
 import {useNavigation} from "@react-navigation/native";
 import Title from "../../../../../components/Title";
 import Description from "../../../../../components/Description";
-import {color1} from "../../../../../helpers/colors";
+import {useSelector} from "react-redux";
+import Pdf from 'react-native-pdf';
+
+const source = {uri: 'http://samples.leanpub.com/thereactnativebook-sample.pdf', cache: true};
+const resourceType = 'base64';
 
 const ThirdTutorialScreen = () => {
     const navigation = useNavigation<any>()
+    let pdfAndVideo = useSelector((store: any) => store?.auth_data?.setVideoEndPresentationArray);
+
+    async function openPdf() {
+        await Linking.openURL(pdfAndVideo.coach_first_day_presentation_url);
+    }
+
     return (
         <MainContainer>
             <View style={{
@@ -41,7 +51,11 @@ const ThirdTutorialScreen = () => {
                         {`\u2022 тарифах`}{"\n"}
                     </Description>
                     <View style={styles.presentation_box}>
-                        <Text style={{textAlign: 'center'}}>презентация тут</Text>
+                        <TouchableOpacity onPress={openPdf}>
+                            <Image
+                                style={{width: '100%', height: 230, borderRadius: 20, resizeMode: 'cover'}}
+                                source={require('../../../../../assets/images/preview.png')}/>
+                        </TouchableOpacity>
                     </View>
                 </View>
                 <View style={{marginBottom: 25}}>
@@ -59,9 +73,14 @@ export default ThirdTutorialScreen;
 const styles = StyleSheet.create({
     presentation_box: {
         width: '100%',
-        height: 200,
-        backgroundColor: color1,
+        height: 230,
         borderRadius: 20
     },
-    presentation: {}
+    presentation: {},
+    pdf: {
+        flex: 1,
+        width: Dimensions.get('window').width,
+        height: Dimensions.get('window').height,
+    }
+
 })

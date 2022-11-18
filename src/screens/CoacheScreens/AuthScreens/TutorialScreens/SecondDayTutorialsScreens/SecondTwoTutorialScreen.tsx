@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text} from "react-native";
 import {useNavigation} from "@react-navigation/native";
 import MainContainer from "../../../../../components/MainContainer";
@@ -7,6 +7,7 @@ import CustomButton from "../../../../../components/CustomButton";
 import Title from "../../../../../components/Title";
 import Description from "../../../../../components/Description";
 import ManAvatar from "../TutorialScreensIcons/ManAvatar";
+
 
 const SecondTwoTutorialScreen = () => {
     const navigation = useNavigation<any>()

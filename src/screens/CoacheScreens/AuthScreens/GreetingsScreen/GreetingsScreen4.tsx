@@ -1,47 +1,64 @@
-import React, {useEffect, useRef, useState} from "react";
-import {Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
-import {Video} from "expo-av";
+import React, {useEffect, useState} from "react";
+import {Image, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {useNavigation} from "@react-navigation/native";
 import Title from "../../../../components/Title";
-import {WrapperPage} from "../../../../components/core/wrapper";
 import MainContainer from "../../../../components/MainContainer";
 import {useDispatch, useSelector} from "react-redux";
 import {BellIcon} from "../../../../assets/Icons/BellIcon";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {deleteUserBio, deleteUserToken} from "../../../../store/actions/user_token";
 import {deleteUserData} from "../../../../store/actions/user_data";
-import {baseUrl} from "../../../../helpers/url";
-import {setCoachTutorialsArray} from "../../../../store/actions/auth_data";
+import {setCoachTutorialsArray, setVideoEndPresentation} from "../../../../store/actions/auth_data";
+import DoubleChecked from "../../../../assets/Icons/DoubleChecked";
+import {useIsFocused} from "@react-navigation/native";
 
 const GreetingsScreen4 = (props: any) => {
     const dispatch = useDispatch()
     const navigation: any = useNavigation();
-
+    let isFocused = useIsFocused()
     let tokenFromReducer = useSelector((store: any) => store.user_token.user_token);
     let user_data = useSelector((store: any) => store.user_data?.user_data);
-
+    let [coachTutorialDays, setCoachTutorialDays] = useState<any>([])
     let AuthStr = "Bearer " + tokenFromReducer;
-
     const handleLogOut = async () => {
         await AsyncStorage.removeItem("userToken");
         dispatch(deleteUserToken());
         dispatch(deleteUserBio());
         dispatch(deleteUserData());
     }
-
+    console.log(isFocused, 'isFocused')
     useEffect(() => {
         (async () => {
-            await fetch('http://92.53.97.238/coach_learn/status/',{
+            await fetch('http://92.53.97.238/coach_learn/status/', {
                 method: 'GET',
                 headers: {
                     "accept": "application/json",
                     "Authorization": AuthStr
                 }
-            }).then((res)=>{
+            }).then((res) => {
                 return res.json()
-            }).then((res)=>{
+            }).then((res) => {
                 dispatch(setCoachTutorialsArray(res))
+                setCoachTutorialDays(res)
                 console.log(res, 'Greetings')
+
+            })
+        })();
+    }, [isFocused])
+
+    useEffect(() => {
+        (async () => {
+            await fetch('http://92.53.97.238/coach_learn/info/', {
+                method: 'GET',
+                headers: {
+                    "accept": "application/json",
+                    "Authorization": AuthStr
+                }
+            }).then((res) => {
+                return res.json()
+            }).then((res) => {
+          dispatch(setVideoEndPresentation(res))
+             //   console.log(res, 'coach_learn/info')
             })
         })();
     }, [])
@@ -52,7 +69,7 @@ const GreetingsScreen4 = (props: any) => {
             onPressButton={() => navigation.navigate("Greetings5")}
             buttonTitle={"Продолжить"}
         >
-            <View style={{
+                <View style={{
                 paddingHorizontal: 16
             }}>
                 <View style={styles.header}>
@@ -81,21 +98,33 @@ const GreetingsScreen4 = (props: any) => {
                 <View style={{marginVertical: 16}}>
                     <Title>Мое обучение</Title>
                 </View>
-                <TouchableOpacity style={styles.day_question} onPress={() => {
+                <TouchableOpacity
+                    disabled={!(coachTutorialDays[1]?.available && !coachTutorialDays[1]?.passed)}
+                    style={[styles.day_question, coachTutorialDays[1]?.passed && styles.question_completed_style]}
+                    onPress={() => {
                     navigation.navigate('FirstTutorial')
                 }}>
-                    <Title titlePropStyle={{marginBottom: 4}}>День 1</Title>
+                    <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                        <Title titlePropStyle={{marginBottom: 4}}>День 1</Title>
+                        {coachTutorialDays[1]?.passed && <DoubleChecked/>}
+                    </View>
                     <Text style={styles.day_questions_description}>
                         {`\u2022  Знакомство с продуктом`}{'\n'}
                         {`\u2022 Обучение по продукту с методологом`}
                     </Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.day_question}
-                onPress={()=>{
-                    navigation.navigate('SecondFirstTutorial')
-                }}>
-                    <Title titlePropStyle={{marginBottom: 4}}>День 2</Title>
+                <TouchableOpacity
+                    disabled={!(coachTutorialDays[2]?.available && !coachTutorialDays[2]?.passed)}
+                  style={[styles.day_question, coachTutorialDays[2]?.passed && styles.question_completed_style]}
+
+                  onPress={() => {
+                        navigation.navigate('SecondFirstTutorial')
+                    }}>
+                    <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                        <Title titlePropStyle={{marginBottom: 4}}>День 2</Title>
+                        {coachTutorialDays[2]?.passed && <DoubleChecked/>}
+                    </View>
                     <Text style={styles.day_questions_description}>
                         {`\u2022 Путь клиента`}{'\n'}
                         {`\u2022 Алгоритм проведения первичной`}{'\n'}
@@ -103,23 +132,32 @@ const GreetingsScreen4 = (props: any) => {
                     </Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.day_question}
-                onPress={()=>{
-                    navigation.navigate("ThirdDayTutorial")
-                }}>
-                    <Title titlePropStyle={{marginBottom: 4}}>День 3</Title>
+                <TouchableOpacity
+                    disabled={!(coachTutorialDays[3]?.available && !coachTutorialDays[3]?.passed)}
+                    style={[styles.day_question, coachTutorialDays[3]?.passed && styles.question_completed_style]}
+                    onPress={() => {
+                        navigation.navigate("ThirdDayTutorial")
+                    }}>
+                    <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                        <Title titlePropStyle={{marginBottom: 4}}>День 3</Title>
+                        {coachTutorialDays[3]?.passed && <DoubleChecked/>}
+                    </View>
                     <Text style={styles.day_questions_description}>
                         {`\u2022 Долгосрочное ведение клиента`}{'\n'}
                         {`\u2022 Постановка целей и задач`}
                     </Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.day_question}>
+                <TouchableOpacity
+                    disabled={!(coachTutorialDays[3]?.available && !coachTutorialDays[3]?.passed)}
+                                  style={styles.day_question}
+                >
                     <Title titlePropStyle={{marginBottom: 4}}>Заполните свой профиль</Title>
                     <Text style={styles.day_questions_description}>
                         Для первичного знакомства с клиентом - это повысит доверие к вам, как к специалисту
                     </Text>
                 </TouchableOpacity>
+
             </View>
         </MainContainer>
     );
@@ -158,5 +196,8 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: '600',
         lineHeight: 19
+    },
+    question_completed_style:{
+        backgroundColor: '#E5DDFD'
     }
 });

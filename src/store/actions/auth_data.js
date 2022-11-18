@@ -27,4 +27,13 @@ export function setCoachTutorialsArray(setTutorialsArray) {
         }
     }
 }
+export const SET_COACH_PRESENTATION_AND_VIDEO_URLS = 'SET_COACH_PRESENTATION_AND_VIDEO_URLS';
+export function setVideoEndPresentation(setVideoEndPresentationArray) {
+    return{
+        type: SET_COACH_PRESENTATION_AND_VIDEO_URLS,
+        payload:{
+            setVideoEndPresentationArray
+        }
+    }
+}
 

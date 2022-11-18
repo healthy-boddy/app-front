@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, StyleSheet, Text, TouchableOpacity} from "react-native";
+import {View, StyleSheet, Text, TouchableOpacity, Image, Linking, ScrollView} from "react-native";
 import MainContainer from "../../../../../components/MainContainer";
 import BackButton from "../../../../../components/BackButton";
 import Title from "../../../../../components/Title";
@@ -10,11 +10,57 @@ import {useNavigation} from "@react-navigation/native";
 import {LargeInput} from "../../../../../components/core/LargeInput";
 import DoctorBooks from "../../../../../assets/Icons/DoctorBooks";
 import XMark from "./icons/xMark";
+import {useSelector} from "react-redux";
+import {WebView} from "react-native-webview";
 
 const ThirdDayTutorialScreen = () => {
     const [page, setPage] = useState(1)
     const [largeInputValue, setLargeInputValue] = useState('')
+    let pdfAndVideo = useSelector((store: any) => store?.auth_data?.setVideoEndPresentationArray);
+    let tokenFromReducer = useSelector((store: any) => store.user_token.user_token);
+    let AuthStr = "Bearer " + tokenFromReducer;
+
     const navigation = useNavigation<any>()
+
+    async function openPdf() {
+        await Linking.openURL(pdfAndVideo.coach_first_day_presentation_url);
+    }
+
+    async function handleSendLastAnswers() {
+        let checkListForm = new FormData()
+        checkListForm.append('third_day_answer', largeInputValue)
+        let form = new FormData()
+        // @ts-ignore
+        form.append('day', 3)
+        await fetch('http://92.53.97.238/user/coach/update_me/', {
+            method: 'put',
+            headers: {
+                Authorization: AuthStr,
+                "Content-Type": "multipart/form-data",
+
+            },
+            body: checkListForm
+        }).then((res) => {
+            return res.json()
+        }).then((res) => {
+            console.log(res, 'handleSendCheckList day 3')
+        })
+
+        await fetch('http://92.53.97.238/coach_learn/', {
+            method: 'POST',
+            headers: {
+                Authorization: AuthStr,
+                "accept": "application/json",
+                "Content-Type": "multipart/form-data",
+            },
+            body: form
+        }).then((response)=>{
+            return response.json()
+        }).then((response)=>{
+            console.log(response, 'day 1 complated')
+        })
+        setPage(page + 1)
+    }
 
     function renderPages() {
         if (page === 1) {
@@ -47,12 +93,17 @@ const ThirdDayTutorialScreen = () => {
                                 Посмотрите видео о коучинговых механиках
                             </Description>
                             <View style={styles.video_box}>
-
+                                <WebView
+                                    style={{width: '100%', height: 200}}
+                                    source={{uri: pdfAndVideo.coach_third_day_video_url}}
+                                />
                             </View>
                         </View>
                         <View style={{marginBottom: 25}}>
                             <CustomButton
-                                onPress={()=>{setPage(page + 1)}}
+                                onPress={() => {
+                                    setPage(page + 1)
+                                }}
                                 title={'Продолжить'}
                             />
                         </View>
@@ -64,7 +115,9 @@ const ThirdDayTutorialScreen = () => {
                 <MainContainer>
                     <View style={{flex: 1, paddingHorizontal: 16}}>
                         <View style={{flex: 1}}>
-                            <BackButton onPress={()=>{setPage(page - 1)}}/>
+                            <BackButton onPress={() => {
+                                setPage(page - 1)
+                            }}/>
                             <Title titlePropStyle={{fontSize: 24, marginTop: 14, marginBottom: 8}}>
                                 Из чего формируется цель?
                             </Title>
@@ -87,7 +140,9 @@ const ThirdDayTutorialScreen = () => {
                         <View style={{marginBottom: 25}}>
                             <CustomButton
                                 title={'Продолжить'}
-                                onPress={()=>{setPage(page + 1)}}
+                                onPress={() => {
+                                    setPage(page + 1)
+                                }}
                             />
                         </View>
                     </View>
@@ -98,7 +153,9 @@ const ThirdDayTutorialScreen = () => {
                 <MainContainer>
                     <View style={{flex: 1, paddingHorizontal: 16}}>
                         <View style={{flex: 1}}>
-                            <BackButton onPress={()=>{setPage(page - 1)}}/>
+                            <BackButton onPress={() => {
+                                setPage(page - 1)
+                            }}/>
                             <Title titlePropStyle={{fontSize: 24, marginTop: 14, marginBottom: 8}}>
                                 Методика постановки целей SMART
                             </Title>
@@ -116,14 +173,18 @@ const ThirdDayTutorialScreen = () => {
                             <Description>
                                 Внимательно изучите презентацию о методике SMART
                             </Description>
-                            <View style={styles.video_box}>
-
-                            </View>
+                            <TouchableOpacity onPress={openPdf} style={styles.video_box}>
+                                <Image
+                                    style={{width: '100%', height: 230, borderRadius: 20, resizeMode: 'cover'}}
+                                    source={require('../../../../../assets/images/preview.png')}/>
+                            </TouchableOpacity>
                         </View>
                         <View style={{marginBottom: 25}}>
                             <CustomButton
                                 title={'Продолжить'}
-                                onPress={()=>{setPage(page + 1)}}
+                                onPress={() => {
+                                    setPage(page + 1)
+                                }}
                             />
                         </View>
                     </View>
@@ -133,42 +194,48 @@ const ThirdDayTutorialScreen = () => {
             return (
                 <MainContainer>
                     <View style={{flex: 1, paddingHorizontal: 16}}>
-                        <View style={{flex: 1}}>
-                            <BackButton latter onPress={()=>{setPage(page - 1)}}/>
-                            <Title titlePropStyle={{fontSize: 24, marginTop: 14, marginBottom: 8}}>
-                                Закрепите свои знания
-                            </Title>
-                            <Description>
-                                Сформулируйте 8 целей для двух клиентов.
-                            </Description>
-                            <Description marginVertical={12}>
-                                Цель должен быть:
-                            </Description>
-                            <Description>
-                                {`\u2022 краткострочные,`}{"\n"}
-                                {`\u2022 долгосрочные,`}{"\n"}
-                                {`\u2022 промежуточные,`}{"\n"}
-                                {`\u2022 конечные,`}{"\n"}
-                            </Description>
-                            <Description marginBottom={5}>
-                                1. Клиент 45 лет, мужчина, жалобы на боли в области сердца, лишний вес 5 кг, отсуствие
-                                либидо, программа 3 месяца
-                            </Description>
-                            <Description>
-                                2. Клиент 30 лет, женщина, усталость, слабость, выпадение волос, проблемы со стулом и
-                                настроением, программа 6 месяца
-                            </Description>
-                            <View style={{marginTop: 12}}>
-                                <LargeInput
-                                    setValue={setLargeInputValue}
-                                    value={largeInputValue}
-                                    placeholder={'Напишите ответ'}
-                                />
+                        <ScrollView>
+                            <View style={{flex: 1}}>
+                                <BackButton latter onPress={() => {
+                                    setPage(page - 1)
+                                }}/>
+                                <Title titlePropStyle={{fontSize: 24, marginTop: 14, marginBottom: 8}}>
+                                    Закрепите свои знания
+                                </Title>
+                                <Description>
+                                    Сформулируйте 8 целей для двух клиентов.
+                                </Description>
+                                <Description marginVertical={12}>
+                                    Цель должен быть:
+                                </Description>
+                                <Description>
+                                    {`\u2022 краткострочные,`}{"\n"}
+                                    {`\u2022 долгосрочные,`}{"\n"}
+                                    {`\u2022 промежуточные,`}{"\n"}
+                                    {`\u2022 конечные,`}{"\n"}
+                                </Description>
+                                <Description marginBottom={5}>
+                                    1. Клиент 45 лет, мужчина, жалобы на боли в области сердца, лишний вес 5 кг,
+                                    отсуствие
+                                    либидо, программа 3 месяца
+                                </Description>
+                                <Description>
+                                    2. Клиент 30 лет, женщина, усталость, слабость, выпадение волос, проблемы со стулом
+                                    и
+                                    настроением, программа 6 месяца
+                                </Description>
+                                <View style={{marginTop: 12}}>
+                                    <LargeInput
+                                        setValue={setLargeInputValue}
+                                        value={largeInputValue}
+                                        placeholder={'Напишите ответ'}
+                                    />
+                                </View>
                             </View>
-                        </View>
+                        </ScrollView>
                         <View style={{marginBottom: 25}}>
                             <CustomButton
-                                onPress={()=>{setPage(page + 1)}}
+                                onPress={handleSendLastAnswers}
                                 title={'Продолжить'}/>
                         </View>
                     </View>
@@ -197,7 +264,7 @@ const ThirdDayTutorialScreen = () => {
                         <View style={{marginBottom: 25}}>
                             <CustomButton
                                 title={'Перейти на главную'}
-                                onPress={()=>{
+                                onPress={() => {
                                     setPage(1)
                                     navigation.navigate("Greetings4")
                                 }}
@@ -222,7 +289,6 @@ const styles = StyleSheet.create({
         width: '100%',
         height: 200,
         borderRadius: 20,
-        backgroundColor: color1,
         marginTop: 15
     }
 })
