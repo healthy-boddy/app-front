@@ -103,6 +103,7 @@ const SelfLoveScreen = () => {
 
           <View style={{ marginTop: 32 }} />
           <AllTasksBlock
+            onPress={() => navigation.navigate("TaskDetails")}
             title={"Контроль текущего состояния тела"}
             duration={"В течение 2 дней"}
           />

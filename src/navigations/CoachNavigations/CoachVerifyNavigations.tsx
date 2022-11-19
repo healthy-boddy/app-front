@@ -31,6 +31,7 @@ import { CalendarSvg } from "../ClientNavigations/icons/calendar";
 import { ClientDetailsPage } from "../../screens/CoacheScreens/MainScreens/client-details-page";
 import { TargetsEditing } from "../../screens/CoacheScreens/AuthScreens/ConstructorScreen/targets-editing";
 import { TaskEditingScreen } from "../../screens/CoacheScreens/AuthScreens/ConstructorScreen/task-editing-screen";
+import { TaskDetails } from "../../screens/CoacheScreens/AuthScreens/ConstructorScreen/task-details";
 
 function Greetings() {
   return <GreetingsScreen />;
@@ -167,6 +168,15 @@ export default function CoachVerify() {
       <Tab.Screen
         name={"ClientDetailsPage"}
         component={ClientDetailsPage}
+        options={({ route }) => ({
+          tabBarButton: () => null,
+          tabBarStyle: { display: "none" },
+        })}
+      />
+
+      <Tab.Screen
+        name={"TaskDetails"}
+        component={TaskDetails}
         options={({ route }) => ({
           tabBarButton: () => null,
           tabBarStyle: { display: "none" },
