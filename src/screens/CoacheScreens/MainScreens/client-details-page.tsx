@@ -12,7 +12,8 @@ import { ClientsDetailsBlockProfile } from "../../../components/core/clients-det
 import { FormIcon } from "../icon/form";
 import { TargetsIcons } from "../icon/targets";
 import { ProgramsIcons } from "../icon/programms";
-import {IconDelete} from "../../../components/icon/icon-delete";
+import { IconDelete } from "../../../components/icon/icon-delete";
+import { MoneyIcon } from "../../../components/icon/money-icon";
 
 export const ClientDetailsPage = ({ route: { params } }) => {
   const navigation: any = useNavigation();
@@ -71,15 +72,13 @@ export const ClientDetailsPage = ({ route: { params } }) => {
           }}
         >
           <WrapperClientData
-            icon={<IconDelete />}
-           // icon={<MoneyIcon />}
+            icon={<MoneyIcon />}
             title={params.data.subscription}
           />
 
           <View style={{ marginLeft: 8 }} />
           <WrapperClientData
-            icon={<IconDelete />}
-           // icon={<MoneyIcon />}
+            icon={<MoneyIcon />}
             title={params.data.subscriptionDuration}
             borderRadiusColor={"#F2C0FF"}
           />
