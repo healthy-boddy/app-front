@@ -4,8 +4,8 @@ import { WrapperClientData } from "../wrapper-client-data";
 //import {MoneyIcon} from "../../icon/money-icon";
 import { ChevronRight } from "../../icon/chevron-right";
 import { IconDelete } from "../../icon/icon-delete";
-import { MoneyIcon } from "../../icon/money-icon";
 import { CalendarSvg } from "../../icon/calendar";
+import MoneySvg from "../../../assets/Icons/MoneySvg";
 
 interface ClientBlockForCoachProps {
   onPress: () => void;
@@ -108,7 +108,7 @@ export const ClientBlockForCoach: FC<ClientBlockForCoachProps> = ({
               }}
             >
               <WrapperClientData
-                icon={<MoneyIcon />}
+                icon={<MoneySvg />}
                 title={subscriptionType}
               />
               <View style={{ marginLeft: 8 }} />

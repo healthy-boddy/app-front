@@ -13,7 +13,7 @@ import { FormIcon } from "../icon/form";
 import { TargetsIcons } from "../icon/targets";
 import { ProgramsIcons } from "../icon/programms";
 import { IconDelete } from "../../../components/icon/icon-delete";
-import { MoneyIcon } from "../../../components/icon/money-icon";
+import MoneySvg from "../../../assets/Icons/MoneySvg";
 
 export const ClientDetailsPage = ({ route: { params } }) => {
   const navigation: any = useNavigation();
@@ -72,13 +72,13 @@ export const ClientDetailsPage = ({ route: { params } }) => {
           }}
         >
           <WrapperClientData
-            icon={<MoneyIcon />}
+            icon={<MoneySvg />}
             title={params.data.subscription}
           />
 
           <View style={{ marginLeft: 8 }} />
           <WrapperClientData
-            icon={<MoneyIcon />}
+            icon={<MoneySvg />}
             title={params.data.subscriptionDuration}
             borderRadiusColor={"#F2C0FF"}
           />
