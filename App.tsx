@@ -86,12 +86,9 @@ const App = () => {
 
     const returnStacks = () => {
         if (tokenFromReducer) {
-            if (user_data?.user?.role === "coach" && !bio) {
+            if (user_data?.user?.role === "coach") {
                 console.log("CoachVerify");
                 return <CoachVerify/>;
-            } else if (bio) {
-                console.log(333);
-                return <Main/>;
             } else if (user_data?.user?.role === "client") {
                 console.log(444);
                 if (user_data?.user?.role === "client" && client_data) {

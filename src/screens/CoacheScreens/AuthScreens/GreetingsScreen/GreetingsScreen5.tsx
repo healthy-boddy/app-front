@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from "react";
-import {Dimensions, ScrollView, StyleSheet, Text, View,} from "react-native";
+import {Dimensions, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View,} from "react-native";
 import {color1} from "../../../../helpers/colors";
 import CustomButton from "../../../../components/CustomButton";
 import {useNavigation} from "@react-navigation/native";
 import * as ImagePicker from "expo-image-picker";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import ErrorPopUp from "../../../../components/ErrorPopUp";
@@ -13,20 +13,42 @@ import {setUserBio} from "../../../../store/actions/user_token";
 import {WrapperPage} from "../../../../components/core/wrapper";
 import {LargeInput} from "../../../../components/core/LargeInput";
 import {FileRows} from "../../../../components/core/FileRows";
+import Title from "../../../../components/Title";
+import Description from "../../../../components/Description";
+import PenIcon from "../../../../assets/Icons/PenIcon";
+import {setUserData} from "../../../../store/actions/user_data";
 
 const WelcomeScreen = () => {
     const dispatch = useDispatch();
     const navigation: any = useNavigation();
+    let tokenFromReducer = useSelector((store: any) => store.user_token.user_token);
+    const userData = useSelector((store: any) => store.user_data.user_data);
+    console.log(userData, 'userData greetings 5')
     const [education, setEducation] = useState<string>("");
     const [specialisation, setSpecialisation] = useState('')
     const [resume, setResume] = useState<any>("");
     let [userToken, setUserToken] = useState<any>(null);
+    let [avatar, setAvatar] = useState<any>([])
     const [valid, setValid] = useState(true);
 
     const [certificate, setCertificate] = useState<any>([])
 
     const [resumeValid, setResumeValid] = useState(true);
 
+    function getUserNewData() {
+        axios
+            .get(baseUrl + "/me/", {
+                headers: {
+                    Authorization: "Bearer " + tokenFromReducer,
+                },
+            }).then((res) => {
+            console.log(res.data, 'MEEEEEEEEEEE')
+            dispatch(setUserData(res.data));
+        })
+            .catch((e) => {
+                console.log(e.message, "error while getting my profile");
+            });
+    }
 
     useEffect(() => {
         AsyncStorage.getItem("userToken").then((r) => setUserToken(r));
@@ -75,6 +97,7 @@ const WelcomeScreen = () => {
             }).then((res) => {
                 console.log(res, 'res')
             })
+            navigation.navigate("Greetings4")
         }
     }
 
@@ -94,11 +117,12 @@ const WelcomeScreen = () => {
                 }
             );
             console.log(data, "sended-all");
-           dispatch(setUserBio(data.education_description));
+            //  dispatch(setUserBio(data.education_description));
         } catch (error) {
             console.log(error);
         }
-       await handleSendCertificates()
+        await handleSendCertificates()
+        await getUserNewData()
     }
 
     console.log(certificate, 'photo111')
@@ -108,145 +132,152 @@ const WelcomeScreen = () => {
         setCertificate(filteredItem);
     };
 
+    const pickAvatar = async () => {
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.All,
+            allowsEditing: true,
+            aspect: [4, 3],
+            quality: 1,
+        });
+
+        if (!result.cancelled) {
+            setAvatar({
+                uri: result.uri,
+                name: `IMG_` + Date.now() + `.JPG`,
+                type: result.type + "/jpeg",
+            });
+        }
+    };
     return (
         <WrapperPage
             onPressBack={() => navigation.navigate("Greetings4")}
             onPressButton={handlePostInfo}
             buttonTitle={"Продолжить"}
         >
-            <View
-                style={{
-                    paddingHorizontal: 16,
-                }}
-            >
-                <ScrollView showsVerticalScrollIndicator={false}>
-                    {!valid && <ErrorPopUp error={"Необходимо заполнить все поля"}/>}
-                    <Text
-                        style={{
-                            fontWeight: "600",
-                            fontSize: 24,
-                            lineHeight: 28,
-                            color: "#1E1E1E",
-                            textAlign: "left",
-                            alignSelf: "flex-start",
-                            marginTop: !valid ? 16 : 0,
-                        }}
-                    >
-                        Зарегистрируй профиль наставника
-                    </Text>
-                    <Text
-                        style={{
-                            marginTop: 12,
-                            fontWeight: "400",
-                            fontSize: 16,
-                            lineHeight: 20,
-                            color: "#797979",
-                        }}
-                    >
-                        Для первичного знакомства с клиентом - это повысит доверие к вам, как к специалисту
-                    </Text>
-
-                    <Text style={{
-                        marginTop: 40,
-                        fontWeight: "600",
-                        fontSize: 19,
-                        lineHeight: 22.67,
-                        color: "#1E1E1E",
-                    }}>
-                        Образование
-                    </Text>
-
-
-                    {/*<View style={[{*/}
-                    {/*  marginTop:12,*/}
-                    {/*  backgroundColor:'#F5F4F8',*/}
-                    {/*  height:104,*/}
-                    {/*  borderRadius:12,*/}
-                    {/*  paddingHorizontal:16,*/}
-                    {/*  paddingVertical:14*/}
-                    {/*}, education.length > 1 && {borderColor:'#7454CF', borderWidth:1}]}>*/}
-                    {/*<TextInput value={education}*/}
-                    {/*           placeholderTextColor={'#797979'}*/}
-                    {/*           style={{*/}
-                    {/*             fontWeight:'400',*/}
-                    {/*             lineHeight:20,*/}
-                    {/*             fontSize:16,*/}
-                    {/*             color:'#1e1e1e'*/}
-                    {/*           }}*/}
-                    {/*  onChangeText={setEducation}*/}
-                    {/*    placeholder={'Например, ПСПбГМУ 2009 г.в.'}/>*/}
-                    {/*</View>*/}
-
-                    <LargeInput
-                        setValue={setEducation}
-                        value={education}
-                        placeholder={'Например, ПСПбГМУ 2009 г.в.'}
-                    />
-
-                    <Text style={{
-                        marginTop: 40,
-                        fontWeight: "600",
-                        fontSize: 19,
-                        lineHeight: 22.67,
-                        color: "#1E1E1E",
-                    }}>
-                        Дипломы и сертификаты
-                    </Text>
-
-                    <Text
-                        style={{
-                            marginTop: 8,
-                            fontWeight: "400",
-                            fontSize: 16,
-                            lineHeight: 20,
-                            color: "#797979",
-                        }}
-                    >
-                        Загрузите файл формата PDF, JPG, PNG
-                    </Text>
-                    <View style={{marginTop: 24}}/>
-                    <CustomButton
-                        buttonTitle={{color: "#7454CF"}}
-                        buttonStyles={[
-                            styles.custom_button_styles,
-                            !resumeValid && {borderColor: "red"},
-                        ]}
-                        title={resume?.name ? resume?.name : "Загрузить файл"}
-                        onPress={pickEducationDocument}
-                    />
-
-                    {certificate.map((data, index) => {
-                        return (
-                            <FileRows
-                                key={index}
-                                fileName={data.name}
-                                onPress={() => deleteFile(data.id)}
+            <ScrollView showsVerticalScrollIndicator={false} style={{width: '100%', paddingHorizontal: 16}}>
+                {!valid && <ErrorPopUp error={"Необходимо заполнить все поля"}/>}
+                <View style={{position: "relative", alignItems: 'center'}}>
+                    <View>
+                        {avatar ? (
+                            <Image
+                                style={styles.image}
+                                source={{uri: avatar.uri}}
                             />
-                        )
-                    })}
-
-
-                    <Text style={{
-                        marginTop: 40,
-                        fontWeight: "600",
-                        fontSize: 19,
-                        lineHeight: 22.67,
-                        color: "#1E1E1E",
-                    }}>
-                        Специализация
-                    </Text>
-
-                    <View style={{marginTop: 12, marginBottom: 24}}>
-                        <LargeInput
-                            setValue={setSpecialisation}
-                            value={specialisation}
-                            placeholder={'Например, Гастроэнтерология'}
-                        />
-
+                        ) : (
+                            <Image style={styles.image} source={{uri: userData.avatar}}/>
+                        )}
+                        <TouchableOpacity onPress={pickAvatar} style={styles.edit_icon}>
+                            <PenIcon/>
+                        </TouchableOpacity>
                     </View>
+                    <Title titlePropStyle={{marginTop: 8}}>
+                        Фото в белом халате
+                    </Title>
+                    <Description textAlign={"center"} marginTop={5}>
+                        Требование: портретное фото вас в белом халате или рубашке, на светлом фоне
+                    </Description>
+                </View>
 
-                </ScrollView>
-            </View>
+                <Text style={{
+                    marginTop: 40,
+                    fontWeight: "600",
+                    fontSize: 19,
+                    lineHeight: 22.67,
+                    color: "#1E1E1E",
+                }}>
+                    Образование
+                </Text>
+
+
+                {/*<View style={[{*/}
+                {/*  marginTop:12,*/}
+                {/*  backgroundColor:'#F5F4F8',*/}
+                {/*  height:104,*/}
+                {/*  borderRadius:12,*/}
+                {/*  paddingHorizontal:16,*/}
+                {/*  paddingVertical:14*/}
+                {/*}, education.length > 1 && {borderColor:'#7454CF', borderWidth:1}]}>*/}
+                {/*<TextInput value={education}*/}
+                {/*           placeholderTextColor={'#797979'}*/}
+                {/*           style={{*/}
+                {/*             fontWeight:'400',*/}
+                {/*             lineHeight:20,*/}
+                {/*             fontSize:16,*/}
+                {/*             color:'#1e1e1e'*/}
+                {/*           }}*/}
+                {/*  onChangeText={setEducation}*/}
+                {/*    placeholder={'Например, ПСПбГМУ 2009 г.в.'}/>*/}
+                {/*</View>*/}
+
+                <LargeInput
+                    setValue={setEducation}
+                    value={education}
+                    placeholder={'Например, ПСПбГМУ 2009 г.в.'}
+                />
+
+                <Text style={{
+                    marginTop: 40,
+                    fontWeight: "600",
+                    fontSize: 19,
+                    lineHeight: 22.67,
+                    color: "#1E1E1E",
+                }}>
+                    Дипломы и сертификаты
+                </Text>
+
+                <Text
+                    style={{
+                        marginTop: 8,
+                        fontWeight: "400",
+                        fontSize: 16,
+                        lineHeight: 20,
+                        color: "#797979",
+                    }}
+                >
+                    Загрузите файл формата PDF, JPG, PNG
+                </Text>
+                <View style={{marginTop: 24}}/>
+                <CustomButton
+                    buttonTitle={{color: "#7454CF"}}
+                    buttonStyles={[
+                        styles.custom_button_styles,
+                        !resumeValid && {borderColor: "red"},
+                    ]}
+                    title={resume?.name ? resume?.name : "Загрузить файл"}
+                    onPress={pickEducationDocument}
+                />
+
+                {certificate.map((data, index) => {
+                    return (
+                        <FileRows
+                            key={index}
+                            fileName={data.name}
+                            onPress={() => deleteFile(data.id)}
+                        />
+                    )
+                })}
+
+
+                <Text style={{
+                    marginTop: 40,
+                    fontWeight: "600",
+                    fontSize: 19,
+                    lineHeight: 22.67,
+                    color: "#1E1E1E",
+                }}>
+                    Специализация
+                </Text>
+
+                <View style={{marginTop: 12, marginBottom: 24}}>
+                    <LargeInput
+                        setValue={setSpecialisation}
+                        value={specialisation}
+                        placeholder={'Например, Гастроэнтерология'}
+                    />
+
+                </View>
+
+            </ScrollView>
         </WrapperPage>
     );
 };
@@ -286,5 +317,20 @@ const styles = StyleSheet.create({
     },
     btnBgc: {
         backgroundColor: "#7454CF",
+    },
+    image: {
+        width: 120,
+        height: 120,
+        borderRadius: 100,
+        marginTop: 25,
+    },
+    edit_icon: {
+        position: "absolute",
+        alignSelf: "flex-end",
+        zIndex: 1,
+        backgroundColor: "#fff",
+        borderRadius: 100,
+        padding: 5,
+        top: 20
     },
 });
