@@ -34,6 +34,7 @@ import { TaskEditingScreen } from "../../screens/CoacheScreens/AuthScreens/Const
 import { TaskDetails } from "../../screens/CoacheScreens/AuthScreens/ConstructorScreen/task-details";
 import { ClientsPrograms } from "../../screens/CoacheScreens/MainScreens/clients-programms/clients-programs";
 import { ClientsTasks } from "../../screens/CoacheScreens/MainScreens/clients-tasks/clients-tasks";
+import { CreateProgramsPage } from "../../screens/CoacheScreens/MainScreens/clients-programms/create-programs-page";
 
 function Greetings() {
   return <GreetingsScreen />;
@@ -290,6 +291,15 @@ export default function CoachVerify() {
       <Tab.Screen
         name="TargetsEditing"
         component={TargetsEditing}
+        options={({ route }) => ({
+          tabBarButton: () => null,
+          tabBarStyle: { display: "none" },
+        })}
+      />
+
+      <Tab.Screen
+        name="CreateProgramsPage"
+        component={CreateProgramsPage}
         options={({ route }) => ({
           tabBarButton: () => null,
           tabBarStyle: { display: "none" },
