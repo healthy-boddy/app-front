@@ -32,6 +32,8 @@ import { ClientDetailsPage } from "../../screens/CoacheScreens/MainScreens/clien
 import { TargetsEditing } from "../../screens/CoacheScreens/AuthScreens/ConstructorScreen/targets-editing";
 import { TaskEditingScreen } from "../../screens/CoacheScreens/AuthScreens/ConstructorScreen/task-editing-screen";
 import { TaskDetails } from "../../screens/CoacheScreens/AuthScreens/ConstructorScreen/task-details";
+import { ClientsPrograms } from "../../screens/CoacheScreens/MainScreens/clients-programms/clients-programs";
+import { ClientsTasks } from "../../screens/CoacheScreens/MainScreens/clients-tasks/clients-tasks";
 
 function Greetings() {
   return <GreetingsScreen />;
@@ -207,6 +209,27 @@ export default function CoachVerify() {
           tabBarStyle: { display: "none" },
         })}
       />
+
+      {/*DONT DELETE - PAGE WITH DETAILS CLIENT, JUST COPY THIS CODE AND ENTER TO YOURS IN CASE OF CONFLICTS*/}
+
+      <Tab.Screen
+        name="ClientsPrograms"
+        component={ClientsPrograms}
+        options={({ route }) => ({
+          tabBarButton: () => null,
+          tabBarStyle: { display: "none" },
+        })}
+      />
+      <Tab.Screen
+        name="ClientsTasks"
+        component={ClientsTasks}
+        options={({ route }) => ({
+          tabBarButton: () => null,
+          tabBarStyle: { display: "none" },
+        })}
+      />
+
+      {/*DONT DELETE - PAGE WITH DETAILS CLIENT, JUST COPY THIS CODE AND ENTER TO YOURS IN CASE OF CONFLICTS*/}
 
       <Tab.Screen
         name="ThirdTutorial"
