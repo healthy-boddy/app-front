@@ -21,8 +21,12 @@ const EnterAgeScreen = () => {
       setShow(false);
     }
     setDate(selectedDate);
+    console.log(selectedDate, "currentDate");
   };
   let form = useSelector((store: any) => store.auth_data.formData);
+
+
+
 
   function handleNext() {
     const dateForm = new FormData();

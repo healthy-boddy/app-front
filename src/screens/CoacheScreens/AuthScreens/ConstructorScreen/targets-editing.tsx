@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import {
-  FlatList,
   Platform,
   ScrollView,
   StyleSheet,
@@ -10,16 +9,19 @@ import {
   View,
 } from "react-native";
 import BackIcon from "../../../../assets/Icons/BackIcon";
+import { ProgramsTargetsBlock } from "./view/programs-targets-block";
+import { AllTasksBlock } from "./view/all-tasks-block";
 import MainContainer from "../../../../components/MainContainer";
 import { useNavigation } from "@react-navigation/native";
 import { IconDelete } from "../../../../components/icon/icon-delete";
 
 export const TargetsEditing = () => {
   const navigation = useNavigation<any>();
+  const [programDescription, setProgramDescription] = useState("");
 
   const [taskArr, setTaskArr] = useState([
-    { description: "", id: 1 },
-    { description: "", id: 2 },
+    { targetNumber: 1, description: "", id: 1 },
+    { targetNumber: 2, description: "", id: 2 },
   ]);
 
   const handleAddTaskElement = () => {
@@ -38,49 +40,6 @@ export const TargetsEditing = () => {
   const deleteItem = (id: number) => {
     const newArr = taskArr.filter((data) => id !== data.id);
     setTaskArr(newArr);
-  };
-
-  const RenderData = (targets: any) => {
-    const [value, setValue] = useState("");
-    return (
-      <React.Fragment key={targets.id}>
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
-          <Text style={styles.mainTitle}>{`Цель ${targets.data.id}`}</Text>
-          <TouchableOpacity onPress={() => deleteItem(targets.id)}>
-            <IconDelete />
-          </TouchableOpacity>
-        </View>
-
-        <View
-          style={{
-            backgroundColor: "#F5F4F8",
-            paddingVertical: 14,
-            paddingHorizontal: 16,
-            borderRadius: 12,
-            marginTop: 12,
-            height: 140,
-          }}
-        >
-          <TextInput
-            style={{
-              color: "#1E1E1E",
-              fontWeight: "400",
-              lineHeight: 22,
-              fontSize: 16,
-            }}
-            value={value}
-            onChangeText={setValue}
-            placeholder={"Введите описание"}
-          />
-        </View>
-      </React.Fragment>
-    );
   };
 
   return (
@@ -119,13 +78,50 @@ export const TargetsEditing = () => {
           }}
           showsVerticalScrollIndicator={false}
         >
-          {taskArr !== undefined && (
-            <FlatList
-              keyExtractor={(item, index) => index.toString()}
-              data={taskArr}
-              renderItem={(data: any) => <RenderData data={data.item} />}
-            />
-          )}
+          {taskArr.length > 0 &&
+            taskArr.map((targets) => {
+              return (
+                <React.Fragment key={targets.id}>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Text
+                      style={styles.mainTitle}
+                    >{`Цель ${targets.targetNumber}`}</Text>
+                    <TouchableOpacity onPress={() => deleteItem(targets.id)}>
+                      <IconDelete />
+                    </TouchableOpacity>
+                  </View>
+
+                  <View
+                    style={{
+                      backgroundColor: "#F5F4F8",
+                      paddingVertical: 14,
+                      paddingHorizontal: 16,
+                      borderRadius: 12,
+                      marginTop: 12,
+                      height: 140,
+                    }}
+                  >
+                    <TextInput
+                      style={{
+                        color: "#1E1E1E",
+                        fontWeight: "400",
+                        lineHeight: 22,
+                        fontSize: 16,
+                      }}
+                      value={programDescription}
+                      onChangeText={setProgramDescription}
+                      placeholder={"Введите описание"}
+                    />
+                  </View>
+                </React.Fragment>
+              );
+            })}
 
           <View style={{ marginTop: 32 }} />
           <TouchableOpacity onPress={handleAddTaskElement}>

@@ -15,6 +15,7 @@ const GreetingsScreen = (props: any) => {
   const dispatch = useDispatch();
   const navigation: any = useNavigation();
   let user_data = useSelector((store: any) => store.user_data?.user_data);
+  console.log(user_data, "from greeting screen");
 
   const logout = async () => {
     await AsyncStorage.removeItem("userToken");
