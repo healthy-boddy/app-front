@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import MainContainer from "../../../../components/MainContainer";
 import { useNavigation } from "@react-navigation/native";
 import BackButton from "../../../../components/BackButton";
@@ -6,7 +6,6 @@ import {
   Dimensions,
   StyleSheet,
   Text,
-  TouchableHighlight,
   TouchableOpacity,
   View,
 } from "react-native";
@@ -15,14 +14,13 @@ import ArrowDown from "../../../ClientScreens/MainScreens/CoachSingle/CoachSingl
 import ArrowUp from "../../../ClientScreens/MainScreens/CoachSingle/CoachSingleIcons/ArrowUp";
 import { AllTasksBlock } from "./view/all-tasks-block";
 import { ProgramsTargetsBlock } from "./view/programs-targets-block";
-import DateTimePicker from "@react-native-community/datetimepicker";
-import ChatMessageIcon from "../../../ClientScreens/MainScreens/UserSinglePage/SingleScreenIcons/ChatMessageIcon";
-import SendMessageIcon from "../../../ClientScreens/MainScreens/UserSinglePage/SingleScreenIcons/SendMessageIcon";
 import { color1 } from "../../../../helpers/colors";
 import Modal from "react-native-modal";
 import { ClientBlockForCoach } from "../../../../components/core/client-block-for-coach/client-block-for-coach";
 import { useSelector } from "react-redux";
 import { ModalPickClientConfirm } from "../../../../components/core/modal-pick-client-confirm/modal-pick-client-confirm";
+import axios from "axios";
+import { baseUrl } from "../../../../helpers/url";
 
 const { width, height } = Dimensions.get("screen");
 
@@ -31,6 +29,12 @@ const SelfLoveScreen = () => {
   const [reviewsVisible, setReviewsVisible] = useState(false);
   const [visible, setVisible] = useState(false);
   const [visibleConfirmModal, setVisibleConfirmModal] = useState(false);
+
+  const [goals, setGoals] = useState();
+
+  let tokenFromReducer = useSelector(
+    (store: any) => store.user_token.user_token
+  );
 
   const toggleBottomNavigationView = () => {
     setVisible((value) => !value);
@@ -44,6 +48,19 @@ const SelfLoveScreen = () => {
     setVisibleConfirmModal(true);
   };
 
+  useEffect(() => {
+    axios
+      .get(baseUrl + "/program/goal/", {
+        headers: {
+          Authorization: "Bearer " + tokenFromReducer,
+        },
+      })
+      .then(({ data }) => {
+        console.log("data goals", data);
+        setGoals(data);
+      });
+  }, []);
+
   let user_data = useSelector((store: any) => store.user_data?.user_data);
   return (
     <>
@@ -51,6 +68,8 @@ const SelfLoveScreen = () => {
         <View style={{ flex: 1, paddingHorizontal: 16 }}>
           <View style={{ flex: 1 }}>
             <BackButton
+              edit
+              onPressEdit={() => navigation.navigate("Editing")}
               onPress={() => {
                 navigation.navigate("ConstructorPage");
               }}
