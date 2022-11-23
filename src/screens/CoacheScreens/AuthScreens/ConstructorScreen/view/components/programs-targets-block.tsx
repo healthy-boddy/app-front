@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
-import { ChevronRight } from "../../../../../components/icon/chevron-right";
+import { ChevronRight } from "../../../../../../components/icon/chevron-right";
 
 interface ProgramsTargetsBlockProps {
   title: string;

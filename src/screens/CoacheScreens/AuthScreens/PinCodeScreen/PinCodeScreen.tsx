@@ -63,9 +63,11 @@ const PinCodeScreen = (props: any) => {
       setValidPin(true);
       dispatch(setUserToken(response.data.access));
       await AsyncStorage.setItem("userToken", response.data.access);
+      await AsyncStorage.setItem("access", response.data.access);
+      await AsyncStorage.setItem("refresh", response.data.refresh);
     } catch (error) {
       setValidPin(false);
-   //   console.log(error);
+      //   console.log(error);
     }
   }
 
@@ -146,7 +148,7 @@ const PinCodeScreen = (props: any) => {
           Введите код, который мы отправили сообщением на {props?.email_name}{" "}
           {props?.phone_number}
         </Text>
-        <FormattingExample handleSend={handleSend}  error={false}/>
+        <FormattingExample handleSend={handleSend} error={false} />
         {!resendPin ? (
           <Text
             style={{

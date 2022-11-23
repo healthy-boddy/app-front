@@ -1,18 +1,15 @@
 import React, { useState } from "react";
-import MainContainer from "../../../../components/MainContainer";
-import Title from "../../../../components/Title";
-import { useNavigation } from "@react-navigation/native";
-import BackButton from "../../../../components/BackButton";
+import MainContainer from "../../../../../../components/MainContainer";
 import { Text, TouchableOpacity, View } from "react-native";
-import CustomButton from "../../../../components/CustomButton";
-import { ChevronRight } from "../../../../components/icon/chevron-right";
-import ReviewsIcon from "../../../ClientScreens/MainScreens/CoachSingle/CoachSingleIcons/ReviewsIcon";
-import ArrowDown from "../../../ClientScreens/MainScreens/CoachSingle/CoachSingleIcons/ArrowDown";
-import ArrowUp from "../../../ClientScreens/MainScreens/CoachSingle/CoachSingleIcons/ArrowUp";
-import { AllTasksBlock } from "./view/all-tasks-block";
-import { ProgramsTargetsBlock } from "./view/programs-targets-block";
+import BackButton from "../../../../../../components/BackButton";
+import ArrowDown from "../../../../../ClientScreens/MainScreens/CoachSingle/CoachSingleIcons/ArrowDown";
+import ArrowUp from "../../../../../ClientScreens/MainScreens/CoachSingle/CoachSingleIcons/ArrowUp";
+import { ProgramsTargetsBlock } from "../../view/components/programs-targets-block";
+import { AllTasksBlock } from "../../view/components/all-tasks-block";
+import CustomButton from "../../../../../../components/CustomButton";
+import { useNavigation } from "@react-navigation/native";
 
-const SelfLoveScreen = () => {
+export const ProgramDetailsView = () => {
   const navigation = useNavigation<any>();
   const [reviewsVisible, setReviewsVisible] = useState(false);
 
@@ -64,7 +61,11 @@ const SelfLoveScreen = () => {
           </TouchableOpacity>
 
           <View style={{ marginTop: 30 }} />
-          <ProgramsTargetsBlock number={4} title={"Цели программы"} />
+          <ProgramsTargetsBlock
+            onPress={() => console.log("Programs detail view")}
+            number={4}
+            title={"Цели программы"}
+          />
 
           <View
             style={{
@@ -109,11 +110,13 @@ const SelfLoveScreen = () => {
           />
 
           <AllTasksBlock
+            onPress={() => navigation.navigate("TaskDetails")}
             title={"Оценка уровня стресса"}
             duration={"В течение 5 дней"}
           />
 
           <AllTasksBlock
+            onPress={() => navigation.navigate("TaskDetails")}
             title={"Чек-ап обследование"}
             duration={"В течение 2 дней"}
           />
@@ -131,5 +134,3 @@ const SelfLoveScreen = () => {
     </MainContainer>
   );
 };
-
-export default SelfLoveScreen;

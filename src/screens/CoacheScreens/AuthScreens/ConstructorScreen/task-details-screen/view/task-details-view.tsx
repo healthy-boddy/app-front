@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import { WrapperPage } from "../../../../components/core/wrapper";
+import { WrapperPage } from "../../../../../../components/core/wrapper";
 import { useNavigation } from "@react-navigation/native";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import Description from "../../../../components/Description";
-import { IconSearch } from "./view/icons/icon-search";
-import { ImagePerson } from "./view/icons/image-person";
-import { LargeIconPerson } from "./view/icons/large-icon";
-import { CloseIcon } from "./view/icons/close-icon";
+import Description from "../../../../../../components/Description";
+import { IconSearch } from "../../view/components/icons/icon-search";
+import { ImagePerson } from "../../view/components/icons/image-person";
+import { LargeIconPerson } from "../../view/components/icons/large-icon";
+import { CloseIcon } from "../../view/components/icons/close-icon";
 
-export const TaskDetails = () => {
+export const TaskDetailsView = () => {
   const navigation = useNavigation();
   const [viewIcon, setViewIcon] = useState(false);
 

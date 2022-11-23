@@ -1,18 +1,13 @@
-import React, { useEffect } from "react";
-import { Image, Text, TouchableOpacity, View } from "react-native";
+import React from "react";
+import { Image, Text, View } from "react-native";
 import { WrapperTwoButtons } from "../../../components/core/wrapper/wrapper-two-buttons";
 import { useNavigation } from "@react-navigation/native";
-//import { MoneyIcon } from "../../../components/icon/money-icon";
 import { WrapperClientData } from "../../../components/core/wrapper-client-data";
-import EmailIcon from "../../ClientScreens/MainScreens/UserSinglePage/SingleScreenIcons/EmailIcon";
-import RightIcon from "../../../assets/Icons/RightIcon";
 import { StateClient } from "../icon/state";
-import { ChevronRight } from "../../../components/icon/chevron-right";
 import { ClientsDetailsBlockProfile } from "../../../components/core/clients-details-block-profile/clients-details-block-profile";
 import { FormIcon } from "../icon/form";
 import { TargetsIcons } from "../icon/targets";
 import { ProgramsIcons } from "../icon/programms";
-import { IconDelete } from "../../../components/icon/icon-delete";
 import MoneySvg from "../../../assets/Icons/MoneySvg";
 
 export const ClientDetailsPage = ({ route: { params } }) => {

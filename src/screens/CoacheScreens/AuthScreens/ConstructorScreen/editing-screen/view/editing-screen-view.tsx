@@ -7,13 +7,13 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import MainContainer from "../../../../components/MainContainer";
+import MainContainer from "../../../../../../components/MainContainer";
 import { useNavigation } from "@react-navigation/native";
-import BackIcon from "../../../../assets/Icons/BackIcon";
-import { ProgramsTargetsBlock } from "./view/programs-targets-block";
-import { AllTasksBlock } from "./view/all-tasks-block";
+import BackIcon from "../../../../../../assets/Icons/BackIcon";
+import { ProgramsTargetsBlock } from "../../view/components/programs-targets-block";
+import { AllTasksBlock } from "../../view/components/all-tasks-block";
 
-const EditingScreen = () => {
+export const EditingScreenView = () => {
   const navigation = useNavigation<any>();
   const [programTitle, setProgramTitle] = useState("");
   const [programDescription, setProgramDescription] = useState("");
@@ -35,7 +35,7 @@ const EditingScreen = () => {
           <TouchableOpacity
             activeOpacity={0.6}
             onPress={() => {
-              navigation.navigate("SelfLove");
+              navigation.navigate("ProgramDetails");
             }}
             style={{
               flexDirection: "row",
@@ -112,7 +112,7 @@ const EditingScreen = () => {
         <ProgramsTargetsBlock
           number={4}
           title={"Цели программы"}
-          onPress={() => navigation.navigate("TargetsEditing")}
+          onPress={() => navigation.navigate("GoalsEditing")}
         />
         <View style={{ marginTop: 36 }} />
         <Text
@@ -147,8 +147,6 @@ const EditingScreen = () => {
     </MainContainer>
   );
 };
-
-export default EditingScreen;
 
 const styles = StyleSheet.create({
   headerTitle: {

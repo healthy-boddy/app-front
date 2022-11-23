@@ -8,14 +8,12 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import BackIcon from "../../../../assets/Icons/BackIcon";
-import { ProgramsTargetsBlock } from "./view/programs-targets-block";
-import { AllTasksBlock } from "./view/all-tasks-block";
-import MainContainer from "../../../../components/MainContainer";
 import { useNavigation } from "@react-navigation/native";
-import { IconDelete } from "../../../../components/icon/icon-delete";
+import MainContainer from "../../../../../../components/MainContainer";
+import BackIcon from "../../../../../../assets/Icons/BackIcon";
+import { IconDelete } from "../../../../../../components/icon/icon-delete";
 
-export const TargetsEditing = () => {
+export const GoalsEditingView = () => {
   const navigation = useNavigation<any>();
   const [programDescription, setProgramDescription] = useState("");
 

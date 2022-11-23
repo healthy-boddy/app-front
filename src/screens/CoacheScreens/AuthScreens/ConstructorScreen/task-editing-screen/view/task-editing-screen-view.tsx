@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import {
-  Dimensions,
   Platform,
   SafeAreaView,
   StyleSheet,
@@ -9,18 +8,15 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import BackIcon from "../../../../assets/Icons/BackIcon";
-import { ProgramsTargetsBlock } from "./view/programs-targets-block";
-import { AllTasksBlock } from "./view/all-tasks-block";
-import MainContainer from "../../../../components/MainContainer";
+import BackIcon from "../../../../../../assets/Icons/BackIcon";
 import { useNavigation } from "@react-navigation/native";
-import { DatePicker } from "../../../../components/core/date-picker-modal";
-import { CalendarSvg } from "../../../../components/icon/calendar";
-import { InputTasks } from "./view/input-tasks";
-import CustomButton from "../../../../components/CustomButton";
-import { color1 } from "../../../../helpers/colors";
+import { DatePicker } from "../../../../../../components/core/date-picker-modal";
+import { CalendarSvg } from "../../../../../../components/icon/calendar";
+import { InputTasks } from "../../view/components/input-tasks";
+import CustomButton from "../../../../../../components/CustomButton";
+import { color1 } from "../../../../../../helpers/colors";
 
-export const TaskEditingScreen = () => {
+export const TaskEditingScreenView = () => {
   const [taskTitle, setTaskTitle] = useState("Заполнить анкету обратной связи");
   const [taskDescription, setTaskDescription] = useState(
     "Для того, чтобы мы могли улучшить взаимодействие с вами, а также качество работы сервиса, заполните анкету обратной связи."

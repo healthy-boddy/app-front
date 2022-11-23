@@ -10,7 +10,6 @@ import {
   GreetingsScreen4,
   GreetingsScreen5,
   FirstScreen,
-  ConstructorScreen,
   CalendarScreen,
   FirstTutorialScreen,
   SecondTutorialScreen,
@@ -20,19 +19,18 @@ import {
   SecondTwoTutorialScreen,
   SecondThirdTutorialScreen,
   ThirdDayTutorialScreen,
-  SelfLoveScreen,
-  EditingScreen,
   TyScreenFormTutorials,
-    CoachSinglePage
 } from "../../screens/CoacheScreens/AuthScreens";
 import { TabNavigatorElem } from "../ClientNavigations/tab-bar-elem/tab-navigation-elems";
 import { HomeSvg } from "../ClientNavigations/icons/home";
 import { Constructor } from "./icons/constructor";
 import { CalendarSvg } from "../ClientNavigations/icons/calendar";
 import { ClientDetailsPage } from "../../screens/CoacheScreens/MainScreens/client-details-page";
-import { TargetsEditing } from "../../screens/CoacheScreens/AuthScreens/ConstructorScreen/targets-editing";
-import { TaskEditingScreen } from "../../screens/CoacheScreens/AuthScreens/ConstructorScreen/task-editing-screen";
-import { TaskDetails } from "../../screens/CoacheScreens/AuthScreens/ConstructorScreen/task-details";
+import { ConstructorScreen } from "../../screens/CoacheScreens/AuthScreens/ConstructorScreen";
+import { EditingScreen } from "../../screens/CoacheScreens/AuthScreens/ConstructorScreen/editing-screen";
+import { TaskDetailsScreen } from "../../screens/CoacheScreens/AuthScreens/ConstructorScreen/task-details-screen";
+import { GoalsEditing } from "../../screens/CoacheScreens/AuthScreens/ConstructorScreen/goasl-editing-screen";
+import { ProgramDetails } from "../../screens/CoacheScreens/AuthScreens/ConstructorScreen/program-details-screen";
 
 function Greetings() {
   return <GreetingsScreen />;
@@ -97,17 +95,8 @@ function SecondThirdTutorial() {
 function ThirdDayTutorial() {
   return <ThirdDayTutorialScreen />;
 }
-function SelfLove() {
-  return <SelfLoveScreen />;
-}
-function Editing() {
-  return <EditingScreen />;
-}
 function TyFormTutorials() {
   return <TyScreenFormTutorials />;
-}
-function CoachSingleScreen() {
-  return <CoachSinglePage />;
 }
 
 export default function CoachVerify() {
@@ -180,7 +169,7 @@ export default function CoachVerify() {
 
       <Tab.Screen
         name={"TaskDetails"}
-        component={TaskDetails}
+        component={TaskDetailsScreen}
         options={({ route }) => ({
           tabBarButton: () => null,
           tabBarStyle: { display: "none" },
@@ -204,13 +193,34 @@ export default function CoachVerify() {
         })}
       />
       <Tab.Screen
-        name="TaskEditing"
-        component={TaskEditingScreen}
+        name="EditingScreen"
+        component={EditingScreen}
         options={({ route }) => ({
           tabBarButton: () => null,
           tabBarStyle: { display: "none" },
         })}
       />
+
+      {/*DONT DELETE - PAGE WITH DETAILS CLIENT, JUST COPY THIS CODE AND ENTER TO YOURS IN CASE OF CONFLICTS*/}
+
+      <Tab.Screen
+        name="ClientsPrograms"
+        component={TaskDetailsScreen}
+        options={({ route }) => ({
+          tabBarButton: () => null,
+          tabBarStyle: { display: "none" },
+        })}
+      />
+      <Tab.Screen
+        name="ClientsTasks"
+        component={TaskDetailsScreen}
+        options={({ route }) => ({
+          tabBarButton: () => null,
+          tabBarStyle: { display: "none" },
+        })}
+      />
+
+      {/*DONT DELETE - PAGE WITH DETAILS CLIENT, JUST COPY THIS CODE AND ENTER TO YOURS IN CASE OF CONFLICTS*/}
 
       <Tab.Screen
         name="ThirdTutorial"
@@ -252,25 +262,27 @@ export default function CoachVerify() {
           tabBarStyle: { display: "none" },
         })}
       />
+
       <Tab.Screen
-        name="SelfLove"
-        component={SelfLove}
+        name="ProgramDetails"
+        component={ProgramDetails}
         options={({ route }) => ({
           tabBarButton: () => null,
           tabBarStyle: { display: "none" },
         })}
       />
       <Tab.Screen
-        name="Editing"
-        component={Editing}
+        name="GoalsEditing"
+        component={GoalsEditing}
         options={({ route }) => ({
           tabBarButton: () => null,
           tabBarStyle: { display: "none" },
         })}
       />
+
       <Tab.Screen
-        name="TargetsEditing"
-        component={TargetsEditing}
+        name="ConstructorScreen"
+        component={ConstructorScreen}
         options={({ route }) => ({
           tabBarButton: () => null,
           tabBarStyle: { display: "none" },
@@ -280,14 +292,6 @@ export default function CoachVerify() {
       <Tab.Screen
         name="TyFormTutorials"
         component={TyFormTutorials}
-        options={({ route }) => ({
-          tabBarButton: () => null,
-          tabBarStyle: { display: "none" },
-        })}
-      />
-      <Tab.Screen
-        name="CoachSingleScreen"
-        component={CoachSingleScreen}
         options={({ route }) => ({
           tabBarButton: () => null,
           tabBarStyle: { display: "none" },
