@@ -15,12 +15,17 @@ import {WebView} from "react-native-webview";
 const SecondFirstTutorialScreen = () => {
     const navigation = useNavigation<any>()
     const [value, setValue] = useState('')
-
+    const [valueError, setValueError] = useState(false)
     let pdfAndVideo = useSelector((store: any) => store?.auth_data?.setVideoEndPresentationArray);
     let tokenFromReducer = useSelector((store: any) => store.user_token.user_token);
     let AuthStr = "Bearer " + tokenFromReducer;
 
     async function handleSendCheckList() {
+        if (!value){
+            setValueError(true)
+            return  false
+        }
+        setValueError(false)
         let checkListForm = new FormData()
         checkListForm.append('initial_consultation_checklist', value)
         await fetch('http://92.53.97.238/user/coach/update_me/', {
@@ -72,7 +77,17 @@ const SecondFirstTutorialScreen = () => {
                         setValue={setValue}
                         value={value}
                         placeholder={'Напишите ответ'}
+                        valueError={valueError}
                     />
+                    {valueError && <Text style={{
+                        color: 'red',
+                        fontWeight: '400',
+                        fontSize: 14,
+                        fontStyle: 'normal',
+                        marginTop: 4
+                    }}>
+                        Необходимо заполнить поле
+                    </Text>}
                 </KeyboardAwareScrollView>
                 <View style={{marginBottom: 25}}>
                     <CustomButton

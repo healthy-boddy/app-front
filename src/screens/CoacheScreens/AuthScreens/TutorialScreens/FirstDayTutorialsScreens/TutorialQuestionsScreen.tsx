@@ -125,6 +125,9 @@ const TutorialQuestionsScreen = () => {
                 paddingHorizontal: 16
             }}>
                 <BackButton
+                    onPressLetter={() => {
+                        navigation.navigate("Greetings4")
+                    }}
                     latter
                     onPress={()=>{
                         if (level >= 1) {

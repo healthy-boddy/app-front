@@ -19,14 +19,18 @@ const ThirdDayTutorialScreen = () => {
     let pdfAndVideo = useSelector((store: any) => store?.auth_data?.setVideoEndPresentationArray);
     let tokenFromReducer = useSelector((store: any) => store.user_token.user_token);
     let AuthStr = "Bearer " + tokenFromReducer;
-
+    const [valueError, setValueError] = useState(false)
     const navigation = useNavigation<any>()
-
     async function openPdf() {
         await Linking.openURL(pdfAndVideo.coach_first_day_presentation_url);
     }
 
     async function handleSendLastAnswers() {
+        if (!largeInputValue){
+            setValueError(true)
+            return  false
+        }
+        setValueError(false)
         let checkListForm = new FormData()
         checkListForm.append('third_day_answer', largeInputValue)
         let form = new FormData()
@@ -229,7 +233,17 @@ const ThirdDayTutorialScreen = () => {
                                         setValue={setLargeInputValue}
                                         value={largeInputValue}
                                         placeholder={'Напишите ответ'}
+                                        valueError={valueError}
                                     />
+                                    {valueError && <Text style={{
+                                        color: 'red',
+                                        fontWeight: '400',
+                                        fontSize: 14,
+                                        fontStyle: 'normal',
+                                        marginTop: 4
+                                    }}>
+                                        Необходимо заполнить поле
+                                    </Text>}
                                 </View>
                             </View>
                         </ScrollView>

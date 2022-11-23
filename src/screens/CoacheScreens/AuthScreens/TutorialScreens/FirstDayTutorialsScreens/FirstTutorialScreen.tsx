@@ -14,6 +14,7 @@ import {WebView} from 'react-native-webview';
 
 const FirstTutorialScreen = () => {
     const [value, setValue] = useState('')
+    const [valueError, setValueError] = useState(false)
     const navigation = useNavigation<any>()
     let pdfAndVideo = useSelector((store: any) => store?.auth_data?.setVideoEndPresentationArray);
 
@@ -23,6 +24,11 @@ const FirstTutorialScreen = () => {
     //console.log(pdfAndVideo, 'pdf')
 
     async function handleSendCheckList() {
+        if (!value){
+            setValueError(true)
+            return  false
+        }
+        setValueError(false)
         let checkListForm = new FormData()
         checkListForm.append('theses', value)
         await fetch('http://92.53.97.238/user/coach/update_me/', {
@@ -48,9 +54,15 @@ const FirstTutorialScreen = () => {
                 paddingHorizontal: 16
             }}>
                 <View>
-                    <BackButton latter onPress={() => {
-                        navigation.navigate("Greetings4")
-                    }}/>
+                    <BackButton
+                        latter
+                        onPress={() => {
+                            navigation.navigate("Greetings4")
+                        }}
+                        onPressLetter={() => {
+                            navigation.navigate("Greetings4")
+                        }}
+                    />
                 </View>
                 <KeyboardAwareScrollView>
                     <View style={{marginTop: 10, flex: 1}}>
@@ -82,7 +94,17 @@ const FirstTutorialScreen = () => {
                                 setValue={setValue}
                                 value={value}
                                 placeholder={'Напишите ответ'}
+                                valueError={valueError}
                             />
+                            {valueError && <Text style={{
+                                color: 'red',
+                                fontWeight: '400',
+                                fontSize: 14,
+                                fontStyle: 'normal',
+                                marginTop: 4
+                            }}>
+                                Необходимо заполнить поле
+                            </Text>}
                         </View>
                     </View>
                 </KeyboardAwareScrollView>

@@ -29,6 +29,8 @@ const ThirdTutorialScreen = () => {
                 <View>
                     <BackButton latter onPress={() => {
                         navigation.navigate("FirstTutorial")
+                    }} onPressLetter={() => {
+                        navigation.navigate("Greetings4")
                     }}/>
                 </View>
                 <View style={{flex: 1, marginTop: 10,}}>

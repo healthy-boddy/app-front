@@ -23,6 +23,7 @@ import {
   SelfLoveScreen,
   EditingScreen,
   TyScreenFormTutorials,
+    CoachSinglePage
 } from "../../screens/CoacheScreens/AuthScreens";
 import { TabNavigatorElem } from "../ClientNavigations/tab-bar-elem/tab-navigation-elems";
 import { HomeSvg } from "../ClientNavigations/icons/home";
@@ -104,6 +105,9 @@ function Editing() {
 }
 function TyFormTutorials() {
   return <TyScreenFormTutorials />;
+}
+function CoachSingleScreen() {
+  return <CoachSinglePage />;
 }
 
 export default function CoachVerify() {
@@ -276,6 +280,14 @@ export default function CoachVerify() {
       <Tab.Screen
         name="TyFormTutorials"
         component={TyFormTutorials}
+        options={({ route }) => ({
+          tabBarButton: () => null,
+          tabBarStyle: { display: "none" },
+        })}
+      />
+      <Tab.Screen
+        name="CoachSingleScreen"
+        component={CoachSingleScreen}
         options={({ route }) => ({
           tabBarButton: () => null,
           tabBarStyle: { display: "none" },

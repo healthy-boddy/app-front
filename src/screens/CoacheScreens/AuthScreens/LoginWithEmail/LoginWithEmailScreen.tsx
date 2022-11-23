@@ -17,6 +17,7 @@ import { WrapperPage } from "../../../../components/core/wrapper";
 const LoginWithEmailScreen = (props: any) => {
   const navigation: any = useNavigation();
   const [email, setEmail] = useState("");
+  const [error, setError] = useState(false)
 
   async function handleSendEmail() {
     let form = new FormData();
@@ -31,12 +32,16 @@ const LoginWithEmailScreen = (props: any) => {
       console.log(response1, "sended-pin");
       if (response1.status === 200) {
         console.log("OK");
+        setError(false)
         navigation.navigate("LoginPin", {
           email: email,
         });
       }
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      console.log(error.request.response, 'error');
+      if (error.request.response === '{"non_field_errors":["User not found"]}'){
+        setError(true)
+      }
     }
   }
 
@@ -66,13 +71,26 @@ const LoginWithEmailScreen = (props: any) => {
           Мы отправим письмо с кодом подтверждения на ваш Email
         </Text>
         <View style={{ flex: 1, width: '100%' }}>
-          <View style={{ marginTop: 30, width: '100%' }}>
+          <View style={[{marginTop: 30, width: '100%'}, error &&
+          {
+            borderColor: 'red',
+            borderWidth: 1,
+            borderRadius: 10
+          }
+          ]}>
             <CustomInput
               placeholder={"Введите почту"}
               onChangeText={setEmail}
               value={email}
             />
           </View>
+          {error && <Text style={{
+            fontSize: 14,
+            color: 'red',
+            fontWeight: '400'
+          }}>
+            Пользователь с таким email не найден
+          </Text>}
         </View>
       </KeyboardAwareScrollView>
     </WrapperPage>
