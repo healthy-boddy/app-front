@@ -102,12 +102,12 @@ export const ClientDetailsPage = ({ route: { params } }) => {
           icon={<FormIcon />}
         />
         <ClientsDetailsBlockProfile
-          onPress={() => console.log("press")}
+          onPress={() => navigation.navigate("ClientsTasks")}
           title={"Цели"}
           icon={<TargetsIcons />}
         />
         <ClientsDetailsBlockProfile
-          onPress={() => console.log("press")}
+          onPress={() => navigation.navigate("ClientsPrograms")}
           title={"Программы"}
           icon={<ProgramsIcons />}
         />

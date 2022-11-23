@@ -9,11 +9,20 @@ import {
 } from "react-native";
 import BackIcon from "../assets/Icons/BackIcon";
 import { color1 } from "../helpers/colors";
+import { Pencil } from "../screens/CoacheScreens/icon/pencil";
 
 const BackButton = (props: any) => {
   const { onPress } = props;
   return (
-    <View style={{ width: "100%", height: 70, justifyContent: 'space-between', flexDirection: 'row' }}>
+    <View
+      style={{
+        width: "100%",
+        height: 70,
+        justifyContent: "space-between",
+        flexDirection: "row",
+        alignItems: "center",
+      }}
+    >
       <TouchableOpacity
         activeOpacity={0.6}
         onPress={onPress}
@@ -27,12 +36,16 @@ const BackButton = (props: any) => {
         </View>
       </TouchableOpacity>
 
-      {props.latter && <TouchableOpacity
-          onPress={props.onPressLetter} style={styles.back}>
-        <Text style={styles.latterTitle}>
-          Позже
-        </Text>
-      </TouchableOpacity>}
+      {props.latter && (
+        <TouchableOpacity onPress={props.onPressLetter} style={styles.back}>
+          <Text style={styles.latterTitle}>Позже</Text>
+        </TouchableOpacity>
+      )}
+      {props.edit && (
+        <TouchableOpacity onPress={props.onPressEdit}>
+          <Pencil />
+        </TouchableOpacity>
+      )}
     </View>
   );
 };
@@ -51,12 +64,12 @@ const styles = StyleSheet.create({
     fontWeight: "400",
     lineHeight: 21.48,
   },
-  latterTitle:{
+  latterTitle: {
     fontSize: 18,
     lineHeight: 21,
-    fontWeight: '400',
+    fontWeight: "400",
     fontStyle: "normal",
     marginRight: 16,
-    color: '#7454CF'
-  }
+    color: "#7454CF",
+  },
 });

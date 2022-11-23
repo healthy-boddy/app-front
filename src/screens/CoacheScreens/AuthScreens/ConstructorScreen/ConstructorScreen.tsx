@@ -1,10 +1,35 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { SafeAreaView, Text, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { ProgramBlock } from "./view/program-block";
+import { useSelector } from "react-redux";
+import axios from "axios";
+import { baseUrl } from "../../../../helpers/url";
 
 const ConstructorScreen = () => {
   const navigation = useNavigation<any>();
+  const [programs, setPrograms] = useState([]);
+  let AuthToken = useSelector((store: any) => store.user_token.user_token);
+
+  useEffect(() => {
+    axios
+      .get(baseUrl + "/program/", {
+        headers: {
+          Authorization: "Bearer " + AuthToken,
+        },
+      })
+      .then((res) => {
+        setPrograms(res.data);
+      })
+      .catch((e) => {
+        console.log(e.message, "error while getting my profile");
+      });
+  }, []);
+
+  useEffect(() => {
+    console.log("programs", programs);
+  }, [programs]);
+
   return (
     <SafeAreaView
       style={{
