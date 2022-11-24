@@ -15,7 +15,9 @@ const SecondTwoTutorialScreen = () => {
         <MainContainer>
             <View style={{flex: 1, paddingHorizontal: 16}}>
                 <View>
-                    <BackButton latter onPress={() => {
+                    <BackButton   onPressLetter={() => {
+                        navigation.navigate("Greetings4")
+                    }} latter onPress={() => {
                         navigation.navigate('SecondFirstTutorial')
                     }}/>
                 </View>

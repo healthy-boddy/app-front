@@ -4,7 +4,6 @@ import MainContainer from "../../../../../components/MainContainer";
 import BackButton from "../../../../../components/BackButton";
 import Title from "../../../../../components/Title";
 import Description from "../../../../../components/Description";
-import {color1} from "../../../../../helpers/colors";
 import CustomButton from "../../../../../components/CustomButton";
 import {useNavigation} from "@react-navigation/native";
 import {LargeInput} from "../../../../../components/core/LargeInput";
@@ -72,7 +71,9 @@ const ThirdDayTutorialScreen = () => {
                 <MainContainer>
                     <View style={{flex: 1, paddingHorizontal: 16}}>
                         <View style={{flex: 1}}>
-                            <BackButton onPress={() => {
+                            <BackButton   onPressLetter={() => {
+                                navigation.navigate("Greetings4")
+                            }} onPress={() => {
                                 navigation.navigate("Greetings4")
                             }}/>
                             <Title titlePropStyle={{fontSize: 24, marginTop: 14}}>
@@ -119,7 +120,7 @@ const ThirdDayTutorialScreen = () => {
                 <MainContainer>
                     <View style={{flex: 1, paddingHorizontal: 16}}>
                         <View style={{flex: 1}}>
-                            <BackButton onPress={() => {
+                            <BackButton  onPress={() => {
                                 setPage(page - 1)
                             }}/>
                             <Title titlePropStyle={{fontSize: 24, marginTop: 14, marginBottom: 8}}>
@@ -200,7 +201,9 @@ const ThirdDayTutorialScreen = () => {
                     <View style={{flex: 1, paddingHorizontal: 16}}>
                         <ScrollView>
                             <View style={{flex: 1}}>
-                                <BackButton latter onPress={() => {
+                                <BackButton   onPressLetter={() => {
+                                    navigation.navigate("Greetings4")
+                                }} latter onPress={() => {
                                     setPage(page - 1)
                                 }}/>
                                 <Title titlePropStyle={{fontSize: 24, marginTop: 14, marginBottom: 8}}>

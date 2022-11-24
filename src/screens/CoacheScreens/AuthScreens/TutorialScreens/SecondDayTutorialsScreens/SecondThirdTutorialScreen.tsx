@@ -124,6 +124,9 @@ const SecondThirdTutorialScreen = () => {
         <MainContainer>
             <View style={{flex: 1, paddingHorizontal: 16}}>
                 <BackButton
+                    onPressLetter={() => {
+                        navigation.navigate("Greetings4")
+                    }}
                     latter
                     onPress={()=>{
                         if (level >= 1) {

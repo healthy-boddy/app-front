@@ -47,7 +47,9 @@ const SecondFirstTutorialScreen = () => {
     return (
         <MainContainer>
             <View style={{flex: 1, paddingHorizontal: 16}}>
-                <BackButton onPress={() => {
+                <BackButton   onPressLetter={() => {
+                    navigation.navigate("Greetings4")
+                }} onPress={() => {
                     navigation.navigate("Greetings4")
                 }}/>
                 <KeyboardAwareScrollView style={{flex: 1, marginTop: 16}}>
