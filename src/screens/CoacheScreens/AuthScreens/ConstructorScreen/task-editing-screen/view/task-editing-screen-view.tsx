@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import {
+  Alert,
   Platform,
   SafeAreaView,
   StyleSheet,
@@ -15,20 +16,27 @@ import { CalendarSvg } from "../../../../../../components/icon/calendar";
 import { InputTasks } from "../../view/components/input-tasks";
 import CustomButton from "../../../../../../components/CustomButton";
 import { color1 } from "../../../../../../helpers/colors";
+import { TaskEditingModel } from "../model";
 
-export const TaskEditingScreenView = () => {
-  const [taskTitle, setTaskTitle] = useState("Заполнить анкету обратной связи");
-  const [taskDescription, setTaskDescription] = useState(
-    "Для того, чтобы мы могли улучшить взаимодействие с вами, а также качество работы сервиса, заполните анкету обратной связи."
-  );
+export const TaskEditingScreenView = TaskEditingModel.modelClient((props) => {
   const navigation = useNavigation<any>();
   const [analiseDate, setAnaliseDate] = useState<Date>(new Date());
-  const [buttonTitle, setButtonTitle] = useState("");
-  const [buttonLink, setButtonLink] = useState("");
 
   function setBirthDate(date: Date) {
     setAnaliseDate(date);
   }
+
+  function createAlertMessageForDelete() {
+    Alert.alert("Внимание!", "Хотите выйти удалить объявление?", [
+      {
+        text: "Отмена",
+        onPress: () => console.log("Cancel Pressed"),
+        style: "cancel",
+      },
+      { text: "Подтверждение", onPress: props.model.deleteProgramById },
+    ]);
+  }
+
   return (
     <SafeAreaView
       style={{
@@ -62,7 +70,9 @@ export const TaskEditingScreenView = () => {
               <Text style={styles.headerTitle}>Назад</Text>
             </View>
           </TouchableOpacity>
-          <Text style={styles.headerTitle}>Сохранить</Text>
+          <TouchableOpacity onPress={props.model.saveTask}>
+            <Text style={styles.headerTitle}>Сохранить</Text>
+          </TouchableOpacity>
         </View>
 
         <Text style={styles.mainTitle}>Название задачи</Text>
@@ -73,8 +83,8 @@ export const TaskEditingScreenView = () => {
           }}
         />
         <InputTasks
-          value={taskTitle}
-          setValue={setTaskTitle}
+          value={props.model.name}
+          setValue={props.model.setName}
           placeholder={"Введите название программы"}
         />
 
@@ -97,10 +107,10 @@ export const TaskEditingScreenView = () => {
               lineHeight: 22,
               fontSize: 16,
             }}
-            value={taskDescription}
+            value={props.model.description}
             numberOfLines={20}
             multiline={true}
-            onChangeText={setTaskDescription}
+            onChangeText={props.model.setDescription}
             placeholder={"Введите описание"}
           />
         </View>
@@ -123,14 +133,14 @@ export const TaskEditingScreenView = () => {
           }}
         >
           <InputTasks
-            value={buttonTitle}
-            setValue={setButtonTitle}
+            value={props.model.buttonText}
+            setValue={props.model.setButtonText}
             placeholder="Название кнопки"
           />
           <View style={{ marginLeft: 8 }} />
           <InputTasks
-            value={buttonLink}
-            setValue={setButtonLink}
+            value={props.model.buttonLink}
+            setValue={props.model.setButtonLink}
             placeholder="Ссылка"
           />
         </View>
@@ -144,12 +154,12 @@ export const TaskEditingScreenView = () => {
             marginBottom: 25,
           }}
           title={"Удалить задачу"}
-          onPress={() => alert("press")}
+          onPress={createAlertMessageForDelete}
         />
       </View>
     </SafeAreaView>
   );
-};
+});
 
 const styles = StyleSheet.create({
   headerTitle: {

@@ -3,7 +3,7 @@ import { TextInput, View } from "react-native";
 
 interface InputTasksProps {
   value: string;
-  setValue: Dispatch<SetStateAction<string>>;
+  setValue: (data: string) => void;
   placeholder: string;
 }
 

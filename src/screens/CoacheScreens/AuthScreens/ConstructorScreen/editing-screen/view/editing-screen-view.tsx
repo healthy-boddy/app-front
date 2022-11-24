@@ -16,6 +16,10 @@ import { EditingScreenModel } from "../model";
 
 export const EditingScreenView = EditingScreenModel.modelClient((props) => {
   const navigation = useNavigation<any>();
+  const handlePress = (id: number) => {
+    console.log("props.model.program", props.model.program);
+    console.log("idam", id);
+  };
   return (
     <MainContainer>
       <View style={{ paddingHorizontal: 16, top: 30 }}>
