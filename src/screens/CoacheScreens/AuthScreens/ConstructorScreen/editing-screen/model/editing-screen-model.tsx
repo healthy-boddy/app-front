@@ -5,7 +5,8 @@ import { observer } from "mobx-react-lite";
 import * as stateCreator from "./state-creators";
 import { ConstructorStates } from "./constructor-state";
 import { HttpService } from "../../../../../../service/http-service";
-import { TaskResponse, TaskResponseArray } from "../interface";
+import { TaskResponseArray } from "../interface";
+import { ProgramResponse } from "../../interfaces";
 
 export class EditingScreenModel {
   private readonly _httpService = new HttpService();
@@ -14,10 +15,10 @@ export class EditingScreenModel {
 
   private _name = "";
   private _description = "";
-  private _program = 0;
-  private _date = null;
-  private _button_text = "";
-  private _button_link = "";
+  private _program: number | undefined = undefined;
+  // private _date = null;
+  // private _button_text = "";
+  // private _button_link = "";
 
   public get name() {
     return this._name;
@@ -28,15 +29,20 @@ export class EditingScreenModel {
   public get program() {
     return this._program;
   }
-  public get date() {
-    return this._date;
+
+  public get tasks() {
+    return this._tasks;
   }
-  public get buttonText() {
-    return this._button_text;
-  }
-  public get buttonLink() {
-    return this._button_link;
-  }
+
+  // public get date() {
+  //   return this._date;
+  // }
+  // public get buttonText() {
+  //   return this._button_text;
+  // }
+  // public get buttonLink() {
+  //   return this._button_link;
+  // }
 
   //string setter
 
@@ -48,34 +54,52 @@ export class EditingScreenModel {
     this._description = data;
   }
 
-  public setButtonText(data: string) {
-    this._button_text = data;
-  }
-
-  public setButtonLink(data: string) {
-    this._button_link = data;
-  }
-
-  public setProgram(program: number) {
-    this._program = program;
-  }
+  // public setButtonText(data: string) {
+  //   this._button_text = data;
+  // }
+  //
+  // public setButtonLink(data: string) {
+  //   this._button_link = data;
+  // }
+  //
+  // public setProgram(program: number) {
+  //   this._program = program;
+  // }
 
   private getTasks() {
     try {
-      this._httpService.get<TaskResponseArray>("/program/task/").then((res) => {
-        console.log("res getTasks", res.data);
-
-        if (res.data) {
-          runInAction(() => {
-            this._tasks = stateCreator.getHasDataState(res.data);
-          });
-        }
-      });
+      this._httpService
+        .get<TaskResponseArray>(`program/task/?program=${this._program}`)
+        .then((res) => {
+          console.log("res getTasks", res.data);
+          if (res.data) {
+            runInAction(() => {
+              this._tasks = stateCreator.getHasDataState(res.data);
+            });
+          }
+        });
     } catch (e: any) {
       alert(e.response.data);
       runInAction(() => {
         this._tasks = stateCreator.getErrorState(e.response.data);
       });
+    }
+  }
+
+  private getProgramById() {
+    try {
+      this._httpService
+        .get<ProgramResponse>(`/program/${this._program}/`)
+        .then((res) => {
+          if (res.data) {
+            runInAction(() => {
+              this._name = res.data.name;
+              this._description = res.data.description;
+            });
+          }
+        });
+    } catch (e: any) {
+      alert(e.response.data);
     }
   }
 
@@ -98,20 +122,24 @@ export class EditingScreenModel {
       program: this.program,
       name: this.name,
       description: this.description,
-      date: this.date,
-      button_text: this.buttonText,
-      button_link: this.buttonLink,
+      // date: this.date,
+      // button_text: this.buttonText,
+      // button_link: this.buttonLink,
     };
   }
 
-  private constructor() {
+  private constructor(private readonly programId: number | undefined) {
     this._httpService = new HttpService({});
     makeAutoObservable(this, {}, { autoBind: true });
   }
 
-  private static makeModel() {
-    const model = React.useMemo(() => new EditingScreenModel(), []);
+  private static makeModel(programId: number | undefined) {
+    const model = React.useMemo(() => new EditingScreenModel(programId), []);
     useEffect(() => {
+      if (programId !== undefined) {
+        model._program = programId;
+        model.getProgramById();
+      }
       model.getTasks();
     }, [model]);
 
@@ -121,8 +149,12 @@ export class EditingScreenModel {
   private static MedicalCardPageContext =
     React.createContext<EditingScreenModel | null>(null);
 
-  public static Provider(props: React.PropsWithChildren<{}>) {
-    const model = EditingScreenModel.makeModel();
+  public static Provider(
+    props: React.PropsWithChildren<{
+      programId: number | undefined;
+    }>
+  ) {
+    const model = EditingScreenModel.makeModel(props.programId);
 
     return (
       <EditingScreenModel.MedicalCardPageContext.Provider value={model}>

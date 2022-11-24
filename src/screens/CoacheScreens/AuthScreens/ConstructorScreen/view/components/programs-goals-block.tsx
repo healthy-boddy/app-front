@@ -4,11 +4,11 @@ import { ChevronRight } from "../../../../../../components/icon/chevron-right";
 
 interface ProgramsTargetsBlockProps {
   title: string;
-  number: number;
+  number: number | string | null;
   onPress: () => void;
 }
 
-export const ProgramsTargetsBlock: FC<ProgramsTargetsBlockProps> = ({
+export const ProgramsGoalsBlock: FC<ProgramsTargetsBlockProps> = ({
   title,
   number,
   onPress,

@@ -36,9 +36,12 @@ export const ConstructorScreenView = ConstructorScreenModel.modelClient(
             props.model.programs.data.map((programs) => {
               return (
                 <ProgramBlock
-                  onPress={() => {
-                    navigation.navigate("SelfLove");
-                  }}
+                  key={programs.id}
+                  onPress={() =>
+                    navigation.navigate("ProgramDetails", {
+                      programId: programs.id,
+                    })
+                  }
                   title={programs.name}
                   subtitle={programs.description}
                   duration={`Длительность - ${programs.duration} год`}

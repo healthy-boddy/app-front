@@ -4,12 +4,14 @@ import { Text, TouchableOpacity, View } from "react-native";
 import BackButton from "../../../../../../components/BackButton";
 import ArrowDown from "../../../../../ClientScreens/MainScreens/CoachSingle/CoachSingleIcons/ArrowDown";
 import ArrowUp from "../../../../../ClientScreens/MainScreens/CoachSingle/CoachSingleIcons/ArrowUp";
-import { ProgramsTargetsBlock } from "../../view/components/programs-targets-block";
+import { ProgramsGoalsBlock } from "../../view/components/programs-goals-block";
 import { AllTasksBlock } from "../../view/components/all-tasks-block";
 import CustomButton from "../../../../../../components/CustomButton";
 import { useNavigation } from "@react-navigation/native";
+import { ProgramDetailsModel } from "../model";
+import Description from "../../../../../../components/Description";
 
-export const ProgramDetailsView = () => {
+export const ProgramDetailsView = ProgramDetailsModel.modelClient((props) => {
   const navigation = useNavigation<any>();
   const [reviewsVisible, setReviewsVisible] = useState(false);
 
@@ -18,6 +20,11 @@ export const ProgramDetailsView = () => {
       <View style={{ flex: 1, paddingHorizontal: 16 }}>
         <View style={{ flex: 1 }}>
           <BackButton
+            onPressEdit={() =>
+              navigation.navigate("EditingScreen", {
+                programId: props.model.id,
+              })
+            }
             onPress={() => {
               navigation.navigate("ConstructorPage");
             }}
@@ -30,7 +37,7 @@ export const ProgramDetailsView = () => {
               fontWeight: "600",
             }}
           >
-            Любовь к себе
+            {props.model.name}
           </Text>
 
           <TouchableOpacity
@@ -45,10 +52,7 @@ export const ProgramDetailsView = () => {
             }}
           >
             {reviewsVisible && (
-              <Text>
-                Научно-доказанная программа по избавлению от лишнего веса,
-                усталости и нехватки энергии. Ваши результаты:
-              </Text>
+              <Description>{props.model.description}</Description>
             )}
             <View
               style={{
@@ -61,9 +65,9 @@ export const ProgramDetailsView = () => {
           </TouchableOpacity>
 
           <View style={{ marginTop: 30 }} />
-          <ProgramsTargetsBlock
+          <ProgramsGoalsBlock
             onPress={() => console.log("Programs detail view")}
-            number={4}
+            number={props.model.goalsQuantity}
             title={"Цели программы"}
           />
 
@@ -103,23 +107,18 @@ export const ProgramDetailsView = () => {
           </View>
 
           <View style={{ marginTop: 32 }} />
-          <AllTasksBlock
-            onPress={() => navigation.navigate("TaskDetails")}
-            title={"Контроль текущего состояния тела"}
-            duration={"В течение 2 дней"}
-          />
 
-          <AllTasksBlock
-            onPress={() => navigation.navigate("TaskDetails")}
-            title={"Оценка уровня стресса"}
-            duration={"В течение 5 дней"}
-          />
-
-          <AllTasksBlock
-            onPress={() => navigation.navigate("TaskDetails")}
-            title={"Чек-ап обследование"}
-            duration={"В течение 2 дней"}
-          />
+          {props.model.tasks.type === "HAS_DATA" &&
+            props.model.tasks.data.map((task) => {
+              return (
+                <AllTasksBlock
+                  key={task.id}
+                  onPress={() => navigation.navigate("TaskDetails")}
+                  title={task.name}
+                  duration={`В течение ${task.description} дней`}
+                />
+              );
+            })}
         </View>
 
         <View style={{ marginBottom: 25 }}>
@@ -133,4 +132,4 @@ export const ProgramDetailsView = () => {
       </View>
     </MainContainer>
   );
-};
+});

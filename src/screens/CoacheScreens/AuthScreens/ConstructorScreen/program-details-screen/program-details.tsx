@@ -2,9 +2,10 @@ import React from "react";
 import { ProgramDetailsModel } from "./model";
 import { ProgramDetailsView } from "./view";
 
-export const ProgramDetails = () => {
+export const ProgramDetails = ({ route }: any) => {
+  const programId: number | undefined = route?.params?.programId;
   return (
-    <ProgramDetailsModel.Provider>
+    <ProgramDetailsModel.Provider programId={programId}>
       <ProgramDetailsView />
     </ProgramDetailsModel.Provider>
   );

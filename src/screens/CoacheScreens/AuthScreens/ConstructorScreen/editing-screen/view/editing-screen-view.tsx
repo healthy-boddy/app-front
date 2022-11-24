@@ -10,14 +10,12 @@ import {
 import MainContainer from "../../../../../../components/MainContainer";
 import { useNavigation } from "@react-navigation/native";
 import BackIcon from "../../../../../../assets/Icons/BackIcon";
-import { ProgramsTargetsBlock } from "../../view/components/programs-targets-block";
+import { ProgramsGoalsBlock } from "../../view/components/programs-goals-block";
 import { AllTasksBlock } from "../../view/components/all-tasks-block";
+import { EditingScreenModel } from "../model";
 
-export const EditingScreenView = () => {
+export const EditingScreenView = EditingScreenModel.modelClient((props) => {
   const navigation = useNavigation<any>();
-  const [programTitle, setProgramTitle] = useState("");
-  const [programDescription, setProgramDescription] = useState("");
-
   const handlePressTask = () => {
     navigation.navigate("TaskEditing");
   };
@@ -75,8 +73,8 @@ export const EditingScreenView = () => {
               lineHeight: 22,
               fontSize: 16,
             }}
-            value={programTitle}
-            onChangeText={setProgramTitle}
+            value={props.model.name}
+            onChangeText={props.model.setName}
             placeholder={"Введите название программы"}
           />
         </View>
@@ -100,16 +98,16 @@ export const EditingScreenView = () => {
               lineHeight: 22,
               fontSize: 16,
             }}
-            value={programDescription}
+            value={props.model.description}
             numberOfLines={20}
             multiline={true}
-            onChangeText={setProgramDescription}
+            onChangeText={props.model.setDescription}
             placeholder={"Введите описание"}
           />
         </View>
 
         <View style={{ marginTop: 30 }} />
-        <ProgramsTargetsBlock
+        <ProgramsGoalsBlock
           number={4}
           title={"Цели программы"}
           onPress={() => navigation.navigate("GoalsEditing")}
@@ -126,27 +124,21 @@ export const EditingScreenView = () => {
           Задачи
         </Text>
 
-        <AllTasksBlock
-          onPress={() => handlePressTask()}
-          title={"Контроль текущего состояния тела"}
-          duration={"В течение 2 дней"}
-        />
-
-        <AllTasksBlock
-          onPress={() => handlePressTask()}
-          title={"Оценка уровня стресса"}
-          duration={"В течение 5 дней"}
-        />
-
-        <AllTasksBlock
-          onPress={() => handlePressTask()}
-          title={"Чек-ап обследование"}
-          duration={"В течение 2 дней"}
-        />
+        {props.model.tasks.type === "HAS_DATA" &&
+          props.model.tasks.data.map((task) => {
+            return (
+              <AllTasksBlock
+                key={task.id}
+                onPress={() => handlePressTask()}
+                title={task.name}
+                duration={`В течение ${task.date} дней`}
+              />
+            );
+          })}
       </View>
     </MainContainer>
   );
-};
+});
 
 const styles = StyleSheet.create({
   headerTitle: {

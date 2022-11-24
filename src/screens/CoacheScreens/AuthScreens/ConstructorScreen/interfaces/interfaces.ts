@@ -6,5 +6,5 @@ export type ProgramResponse = {
   description: string;
   duration: number;
   tasks_quantity: string;
-  goals_quantity: string;
+  goals_quantity: number;
 };

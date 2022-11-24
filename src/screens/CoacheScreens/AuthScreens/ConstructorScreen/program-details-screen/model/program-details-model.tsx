@@ -3,39 +3,101 @@ import React, { useEffect } from "react";
 import { makeAutoObservable, runInAction } from "mobx";
 import { observer } from "mobx-react-lite";
 import * as stateCreator from "./state-creators";
-import { ConstructorCardState } from "./constructor-state";
 import { HttpService } from "../../../../../../service/http-service";
+import { ProgramResponse } from "../../interfaces";
+import { TaskResponseArray } from "../../editing-screen/interface";
+import { ConstructorStates } from "./constructor-state";
 
 export class ProgramDetailsModel {
   private readonly _httpService = new HttpService();
 
-  // private getPrograms() {
-  //   try {
-  //     this._httpService.post("/program/").then((res) => {
-  //       console.log("res getPrograms", res.data);
-  //
-  //       if (res.data) {
-  //         runInAction(() => {
-  //           this._programs = stateCreator.getHasDataState(res.data);
-  //         });
-  //       }
-  //     });
-  //   } catch (e: any) {
-  //     alert(e.response.data);
-  //     runInAction(() => {
-  //       this._programs = stateCreator.getErrorState(e.response.data);
-  //     });
-  //   }
-  // }
+  private _programId: number | undefined = undefined;
 
-  private constructor() {
+  private _tasks: ConstructorStates = stateCreator.getInitialState();
+
+  private _name = "";
+  private _description = "";
+  private _goals_quantity: number | null = null;
+
+  public get id() {
+    return this._programId;
+  }
+
+  public get name() {
+    return this._name;
+  }
+  public get description() {
+    return this._description;
+  }
+
+  public get goalsQuantity() {
+    return this._goals_quantity;
+  }
+
+  public get tasks() {
+    return this._tasks;
+  }
+
+  private getProgramById() {
+    try {
+      this._httpService
+        .get<ProgramResponse>(`/program/${this._programId}/`)
+        .then((res) => {
+          console.log("res getProgramById", res.data);
+
+          if (res.data) {
+            runInAction(() => {
+              this._name = res.data.name;
+              this._description = res.data.description;
+              this._goals_quantity = res.data.goals_quantity;
+              this._programId = res.data.id;
+            });
+          }
+        });
+    } catch (e: any) {
+      alert(e.response.data);
+    }
+  }
+
+  private getTasks() {
+    try {
+      this._httpService
+        .get<TaskResponseArray>(`program/task/?program=${this.programId}`)
+        .then((res) => {
+          console.log("PROGRAMS getTasks", res.data);
+          if (res.data) {
+            runInAction(() => {
+              this._tasks = stateCreator.getHasDataState(res.data);
+            });
+          }
+        });
+    } catch (e: any) {
+      alert(e.response.data);
+      runInAction(() => {
+        this._tasks = stateCreator.getErrorState(e.response.data);
+      });
+    }
+  }
+
+  private constructor(private readonly programId: number | undefined) {
     this._httpService = new HttpService({});
     makeAutoObservable(this, {}, { autoBind: true });
   }
 
-  private static makeModel() {
-    const model = React.useMemo(() => new ProgramDetailsModel(), []);
-    useEffect(() => {}, [model]);
+  private static makeModel(programId: number | undefined) {
+    const model = React.useMemo(() => new ProgramDetailsModel(programId), []);
+    useEffect(() => {
+      if (programId !== undefined) {
+        model._programId = programId;
+      }
+
+      if (model.programId) {
+        model.getProgramById();
+        if (model._programId) {
+          model.getTasks();
+        }
+      }
+    }, [model, programId]);
 
     return model;
   }
@@ -43,8 +105,12 @@ export class ProgramDetailsModel {
   private static MedicalCardPageContext =
     React.createContext<ProgramDetailsModel | null>(null);
 
-  public static Provider(props: React.PropsWithChildren<{}>) {
-    const model = ProgramDetailsModel.makeModel();
+  public static Provider(
+    props: React.PropsWithChildren<{
+      programId: number | undefined;
+    }>
+  ) {
+    const model = ProgramDetailsModel.makeModel(props.programId);
 
     return (
       <ProgramDetailsModel.MedicalCardPageContext.Provider value={model}>
