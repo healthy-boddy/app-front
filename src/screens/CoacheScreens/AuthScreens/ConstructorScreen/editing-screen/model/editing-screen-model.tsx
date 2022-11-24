@@ -71,7 +71,6 @@ export class EditingScreenModel {
       this._httpService
         .get<TaskResponseArray>(`program/task/?program=${this._program}`)
         .then((res) => {
-          console.log("res getTasks", res.data);
           if (res.data) {
             runInAction(() => {
               this._tasks = stateCreator.getHasDataState(res.data);

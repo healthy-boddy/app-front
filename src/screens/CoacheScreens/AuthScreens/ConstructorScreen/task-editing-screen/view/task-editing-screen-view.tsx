@@ -47,7 +47,7 @@ export const TaskEditingScreenView = () => {
           <TouchableOpacity
             activeOpacity={0.6}
             onPress={() => {
-              navigation.navigate("Editing");
+              navigation.navigate("EditingScreen");
             }}
             style={{
               flexDirection: "row",

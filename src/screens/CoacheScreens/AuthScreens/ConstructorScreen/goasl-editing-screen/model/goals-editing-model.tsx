@@ -12,6 +12,10 @@ export class GoalsEditingModel {
 
   private _goals: ConstructorState = stateCreator.getInitialState();
 
+  public get goals() {
+    return this._goals;
+  }
+
   private getGoals() {
     try {
       this._httpService.get<GoalsResArray>("/program/goal/").then((res) => {
@@ -19,6 +23,17 @@ export class GoalsEditingModel {
         runInAction(() => {
           this._goals = stateCreator.getHasDataState(res.data);
         });
+      });
+    } catch (e: any) {
+      console.log("Error:", e.response.data);
+    }
+  }
+
+  public deleteGoal(id: number) {
+    try {
+      this._httpService.delete(`/program/goal/${id}/`).then((res) => {
+        console.log(`Successfully deleted goal № ${id}`, res.status);
+        this.getGoals();
       });
     } catch (e: any) {
       console.log("Error:", e.response.data);

@@ -2,9 +2,10 @@ import React from "react";
 import { TaskEditingModel } from "./model";
 import { TaskEditingScreenView } from "./view";
 
-export const TaskEditing = () => {
+export const TaskEditing = ({ route }: any) => {
+  const taskId = route.params.taskId;
   return (
-    <TaskEditingModel.Provider>
+    <TaskEditingModel.Provider taskId={taskId}>
       <TaskEditingScreenView />
     </TaskEditingModel.Provider>
   );

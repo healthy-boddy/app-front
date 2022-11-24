@@ -16,10 +16,6 @@ import { EditingScreenModel } from "../model";
 
 export const EditingScreenView = EditingScreenModel.modelClient((props) => {
   const navigation = useNavigation<any>();
-  const handlePressTask = () => {
-    navigation.navigate("TaskEditing");
-  };
-
   return (
     <MainContainer>
       <View style={{ paddingHorizontal: 16, top: 30 }}>
@@ -129,7 +125,11 @@ export const EditingScreenView = EditingScreenModel.modelClient((props) => {
             return (
               <AllTasksBlock
                 key={task.id}
-                onPress={() => handlePressTask()}
+                onPress={() => {
+                  navigation.navigate("TaskEditing", {
+                    taskId: task.id,
+                  });
+                }}
                 title={task.name}
                 duration={`В течение ${task.date} дней`}
               />

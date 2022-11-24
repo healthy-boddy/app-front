@@ -31,6 +31,7 @@ import { EditingScreen } from "../../screens/CoacheScreens/AuthScreens/Construct
 import { TaskDetailsScreen } from "../../screens/CoacheScreens/AuthScreens/ConstructorScreen/task-details-screen";
 import { GoalsEditing } from "../../screens/CoacheScreens/AuthScreens/ConstructorScreen/goasl-editing-screen";
 import { ProgramDetails } from "../../screens/CoacheScreens/AuthScreens/ConstructorScreen/program-details-screen";
+import { TaskEditing } from "../../screens/CoacheScreens/AuthScreens/ConstructorScreen/task-editing-screen";
 
 function Greetings() {
   return <GreetingsScreen />;
@@ -214,6 +215,15 @@ export default function CoachVerify() {
       <Tab.Screen
         name="ClientsTasks"
         component={TaskDetailsScreen}
+        options={({ route }) => ({
+          tabBarButton: () => null,
+          tabBarStyle: { display: "none" },
+        })}
+      />
+
+      <Tab.Screen
+        name="TaskEditing"
+        component={TaskEditing}
         options={({ route }) => ({
           tabBarButton: () => null,
           tabBarStyle: { display: "none" },

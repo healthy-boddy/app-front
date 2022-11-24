@@ -9,9 +9,11 @@ import { HttpService } from "../../../../../../service/http-service";
 export class TaskEditingModel {
   private readonly _httpService = new HttpService();
 
-  // private getPrograms() {
+  private _taskId: number | undefined = undefined;
+
+  // private getTask() {
   //   try {
-  //     this._httpService.post("/program/").then((res) => {
+  //     this._httpService.get("/program/").then((res) => {
   //       console.log("res getPrograms", res.data);
   //
   //       if (res.data) {
@@ -28,14 +30,18 @@ export class TaskEditingModel {
   //   }
   // }
 
-  private constructor() {
+  private constructor(private readonly taskId: number | undefined) {
     this._httpService = new HttpService({});
     makeAutoObservable(this, {}, { autoBind: true });
   }
 
-  private static makeModel() {
-    const model = React.useMemo(() => new TaskEditingModel(), []);
-    useEffect(() => {}, [model]);
+  private static makeModel(taskId: number | undefined) {
+    const model = React.useMemo(() => new TaskEditingModel(taskId), []);
+    useEffect(() => {
+      if (taskId !== undefined) {
+        model._taskId = taskId;
+      }
+    }, [model]);
 
     return model;
   }
@@ -43,8 +49,12 @@ export class TaskEditingModel {
   private static MedicalCardPageContext =
     React.createContext<TaskEditingModel | null>(null);
 
-  public static Provider(props: React.PropsWithChildren<{}>) {
-    const model = TaskEditingModel.makeModel();
+  public static Provider(
+    props: React.PropsWithChildren<{
+      taskId: number | undefined;
+    }>
+  ) {
+    const model = TaskEditingModel.makeModel(props.taskId);
 
     return (
       <TaskEditingModel.MedicalCardPageContext.Provider value={model}>

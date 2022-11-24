@@ -12,8 +12,9 @@ import { useNavigation } from "@react-navigation/native";
 import MainContainer from "../../../../../../components/MainContainer";
 import BackIcon from "../../../../../../assets/Icons/BackIcon";
 import { IconDelete } from "../../../../../../components/icon/icon-delete";
+import { GoalsEditingModel } from "../model";
 
-export const GoalsEditingView = () => {
+export const GoalsEditingView = GoalsEditingModel.modelClient((props) => {
   const navigation = useNavigation<any>();
   const [programDescription, setProgramDescription] = useState("");
 
@@ -35,10 +36,10 @@ export const GoalsEditingView = () => {
     });
   };
 
-  const deleteItem = (id: number) => {
-    const newArr = taskArr.filter((data) => id !== data.id);
-    setTaskArr(newArr);
-  };
+  // const deleteItem = (id: number) => {
+  //   const newArr = taskArr.filter((data) => id !== data.id);
+  //   setTaskArr(newArr);
+  // };
 
   return (
     <MainContainer>
@@ -53,7 +54,7 @@ export const GoalsEditingView = () => {
           <TouchableOpacity
             activeOpacity={0.6}
             onPress={() => {
-              navigation.navigate("SelfLove");
+              navigation.navigate("EditingScreen");
             }}
             style={{
               flexDirection: "row",
@@ -76,10 +77,10 @@ export const GoalsEditingView = () => {
           }}
           showsVerticalScrollIndicator={false}
         >
-          {taskArr.length > 0 &&
-            taskArr.map((targets) => {
+          {props.model.goals.type === "HAS_DATA" &&
+            props.model.goals.data.map((goal, index) => {
               return (
-                <React.Fragment key={targets.id}>
+                <React.Fragment key={goal.id}>
                   <View
                     style={{
                       flexDirection: "row",
@@ -87,10 +88,10 @@ export const GoalsEditingView = () => {
                       alignItems: "center",
                     }}
                   >
-                    <Text
-                      style={styles.mainTitle}
-                    >{`Цель ${targets.targetNumber}`}</Text>
-                    <TouchableOpacity onPress={() => deleteItem(targets.id)}>
+                    <Text style={styles.mainTitle}>{`Цель ${index + 1}`}</Text>
+                    <TouchableOpacity
+                      onPress={() => props.model.deleteGoal(goal.id)}
+                    >
                       <IconDelete />
                     </TouchableOpacity>
                   </View>
@@ -112,7 +113,7 @@ export const GoalsEditingView = () => {
                         lineHeight: 22,
                         fontSize: 16,
                       }}
-                      value={programDescription}
+                      value={goal.description}
                       onChangeText={setProgramDescription}
                       placeholder={"Введите описание"}
                     />
@@ -129,7 +130,7 @@ export const GoalsEditingView = () => {
       </View>
     </MainContainer>
   );
-};
+});
 
 const styles = StyleSheet.create({
   headerTitle: {
