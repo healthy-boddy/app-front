@@ -2,6 +2,6 @@ export type GoalsResArray = Array<GoalsResponseProps>;
 
 export type GoalsResponseProps = {
   id: number;
-  program: string;
+  program: number | null;
   description: string;
 };

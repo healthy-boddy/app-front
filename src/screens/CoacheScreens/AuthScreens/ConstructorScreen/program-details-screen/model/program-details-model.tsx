@@ -62,9 +62,9 @@ export class ProgramDetailsModel {
   private getTasks() {
     try {
       this._httpService
-        .get<TaskResponseArray>(`program/task/?program=${this.programId}`)
+        .get<TaskResponseArray>(`program/task/?program=${this._programId}`)
         .then((res) => {
-          console.log("PROGRAMS getTasks", res.data);
+          // console.log("PROGRAMS getTasks", res.data);
           if (res.data) {
             runInAction(() => {
               this._tasks = stateCreator.getHasDataState(res.data);
@@ -93,9 +93,7 @@ export class ProgramDetailsModel {
 
       if (model.programId) {
         model.getProgramById();
-        if (model._programId) {
-          model.getTasks();
-        }
+        model.getTasks();
       }
     }, [model, programId]);
 

@@ -13,26 +13,15 @@ import MainContainer from "../../../../../../components/MainContainer";
 import BackIcon from "../../../../../../assets/Icons/BackIcon";
 import { IconDelete } from "../../../../../../components/icon/icon-delete";
 import { GoalsEditingModel } from "../model";
+import { Goals } from "../model/goals";
 
 export const GoalsEditingView = GoalsEditingModel.modelClient((props) => {
   const navigation = useNavigation<any>();
-  const [programDescription, setProgramDescription] = useState("");
-
-  const [taskArr, setTaskArr] = useState([
-    { targetNumber: 1, description: "", id: 1 },
-    { targetNumber: 2, description: "", id: 2 },
-  ]);
 
   const handleAddTaskElement = () => {
-    setTaskArr((arr) => {
-      return [
-        ...taskArr,
-        {
-          targetNumber: arr.length + 1,
-          description: "",
-          id: arr.length + 1,
-        },
-      ];
+    props.model.createNewGoal({
+      description: ".",
+      program: props.model.program,
     });
   };
 
@@ -90,7 +79,9 @@ export const GoalsEditingView = GoalsEditingModel.modelClient((props) => {
                   >
                     <Text style={styles.mainTitle}>{`Цель ${index + 1}`}</Text>
                     <TouchableOpacity
-                      onPress={() => props.model.deleteGoal(goal.id)}
+                      onPress={() =>
+                        goal.deleteGoal(goal.id, props.model.getGoals)
+                      }
                     >
                       <IconDelete />
                     </TouchableOpacity>
@@ -107,14 +98,23 @@ export const GoalsEditingView = GoalsEditingModel.modelClient((props) => {
                     }}
                   >
                     <TextInput
+                      numberOfLines={20}
+                      multiline={true}
                       style={{
                         color: "#1E1E1E",
                         fontWeight: "400",
                         lineHeight: 22,
                         fontSize: 16,
                       }}
-                      value={goal.description}
-                      onChangeText={setProgramDescription}
+                      value={goal.goalsDescription}
+                      onChangeText={goal.setGoalsDescription}
+                      onBlur={() =>
+                        goal.editGoals(
+                          goal.goalsDescription,
+                          goal.id,
+                          props.model.program
+                        )
+                      }
                       placeholder={"Введите описание"}
                     />
                   </View>

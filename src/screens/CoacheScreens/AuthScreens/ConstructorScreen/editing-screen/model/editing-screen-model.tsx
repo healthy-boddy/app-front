@@ -62,9 +62,9 @@ export class EditingScreenModel {
   //   this._button_link = data;
   // }
   //
-  // public setProgram(program: number) {
-  //   this._program = program;
-  // }
+  public setProgram(program: number) {
+    this._program = program;
+  }
 
   private getTasks() {
     try {
@@ -74,6 +74,7 @@ export class EditingScreenModel {
           if (res.data) {
             runInAction(() => {
               this._tasks = stateCreator.getHasDataState(res.data);
+              this._program = res.data[0].program;
             });
           }
         });
@@ -136,10 +137,13 @@ export class EditingScreenModel {
     const model = React.useMemo(() => new EditingScreenModel(programId), []);
     useEffect(() => {
       if (programId !== undefined) {
-        model._program = programId;
-        model.getProgramById();
+        model.setProgram(programId);
+        runInAction(() => {
+          model.setProgram(programId);
+          model.getProgramById();
+          model.getTasks();
+        });
       }
-      model.getTasks();
     }, [model]);
 
     return model;

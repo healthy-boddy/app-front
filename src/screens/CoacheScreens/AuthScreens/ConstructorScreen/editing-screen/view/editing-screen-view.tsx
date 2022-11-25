@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Platform,
   StyleSheet,
@@ -16,10 +16,10 @@ import { EditingScreenModel } from "../model";
 
 export const EditingScreenView = EditingScreenModel.modelClient((props) => {
   const navigation = useNavigation<any>();
-  const handlePress = (id: number) => {
+  const handlePress = () => {
     console.log("props.model.program", props.model.program);
-    console.log("idam", id);
   };
+
   return (
     <MainContainer>
       <View style={{ paddingHorizontal: 16, top: 30 }}>
@@ -123,6 +123,10 @@ export const EditingScreenView = EditingScreenModel.modelClient((props) => {
         >
           Задачи
         </Text>
+
+        <TouchableOpacity onPress={handlePress}>
+          <Text>Test</Text>
+        </TouchableOpacity>
 
         {props.model.tasks.type === "HAS_DATA" &&
           props.model.tasks.data.map((task) => {

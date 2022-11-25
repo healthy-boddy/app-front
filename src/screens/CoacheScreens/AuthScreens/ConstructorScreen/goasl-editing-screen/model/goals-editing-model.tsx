@@ -5,35 +5,48 @@ import { observer } from "mobx-react-lite";
 import * as stateCreator from "./state-creators";
 import { ConstructorState } from "./constructor-state";
 import { HttpService } from "../../../../../../service/http-service";
-import { GoalsResArray } from "../interface/interface";
+import { GoalsResArray, GoalsResponseProps } from "../interface/interface";
 
 export class GoalsEditingModel {
   private readonly _httpService = new HttpService();
 
   private _goals: ConstructorState = stateCreator.getInitialState();
 
+  private _program: number | null = null;
+
   public get goals() {
     return this._goals;
   }
 
-  private getGoals() {
+  public get program() {
+    return this._program;
+  }
+
+  public createNewGoal(data: { description: string; program: number | null }) {
+    this._httpService
+      .post<GoalsResponseProps>("/program/goal/", {
+        data,
+      })
+      .then((res) => {
+        console.log("Res: data", res.data);
+        this.getGoals();
+      })
+      .catch((e) => {
+        console.warn(e.response);
+      });
+  }
+  catch(e: any) {
+    console.log("Error:", e.response.data);
+  }
+
+  public getGoals() {
     try {
       this._httpService.get<GoalsResArray>("/program/goal/").then((res) => {
         console.log("Res: data", res.data);
         runInAction(() => {
           this._goals = stateCreator.getHasDataState(res.data);
+          this._program = res.data[0].program;
         });
-      });
-    } catch (e: any) {
-      console.log("Error:", e.response.data);
-    }
-  }
-
-  public deleteGoal(id: number) {
-    try {
-      this._httpService.delete(`/program/goal/${id}/`).then((res) => {
-        console.log(`Successfully deleted goal № ${id}`, res.status);
-        this.getGoals();
       });
     } catch (e: any) {
       console.log("Error:", e.response.data);

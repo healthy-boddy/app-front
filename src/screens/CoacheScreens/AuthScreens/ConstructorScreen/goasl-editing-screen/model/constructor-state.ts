@@ -1,4 +1,5 @@
-import { GoalsResArray } from "../interface/interface";
+import { GoalsResArray, GoalsResponseProps } from "../interface/interface";
+import { Goals } from "./goals";
 
 export interface StateInitial {
   type: "INITIAL";
@@ -14,7 +15,7 @@ export interface StateLoading {
 
 export interface StateHasData {
   type: "HAS_DATA";
-  data: GoalsResArray;
+  data: Array<Goals>;
   error: null;
 }
 
