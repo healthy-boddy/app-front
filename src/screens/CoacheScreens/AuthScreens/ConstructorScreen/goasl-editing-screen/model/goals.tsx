@@ -1,6 +1,6 @@
-import { get, makeAutoObservable } from "mobx";
+import { makeAutoObservable } from "mobx";
 import { HttpService } from "../../../../../../service/http-service";
-import { GoalsResArray, GoalsResponseProps } from "../interface/interface";
+import { GoalsResponseProps } from "../interface/interface";
 
 export class Goals {
   private readonly _httpService = new HttpService();

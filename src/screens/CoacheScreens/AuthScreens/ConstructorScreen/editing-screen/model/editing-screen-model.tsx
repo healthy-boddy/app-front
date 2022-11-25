@@ -63,7 +63,10 @@ export class EditingScreenModel {
   // }
   //
   public setProgram(program: number) {
-    this._program = program;
+    runInAction(() => {
+      this._program = program;
+    });
+    this.getProgramById();
   }
 
   private getTasks() {
@@ -74,7 +77,6 @@ export class EditingScreenModel {
           if (res.data) {
             runInAction(() => {
               this._tasks = stateCreator.getHasDataState(res.data);
-              this._program = res.data[0].program;
             });
           }
         });

@@ -19,7 +19,7 @@ export class ProgramDetailsModel {
   private _description = "";
   private _goals_quantity: number | null = null;
 
-  public get id() {
+  public get currentProgramId() {
     return this._programId;
   }
 
@@ -64,9 +64,10 @@ export class ProgramDetailsModel {
       this._httpService
         .get<TaskResponseArray>(`program/task/?program=${this._programId}`)
         .then((res) => {
-          // console.log("PROGRAMS getTasks", res.data);
+          console.log("getTasks program page", res.data);
           if (res.data) {
             runInAction(() => {
+              this._programId = res.data[0].program;
               this._tasks = stateCreator.getHasDataState(res.data);
             });
           }
