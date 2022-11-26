@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC } from "react";
 import {
   Platform,
   StyleSheet,
@@ -7,25 +7,21 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import MainContainer from "../../../../../../components/MainContainer";
+import MainContainer from "../../../../../../../components/MainContainer";
 import { useNavigation } from "@react-navigation/native";
-import BackIcon from "../../../../../../assets/Icons/BackIcon";
-import { ProgramsGoalsBlock } from "../../view/components/programs-goals-block";
-import { AllTasksBlock } from "../../view/components/all-tasks-block";
-import { EditingScreenModel } from "../model";
-import { runInAction } from "mobx";
+import BackIcon from "../../../../../../../assets/Icons/BackIcon";
+import { ProgramsGoalsBlock } from "../../../view/components/programs-goals-block";
+import { AllTasksBlock } from "../../../view/components/all-tasks-block";
+import { ProgramDetailsModel } from "../../model";
 
 interface EditingScreenViewProps {
   programId: number | undefined;
 }
 export const EditingScreenView: FC<EditingScreenViewProps> =
-  EditingScreenModel.modelClient((props) => {
-    const handlePress = () => {
-      console.warn("PROGRAM FROM EDITING SCREEN VIEW", props.model.program);
-    };
-    if (props.programId) {
-      props.model.setProgram(props.programId);
-    }
+  ProgramDetailsModel.modelClient((props) => {
+    // if (props.programId) {
+    //   props.model.setProgram(props.programId);
+    // }
     const navigation: any = useNavigation();
 
     return (
@@ -131,10 +127,6 @@ export const EditingScreenView: FC<EditingScreenViewProps> =
           >
             Задачи
           </Text>
-
-          <TouchableOpacity onPress={handlePress}>
-            <Text>Test</Text>
-          </TouchableOpacity>
 
           {props.model.tasks.type === "HAS_DATA" &&
             props.model.tasks.data.map((task) => {

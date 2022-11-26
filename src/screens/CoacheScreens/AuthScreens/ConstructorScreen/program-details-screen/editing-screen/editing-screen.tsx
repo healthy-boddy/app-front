@@ -1,14 +1,13 @@
-import React, { useEffect } from "react";
-import { EditingScreenModel } from "./model";
+import React from "react";
 import { EditingScreenView } from "./view";
+import { ProgramDetailsModel } from "../model";
 
 export const EditingScreen = ({ route }: any) => {
   let programId: number | undefined = route?.params?.programId;
-  console.log("EDIT SCREEN", programId);
 
   return (
-    <EditingScreenModel.Provider programId={programId}>
+    <ProgramDetailsModel.Provider programId={programId}>
       <EditingScreenView programId={programId} />
-    </EditingScreenModel.Provider>
+    </ProgramDetailsModel.Provider>
   );
 };

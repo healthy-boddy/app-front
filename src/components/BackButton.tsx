@@ -20,6 +20,7 @@ const BackButton = (props: any) => {
         height: 70,
         justifyContent: "space-between",
         flexDirection: "row",
+        alignItems: "center",
       }}
     >
       <TouchableOpacity
@@ -34,6 +35,22 @@ const BackButton = (props: any) => {
           <Text style={styles.title}>Назад</Text>
         </View>
       </TouchableOpacity>
+
+      {props.title && (
+        <Text
+          style={{
+            marginTop: 4,
+            fontSize: 18,
+            fontWeight: "600",
+            lineHeight: 21.48,
+            color: "#1E1E1E",
+          }}
+        >
+          {props.title}
+        </Text>
+      )}
+
+      <View />
 
       {props.latter && (
         <TouchableOpacity onPress={props.onPressLetter} style={styles.back}>

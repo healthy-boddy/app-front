@@ -25,11 +25,6 @@ export const GoalsEditingView = GoalsEditingModel.modelClient((props) => {
     });
   };
 
-  // const deleteItem = (id: number) => {
-  //   const newArr = taskArr.filter((data) => id !== data.id);
-  //   setTaskArr(newArr);
-  // };
-
   return (
     <MainContainer>
       <View style={{ paddingHorizontal: 16, top: 30 }}>

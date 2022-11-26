@@ -1,4 +1,5 @@
-import { TaskResponseArray } from "../interface";
+import { GoalsResArray, GoalsResponseProps } from "../interface/interface";
+import { Goals } from "./goals";
 
 export interface StateInitial {
   type: "INITIAL";
@@ -8,13 +9,13 @@ export interface StateInitial {
 
 export interface StateLoading {
   type: "LOADING";
-  data: TaskResponseArray | null;
+  data: GoalsResArray | null;
   error: null;
 }
 
 export interface StateHasData {
   type: "HAS_DATA";
-  data: TaskResponseArray;
+  data: Array<Goals>;
   error: null;
 }
 
@@ -30,7 +31,7 @@ export interface StateError {
   error: Error;
 }
 
-export type ConstructorStates =
+export type ConstructorState =
   | StateInitial
   | StateLoading
   | StateHasData

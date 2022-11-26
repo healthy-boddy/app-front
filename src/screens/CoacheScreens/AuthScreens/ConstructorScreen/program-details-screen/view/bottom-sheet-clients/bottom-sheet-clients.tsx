@@ -1,12 +1,11 @@
-import React, { FC, RefObject, useEffect, useState } from "react";
-import { Image, Text, View } from "react-native";
+import React, { FC, RefObject } from "react";
+import { Text, View } from "react-native";
 import BottomSheet from "@gorhom/bottom-sheet";
 import { BottomSheetComponent } from "../../../../../../../components/core/bottom-sheet";
 import CustomButton from "../../../../../../../components/CustomButton";
-import { color1 } from "../../../../../../../helpers/colors";
-import Description from "../../../../../../../components/Description";
 import { useSelector } from "react-redux";
 import { ClientBlockForCoach } from "../../../../../../../components/core/client-block-for-coach/client-block-for-coach";
+import { useNavigation } from "@react-navigation/native";
 
 interface ButtonSheetPersonalDoctorProps {
   sheetRef: RefObject<BottomSheet>;
@@ -20,6 +19,7 @@ export const BottomSheetClients: FC<ButtonSheetPersonalDoctorProps> = ({
   onClose,
 }) => {
   const user_data = useSelector((store: any) => store.user_data.user_data);
+  const navigation: any = useNavigation();
   return (
     <BottomSheetComponent
       onClose={onClose}

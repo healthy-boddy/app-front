@@ -21,8 +21,6 @@ export class ConstructorScreenModel {
       this._httpService
         .get<ResponseArrayConstructor>("/program/")
         .then((res) => {
-          console.log("res getPrograms", res.data);
-
           if (res.data) {
             runInAction(() => {
               this._programs = stateCreator.getHasDataState(res.data);

@@ -89,7 +89,11 @@ export const ProgramDetailsView = ProgramDetailsModel.modelClient((props) => {
 
             <View style={{ marginTop: 30 }} />
             <ProgramsGoalsBlock
-              onPress={() => console.log("Programs detail")}
+              onPress={() =>
+                navigation.navigate("Goals", {
+                  programId: props.model.currentProgramId,
+                })
+              }
               number={props.model.goalsQuantity}
               title={"Цели программы"}
             />

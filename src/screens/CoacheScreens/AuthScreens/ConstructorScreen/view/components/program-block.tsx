@@ -6,6 +6,7 @@ interface ProgramBlockProps {
   subtitle: string;
   duration: string;
   onPress: () => void;
+  taskQuantity: number;
 }
 
 export const ProgramBlock: FC<ProgramBlockProps> = ({
@@ -13,6 +14,7 @@ export const ProgramBlock: FC<ProgramBlockProps> = ({
   subtitle,
   duration,
   onPress,
+  taskQuantity,
 }) => {
   return (
     <TouchableOpacity
@@ -43,7 +45,7 @@ export const ProgramBlock: FC<ProgramBlockProps> = ({
         >
           {title}
         </Text>
-        <Text style={styles.secondaryText}>13</Text>
+        <Text style={styles.secondaryText}>{taskQuantity}</Text>
       </View>
 
       <Text style={styles.secondaryText}>{subtitle}</Text>

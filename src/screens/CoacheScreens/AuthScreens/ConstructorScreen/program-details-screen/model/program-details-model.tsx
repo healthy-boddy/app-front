@@ -5,7 +5,7 @@ import { observer } from "mobx-react-lite";
 import * as stateCreator from "./state-creators";
 import { HttpService } from "../../../../../../service/http-service";
 import { ProgramResponse } from "../../interfaces";
-import { TaskResponseArray } from "../../editing-screen/interface";
+import { TaskResponseArray } from "../editing-screen/interface";
 import { ConstructorStates } from "./constructor-state";
 
 export class ProgramDetailsModel {
@@ -36,6 +36,14 @@ export class ProgramDetailsModel {
 
   public get tasks() {
     return this._tasks;
+  }
+
+  public setName(name: string) {
+    this._name = name;
+  }
+
+  public setDescription(data: string) {
+    this._description = data;
   }
 
   private getProgramById() {

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import {
   FlatList,
-  SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
@@ -9,10 +8,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import MainContainer from "../../../../components/MainContainer";
-import BackButton from "../../../../components/BackButton";
 import { useNavigation } from "@react-navigation/native";
-import { subYears } from "date-fns";
 import { DatePicker } from "../../../../components/core/date-picker-modal";
 import { CalendarSvg } from "../../../../components/icon/calendar";
 import { TextTitle } from "./view/text-title";

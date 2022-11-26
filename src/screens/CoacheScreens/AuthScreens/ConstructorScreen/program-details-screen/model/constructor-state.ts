@@ -1,4 +1,4 @@
-import { TaskResponseArray } from "../../editing-screen/interface";
+import { TaskResponseArray } from "../editing-screen/interface";
 
 export interface StateInitial {
   type: "INITIAL";

@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { makeAutoObservable, runInAction } from "mobx";
 import { observer } from "mobx-react-lite";
 import { HttpService } from "../../../../../../service/http-service";
-import { TaskResponseArray } from "../../editing-screen/interface";
+import { TaskResponseArray } from "../../program-details-screen/editing-screen/interface";
 
 export class TaskEditingModel {
   private readonly _httpService = new HttpService();

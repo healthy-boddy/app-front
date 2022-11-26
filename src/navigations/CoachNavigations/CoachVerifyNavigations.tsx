@@ -20,7 +20,7 @@ import {
   SecondThirdTutorialScreen,
   ThirdDayTutorialScreen,
   TyScreenFormTutorials,
-    CoachSinglePage
+  CoachSinglePage,
 } from "../../screens/CoacheScreens/AuthScreens";
 import { TabNavigatorElem } from "../ClientNavigations/tab-bar-elem/tab-navigation-elems";
 import { HomeSvg } from "../ClientNavigations/icons/home";
@@ -28,11 +28,12 @@ import { Constructor } from "./icons/constructor";
 import { CalendarSvg } from "../ClientNavigations/icons/calendar";
 import { ClientDetailsPage } from "../../screens/CoacheScreens/MainScreens/client-details-page";
 import { ConstructorScreen } from "../../screens/CoacheScreens/AuthScreens/ConstructorScreen";
-import { EditingScreen } from "../../screens/CoacheScreens/AuthScreens/ConstructorScreen/editing-screen";
+import { EditingScreen } from "../../screens/CoacheScreens/AuthScreens/ConstructorScreen/program-details-screen/editing-screen";
 import { TaskDetailsScreen } from "../../screens/CoacheScreens/AuthScreens/ConstructorScreen/task-details-screen";
 import { GoalsEditing } from "../../screens/CoacheScreens/AuthScreens/ConstructorScreen/goasl-editing-screen";
 import { ProgramDetails } from "../../screens/CoacheScreens/AuthScreens/ConstructorScreen/program-details-screen";
 import { TaskEditing } from "../../screens/CoacheScreens/AuthScreens/ConstructorScreen/task-editing-screen";
+import { Goals } from "../../screens/CoacheScreens/AuthScreens/ConstructorScreen/goals-screen";
 
 function Greetings() {
   return <GreetingsScreen />;
@@ -101,7 +102,7 @@ function TyFormTutorials() {
   return <TyScreenFormTutorials />;
 }
 function CoachSingleScreen() {
-    return <CoachSinglePage />;
+  return <CoachSinglePage />;
 }
 
 export default function CoachVerify() {
@@ -295,6 +296,15 @@ export default function CoachVerify() {
       />
 
       <Tab.Screen
+        name="Goals"
+        component={Goals}
+        options={({ route }) => ({
+          tabBarButton: () => null,
+          tabBarStyle: { display: "none" },
+        })}
+      />
+
+      <Tab.Screen
         name="ConstructorScreen"
         component={ConstructorScreen}
         options={({ route }) => ({
@@ -311,14 +321,14 @@ export default function CoachVerify() {
           tabBarStyle: { display: "none" },
         })}
       />
-        <Tab.Screen
-            name="CoachSingleScreen"
-            component={CoachSingleScreen}
-            options={({ route }) => ({
-                tabBarButton: () => null,
-                tabBarStyle: { display: "none" },
-            })}
-        />
+      <Tab.Screen
+        name="CoachSingleScreen"
+        component={CoachSingleScreen}
+        options={({ route }) => ({
+          tabBarButton: () => null,
+          tabBarStyle: { display: "none" },
+        })}
+      />
       <Tab.Screen
         name="Greetings4"
         component={Greetings4}
