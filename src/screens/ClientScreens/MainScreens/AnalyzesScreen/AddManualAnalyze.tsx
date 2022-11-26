@@ -1,209 +1,277 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import {
-  FlatList,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
+    FlatList, KeyboardAvoidingView,
+    SafeAreaView,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import { DatePicker } from "../../../../components/core/date-picker-modal";
-import { CalendarSvg } from "../../../../components/icon/calendar";
-import { TextTitle } from "./view/text-title";
-import { ChevronRight } from "../../../../components/icon/chevron-right";
-import { IconDelete } from "../../../../components/icon/icon-delete";
-import { WrapperPage } from "../../../../components/core/wrapper";
+import {useNavigation} from "@react-navigation/native";
+import {DatePicker} from "../../../../components/core/date-picker-modal";
+import {CalendarSvg} from "../../../../components/icon/calendar";
+import {TextTitle} from "./view/text-title";
+import {ChevronRight} from "../../../../components/icon/chevron-right";
+import {IconDelete} from "../../../../components/icon/icon-delete";
+import {WrapperPage} from "../../../../components/core/wrapper";
+import {useSelector} from "react-redux";
+import moment from "moment";
+import CustomInput from "../../../../components/CustomInput";
 
 type DataType = {
-  parameter: string;
-  value: string;
-  id: number;
+    parameter: string;
+    value: string;
+    id: number;
 };
 
 const AddManualAnalyze = () => {
-  const navigation = useNavigation<any>();
-
-  const [analiseDate, setAnaliseDate] = useState<Date>(new Date());
-  const [lab, setLab] = useState("");
-  const [parameterArray, setParameterArray] = useState([
-    {
-      parameter: "",
-      value: "",
-      id: 1,
-    },
-  ]);
-
-  function setBirthDate(date: Date) {
-    setAnaliseDate(date);
-  }
-
-  const addMooreParameters = () => {
-    setParameterArray((prevData) => [
-      ...prevData,
-      { parameter: "", value: "", id: Date.now() },
+    const navigation = useNavigation<any>();
+    let tokenFromReducer = useSelector((store: any) => store.user_token.user_token);
+    let AuthStr = "Bearer " + tokenFromReducer;
+    const [analiseDate, setAnaliseDate] = useState<Date>(new Date());
+    const [lab, setLab] = useState("");
+    const [parameterArray, setParameterArray] = useState([
+        {
+            id: 1,
+            name: "",
+            value: "",
+        },
     ]);
-  };
 
-  const deleteItems = (id: number) => {
-    const items = parameterArray.filter((data) => data.id != id);
-    setParameterArray(items);
-  };
+    function setBirthDate(date: Date) {
+        setAnaliseDate(date);
+    }
 
-  const RenderData = (data: any, index: number) => {
-    const [value, setValue] = useState("");
-    const [result, setResult] = useState("");
+
+    async function handleSaveAnalyzes() {
+        fetch('http://92.53.97.238/analysis/', {
+            method: 'post',
+            headers: {
+                Authorization: AuthStr,
+                "accept": "application/json",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                date: moment(analiseDate).format("YYYY-MM-DD"),
+                laboratory: lab,
+                name: "Лейкоциты"
+            })
+        }).then((res) => {
+            return res.json()
+        }).then((res) => {
+            console.log(res, 'handle save analyzes')
+            for (let index = 0; index < parameterArray.length; index++) {
+                // console.log(parameterArray[index], parameterArray, index, 'ex1')
+                // console.log(JSON.stringify({  analyzes: res.id,
+                //     ...parameterArray[index]}), 'fetchic araj')
+                fetch('http://92.53.97.238/analysis/indicator/', {
+                    method: 'post',
+                    headers: {
+                        Authorization: AuthStr,
+                        "accept": "application/json",
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        ...parameterArray[index],
+                        analysis: res.id,
+                    })
+                }).then((res1) => {
+                    return res1.json()
+                }).then((res1) => {
+                    console.log(res1, 'handle save analyzes 2')
+                    navigation.navigate("Analyzes")
+                })
+            }
+        })
+
+    }
+
+
+    const addMooreParameters = () => {
+        setParameterArray((prevData) => [
+            ...prevData,
+            {name: "", value: "", id: Date.now()},
+        ]);
+    };
+
+    const deleteItems = (data: any) => {
+        console.log(data, 'data')
+        const items = parameterArray.filter((item) => item.id != data.id);
+        setParameterArray(items);
+    };
+
+    const RenderData = ({data, index}) => {
+        console.log(parameterArray, index, 'log')
+        return (
+            <>
+                <View style={{marginTop: 17.5}}/>
+                <View style={{
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    width: "100%",
+                }}>
+                    <TextTitle title={`Показатель ${index + 1}`}/>
+
+                    <TouchableOpacity onPress={() => deleteItems(data)}>
+                        <IconDelete/>
+                    </TouchableOpacity>
+                </View>
+
+                <View style={styles.inputView}>
+                    <TextInput
+                        placeholder={"Выбрать показатель"}
+                        value={parameterArray[index].name}
+                        onChangeText={(val) => handleParameters(index, val, 'name')}
+                        style={styles.input}
+                    />
+                    <ChevronRight/>
+                </View>
+
+                <View style={styles.inputView}>
+                    <TextInput
+                        placeholder={"Ввести результат"}
+                        value={parameterArray[index].value}
+                        onChangeText={(val) => handleParameters(index, val, 'value')}
+                        style={styles.input}
+                    />
+                </View>
+            </>
+        );
+    };
+
+    const handleParameters = (index, val, key) => {
+        parameterArray[index][key] = val
+        console.log(parameterArray, 'parameterArray')
+        setParameterArray([...parameterArray])
+        console.log(index, val, key, '333')
+    }
+
+    const flatFooter = () => {
+        return (
+            <View>
+                <TouchableOpacity onPress={addMooreParameters}>
+                    <Text
+                        style={{
+                            color: "#7454CF",
+                            fontSize: 16,
+                            lineHeight: 20,
+                            fontWeight: "500",
+                            marginTop: 32,
+                        }}
+                    >
+                        + Добавить показатель
+                    </Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                    // add photo picker
+                >
+                    <Text
+                        style={{
+                            color: "#7454CF",
+                            fontSize: 16,
+                            lineHeight: 20,
+                            fontWeight: "500",
+                            marginTop: 32,
+                        }}
+                    >
+                        + Добавить фото анализа
+                    </Text>
+                </TouchableOpacity>
+            </View>
+        )
+    }
+    const flatHeader = () => {
+        return (
+            <View>
+                <TextTitle title={"Дата"}/>
+
+                <View
+                    style={{
+                        marginTop: 9.5,
+                    }}
+                />
+                <DatePicker
+                    date={analiseDate}
+                    onDateChange={setBirthDate}
+                    placeholder="Выбрать дату"
+                    icon={<CalendarSvg/>}
+                />
+                <View
+                    style={{
+                        marginTop: 17.5,
+                    }}
+                />
+
+                <TextTitle title={"Лаборатория"}/>
+
+                <View style={styles.inputView}>
+                    <TextInput
+                        placeholder={"Выбрать лабораторию"}
+                        value={lab}
+                        onChangeText={setLab}
+                        style={styles.input}
+                    />
+                    <ChevronRight/>
+                </View>
+            </View>
+        )
+    }
+
     return (
-      <>
-        <View style={{ marginTop: 17.5 }} />
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            width: "100%",
-          }}
+        <WrapperPage
+            onPressButton={handleSaveAnalyzes}
+            buttonTitle={"Сохранить"}
+            onPressBack={() => navigation.navigate("AddAnalyzes")}
         >
-          <TextTitle title={`Показатель ${index + 1}`} />
-
-          <TouchableOpacity onPress={() => deleteItems(data.id)}>
-            <IconDelete />
-          </TouchableOpacity>
-        </View>
-
-        <View style={styles.inputView}>
-          <TextInput
-            placeholder={"Выбрать показатель"}
-            value={value}
-            onChangeText={setValue}
-            style={styles.input}
-          />
-          <ChevronRight />
-        </View>
-
-        <View style={styles.inputView}>
-          <TextInput
-            placeholder={"Ввести результат"}
-            value={result}
-            onChangeText={setResult}
-            style={styles.input}
-          />
-          <ChevronRight />
-        </View>
-      </>
+            <View
+                style={{
+                    width: "100%",
+                    paddingHorizontal: 20,
+                    flex: 1,
+                }}
+            >
+                <View style={{flex: 1}}>
+                    {parameterArray !== undefined && (
+                        <View style={{flex: 1, marginVertical: 20}}>
+                            <FlatList
+                                ListHeaderComponent={flatHeader}
+                                ListFooterComponent={flatFooter}
+                                removeClippedSubviews={false}
+                                keyExtractor={(item, index) => index.toString()}
+                                data={parameterArray}
+                                renderItem={({item, index}) => {
+                                    return <RenderData data={item} index={index}/>
+                                }}
+                            />
+                        </View>
+                    )}
+                </View>
+            </View>
+        </WrapperPage>
     );
-  };
-
-  return (
-    <WrapperPage
-      onPressButton={() => console.log("SAVE")}
-      buttonTitle={"Сохранить"}
-      onPressBack={() => navigation.navigate("AddAnalyzes")}
-    >
-      <View
-        style={{
-          width: "100%",
-          paddingHorizontal: 20,
-          flex: 1,
-        }}
-      >
-        <ScrollView showsVerticalScrollIndicator={false}>
-          <TextTitle title={"Дата"} />
-
-          <View
-            style={{
-              marginTop: 9.5,
-            }}
-          />
-
-          <DatePicker
-            date={analiseDate}
-            onDateChange={setBirthDate}
-            placeholder="Выбрать дату"
-            icon={<CalendarSvg />}
-          />
-
-          <View
-            style={{
-              marginTop: 17.5,
-            }}
-          />
-
-          <TextTitle title={"Лаборатория"} />
-
-          <View style={styles.inputView}>
-            <TextInput
-              placeholder={"Выбрать лабораторию"}
-              value={lab}
-              onChangeText={setLab}
-              style={styles.input}
-            />
-            <ChevronRight />
-          </View>
-
-          {parameterArray !== undefined && (
-            <FlatList
-              keyExtractor={(item, index) => index.toString()}
-              data={parameterArray}
-              renderItem={(data: any, index: number) => (
-                <RenderData data={data.item} index={index} />
-              )}
-            />
-          )}
-
-          <TouchableOpacity onPress={addMooreParameters}>
-            <Text
-              style={{
-                color: "#7454CF",
-                fontSize: 16,
-                lineHeight: 20,
-                fontWeight: "500",
-                marginTop: 32,
-              }}
-            >
-              + Добавить показатель
-            </Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-          // add photo picker
-          >
-            <Text
-              style={{
-                color: "#7454CF",
-                fontSize: 16,
-                lineHeight: 20,
-                fontWeight: "500",
-                marginTop: 32,
-              }}
-            >
-              + Добавить фото анализа
-            </Text>
-          </TouchableOpacity>
-        </ScrollView>
-      </View>
-    </WrapperPage>
-  );
 };
 
 export default AddManualAnalyze;
 
 const styles = StyleSheet.create({
-  inputView: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    width: "100%",
-    paddingHorizontal: 16,
-    paddingVertical: 16,
-    backgroundColor: "#F5F4F8",
-    marginTop: 9.5,
-    borderRadius: 12,
-  },
-  input: {
-    color: "#484851",
-    fontSize: 14,
-    lineHeight: 16,
-    fontWeight: "400",
-  },
+    inputView: {
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between",
+        width: "100%",
+        paddingHorizontal: 16,
+        paddingVertical: 16,
+        backgroundColor: "#F5F4F8",
+        marginTop: 9.5,
+        borderRadius: 12,
+    },
+    input: {
+        color: "#484851",
+        fontSize: 14,
+        lineHeight: 16,
+        fontWeight: "400",
+    },
 });
