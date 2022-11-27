@@ -46,6 +46,7 @@ const AddManualAnalyze = () => {
 
 
     async function handleSaveAnalyzes() {
+        console.log(parameterArray)
         fetch('http://92.53.97.238/analysis/', {
             method: 'post',
             headers: {
@@ -102,8 +103,7 @@ const AddManualAnalyze = () => {
         setParameterArray(items);
     };
 
-    const RenderData = ({data, index}) => {
-        console.log(parameterArray, index, 'log')
+    const RenderData = ({item, index}) => {
         return (
             <>
                 <View style={{marginTop: 17.5}}/>
@@ -114,7 +114,7 @@ const AddManualAnalyze = () => {
                 }}>
                     <TextTitle title={`Показатель ${index + 1}`}/>
 
-                    <TouchableOpacity onPress={() => deleteItems(data)}>
+                    <TouchableOpacity onPress={() => deleteItems(item)}>
                         <IconDelete/>
                     </TouchableOpacity>
                 </View>
@@ -143,9 +143,7 @@ const AddManualAnalyze = () => {
 
     const handleParameters = (index, val, key) => {
         parameterArray[index][key] = val
-        console.log(parameterArray, 'parameterArray')
         setParameterArray([...parameterArray])
-        console.log(index, val, key, '333')
     }
 
     const flatFooter = () => {
@@ -237,14 +235,12 @@ const AddManualAnalyze = () => {
                     {parameterArray !== undefined && (
                         <View style={{flex: 1, marginVertical: 20}}>
                             <FlatList
-                                ListHeaderComponent={flatHeader}
-                                ListFooterComponent={flatFooter}
+                                ListHeaderComponent={flatHeader()}
+                                ListFooterComponent={flatFooter()}
                                 removeClippedSubviews={false}
                                 keyExtractor={(item, index) => index.toString()}
                                 data={parameterArray}
-                                renderItem={({item, index}) => {
-                                    return <RenderData data={item} index={index}/>
-                                }}
+                                renderItem={RenderData}
                             />
                         </View>
                     )}
