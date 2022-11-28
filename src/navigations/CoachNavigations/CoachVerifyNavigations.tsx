@@ -34,6 +34,9 @@ import { GoalsEditing } from "../../screens/CoacheScreens/AuthScreens/Constructo
 import { ProgramDetails } from "../../screens/CoacheScreens/AuthScreens/ConstructorScreen/program-details-screen";
 import { TaskEditing } from "../../screens/CoacheScreens/AuthScreens/ConstructorScreen/task-editing-screen";
 import { Goals } from "../../screens/CoacheScreens/AuthScreens/ConstructorScreen/goals-screen";
+import { ClientsPrograms } from "../../screens/CoacheScreens/MainScreens/client-programs/client-programs";
+import { ClientsTasks } from "../../screens/CoacheScreens/MainScreens/clients-goals/client-takts";
+import { ClientGoalsDetailsPage } from "../../screens/CoacheScreens/MainScreens/clients-goals/goals-screen";
 
 function Greetings() {
   return <GreetingsScreen />;
@@ -219,7 +222,7 @@ export default function CoachVerify() {
       />
       <Tab.Screen
         name="ClientsTasks"
-        component={TaskDetailsScreen}
+        component={ClientsTasks}
         options={({ route }) => ({
           tabBarButton: () => null,
           tabBarStyle: { display: "none" },
@@ -303,6 +306,14 @@ export default function CoachVerify() {
           tabBarStyle: { display: "none" },
         })}
       />
+      <Tab.Screen
+        name="ClientsProgramsProfile"
+        component={ClientsPrograms}
+        options={({ route }) => ({
+          tabBarButton: () => null,
+          tabBarStyle: { display: "none" },
+        })}
+      />
 
       <Tab.Screen
         name="ConstructorScreen"
@@ -373,6 +384,19 @@ export default function CoachVerify() {
           tabBarShowLabel: false,
         }}
       />
+
+      {/*client details page*/}
+
+      <Tab.Screen
+        name="ClientGoalsDetailsPage"
+        component={ClientGoalsDetailsPage}
+        options={({ route }) => ({
+          tabBarButton: () => null,
+          tabBarStyle: { display: "none" },
+        })}
+      />
+
+      {/*client details page*/}
     </Tab.Navigator>
   );
 }

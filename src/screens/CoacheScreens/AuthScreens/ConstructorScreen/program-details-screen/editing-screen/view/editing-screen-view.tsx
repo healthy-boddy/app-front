@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import {
   Platform,
+  ScrollView,
   StyleSheet,
   Text,
   TextInput,
@@ -127,22 +128,23 @@ export const EditingScreenView: FC<EditingScreenViewProps> =
           >
             Задачи
           </Text>
-
-          {props.model.tasks.type === "HAS_DATA" &&
-            props.model.tasks.data.map((task) => {
-              return (
-                <AllTasksBlock
-                  key={task.id}
-                  onPress={() => {
-                    navigation.navigate("TaskEditing", {
-                      taskId: task.id,
-                    });
-                  }}
-                  title={task.name}
-                  duration={`В течение ${task.date} дней`}
-                />
-              );
-            })}
+          <ScrollView>
+            {props.model.tasks.type === "HAS_DATA" &&
+              props.model.tasks.data.map((task) => {
+                return (
+                  <AllTasksBlock
+                    key={task.id}
+                    onPress={() => {
+                      navigation.navigate("TaskEditing", {
+                        taskId: task.id,
+                      });
+                    }}
+                    title={task.name}
+                    duration={`В течение ${task.date} дней`}
+                  />
+                );
+              })}
+          </ScrollView>
         </View>
       </MainContainer>
     );

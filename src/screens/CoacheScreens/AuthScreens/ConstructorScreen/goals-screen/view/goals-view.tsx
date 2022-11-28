@@ -1,5 +1,5 @@
-import React, { FC, useEffect } from "react";
-import { Text, View } from "react-native";
+import React, { FC } from "react";
+import { View } from "react-native";
 import BackButton from "../../../../../../components/BackButton";
 import MainContainer from "../../../../../../components/MainContainer";
 import { useNavigation } from "@react-navigation/native";
