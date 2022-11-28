@@ -1,6 +1,6 @@
 import React, { useCallback, useRef, useState } from "react";
 import MainContainer from "../../../../../../components/MainContainer";
-import { Text, TouchableOpacity, View } from "react-native";
+import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import BackButton from "../../../../../../components/BackButton";
 import ArrowDown from "../../../../../ClientScreens/MainScreens/CoachSingle/CoachSingleIcons/ArrowDown";
 import ArrowUp from "../../../../../ClientScreens/MainScreens/CoachSingle/CoachSingleIcons/ArrowUp";
@@ -134,18 +134,19 @@ export const ProgramDetailsView = ProgramDetailsModel.modelClient((props) => {
             </View>
 
             <View style={{ marginTop: 32 }} />
-
-            {props.model.tasks.type === "HAS_DATA" &&
-              props.model.tasks.data.map((task) => {
-                return (
-                  <AllTasksBlock
-                    key={task.id}
-                    onPress={() => navigation.navigate("TaskDetails")}
-                    title={task.name}
-                    duration={`В течение ${task.description} дней`}
-                  />
-                );
-              })}
+            <ScrollView showsVerticalScrollIndicator={false}>
+              {props.model.tasks.type === "HAS_DATA" &&
+                props.model.tasks.data.map((task) => {
+                  return (
+                    <AllTasksBlock
+                      key={task.id}
+                      onPress={() => navigation.navigate("TaskDetails")}
+                      title={task.name}
+                      duration={`В течение ${task.description} дней`}
+                    />
+                  );
+                })}
+            </ScrollView>
           </View>
 
           <View style={{ marginBottom: 25 }}>

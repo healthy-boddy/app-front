@@ -10,7 +10,7 @@ export const ClientsTasks = () => {
     <WrapperWithTitlePage
       title={"Цели"}
       onPressBack={() => navigation.navigate("CalendarPage")}
-      onPressButton={() => navigation.navigate("GoalsEditing")}
+      onPressButton={() => navigation.navigate("ClientGoalsDetailsPage")}
       buttonTitle={"Поставить цели"}
     >
       <ClientsEmptyTarget />
