@@ -11,12 +11,14 @@ interface ButtonSheetPersonalDoctorProps {
   sheetRef: RefObject<BottomSheet>;
   snapPoints: (string | number)[];
   onClose: () => void;
+  onPress: () => void;
 }
 
 export const BottomSheetClients: FC<ButtonSheetPersonalDoctorProps> = ({
   sheetRef,
   snapPoints,
   onClose,
+  onPress,
 }) => {
   const user_data = useSelector((store: any) => store.user_data.user_data);
   const navigation: any = useNavigation();
@@ -77,7 +79,7 @@ export const BottomSheetClients: FC<ButtonSheetPersonalDoctorProps> = ({
         <CustomButton
           buttonStyles={{ backgroundColor: "#7454CF" }}
           title={"Назначить"}
-          onPress={() => console.log("press")}
+          onPress={onPress}
         />
         <View
           style={{
