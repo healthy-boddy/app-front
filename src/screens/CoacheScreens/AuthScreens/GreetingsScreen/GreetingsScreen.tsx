@@ -30,32 +30,37 @@ const GreetingsScreen = (props: any) => {
       onPressButton={() => navigation.navigate("Greetings2")}
       buttonTitle={"Отлично! Продолжить"}
     >
-      <Text
+      <View
         style={{
-          fontWeight: "600",
-          fontSize: 24,
-          lineHeight: 28,
-          color: "#1E1E1E",
-          textAlign: "left",
-          alignSelf: "flex-start",
-          paddingLeft: 17,
+          paddingHorizontal: 16,
         }}
       >
-        Здравствуйте, {user_data?.user?.username} !
-      </Text>
-      <Text
-        style={{
-          marginTop: 12,
-          fontWeight: "400",
-          fontSize: 16,
-          lineHeight: 20,
-          color: "#797979",
-        }}
-      >
-        Мы вас нашли в списке верифицированных в бадди.
-      </Text>
-      <View style={styles.image_box}>
-        <Doctor />
+        <Text
+          style={{
+            fontWeight: "600",
+            fontSize: 24,
+            lineHeight: 28,
+            color: "#1E1E1E",
+            textAlign: "left",
+            alignSelf: "flex-start",
+          }}
+        >
+          Здравствуйте, {user_data?.user?.username} !
+        </Text>
+        <Text
+          style={{
+            marginTop: 12,
+            fontWeight: "400",
+            fontSize: 16,
+            lineHeight: 20,
+            color: "#797979",
+          }}
+        >
+          Мы вас нашли в списке верифицированных в бадди.
+        </Text>
+        <View style={styles.image_box}>
+          <Doctor />
+        </View>
       </View>
     </WrapperPage>
   );

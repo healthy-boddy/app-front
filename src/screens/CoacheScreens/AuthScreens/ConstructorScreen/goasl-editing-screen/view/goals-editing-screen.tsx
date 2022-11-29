@@ -38,7 +38,9 @@ export const GoalsEditingView = GoalsEditingModel.modelClient((props) => {
           <TouchableOpacity
             activeOpacity={0.6}
             onPress={() => {
-              navigation.navigate("EditingScreen");
+              navigation.navigate("Goals", {
+                programId: props.model.program,
+              });
             }}
             style={{
               flexDirection: "row",

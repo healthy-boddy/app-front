@@ -11,7 +11,7 @@ interface ButtonSheetPersonalDoctorProps {
   sheetRef: RefObject<BottomSheet>;
   snapPoints: (string | number)[];
   onClose: () => void;
-  onPressToPick: () => void;
+  onPressToPick?: () => void;
 }
 
 export const BottomSheetClientPicked: FC<ButtonSheetPersonalDoctorProps> = ({
