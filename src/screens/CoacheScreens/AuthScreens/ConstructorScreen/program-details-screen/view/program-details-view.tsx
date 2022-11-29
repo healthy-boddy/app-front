@@ -1,6 +1,13 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import MainContainer from "../../../../../../components/MainContainer";
-import { ScrollView, Text, TouchableOpacity, View } from "react-native";
+import {
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import BackButton from "../../../../../../components/BackButton";
 import ArrowDown from "../../../../../ClientScreens/MainScreens/CoachSingle/CoachSingleIcons/ArrowDown";
 import ArrowUp from "../../../../../ClientScreens/MainScreens/CoachSingle/CoachSingleIcons/ArrowUp";
@@ -44,15 +51,20 @@ export const ProgramDetailsView = ProgramDetailsModel.modelClient((props) => {
 
   return (
     <>
-      <MainContainer>
+      <SafeAreaView
+        style={[
+          { flex: 1, backgroundColor: "fff" },
+
+          {
+            backgroundColor: isOpen || isOpenClients ? "#00000090" : "#fff",
+            opacity: isOpen || isOpenClients ? 0.5 : 1,
+          },
+        ]}
+      >
         <View
-          style={[
-            { flex: 1, paddingHorizontal: 16 },
-            {
-              backgroundColor: isOpen || isOpenClients ? "#00000090" : "#fff",
-              opacity: isOpen || isOpenClients ? 0.5 : 1,
-            },
-          ]}
+          style={{
+            paddingHorizontal: 16,
+          }}
         >
           <BackButton
             onPressEdit={() =>
@@ -160,14 +172,14 @@ export const ProgramDetailsView = ProgramDetailsModel.modelClient((props) => {
               })}
           </ScrollView>
         </View>
+      </SafeAreaView>
 
-        <View style={{ marginBottom: 25, paddingHorizontal: 16 }}>
-          <CustomButton
-            title={"Назначить клиенту"}
-            onPress={() => handleSnapPressClients(0)}
-          />
-        </View>
-      </MainContainer>
+      <View style={{ marginBottom: 40, paddingHorizontal: 16 }}>
+        <CustomButton
+          title={"Назначить клиенту"}
+          onPress={() => handleSnapPressClients(0)}
+        />
+      </View>
 
       <BottomSheetClients
         snapPoints={snapPoints}

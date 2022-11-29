@@ -14,17 +14,18 @@ import BackIcon from "../../../../../../assets/Icons/BackIcon";
 import { IconDelete } from "../../../../../../components/icon/icon-delete";
 import { GoalsEditingModel } from "../model";
 import { Goals } from "../model/goals";
+import { GoalsResponseProps } from "../interface/interface";
 
 export const GoalsEditingView = GoalsEditingModel.modelClient((props) => {
   const navigation = useNavigation<any>();
 
-  const handleAddTaskElement = () => {
-    props.model.createNewGoal({
-      description: ".",
-      program: props.model.program,
-    });
-  };
-
+  // const handleAddTaskElement = () => {
+  //   props.model.createNewGoal({
+  //     description: ".",
+  //     program: props.model.program,
+  //   });
+  // };
+  const arrForDel: Array<number> = [];
   return (
     <MainContainer>
       <View style={{ paddingHorizontal: 16, top: 30 }}>
@@ -55,7 +56,9 @@ export const GoalsEditingView = GoalsEditingModel.modelClient((props) => {
               <Text style={styles.headerTitle}>Назад</Text>
             </View>
           </TouchableOpacity>
-          <Text style={styles.headerTitle}>Сохранить</Text>
+          <TouchableOpacity onPress={props.model.handlePress}>
+            <Text style={styles.headerTitle}>Сохранить</Text>
+          </TouchableOpacity>
         </View>
         <ScrollView
           style={{
@@ -65,6 +68,10 @@ export const GoalsEditingView = GoalsEditingModel.modelClient((props) => {
         >
           {props.model.goals.type === "HAS_DATA" &&
             props.model.goals.data.map((goal, index) => {
+              const handlePush = () => {
+                arrForDel.push(goal.id);
+                props.model.addObjectsForDelete(arrForDel, goal.id);
+              };
               return (
                 <React.Fragment key={goal.id}>
                   <View
@@ -76,9 +83,10 @@ export const GoalsEditingView = GoalsEditingModel.modelClient((props) => {
                   >
                     <Text style={styles.mainTitle}>{`Цель ${index + 1}`}</Text>
                     <TouchableOpacity
-                      onPress={() =>
-                        goal.deleteGoal(goal.id, props.model.getGoals)
-                      }
+                      // onPress={() =>
+                      //   goal.deleteGoal(goal.id, props.model.getGoals)
+                      // }
+                      onPress={handlePush}
                     >
                       <IconDelete />
                     </TouchableOpacity>
@@ -120,7 +128,7 @@ export const GoalsEditingView = GoalsEditingModel.modelClient((props) => {
             })}
 
           <View style={{ marginTop: 32 }} />
-          <TouchableOpacity onPress={handleAddTaskElement}>
+          <TouchableOpacity onPress={props.model.addNewProgram}>
             <Text style={styles.headerTitle}>+ Добавить еще одну цель</Text>
           </TouchableOpacity>
         </ScrollView>
