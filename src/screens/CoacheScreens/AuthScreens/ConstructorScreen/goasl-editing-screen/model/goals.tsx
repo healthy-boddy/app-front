@@ -26,22 +26,6 @@ export class Goals {
       });
   }
 
-  public deleteGoal(id: number, getGoals: () => void) {
-    try {
-      this._httpService
-        .delete(`/program/goal/${id}/`)
-        .then((res) => {
-          console.log(`Successfully deleted goal № ${id}`, res.status);
-          getGoals();
-        })
-        .catch((er) => {
-          console.log(er.response);
-        });
-    } catch (e: any) {
-      console.log("Error:", e.response.data);
-    }
-  }
-
   public get id() {
     return this.source.id;
   }

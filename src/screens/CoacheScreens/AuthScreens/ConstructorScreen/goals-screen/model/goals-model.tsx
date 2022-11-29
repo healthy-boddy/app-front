@@ -50,12 +50,13 @@ export class GoalsModel {
     useEffect(() => {
       if (programId !== undefined) {
         model._program = programId;
-      }
-
-      if (model.programId) {
         model.getGoals();
       }
-    }, [model, programId]);
+    }, []);
+
+    useEffect(() => {
+      model.getGoals();
+    });
 
     return model;
   }
