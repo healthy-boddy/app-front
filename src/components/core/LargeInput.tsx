@@ -33,6 +33,7 @@ export const LargeInput = ({value, setValue, placeholder, valueError}) => {
                     fontSize: 16,
                     color: '#1e1e1e'
                 }]}
+                multiline={true}
                 onChangeText={setValue}
                 placeholder={placeholder}/>
         </View>

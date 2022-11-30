@@ -41,7 +41,7 @@ export default function reducer(state = initialState, action){
         }
         case SET_COACH_PRESENTATION_AND_VIDEO_URLS:{
             const {setVideoEndPresentationArray} = action.payload;
-            console.log(setVideoEndPresentationArray, ' SET_COACH_PRESENTATION_AND_VIDEO_URLS')
+         //   console.log(setVideoEndPresentationArray, ' SET_COACH_PRESENTATION_AND_VIDEO_URLS')
             return {
                 ...state,
                 setVideoEndPresentationArray: setVideoEndPresentationArray

@@ -26,6 +26,8 @@ const WelcomeScreen = () => {
     console.log(userData, 'userData greetings 5')
     const [education, setEducation] = useState<string>("");
     const [specialisation, setSpecialisation] = useState('')
+    const [educationError, setEducationError] = useState(false)
+    const [specialisationError, setSpecialisationError] = useState(false)
     const [resume, setResume] = useState<any>("");
     let [userToken, setUserToken] = useState<any>(null);
     let [avatar, setAvatar] = useState<any>([])
@@ -102,6 +104,16 @@ const WelcomeScreen = () => {
     }
 
     async function handlePostInfo() {
+        if (!education) {
+            setEducationError(true)
+            return false
+        }
+        setEducationError(false)
+
+        if (!specialisation) {
+            setSpecialisationError(true)
+            return false
+        }
         let AuthStr = "Bearer " + userToken;
         const dataForm = new FormData();
         dataForm.append('education_description', education)
@@ -121,6 +133,7 @@ const WelcomeScreen = () => {
         } catch (error) {
             console.log(error);
         }
+        setSpecialisationError(false)
         await handleSendCertificates()
         await getUserNewData()
     }
@@ -158,14 +171,7 @@ const WelcomeScreen = () => {
                 {!valid && <ErrorPopUp error={"Необходимо заполнить все поля"}/>}
                 <View style={{position: "relative", alignItems: 'center'}}>
                     <View>
-                        {avatar ? (
-                            <Image
-                                style={styles.image}
-                                source={{uri: avatar.uri}}
-                            />
-                        ) : (
-                            <Image style={styles.image} source={{uri: userData.avatar}}/>
-                        )}
+                        <Image style={styles.image} source={{uri: userData.avatar}}/>
                         <TouchableOpacity onPress={pickAvatar} style={styles.edit_icon}>
                             <PenIcon/>
                         </TouchableOpacity>
@@ -213,7 +219,16 @@ const WelcomeScreen = () => {
                     setValue={setEducation}
                     value={education}
                     placeholder={'Например, ПСПбГМУ 2009 г.в.'}
+                    valueError={educationError}
                 />
+                {educationError && <Text style={{
+                    color: 'red',
+                    fontSize: 16,
+                    fontWeight: '400',
+                    fontStyle: 'normal',
+                    marginTop: 5,
+                    lineHeight: 20
+                }}>Заполните форму</Text>}
 
                 <Text style={{
                     marginTop: 40,
@@ -273,7 +288,16 @@ const WelcomeScreen = () => {
                         setValue={setSpecialisation}
                         value={specialisation}
                         placeholder={'Например, Гастроэнтерология'}
+                        valueError={specialisationError}
                     />
+                    {specialisationError && <Text style={{
+                        color: 'red',
+                        fontSize: 16,
+                        fontWeight: '400',
+                        fontStyle: 'normal',
+                        marginTop: 5,
+                        lineHeight: 20
+                    }}>Заполните форму</Text>}
 
                 </View>
 

@@ -23,11 +23,8 @@ const GreetingsScreen4 = (props: any) => {
     let [coachTutorialDays, setCoachTutorialDays] = useState<any>([])
     let AuthStr = "Bearer " + tokenFromReducer;
 
-    const handleLogOut = async () => {
-        await AsyncStorage.removeItem("userToken");
-        dispatch(deleteUserToken());
-        dispatch(deleteUserBio());
-        dispatch(deleteUserData());
+    const handleSinglePage = () => {
+        navigation.navigate("CoachSingleScreen")
     }
 
     console.log(user_data, 'isFocused')
@@ -92,7 +89,7 @@ const GreetingsScreen4 = (props: any) => {
                 <View style={styles.header}>
                     <TouchableOpacity
                         activeOpacity={0.2}
-                        onLongPress={handleLogOut}
+                        onPress={handleSinglePage}
                         style={{flexDirection: 'row', alignItems: 'center'}}
                     >
                         <View>
@@ -113,84 +110,100 @@ const GreetingsScreen4 = (props: any) => {
                     </View>
                 </View>
                 {!user_data.specialization ? <View style={{flex: 1}}>
-                    <View style={{marginVertical: 16}}>
-                        <Title>Мое обучение</Title>
+                        <View style={{marginVertical: 16}}>
+                            <Title>Мое обучение</Title>
+                        </View>
+                        <TouchableOpacity
+                            disabled={!(coachTutorialDays[1]?.available && !coachTutorialDays[1]?.passed)}
+                            style={[
+                                (coachTutorialDays[1]?.available && !coachTutorialDays[1]?.passed) ?
+                                    styles.question_not_completed_style :
+                                    (coachTutorialDays[1]?.available && coachTutorialDays[1]?.passed) ?
+                                        styles.question_completed_style : styles.active_day_question]
+                            }
+                            onPress={() => {
+                                navigation.navigate('FirstTutorial')
+                            }}>
+                            <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                                <Title titlePropStyle={[{marginBottom: 4}, (!coachTutorialDays[1]?.available && !coachTutorialDays[1]?.passed) && {color: '#C9C9C9'}]}>День 1</Title>
+                                {coachTutorialDays[1]?.passed && <DoubleChecked/>}
+                            </View>
+                            <Text style={[styles.day_questions_description, (!coachTutorialDays[1]?.available && !coachTutorialDays[1]?.passed) && {color: '#C9C9C9'}]}>
+
+                                {`\u2022  Знакомство с продуктом`}{'\n'}
+                                {`\u2022 Обучение по продукту с методологом`}
+                            </Text>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity
+                            disabled={!(coachTutorialDays[2]?.available && !coachTutorialDays[2]?.passed)}
+                            style={[
+                                (coachTutorialDays[2]?.available && !coachTutorialDays[2]?.passed) ?
+                                    styles.question_not_completed_style :
+                                    (coachTutorialDays[2]?.available && coachTutorialDays[2]?.passed) ?
+                                        styles.question_completed_style : styles.active_day_question,
+                            ]}
+                            onPress={() => {
+                                navigation.navigate('SecondFirstTutorial')
+                            }}>
+                            <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                                <Title titlePropStyle={[{marginBottom: 4}, (!coachTutorialDays[2]?.available && !coachTutorialDays[2]?.passed) && {color: '#C9C9C9'}]}>День 2</Title>
+                                {coachTutorialDays[2]?.passed && <DoubleChecked/>}
+                            </View>
+                            <Text style={[styles.day_questions_description, (!coachTutorialDays[2]?.available && !coachTutorialDays[2]?.passed) && {color: '#C9C9C9'}]}>
+                                {`\u2022 Путь клиента`}{'\n'}
+                                {`\u2022 Алгоритм проведения первичной`}{'\n'}
+                                консультации
+                            </Text>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity
+                            disabled={!(coachTutorialDays[3]?.available && !coachTutorialDays[3]?.passed)}
+                            style={[
+                                (coachTutorialDays[3]?.available && !coachTutorialDays[3]?.passed) ?
+                                    styles.question_not_completed_style :
+                                    (coachTutorialDays[3]?.available && coachTutorialDays[3]?.passed) ?
+                                        styles.question_completed_style : styles.active_day_question,
+
+                            ]}
+                            onPress={() => {
+                                navigation.navigate("ThirdDayTutorial")
+                            }}>
+                            <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                                <Title titlePropStyle={[{marginBottom: 4}, (!coachTutorialDays[3]?.available && !coachTutorialDays[3]?.passed) && {color: '#C9C9C9'}]}>День 3</Title>
+                                {coachTutorialDays[3]?.passed && <DoubleChecked/>}
+                            </View>
+                            <Text style={[styles.day_questions_description, (!coachTutorialDays[3]?.available && !coachTutorialDays[3]?.passed) && {color: '#C9C9C9'}]}>
+                                {`\u2022 Долгосрочное ведение клиента`}{'\n'}
+                                {`\u2022 Постановка целей и задач`}
+                            </Text>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity
+                            onPress={() => {
+                                navigation.navigate("Greetings5")
+                            }}
+                            disabled={!coachTutorialDays[3]?.available}
+                            style={styles.active_day_question}
+                        >
+                            <Title titlePropStyle={[{marginBottom: 4}, (!coachTutorialDays[3]?.available && !coachTutorialDays[3]?.passed) && {color: '#C9C9C9'}]}>Заполните свой профиль</Title>
+                            <Text style={[styles.day_questions_description, (!coachTutorialDays[3]?.available && !coachTutorialDays[3]?.passed) && {color: '#C9C9C9'}]}>
+                                Для первичного знакомства с клиентом - это повысит доверие к вам, как к специалисту
+                            </Text>
+                        </TouchableOpacity>
                     </View>
-                    <TouchableOpacity
-                        disabled={!(coachTutorialDays[1]?.available && !coachTutorialDays[1]?.passed)}
-                        style={[styles.day_question, coachTutorialDays[1]?.passed && styles.question_completed_style]}
-                        onPress={() => {
-                            navigation.navigate('FirstTutorial')
-                        }}>
-                        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-                            <Title titlePropStyle={{marginBottom: 4}}>День 1</Title>
-                            {coachTutorialDays[1]?.passed && <DoubleChecked/>}
-                        </View>
-                        <Text style={styles.day_questions_description}>
-                            {`\u2022  Знакомство с продуктом`}{'\n'}
-                            {`\u2022 Обучение по продукту с методологом`}
-                        </Text>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity
-                        disabled={!(coachTutorialDays[2]?.available && !coachTutorialDays[2]?.passed)}
-                        style={[styles.day_question, coachTutorialDays[2]?.passed && styles.question_completed_style]}
-
-                        onPress={() => {
-                            navigation.navigate('SecondFirstTutorial')
-                        }}>
-                        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-                            <Title titlePropStyle={{marginBottom: 4}}>День 2</Title>
-                            {coachTutorialDays[2]?.passed && <DoubleChecked/>}
-                        </View>
-                        <Text style={styles.day_questions_description}>
-                            {`\u2022 Путь клиента`}{'\n'}
-                            {`\u2022 Алгоритм проведения первичной`}{'\n'}
-                            консультации
-                        </Text>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity
-                        disabled={!(coachTutorialDays[3]?.available && !coachTutorialDays[3]?.passed)}
-                        style={[styles.day_question, coachTutorialDays[3]?.passed && styles.question_completed_style]}
-                        onPress={() => {
-                            navigation.navigate("ThirdDayTutorial")
-                        }}>
-                        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-                            <Title titlePropStyle={{marginBottom: 4}}>День 3</Title>
-                            {coachTutorialDays[3]?.passed && <DoubleChecked/>}
-                        </View>
-                        <Text style={styles.day_questions_description}>
-                            {`\u2022 Долгосрочное ведение клиента`}{'\n'}
-                            {`\u2022 Постановка целей и задач`}
-                        </Text>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity
-                        onPress={() => {
-                            navigation.navigate("Greetings5")
-                        }}
-                        //  disabled={!(coachTutorialDays[3]?.available && !coachTutorialDays[3]?.passed)}
-                        style={styles.day_question}
-                    >
-                        <Title titlePropStyle={{marginBottom: 4}}>Заполните свой профиль</Title>
-                        <Text style={styles.day_questions_description}>
-                            Для первичного знакомства с клиентом - это повысит доверие к вам, как к специалисту
-                        </Text>
-                    </TouchableOpacity>
-                </View>
                     :
-                <View style={{flex: 1}}>
-                    <View style={{alignItems: 'center', marginTop: 200}}>
-                        <MansIcon/>
-                        <Title titlePropStyle={{marginTop: 25}}>
-                            Здравствуйте, Алексей!
-                        </Title>
-                        <Description textAlign={"center"} marginTop={10}>
-                            Мы подбираем для вас клиентов. Это займет не больше 1 рабочего дня
-                        </Description>
+                    <View style={{flex: 1}}>
+                        <View style={{alignItems: 'center', marginTop: 200}}>
+                            <MansIcon/>
+                            <Title titlePropStyle={{marginTop: 25}}>
+                                Здравствуйте, {user_data.user.username}!
+                            </Title>
+                            <Description textAlign={"center"} marginTop={10}>
+                                Мы подбираем для вас клиентов. Это займет не больше 1 рабочего дня
+                            </Description>
+                        </View>
                     </View>
-                </View>
                 }
             </ScrollView>
         </MainContainer>
@@ -209,10 +222,10 @@ const styles = StyleSheet.create({
         width: '100%',
         alignItems: "center"
     },
-    day_question: {
+    active_day_question: {
         width: '100%',
         borderRadius: 12,
-        backgroundColor: '#F5F4F8',
+        backgroundColor: '#FBFBFC',
         paddingHorizontal: 16,
         paddingVertical: 12,
         marginBottom: 16
@@ -231,7 +244,20 @@ const styles = StyleSheet.create({
         fontWeight: '600',
         lineHeight: 19
     },
+    question_not_completed_style: {
+        backgroundColor: '#F5F4F8',
+        width: '100%',
+        borderRadius: 12,
+        paddingHorizontal: 16,
+        paddingVertical: 12,
+        marginBottom: 16
+    },
     question_completed_style: {
-        backgroundColor: '#E5DDFD'
-    }
+        backgroundColor: '#E5DDFD',
+        width: '100%',
+        borderRadius: 12,
+        paddingHorizontal: 16,
+        paddingVertical: 12,
+        marginBottom: 16
+    },
 });

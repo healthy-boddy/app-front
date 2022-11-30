@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text, SafeAreaView, Image, TouchableOpacity, StyleSheet, Dimensions} from "react-native";
 import BackButton from "../../../../components/BackButton";
 import PenIcon from "../../../../assets/Icons/PenIcon";
@@ -16,22 +16,46 @@ import {useDispatch, useSelector} from "react-redux";
 import {useNavigation} from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {deleteClientData, deleteUserBio, deleteUserToken} from "../../../../store/actions/user_token";
-import {deleteUserData} from "../../../../store/actions/user_data";
+import {deleteUserData, setUserData} from "../../../../store/actions/user_data";
 import * as ImagePicker from "expo-image-picker";
 import EducationIcon from "../../../../assets/Icons/EducationIcon";
-
+import axios from "axios";
+import {baseUrl} from "../../../../helpers/url";
 const deviceWidth = Dimensions.get("window").width;
 
 const CoachSinglePage = () => {
-
     const userData = useSelector((store: any) => store.user_data?.user_data);
     let tokenFromReducer = useSelector((store: any) => store.user_token?.user_token);
 
     const dispatch = useDispatch();
     const navigation = useNavigation();
     const [visible, setVisible] = useState(false)
-    const [avatar, setAvatar] = useState<any>(null)
-    const [logOutModalVisible, setLogOutModalVisible] = useState(false)
+    let [avatar, setAvatar] = useState<any>(null)
+    let [logOutModalVisible, setLogOutModalVisible] = useState(false)
+    let form = new FormData()
+    let [user_data_form_axios, setUserDataFromAxios] = useState([])
+
+    console.log(avatar, 'avatar')
+
+    function getUserNewData() {
+        axios.get(baseUrl + "/me/", {
+                headers: {
+                    Authorization: "Bearer " + tokenFromReducer,
+                },
+            }).then((res) => {
+            console.log(res.data, 'MEEEEEEEEEEE')
+            setUserDataFromAxios(res.data)
+            dispatch(setUserData(res.data));
+
+        })
+            .catch((e) => {
+                console.log(e.message, "error while getting my profile");
+            });
+    }
+
+    useEffect(()=>{
+        getUserNewData()
+    }, [])
 
     const logOut = async () => {
         setLogOutModalVisible(!logOutModalVisible)
@@ -50,10 +74,6 @@ const CoachSinglePage = () => {
     }
 
     const pickImage = async () => {
-        let AuthStr = "Bearer " + tokenFromReducer;
-        let form = new FormData()
-        form.append('avatar', avatar)
-
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.All,
             allowsEditing: true,
@@ -66,21 +86,42 @@ const CoachSinglePage = () => {
                 uri: result.uri,
                 name: `IMG_` + Date.now() + `.JPG`,
                 type: result.type + "/jpeg",
+                id: Date.now(),
+                lastModified: Date.now(),
             });
-            await fetch(`http://92.53.97.238/user/client/update_me/`, {
-                method: 'PUT',
-                headers: {
-                    Authorization: AuthStr,
-                    "Content-Type": "multipart/form-data",
-                },
-                body: form
-            }).then((res) => {
-                return res.json()
-            }).then((res) => {
-                console.log(res, 'updated')
-            })
         }
     };
+
+    function handleSendNewProfileImage(){
+        let AuthStr = "Bearer " + tokenFromReducer;
+        form.append('avatar', avatar)
+        fetch(`http://92.53.97.238/user/coach/update_me/`, {
+            method: 'PUT',
+            headers: {
+                Authorization: AuthStr,
+                "Content-Type": "multipart/form-data",
+                "accept": "application/json"
+            },
+            body: form
+        }).then((res) => {
+            return res.json()
+        }).then((res) => {
+            console.log(res, 'updated coach avatar')
+        })
+        console.log(form, 'form')
+    }
+
+    useEffect(() => {
+        if (!avatar){
+            // console.log('', avatar)
+        }else {
+            handleSendNewProfileImage()
+            setTimeout(()=>{
+                getUserNewData()
+            }, 100)
+        }
+    }, [avatar])
+
     return (
         <SafeAreaView style={{
             flex: 1,
@@ -94,13 +135,16 @@ const CoachSinglePage = () => {
                 }}/>
                 <View style={{position: "relative", alignItems: 'center'}}>
                     <View>
-                        {avatar ? (
+                        {!user_data_form_axios.avatar ? (
                             <Image
                                 style={styles.image}
-                                source={{uri: avatar.uri}}
+                                source={{uri: avatar?.uri}}
                             />
-                        ) : (
-                            <Image style={styles.image} source={{uri: userData.avatar}}/>
+                        ):(
+                            <Image
+                                style={styles.image}
+                                source={{uri: user_data_form_axios.avatar_thumbnail}}
+                            />
                         )}
                         <TouchableOpacity onPress={pickImage} style={styles.edit_icon}>
                             <PenIcon/>
@@ -138,8 +182,7 @@ const CoachSinglePage = () => {
                 </TouchableOpacity>
                 <View style={styles.line}/>
 
-                <TouchableOpacity onPress={toggleBottomNavigationView}
-                                  style={styles.button}>
+                <TouchableOpacity style={styles.button}>
                     <EducationIcon/>
                     <Text style={styles.button_title}>Образование и специализация</Text>
                     <View style={{alignItems: 'flex-end'}}>
@@ -226,7 +269,9 @@ const CoachSinglePage = () => {
                         </Text>
 
                         <TouchableOpacity style={{
-                            flexDirection: 'row'
+                            flexDirection: 'row',
+                            marginVertical: 8,
+                            paddingHorizontal: 16
                         }}>
                             <ChatMessageIcon/>
                             <Text style={styles.modal_text}>
@@ -235,7 +280,8 @@ const CoachSinglePage = () => {
                         </TouchableOpacity>
                         <View style={{marginVertical: 10}}/>
                         <TouchableOpacity style={{
-                            flexDirection: 'row'
+                            flexDirection: 'row',
+                            paddingHorizontal: 16
                         }}>
                             <SendMessageIcon/>
                             <Text style={styles.modal_text}>

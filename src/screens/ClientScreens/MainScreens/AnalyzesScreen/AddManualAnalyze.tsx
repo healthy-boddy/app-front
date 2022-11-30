@@ -229,8 +229,7 @@ const AddManualAnalyze = () => {
                     width: "100%",
                     paddingHorizontal: 20,
                     flex: 1,
-                }}
-            >
+                }}>
                 <View style={{flex: 1}}>
                     {parameterArray !== undefined && (
                         <View style={{flex: 1, marginVertical: 20}}>
