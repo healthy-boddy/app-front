@@ -60,7 +60,7 @@ const CalendarScreen = () => {
                   borderRadius: 100,
                   marginRight: 10,
                 }}
-                source={{ uri: user_data.avatar }}
+                source={{ uri: user_data.user.avatar_thumbnail }}
               />
             </View>
             <Text style={styles.user_name}>{user_data.user.username}</Text>
@@ -85,7 +85,7 @@ const CalendarScreen = () => {
               },
             })
           }
-          url={user_data.avatar}
+          url={user_data.user.avatar}
           name={user_data.user.username}
           progress={"5/6"}
           subscriptionType={"Индивидуальный"}

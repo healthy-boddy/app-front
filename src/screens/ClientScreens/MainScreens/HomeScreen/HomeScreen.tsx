@@ -52,7 +52,7 @@ const HomeScreen = () => {
     }, [])
 
     useEffect(() => {
-                axios.get(baseUrl + '/quiz_status/', {
+                axios.get(baseUrl + '/client/quiz_status/', {
                     headers: {
                         Authorization: "Bearer " + tokenFromReducer,
                     },
@@ -64,7 +64,7 @@ const HomeScreen = () => {
                  //   console.log(userCoach, 'userCoach')
                 })
     }, [isFocused])
-
+    console.log(userCoach.user.avatar_thumbnail, 'userCoach.user.avatar')
     const returnViews = () => {
         if (!freeQuizStatus) {
             return (
@@ -168,7 +168,7 @@ const HomeScreen = () => {
                                             <View>
                                                 <Image
                                                     style={styles.coach_avatar}
-                                                    source={{uri: userCoach.avatar}}/>
+                                                    source={{uri: userCoach.user.avatar_thumbnail}}/>
                                             </View>
                                             <View style={{paddingLeft: 12}}>
                                                 <Text style={styles.coach_name}>{userCoach.user.username}</Text>
@@ -224,7 +224,7 @@ const HomeScreen = () => {
                                       <View>
                                           <Image
                                               style={styles.coach_avatar}
-                                              source={{uri: userCoach.avatar}}/>
+                                              source={{uri: userCoach.user.avatar_thumbnail}}/>
                                       </View>
                                       <View style={{paddingLeft: 12}}>
                                           <Text style={styles.coach_name}>{userCoach.user.username}</Text>
@@ -266,7 +266,7 @@ const HomeScreen = () => {
                             height: 40,
                             borderRadius: 100,
                             marginRight: 10
-                        }} source={{uri: user_data.avatar}}
+                        }} source={{uri: user_data?.user?.avatar_thumbnail}}
                         />
                         <Text
                             style={{

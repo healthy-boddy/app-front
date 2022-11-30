@@ -135,7 +135,7 @@ const CoachSinglePage = () => {
                 }}/>
                 <View style={{position: "relative", alignItems: 'center'}}>
                     <View>
-                        {!user_data_form_axios.avatar ? (
+                        {!user_data_form_axios?.user?.avatar ? (
                             <Image
                                 style={styles.image}
                                 source={{uri: avatar?.uri}}
@@ -143,7 +143,7 @@ const CoachSinglePage = () => {
                         ):(
                             <Image
                                 style={styles.image}
-                                source={{uri: user_data_form_axios.avatar_thumbnail}}
+                                source={{uri: user_data_form_axios?.user?.avatar_thumbnail}}
                             />
                         )}
                         <TouchableOpacity onPress={pickImage} style={styles.edit_icon}>
