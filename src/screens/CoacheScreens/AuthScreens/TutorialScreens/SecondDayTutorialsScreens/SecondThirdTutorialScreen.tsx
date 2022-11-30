@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, ScrollView, TouchableOpacity, StyleSheet} from "react-native";
+import {View, Text, ScrollView, TouchableOpacity, StyleSheet, TextInput} from "react-native";
 import {useNavigation} from "@react-navigation/native";
 import MainContainer from "../../../../../components/MainContainer";
 import BackButton from "../../../../../components/BackButton";
@@ -11,6 +11,7 @@ import {color1} from "../../../../../helpers/colors";
 import Title from "../../../../../components/Title";
 
 type Answer = {
+    other_answer?: string;
     question: number;
     answers: Array<number>;
 }
@@ -24,6 +25,7 @@ const SecondThirdTutorialScreen = () => {
     let progress = (1 / 8) * level;
     let [questions, setQuestions] = useState<any>([])
     let [checkedAnswer, setCheckedAnswer] = useState<Array<Answer>>([])
+    let [inputAnswerVisible, setInputAnswerVisible] = useState(false)
 
     let AuthStr = "Bearer " + tokenFromReducer;
 
@@ -47,15 +49,22 @@ const SecondThirdTutorialScreen = () => {
     const answerPressed = (answer: any, question: any) => {
         const answerId = answer.id;
         const questionId = question.id;
-        const currentQuestion = checkedAnswer.find(item => item.question === questionId);
+        const text = answer.text;
 
+        if (text === 'Другое') {
+            setInputAnswerVisible(true)
+        }
+        const currentQuestion = checkedAnswer.find(item => item.question === questionId);
         if (currentQuestion && question.is_multichoice) {
             if (currentQuestion.answers.includes(answerId)) {
+                if (text === 'Другое') {
+                    setInputAnswerVisible(false);
+                    currentQuestion.other_answer = '';
+                }
                 currentQuestion.answers.splice(currentQuestion.answers.indexOf(answerId), 1)
             } else {
                 currentQuestion.answers.push(answerId)
             }
-
             setCheckedAnswer(prev => ([...prev]));
         } else {
             if (currentQuestion) {
@@ -63,24 +72,55 @@ const SecondThirdTutorialScreen = () => {
             }
             setCheckedAnswer(prev => ([...prev, {
                 question: questionId,
-                answers: [answerId]
+                answers: [answerId],
             }]));
+
         }
-        //console.log(checkedAnswer, 'after')
+        // console.log(checkedAnswer, 'after')
     }
 
-    const checked = (answerId: number, questionId: number) => {
+    const checked = (answerId: number, questionId: number,) => {
         const currentQuestion = checkedAnswer.find(item => item.question === questionId);
         let isChecked = false;
+
         if (currentQuestion) {
             isChecked = currentQuestion.answers.includes(answerId)
         }
+
         return (!isChecked ? null :
                 <View style={{left: -4.14, top: -4}}>
                     <CheckBox/>
                 </View>
         )
     }
+
+    const onNextPress = () => {
+        if (level < questions.length - 1) {
+            setInputAnswerVisible(false)
+            setLevel(level + 1);
+        } else if (level === questions.length - 1) {
+            handleSendQuestionsAnswers().then(r => console.log(r))
+            navigation.navigate("TyScreenFromSecondDayPage")
+        }
+    }
+
+    const handleOtherAnswer = val => {
+        const currentQuestion = getCurrentQuestion();
+        if (currentQuestion) {
+            currentQuestion.other_answer = val;
+            setCheckedAnswer(prev => ([...prev]));
+        }
+    }
+
+    const getCurrentQuestion = () => {
+        const questionId = questions[level]?.id;
+        return checkedAnswer.find(item => item.question === questionId);
+    }
+
+    useEffect(() => {
+        setInputAnswerVisible(!!getCurrentQuestion()?.other_answer);
+    }, [level])
+
     async function handleSendQuestionsAnswers() {
         let form = new FormData()
         // @ts-ignore
@@ -179,18 +219,31 @@ const SecondThirdTutorialScreen = () => {
                                     <View style={styles.line}/>
                                 </View>
                             ))}
+                            {inputAnswerVisible &&
+                                <View style={{
+                                    width: '100%',
+                                    height: 48,
+                                    backgroundColor: '#F5F4F8',
+                                    borderRadius: 12,
+                                    marginTop: 15,
+                                    padding: 10
+                                }}>
+                                    <TextInput
+                                        value={getCurrentQuestion()?.other_answer || ''}
+                                        onChangeText={handleOtherAnswer}
+                                        style={{width: '100%'}}
+                                        placeholder={'Свой вариант'}
+                                        placeholderTextColor={'#797979'}
+                                    />
+                                </View>}
                         </ScrollView>
                     </View>
                 </View>
                 <View style={{marginBottom: 25}}>
-                    <CustomButton  onPress={()=>{
-                        if (level < questions.length - 1) {
-                            setLevel(level + 1);
-                        } else if (level === questions.length - 1) {
-                            handleSendQuestionsAnswers().then(r => console.log(r))
-                            navigation.navigate("TyFormTutorials")
-                        }
-                    }} title={'Продолжить'}/>
+                    <CustomButton
+                        title={'Продолжить'}
+                        onPress={onNextPress}
+                    />
                 </View>
             </View>
         </MainContainer>
@@ -224,7 +277,7 @@ const styles = StyleSheet.create({
         marginBottom: 12
     },
     line: {
-        height: 2,
+        height: 1,
         backgroundColor: '#E2E2E2',
         width: '100%',
     },

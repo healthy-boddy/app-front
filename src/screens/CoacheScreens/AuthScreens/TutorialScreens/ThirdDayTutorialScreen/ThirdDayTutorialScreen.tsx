@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, StyleSheet, Text, TouchableOpacity, Image, Linking, ScrollView} from "react-native";
+import {View, StyleSheet, Text, TouchableOpacity, Image, Linking, ScrollView, Pressable} from "react-native";
 import MainContainer from "../../../../../components/MainContainer";
 import BackButton from "../../../../../components/BackButton";
 import Title from "../../../../../components/Title";
@@ -11,6 +11,8 @@ import DoctorBooks from "../../../../../assets/Icons/DoctorBooks";
 import XMark from "./icons/xMark";
 import {useSelector} from "react-redux";
 import {WebView} from "react-native-webview";
+import VideoPreViewVector from "../TutorialScreensIcons/VideoPreViewVector";
+import StartVideoVector from "../TutorialScreensIcons/StartVideoVector";
 
 const ThirdDayTutorialScreen = () => {
     const [page, setPage] = useState(1)
@@ -18,10 +20,11 @@ const ThirdDayTutorialScreen = () => {
     let pdfAndVideo = useSelector((store: any) => store?.auth_data?.setVideoEndPresentationArray);
     let tokenFromReducer = useSelector((store: any) => store.user_token.user_token);
     let AuthStr = "Bearer " + tokenFromReducer;
+    let [logVideo, setLogVideo] = useState(false)
     const [valueError, setValueError] = useState(false)
     const navigation = useNavigation<any>()
     async function openPdf() {
-        await Linking.openURL(pdfAndVideo.coach_first_day_presentation_url);
+        await Linking.openURL(pdfAndVideo.coach_third_day_presentation_url);
     }
 
     async function handleSendLastAnswers() {
@@ -98,10 +101,32 @@ const ThirdDayTutorialScreen = () => {
                                 Посмотрите видео о коучинговых механиках
                             </Description>
                             <View style={styles.video_box}>
-                                <WebView
-                                    style={{width: '100%', height: 200}}
-                                    source={{uri: pdfAndVideo.coach_third_day_video_url}}
-                                />
+                                {!logVideo ?
+                                    <Pressable onPress={() => {
+                                        setLogVideo(true)
+                                    }}
+                                               style={{
+                                                   width: '100%',
+                                                   height: 200,
+                                                   backgroundColor: '#8C64FF',
+                                                   borderRadius: 20
+                                               }}>
+                                        <View style={{
+                                            flexDirection: 'row'
+                                        }}>
+                                            <View>
+                                                <VideoPreViewVector/>
+                                            </View>
+                                            <View style={{alignItems: 'center', justifyContent: 'center'}}>
+                                                <StartVideoVector/>
+                                            </View>
+                                        </View>
+                                    </Pressable>
+                                    :
+                                    <WebView
+                                        style={{width: '100%', height: 200}}
+                                        source={{uri: pdfAndVideo.coach_third_day_video_url}}
+                                    />}
                             </View>
                         </View>
                         <View style={{marginBottom: 25}}>
@@ -178,11 +203,22 @@ const ThirdDayTutorialScreen = () => {
                             <Description>
                                 Внимательно изучите презентацию о методике SMART
                             </Description>
-                            <TouchableOpacity onPress={openPdf} style={styles.video_box}>
-                                <Image
-                                    style={{width: '100%', height: 230, borderRadius: 20, resizeMode: 'cover'}}
-                                    source={require('../../../../../assets/images/preview.png')}/>
-                            </TouchableOpacity>
+                            <View style={styles.presentation_box}>
+                                <View>
+                                    <VideoPreViewVector/>
+                                </View>
+                                <TouchableOpacity onPress={openPdf} style={{
+                                    alignSelf: 'flex-end',
+                                    marginBottom: 20,
+                                    backgroundColor: 'rgba(255, 255, 255, 0.4)',
+                                    paddingVertical: 8,
+                                    paddingHorizontal: 15,
+                                    borderRadius: 20,
+                                    marginRight: 20
+                                }}>
+                                    <Text style={{color: '#FFFFFF'}}>Смотреть презентацию</Text>
+                                </TouchableOpacity>
+                            </View>
                         </View>
                         <View style={{marginBottom: 25}}>
                             <CustomButton
@@ -307,5 +343,14 @@ const styles = StyleSheet.create({
         height: 200,
         borderRadius: 20,
         marginTop: 15
-    }
+    },
+    presentation_box: {
+        width: '100%',
+        height: 200,
+        borderRadius: 20,
+        backgroundColor: '#8C64FF',
+        flexDirection: 'row',
+        justifyContent: "space-between",
+        marginTop: 24
+    },
 })

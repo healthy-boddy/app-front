@@ -8,6 +8,8 @@ import Title from "../../../../../components/Title";
 import Description from "../../../../../components/Description";
 import {useSelector} from "react-redux";
 import Pdf from 'react-native-pdf';
+import PresentationPreView from "../TutorialScreensIcons/PresentationPreView";
+import VideoPreViewVector from "../TutorialScreensIcons/VideoPreViewVector";
 
 const source = {uri: 'http://samples.leanpub.com/thereactnativebook-sample.pdf', cache: true};
 const resourceType = 'base64';
@@ -53,10 +55,19 @@ const ThirdTutorialScreen = () => {
                         {`\u2022 тарифах`}{"\n"}
                     </Description>
                     <View style={styles.presentation_box}>
-                        <TouchableOpacity onPress={openPdf}>
-                            <Image
-                                style={{width: '100%', height: 230, borderRadius: 20, resizeMode: 'cover'}}
-                                source={require('../../../../../assets/images/preview.png')}/>
+                        <View>
+                            <VideoPreViewVector/>
+                        </View>
+                        <TouchableOpacity onPress={openPdf} style={{
+                            alignSelf: 'flex-end',
+                            marginBottom: 20,
+                            backgroundColor: 'rgba(255, 255, 255, 0.4)',
+                            paddingVertical: 8,
+                            paddingHorizontal: 15,
+                            borderRadius: 20,
+                            marginRight: 20
+                        }}>
+                            <Text style={{color: '#FFFFFF'}}>Смотреть презентацию</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -75,8 +86,11 @@ export default ThirdTutorialScreen;
 const styles = StyleSheet.create({
     presentation_box: {
         width: '100%',
-        height: 230,
-        borderRadius: 20
+        height: 200,
+        borderRadius: 20,
+        backgroundColor: '#8C64FF',
+        flexDirection: 'row',
+        justifyContent: "space-between"
     },
     presentation: {},
     pdf: {

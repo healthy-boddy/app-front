@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View, StyleSheet, Text, TextInput} from "react-native";
+import {View, StyleSheet, Text, TextInput, Pressable} from "react-native";
 import MainContainer from "../../../../../components/MainContainer";
 import BackButton from "../../../../../components/BackButton";
 import Title from "../../../../../components/Title";
@@ -11,6 +11,10 @@ import {useNavigation} from "@react-navigation/native";
 import {useSelector} from "react-redux";
 import {Video} from "expo-av";
 import {WebView} from 'react-native-webview';
+import VideoPreView from "../TutorialScreensIcons/VideoPreView";
+import VideoPreViewVector from "../TutorialScreensIcons/VideoPreViewVector";
+import {color1} from "../../../../../helpers/colors";
+import StartVideoVector from "../TutorialScreensIcons/StartVideoVector";
 
 const FirstTutorialScreen = () => {
     const [value, setValue] = useState('')
@@ -20,13 +24,14 @@ const FirstTutorialScreen = () => {
 
     let tokenFromReducer = useSelector((store: any) => store.user_token.user_token);
     let AuthStr = "Bearer " + tokenFromReducer;
+    let [logVideo, setLogVideo] = useState(false)
 
     //console.log(pdfAndVideo, 'pdf')
 
     async function handleSendCheckList() {
-        if (!value){
+        if (!value) {
             setValueError(true)
-            return  false
+            return false
         }
         setValueError(false)
         let checkListForm = new FormData()
@@ -77,10 +82,32 @@ const FirstTutorialScreen = () => {
                         </Text>
 
                         <View style={styles.video_box}>
-                            <WebView
-                                style={{width: '100%', height: 200}}
-                                source={{uri: pdfAndVideo.coach_first_day_video_url}}
-                            />
+                            {!logVideo ?
+                                <Pressable onPress={() => {
+                                    setLogVideo(true)
+                                }}
+                                           style={{
+                                               width: '100%',
+                                               height: 200,
+                                               backgroundColor: '#8C64FF',
+                                               borderRadius: 20
+                                           }}>
+                                    <View style={{
+                                        flexDirection: 'row'
+                                    }}>
+                                        <View>
+                                            <VideoPreViewVector/>
+                                        </View>
+                                        <View style={{alignItems: 'center', justifyContent: 'center'}}>
+                                            <StartVideoVector/>
+                                        </View>
+                                    </View>
+                                </Pressable>
+                                :
+                                <WebView
+                                    style={{width: '100%', height: 200}}
+                                    source={{uri: pdfAndVideo.coach_first_day_video_url}}
+                                />}
                         </View>
 
                         <Title titlePropStyle={{marginVertical: 10}}>

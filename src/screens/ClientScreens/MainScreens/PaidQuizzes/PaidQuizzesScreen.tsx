@@ -29,7 +29,7 @@ const PaidQuizzesScreen = () => {
   const [level, setLevel] = useState(0);
   let [questions, setQuestions] = useState<any>([]);
   let [loading, setLoading] = useState(true);
-  let progress = (1 / 173) * level;
+  let progress = (1 / 51) * level;
   let [checkedAnswer, setCheckedAnswer] = useState<Array<Answer>>([]);
 
   useEffect(() => {
