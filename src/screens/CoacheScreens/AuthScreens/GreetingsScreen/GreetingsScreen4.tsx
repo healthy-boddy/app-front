@@ -31,6 +31,7 @@ const GreetingsScreen4 = (props: any) => {
   let user_data = useSelector((store: any) => store.user_data?.user_data);
   let [coachTutorialDays, setCoachTutorialDays] = useState<any>([]);
   let AuthStr = "Bearer " + tokenFromReducer;
+  const [refreshing, setRefreshing] = React.useState(false);
 
 
     const handleSinglePage = () => {
@@ -85,8 +86,12 @@ const GreetingsScreen4 = (props: any) => {
   const wait = (timeout) => {
     return new Promise((resolve) => setTimeout(resolve, timeout));
   };
-
-  const [refreshing, setRefreshing] = React.useState(false);
+    const onRefresh = React.useCallback(() => {
+        setRefreshing(true);
+        getCoachLearnStatus().then((r) => r);
+        wait(1000).then(() => setRefreshing(false));
+    }, []);
+    console.log(user_data, 'user_data.user.avatar')
 
 
     return (
@@ -106,7 +111,7 @@ const GreetingsScreen4 = (props: any) => {
                                 height: 40,
                                 borderRadius: 100,
                                 marginRight: 10
-                            }} source={{uri: user_data.avatar}}
+                            }} source={{uri: user_data.user.avatar_thumbnail}}
                             />
                         </View>
                         <Text style={styles.user_name}>
@@ -217,11 +222,6 @@ const GreetingsScreen4 = (props: any) => {
         </MainContainer>
     );
 
-  const onRefresh = React.useCallback(() => {
-    setRefreshing(true);
-    getCoachLearnStatus().then((r) => r);
-    wait(1000).then(() => setRefreshing(false));
-  }, []);
 
   return (
     <MainContainer>

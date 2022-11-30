@@ -130,7 +130,7 @@ const UserSinglePage = () => {
                 }}/>
                 <View style={{position: "relative", alignItems: 'center'}}>
                     <View>
-                        {!user_data_form_axios.avatar ? (
+                        {!user_data_form_axios.user.avatar_thumbnail ? (
                             <Image
                                 style={styles.image}
                                 source={{uri: avatar?.uri}}
@@ -138,7 +138,7 @@ const UserSinglePage = () => {
                         ) : (
                             <Image
                                 style={styles.image}
-                                source={{uri: user_data_form_axios.avatar}}
+                                source={{uri: user_data_form_axios.user.avatar_thumbnail}}
                             />
                         )}
                         <TouchableOpacity onPress={pickImage} style={styles.edit_icon}>

@@ -19,7 +19,7 @@ const CoachSingleScreen = () => {
     const [reviewsVisible, setReviewsVisible] = useState(false)
 
     useEffect(() => {
-        axios.get(baseUrl + '/quiz_status/', {
+        axios.get(baseUrl + '/client/quiz_status/', {
             headers: {
                 Authorization: "Bearer " + tokenFromReducer,
             },
@@ -27,7 +27,6 @@ const CoachSingleScreen = () => {
             setCoach(status.data.coach)
         })
     }, [])
-
     return (
         <SafeAreaView
             style={{
@@ -86,7 +85,7 @@ const CoachSingleScreen = () => {
                         shadowRadius: 3,
                     }}>
                         <Image
-                            source={{uri: coach?.avatar}}
+                            source={{uri: coach?.user?.avatar_thumbnail}}
                             style={styles.coach_avatar}
                         />
                         {/*<Text style={styles.specialities_description}>*/}
