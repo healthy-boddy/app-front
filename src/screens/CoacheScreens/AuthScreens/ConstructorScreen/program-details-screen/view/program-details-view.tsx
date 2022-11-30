@@ -1,6 +1,13 @@
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import MainContainer from "../../../../../../components/MainContainer";
-import { Text, TouchableOpacity, View } from "react-native";
+import {
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import BackButton from "../../../../../../components/BackButton";
 import ArrowDown from "../../../../../ClientScreens/MainScreens/CoachSingle/CoachSingleIcons/ArrowDown";
 import ArrowUp from "../../../../../ClientScreens/MainScreens/CoachSingle/CoachSingleIcons/ArrowUp";
@@ -27,114 +34,131 @@ export const ProgramDetailsView = ProgramDetailsModel.modelClient((props) => {
 
   const snapPoints = ["60%"];
 
-  const handleSnapPress = useCallback((index: number) => {
+  const handleSnapPressOneClient = useCallback((index: number) => {
     sheetRef.current?.snapToIndex(index);
-    setOpenClients(true);
+    setOpen(true);
   }, []);
 
   const handleSnapPressClients = useCallback((index: number) => {
     sheetRefClients.current?.snapToIndex(index);
-    setOpen(true);
+    setOpenClients(true);
   }, []);
+
+  useEffect(() => {
+    console.log("isOpen", isOpen);
+    console.log("isOpenClients", isOpenClients);
+  }, [isOpen, isOpenClients]);
 
   return (
     <>
-      <MainContainer>
-        <View style={{ flex: 1, paddingHorizontal: 16 }}>
-          <View style={{ flex: 1 }}>
-            <BackButton
-              onPressEdit={() =>
-                navigation.navigate("EditingScreen", {
-                  programId: props.model.currentProgramId,
-                })
-              }
-              onPress={() => {
-                navigation.navigate("ConstructorPage");
+      <SafeAreaView
+        style={[
+          { flex: 1, backgroundColor: "fff" },
+
+          {
+            backgroundColor: isOpen || isOpenClients ? "#00000090" : "#fff",
+            opacity: isOpen || isOpenClients ? 0.5 : 1,
+          },
+        ]}
+      >
+        <View
+          style={{
+            paddingHorizontal: 16,
+          }}
+        >
+          <BackButton
+            onPressEdit={() =>
+              navigation.navigate("EditingScreen", {
+                programId: props.model.currentProgramId,
+              })
+            }
+            onPress={() => {
+              navigation.navigate("ConstructorPage");
+            }}
+          />
+          <Text
+            style={{
+              color: "#1E1E1E",
+              fontSize: 24,
+              lineHeight: 28,
+              fontWeight: "600",
+            }}
+          >
+            {props.model.name}
+          </Text>
+
+          <TouchableOpacity
+            style={{
+              marginTop: 20,
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+            activeOpacity={0.7}
+            onPress={() => {
+              setReviewsVisible(!reviewsVisible);
+            }}
+          >
+            {reviewsVisible && (
+              <Description>{props.model.description}</Description>
+            )}
+            <View
+              style={{
+                alignItems: "center",
+                width: "100%",
               }}
-            />
+            >
+              {!reviewsVisible ? <ArrowDown /> : <ArrowUp />}
+            </View>
+          </TouchableOpacity>
+
+          <View style={{ marginTop: 30 }} />
+          <ProgramsGoalsBlock
+            onPress={() =>
+              navigation.navigate("Goals", {
+                programId: props.model.currentProgramId,
+              })
+            }
+            number={props.model.goalsQuantity}
+            title={"Цели программы"}
+          />
+
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-between",
+              marginTop: 36,
+              borderBottomWidth: 1,
+              borderColor: "#E2E2E2",
+              paddingVertical: 12,
+            }}
+          >
             <Text
               style={{
                 color: "#1E1E1E",
-                fontSize: 24,
-                lineHeight: 28,
+                fontSize: 19,
+                lineHeight: 22.67,
                 fontWeight: "600",
               }}
             >
-              {props.model.name}
+              Задачи
             </Text>
-
-            <TouchableOpacity
-              style={{
-                marginTop: 20,
-                alignItems: "center",
-                justifyContent: "space-between",
-              }}
-              activeOpacity={0.7}
-              onPress={() => {
-                setReviewsVisible(!reviewsVisible);
-              }}
-            >
-              {reviewsVisible && (
-                <Description>{props.model.description}</Description>
-              )}
-              <View
-                style={{
-                  alignItems: "center",
-                  width: "100%",
-                }}
-              >
-                {!reviewsVisible ? <ArrowDown /> : <ArrowUp />}
-              </View>
-            </TouchableOpacity>
-
-            <View style={{ marginTop: 30 }} />
-            <ProgramsGoalsBlock
-              onPress={() =>
-                navigation.navigate("Goals", {
-                  programId: props.model.currentProgramId,
-                })
-              }
-              number={props.model.goalsQuantity}
-              title={"Цели программы"}
-            />
-
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "space-between",
-                marginTop: 36,
-                borderBottomWidth: 1,
-                borderColor: "#E2E2E2",
-                paddingVertical: 12,
-              }}
-            >
+            <TouchableOpacity onPress={() => console.log("Press")}>
               <Text
                 style={{
-                  color: "#1E1E1E",
-                  fontSize: 19,
-                  lineHeight: 22.67,
-                  fontWeight: "600",
+                  color: "#7454CF",
+                  fontSize: 16,
+                  lineHeight: 20,
+                  fontWeight: "400",
                 }}
               >
-                Задачи
+                Показать все
               </Text>
-              <TouchableOpacity onPress={() => console.log("Press")}>
-                <Text
-                  style={{
-                    color: "#7454CF",
-                    fontSize: 16,
-                    lineHeight: 20,
-                    fontWeight: "400",
-                  }}
-                >
-                  Показать все
-                </Text>
-              </TouchableOpacity>
-            </View>
+            </TouchableOpacity>
+          </View>
 
-            <View style={{ marginTop: 32 }} />
-
+          <View style={{ marginTop: 32 }} />
+          <ScrollView showsVerticalScrollIndicator={false}>
             {props.model.tasks.type === "HAS_DATA" &&
               props.model.tasks.data.map((task) => {
                 return (
@@ -146,28 +170,28 @@ export const ProgramDetailsView = ProgramDetailsModel.modelClient((props) => {
                   />
                 );
               })}
-          </View>
-
-          <View style={{ marginBottom: 25 }}>
-            <CustomButton
-              title={"Назначить клиенту"}
-              onPress={() => handleSnapPress(0)}
-            />
-          </View>
+          </ScrollView>
         </View>
-      </MainContainer>
+      </SafeAreaView>
 
-      <BottomSheetClientPicked
-        snapPoints={snapPoints}
-        sheetRef={sheetRef}
-        onClose={() => setOpen(false)}
-        onPressToPick={() => handleSnapPressClients(0)}
-      />
+      <View style={{ marginBottom: 40, paddingHorizontal: 16 }}>
+        <CustomButton
+          title={"Назначить клиенту"}
+          onPress={() => handleSnapPressClients(0)}
+        />
+      </View>
 
       <BottomSheetClients
         snapPoints={snapPoints}
         sheetRef={sheetRefClients}
         onClose={() => setOpenClients(false)}
+        onPress={() => handleSnapPressOneClient(0)}
+      />
+      <BottomSheetClientPicked
+        snapPoints={snapPoints}
+        sheetRef={sheetRef}
+        onClose={() => setOpen(false)}
+        // onPressToPick={() => handleSnapPressClients(0)}
       />
     </>
   );

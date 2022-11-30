@@ -5,7 +5,7 @@ import { observer } from "mobx-react-lite";
 import * as stateCreator from "./state-creators";
 import { ConstructorState } from "./constructor-state";
 import { HttpService } from "../../../../../../service/http-service";
-import { GoalsResArray } from "../../goasl-editing-screen/interface/interface";
+import { GoalsResArray } from "../../../../AuthScreens/ConstructorScreen/goasl-editing-screen/interface/interface";
 
 export class GoalsModel {
   private readonly _httpService = new HttpService();
@@ -28,35 +28,26 @@ export class GoalsModel {
 
   public getGoals() {
     try {
-      this._httpService
-        .get<GoalsResArray>(`/program/goal/?program=${this._program}`)
-        .then((res) => {
-          runInAction(() => {
-            this._goals = stateCreator.getHasDataState(res.data);
-          });
+      this._httpService.get<GoalsResArray>(`/program/goal/`).then((res) => {
+        runInAction(() => {
+          this._goals = stateCreator.getHasDataState(res.data);
         });
+      });
     } catch (e: any) {
       console.log("Error:", e.response.data);
     }
   }
 
-  private constructor(private readonly programId: number) {
+  private constructor() {
     this._httpService = new HttpService({});
     makeAutoObservable(this, {}, { autoBind: true });
   }
 
-  private static makeModel(programId: number) {
-    const model = React.useMemo(() => new GoalsModel(programId), []);
-    useEffect(() => {
-      if (programId !== undefined) {
-        model._program = programId;
-        model.getGoals();
-      }
-    }, []);
-
+  private static makeModel() {
+    const model = React.useMemo(() => new GoalsModel(), []);
     useEffect(() => {
       model.getGoals();
-    });
+    }, [model]);
 
     return model;
   }
@@ -64,12 +55,8 @@ export class GoalsModel {
   private static MedicalCardPageContext =
     React.createContext<GoalsModel | null>(null);
 
-  public static Provider(
-    props: React.PropsWithChildren<{
-      programId: number;
-    }>
-  ) {
-    const model = GoalsModel.makeModel(props.programId);
+  public static Provider(props: React.PropsWithChildren<{}>) {
+    const model = GoalsModel.makeModel();
 
     return (
       <GoalsModel.MedicalCardPageContext.Provider value={model}>

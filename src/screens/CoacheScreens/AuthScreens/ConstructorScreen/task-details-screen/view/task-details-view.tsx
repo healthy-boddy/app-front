@@ -9,14 +9,14 @@ import { LargeIconPerson } from "../../view/components/icons/large-icon";
 import { CloseIcon } from "../../view/components/icons/close-icon";
 
 export const TaskDetailsView = () => {
-  const navigation = useNavigation();
+  const navigation: any = useNavigation();
   const [viewIcon, setViewIcon] = useState(false);
 
   return (
     <WrapperPage
       onPressButton={() => console.log("press")}
       buttonTitle={"Задача выполнена"}
-      onPressBack={() => navigation.goBack()}
+      onPressBack={() => navigation.navigate("ProgramDetails")}
     >
       <View
         style={[

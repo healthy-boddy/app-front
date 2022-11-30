@@ -24,13 +24,6 @@ export function getErrorState(error: Error): StateError {
   return { type: "ERROR", data: null, error };
 }
 
-export function addArrayForEditing(
-  prevArray: Array<Goals>,
-  nextElem: Goals
-): StateHasData {
-  return { type: "HAS_DATA", data: [...prevArray, nextElem], error: null };
-}
-
 export function getHasDataState(
   response: Array<GoalsResponseProps>
 ): StateHasData {
