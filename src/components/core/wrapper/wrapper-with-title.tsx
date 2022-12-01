@@ -12,9 +12,9 @@ import BackIcon from "../../../assets/Icons/BackIcon";
 
 interface ButtonWrapperPageInterface {
   onPressBack?: () => void;
-  onPressButton: () => void;
+  onPressButton?: () => void;
   children: ReactNode;
-  buttonTitle: string;
+  buttonTitle?: string;
   title: string;
 }
 
@@ -80,9 +80,11 @@ export const WrapperWithTitlePage: FC<ButtonWrapperPageInterface> = ({
       </SafeAreaView>
       <View style={styles.bodyContainer}>{children}</View>
 
-      <View style={styles.footerContainer}>
-        <CustomButton onPress={onPressButton} title={buttonTitle} />
-      </View>
+      {buttonTitle !== "" && (
+        <View style={styles.footerContainer}>
+          <CustomButton onPress={onPressButton} title={buttonTitle} />
+        </View>
+      )}
     </View>
   );
 };

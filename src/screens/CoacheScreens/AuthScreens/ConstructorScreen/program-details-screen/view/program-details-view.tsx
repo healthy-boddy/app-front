@@ -1,9 +1,7 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import MainContainer from "../../../../../../components/MainContainer";
+import React, { useCallback, useRef, useState } from "react";
 import {
   SafeAreaView,
   ScrollView,
-  StyleSheet,
   Text,
   TouchableOpacity,
   View,
@@ -20,19 +18,19 @@ import Description from "../../../../../../components/Description";
 import { BottomSheetClientPicked } from "./bottom-sheet-clients/bottom-sheet-client-picked";
 import BottomSheet from "@gorhom/bottom-sheet";
 import { BottomSheetClients } from "./bottom-sheet-clients/bottom-sheet-clients";
+import { ClientResponse } from "../../../CalendarScreen/user-list-screen/interface";
 
 export const ProgramDetailsView = ProgramDetailsModel.modelClient((props) => {
   const navigation = useNavigation<any>();
   const [reviewsVisible, setReviewsVisible] = useState(false);
-
   const [isOpen, setOpen] = useState(false);
   const [isOpenClients, setOpenClients] = useState(false);
 
+  const [clientData, setClientData] = useState<ClientResponse>();
+
   const sheetRef = useRef<BottomSheet>(null);
-
   const sheetRefClients = useRef<BottomSheet>(null);
-
-  const snapPoints = ["60%"];
+  const snapPoints = ["70%"];
 
   const handleSnapPressOneClient = useCallback((index: number) => {
     sheetRef.current?.snapToIndex(index);
@@ -44,10 +42,15 @@ export const ProgramDetailsView = ProgramDetailsModel.modelClient((props) => {
     setOpenClients(true);
   }, []);
 
-  useEffect(() => {
-    console.log("isOpen", isOpen);
-    console.log("isOpenClients", isOpenClients);
-  }, [isOpen, isOpenClients]);
+  const handlePressPickClient = (data: ClientResponse) => {
+    setClientData(data);
+  };
+
+  const handleAssigned = (id: number | null) => {
+    if (id) {
+      props.model.assignProgramToClientById(id);
+    }
+  };
 
   return (
     <>
@@ -186,12 +189,16 @@ export const ProgramDetailsView = ProgramDetailsModel.modelClient((props) => {
         sheetRef={sheetRefClients}
         onClose={() => setOpenClients(false)}
         onPress={() => handleSnapPressOneClient(0)}
+        onPressPickButton={handlePressPickClient}
+        programName={props.model.name}
       />
       <BottomSheetClientPicked
         snapPoints={snapPoints}
         sheetRef={sheetRef}
         onClose={() => setOpen(false)}
-        // onPressToPick={() => handleSnapPressClients(0)}
+        clientData={clientData ?? null}
+        programName={props.model.name}
+        onPressToPick={handleAssigned}
       />
     </>
   );

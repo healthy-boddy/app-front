@@ -1,11 +1,11 @@
 import React, { FC } from "react";
-import { Image, Text, TouchableOpacity, View } from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { WrapperClientData } from "../wrapper-client-data";
 //import {MoneyIcon} from "../../icon/money-icon";
 import { ChevronRight } from "../../icon/chevron-right";
-import { IconDelete } from "../../icon/icon-delete";
 import { CalendarSvg } from "../../icon/calendar";
 import MoneySvg from "../../../assets/Icons/MoneySvg";
+import { ClientResponse } from "../../../screens/CoacheScreens/AuthScreens/CalendarScreen/user-list-screen/interface";
 
 interface ClientBlockForCoachProps {
   onPress: () => void;
@@ -14,6 +14,7 @@ interface ClientBlockForCoachProps {
   progress: string;
   subscriptionDuration: string;
   subscriptionType: string;
+  clientData?: ClientResponse | null;
 }
 
 export const ClientBlockForCoach: FC<ClientBlockForCoachProps> = ({
@@ -23,45 +24,21 @@ export const ClientBlockForCoach: FC<ClientBlockForCoachProps> = ({
   progress,
   subscriptionType,
   subscriptionDuration,
+  clientData,
 }) => {
   return (
     <TouchableOpacity
       onPress={onPress}
-      style={{
-        backgroundColor: "#F5F4F8",
-        alignItems: "flex-start",
-        justifyContent: "center",
-        paddingHorizontal: 16,
-        paddingVertical: 20,
-        borderRadius: 24,
-      }}
+      style={[
+        styles.container,
+        clientData?.user.username === name && { backgroundColor: "#E5DDFD" },
+      ]}
     >
-      <View
-        style={{
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "space-between",
-          width: "100%",
-        }}
-      >
-        <View
-          style={{
-            flexDirection: "row",
-          }}
-        >
-          <View
-            style={{
-              height: 56,
-              width: 56,
-              alignItems: "center",
-            }}
-          >
+      <View style={styles.secondView}>
+        <View style={styles.row}>
+          <View style={styles.imageView}>
             <Image
-              style={{
-                width: "100%",
-                height: "100%",
-                borderRadius: 50,
-              }}
+              style={styles.image}
               resizeMode="cover"
               source={{ uri: url }}
             />
@@ -73,32 +50,9 @@ export const ClientBlockForCoach: FC<ClientBlockForCoachProps> = ({
               marginLeft: 8,
             }}
           >
-            <View
-              style={{
-                flexDirection: "row",
-              }}
-            >
-              <Text
-                style={{
-                  color: "#1E1E1E",
-                  fontSize: 16,
-                  lineHeight: 19.09,
-                  fontWeight: "600",
-                }}
-              >
-                {name}
-              </Text>
-              <Text
-                style={{
-                  color: "#797979",
-                  fontSize: 16,
-                  lineHeight: 19.09,
-                  fontWeight: "600",
-                  marginLeft: 8,
-                }}
-              >
-                {progress}
-              </Text>
+            <View style={styles.row}>
+              <Text style={styles.name}>{name}</Text>
+              <Text style={styles.progress}>{progress}</Text>
             </View>
 
             <View
@@ -107,10 +61,7 @@ export const ClientBlockForCoach: FC<ClientBlockForCoachProps> = ({
                 alignItems: "center",
               }}
             >
-              <WrapperClientData
-                icon={<MoneySvg />}
-                title={subscriptionType}
-              />
+              <WrapperClientData icon={<MoneySvg />} title={subscriptionType} />
               <View style={{ marginLeft: 8 }} />
               <WrapperClientData
                 borderRadiusColor={"#F2C0FF"}
@@ -134,3 +85,46 @@ export const ClientBlockForCoach: FC<ClientBlockForCoachProps> = ({
     </TouchableOpacity>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "#F5F4F8",
+    alignItems: "flex-start",
+    justifyContent: "center",
+    paddingHorizontal: 16,
+    paddingVertical: 20,
+    borderRadius: 24,
+  },
+  secondView: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    width: "100%",
+  },
+  imageView: {
+    height: 56,
+    width: 56,
+    alignItems: "center",
+  },
+  image: {
+    width: "100%",
+    height: "100%",
+    borderRadius: 50,
+  },
+  row: {
+    flexDirection: "row",
+  },
+  name: {
+    color: "#1E1E1E",
+    fontSize: 16,
+    lineHeight: 19.09,
+    fontWeight: "600",
+  },
+  progress: {
+    color: "#797979",
+    fontSize: 16,
+    lineHeight: 19.09,
+    fontWeight: "600",
+    marginLeft: 8,
+  },
+});
