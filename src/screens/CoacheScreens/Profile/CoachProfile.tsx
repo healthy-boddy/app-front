@@ -124,8 +124,7 @@ export const CoachSinglePage = () => {
                 <View style={styles.line}/>
 
                 <TouchableOpacity
-                    onPress={()=>{
-                        console.log('notifications')}}
+                    onPress={()=>{}}
                     style={styles.button}>
                     <NotificationIcon/>
                     <Text style={styles.button_title}>Уведомления</Text>

@@ -64,7 +64,7 @@ const HomeScreen = () => {
                  //   console.log(userCoach, 'userCoach')
                 })
     }, [isFocused])
-    console.log(userCoach.user.avatar_thumbnail, 'userCoach.user.avatar')
+    console.log(userCoach?.user?.avatar_thumbnail, 'userCoach.user.avatar')
     const returnViews = () => {
         if (!freeQuizStatus) {
             return (
@@ -168,7 +168,7 @@ const HomeScreen = () => {
                                             <View>
                                                 <Image
                                                     style={styles.coach_avatar}
-                                                    source={{uri: userCoach.user.avatar_thumbnail}}/>
+                                                    source={{uri: userCoach?.user?.avatar_thumbnail}}/>
                                             </View>
                                             <View style={{paddingLeft: 12}}>
                                                 <Text style={styles.coach_name}>{userCoach.user.username}</Text>
@@ -242,7 +242,6 @@ const HomeScreen = () => {
                 </View>
             )
     }}
-
     return (
         <MainContainer>
             <View
