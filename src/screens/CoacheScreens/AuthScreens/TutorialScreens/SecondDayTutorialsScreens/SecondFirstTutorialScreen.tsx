@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, StyleSheet, Text} from "react-native";
+import {View, StyleSheet, Text, Pressable} from "react-native";
 import MainContainer from "../../../../../components/MainContainer";
 import BackButton from "../../../../../components/BackButton";
 import CustomButton from "../../../../../components/CustomButton";
@@ -11,6 +11,8 @@ import {LargeInput} from "../../../../../components/core/LargeInput";
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
 import {useSelector} from "react-redux";
 import {WebView} from "react-native-webview";
+import VideoPreViewVector from "../TutorialScreensIcons/VideoPreViewVector";
+import StartVideoVector from "../TutorialScreensIcons/StartVideoVector";
 
 const SecondFirstTutorialScreen = () => {
     const navigation = useNavigation<any>()
@@ -19,6 +21,7 @@ const SecondFirstTutorialScreen = () => {
     let pdfAndVideo = useSelector((store: any) => store?.auth_data?.setVideoEndPresentationArray);
     let tokenFromReducer = useSelector((store: any) => store.user_token.user_token);
     let AuthStr = "Bearer " + tokenFromReducer;
+    let [logVideo, setLogVideo] = useState(false)
 
     async function handleSendCheckList() {
         if (!value){
@@ -67,7 +70,32 @@ const SecondFirstTutorialScreen = () => {
                         Посмоторите видео от старшего сервис-менеджера Александры Щербаковой
                     </Title>
                     <View style={styles.video_box}>
-                        <WebView source={{uri: pdfAndVideo.coach_second_day_video_url}} />
+                        {!logVideo ?
+                            <Pressable onPress={() => {
+                                setLogVideo(true)
+                            }}
+                                       style={{
+                                           width: '100%',
+                                           height: 200,
+                                           backgroundColor: '#8C64FF',
+                                           borderRadius: 20
+                                       }}>
+                                <View style={{
+                                    flexDirection: 'row'
+                                }}>
+                                    <View>
+                                        <VideoPreViewVector/>
+                                    </View>
+                                    <View style={{alignItems: 'center', justifyContent: 'center'}}>
+                                        <StartVideoVector/>
+                                    </View>
+                                </View>
+                            </Pressable>
+                            :
+                            <WebView
+                                style={{width: '100%', height: 200}}
+                                source={{uri: pdfAndVideo.coach_second_day_video_url}}
+                            />}
                     </View>
                     <Title titlePropStyle={{fontSize: 16, marginTop: 24}}>
                         Задание

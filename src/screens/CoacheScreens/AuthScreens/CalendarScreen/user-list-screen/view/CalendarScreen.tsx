@@ -7,23 +7,22 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import MainContainer from "../../../../../../components/MainContainer";
-import { BellIcon } from "../../../../../../assets/Icons/BellIcon";
+import MainContainer from "../../../../components/MainContainer";
+import { BellIcon } from "../../../../assets/Icons/BellIcon";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   deleteUserBio,
   deleteUserToken,
-} from "../../../../../../store/actions/user_token";
-import { deleteUserData } from "../../../../../../store/actions/user_data";
-import { MoneyIcon } from "../../../../../../components/icon/money-icon";
-import { WrapperClientData } from "../../../../../../components/core/wrapper-client-data";
-import { ChevronRight } from "../../../../../../components/icon/chevron-right";
-import { ClientBlockForCoach } from "../../../../../../components/core/client-block-for-coach/client-block-for-coach";
-import { UserListModel } from "../model";
+} from "../../../../store/actions/user_token";
+import { deleteUserData } from "../../../../store/actions/user_data";
+import { MoneyIcon } from "../../../../components/icon/money-icon";
+import { WrapperClientData } from "../../../../components/core/wrapper-client-data";
+import { ChevronRight } from "../../../../components/icon/chevron-right";
+import { ClientBlockForCoach } from "../../../../components/core/client-block-for-coach/client-block-for-coach";
 
-const CalendarScreen = UserListModel.modelClient((props) => {
+const CalendarScreen = () => {
   const navigation: any = useNavigation();
   const dispatch = useDispatch();
   let user_data = useSelector((store: any) => store.user_data?.user_data);
@@ -66,7 +65,6 @@ const CalendarScreen = UserListModel.modelClient((props) => {
             </View>
             <Text style={styles.user_name}>{user_data.user.username}</Text>
           </TouchableOpacity>
-
           <View>
             <BellIcon />
           </View>
@@ -76,36 +74,27 @@ const CalendarScreen = UserListModel.modelClient((props) => {
 
         <View style={{ marginTop: 16 }} />
 
-        {props.model.users.type === "HAS_DATA" &&
-          props.model.users.data.map((client) => {
-            return (
-              <React.Fragment key={client.user.id}>
-                <View style={{ marginTop: 16 }} />
-                <ClientBlockForCoach
-                  onPress={() =>
-                    navigation.navigate("ClientDetailsPage", {
-                      data: {
-                        avatar: client.user.avatar_thumbnail,
-                        name: client.user.username,
-                        subscription: "Индивидуальный",
-                        subscriptionDuration: "12",
-                        clientID: client.user.id,
-                      },
-                    })
-                  }
-                  url={client.user.avatar_thumbnail}
-                  name={client.user.username}
-                  progress={"5/6"}
-                  subscriptionType={"Индивидуальный"}
-                  subscriptionDuration={"12"}
-                />
-              </React.Fragment>
-            );
-          })}
+        <ClientBlockForCoach
+          onPress={() =>
+            navigation.navigate("ClientDetailsPage", {
+              data: {
+                avatar: user_data.avatar,
+                name: user_data.user.username,
+                subscription: "Индивидуальный",
+                subscriptionDuration: "12",
+              },
+            })
+          }
+          url={user_data.avatar}
+          name={user_data.user.username}
+          progress={"5/6"}
+          subscriptionType={"Индивидуальный"}
+          subscriptionDuration={"12"}
+        />
       </View>
     </SafeAreaView>
   );
-});
+};
 export default CalendarScreen;
 
 const styles = StyleSheet.create({

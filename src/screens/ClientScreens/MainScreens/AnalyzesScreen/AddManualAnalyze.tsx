@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {
     FlatList, KeyboardAvoidingView,
     SafeAreaView,
@@ -18,7 +18,6 @@ import {IconDelete} from "../../../../components/icon/icon-delete";
 import {WrapperPage} from "../../../../components/core/wrapper";
 import {useSelector} from "react-redux";
 import moment from "moment";
-import CustomInput from "../../../../components/CustomInput";
 
 type DataType = {
     parameter: string;
@@ -39,11 +38,26 @@ const AddManualAnalyze = () => {
             value: "",
         },
     ]);
+    let [laboratory, setLaboratory] = useState([])
 
     function setBirthDate(date: Date) {
         setAnaliseDate(date);
     }
 
+    async function handleGetLaboratory() {
+        await fetch('http://92.53.97.238/analysis/laboratory/', {
+            method: 'get',
+            headers: {
+                Authorization: AuthStr,
+                "accept": "application/json"
+            }
+        }).then((res) => {
+            return res.json()
+        }).then((res) => {
+            console.log(res, 'laboratory')
+            setLaboratory(res)
+        })
+    }
 
     async function handleSaveAnalyzes() {
         console.log(parameterArray)
@@ -66,7 +80,7 @@ const AddManualAnalyze = () => {
             for (let index = 0; index < parameterArray.length; index++) {
                 // console.log(parameterArray[index], parameterArray, index, 'ex1')
                 // console.log(JSON.stringify({  analyzes: res.id,
-                //     ...parameterArray[index]}), 'fetchic araj')
+                //     ...parameterArray[index]}), 'after fetch')
                 fetch('http://92.53.97.238/analysis/indicator/', {
                     method: 'post',
                     headers: {
@@ -89,7 +103,6 @@ const AddManualAnalyze = () => {
 
     }
 
-
     const addMooreParameters = () => {
         setParameterArray((prevData) => [
             ...prevData,
@@ -102,6 +115,9 @@ const AddManualAnalyze = () => {
         const items = parameterArray.filter((item) => item.id != data.id);
         setParameterArray(items);
     };
+    useEffect(() => {
+        handleGetLaboratory()
+    }, [])
 
     const RenderData = ({item, index}) => {
         return (
@@ -128,7 +144,6 @@ const AddManualAnalyze = () => {
                     />
                     <ChevronRight/>
                 </View>
-
                 <View style={styles.inputView}>
                     <TextInput
                         placeholder={"Ввести результат"}
@@ -229,8 +244,7 @@ const AddManualAnalyze = () => {
                     width: "100%",
                     paddingHorizontal: 20,
                     flex: 1,
-                }}
-            >
+                }}>
                 <View style={{flex: 1}}>
                     {parameterArray !== undefined && (
                         <View style={{flex: 1, marginVertical: 20}}>
@@ -269,5 +283,6 @@ const styles = StyleSheet.create({
         fontSize: 14,
         lineHeight: 16,
         fontWeight: "400",
+        width: '80%'
     },
 });

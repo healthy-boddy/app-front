@@ -19,7 +19,7 @@ const CoachSingleScreen = () => {
     const [reviewsVisible, setReviewsVisible] = useState(false)
 
     useEffect(() => {
-        axios.get(baseUrl + '/quiz_status/', {
+        axios.get(baseUrl + '/client/quiz_status/', {
             headers: {
                 Authorization: "Bearer " + tokenFromReducer,
             },
@@ -27,7 +27,6 @@ const CoachSingleScreen = () => {
             setCoach(status.data.coach)
         })
     }, [])
-
     return (
         <SafeAreaView
             style={{
@@ -79,14 +78,14 @@ const CoachSingleScreen = () => {
                 </View>
                 <ScrollView>
                     <View style={{
-                        marginTop: 55, height: 186, width: 186, alignSelf: 'center',
+                        marginTop: 32, height: 186, width: 186, alignSelf: 'center',
                         shadowColor: "rgba(0, 0, 0, 0.06)",
                         shadowOffset: {width: 4, height: 4},
                         shadowOpacity: 0.2,
                         shadowRadius: 3,
                     }}>
                         <Image
-                            source={{uri: coach?.avatar}}
+                            source={{uri: coach?.user?.avatar_thumbnail}}
                             style={styles.coach_avatar}
                         />
                         {/*<Text style={styles.specialities_description}>*/}
@@ -132,7 +131,6 @@ const CoachSingleScreen = () => {
                             </Text>}
                     </View>
                     <View style={styles.line}/>
-
                     <TouchableOpacity
                         style={styles.education_btn}
                         activeOpacity={0.7}
@@ -150,6 +148,7 @@ const CoachSingleScreen = () => {
                             {reviewsVisible ? <ArrowDown/> : <ArrowUp/>}
                         </Text>
                     </TouchableOpacity>
+                    <View style={styles.line}/>
                 </ScrollView>
             </View>
         </SafeAreaView>
@@ -197,7 +196,7 @@ const styles = StyleSheet.create({
     line: {
         width: '100%',
         height: 1,
-        backgroundColor: '#BDBDBD',
+        backgroundColor: '#E2E2E2',
         marginTop: 50,
 
     },

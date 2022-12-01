@@ -31,6 +31,7 @@ const HomeScreen = () => {
             setLoading(false)
         }, 2000)
     })
+
     const coach = [{
         name: 'Наталья Заварзина',
         description: 'Мой Health Buddy',
@@ -51,7 +52,7 @@ const HomeScreen = () => {
     }, [])
 
     useEffect(() => {
-                axios.get(baseUrl + '/quiz_status/', {
+                axios.get(baseUrl + '/client/quiz_status/', {
                     headers: {
                         Authorization: "Bearer " + tokenFromReducer,
                     },
@@ -63,7 +64,7 @@ const HomeScreen = () => {
                  //   console.log(userCoach, 'userCoach')
                 })
     }, [isFocused])
-
+    console.log(userCoach?.user?.avatar_thumbnail, 'userCoach.user.avatar')
     const returnViews = () => {
         if (!freeQuizStatus) {
             return (
@@ -88,7 +89,7 @@ const HomeScreen = () => {
                             }}
                         >
                             Пройдите опрос, чтобы мы подобрали для вас наиболее подходящего
-                            наставника. Это займет около 30 минут.
+                            наставника. Это займет около 15 минут.
                         </Text>
                     </View>
                     <View style={{flex: 1}}>
@@ -108,13 +109,13 @@ const HomeScreen = () => {
             )
         } else if (freeQuizStatus && !userCoach) {
             return (
-                <View style={{flex: 1}}>
+                <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
                     <LoadingAnimation
                         circleLength={1000}
                         imgSource={require("../../AuthScreens/OnBoarding/OnBoardingImages/blob1.png")}
                     />
                     <Title titlePropStyle={{textAlign: 'center'}}>
-                        Подбираем коуча
+                        Подбираем наставника
                     </Title>
                     <Text style={styles.subTitle}>
                         Может занять до 5 минут..
@@ -167,7 +168,7 @@ const HomeScreen = () => {
                                             <View>
                                                 <Image
                                                     style={styles.coach_avatar}
-                                                    source={{uri: userCoach.avatar}}/>
+                                                    source={{uri: userCoach?.user?.avatar_thumbnail}}/>
                                             </View>
                                             <View style={{paddingLeft: 12}}>
                                                 <Text style={styles.coach_name}>{userCoach.user.username}</Text>
@@ -187,7 +188,7 @@ const HomeScreen = () => {
             )
         }else if (userCoach && paidQuizStatus){
             return (
-                <View style={{flex: 1}}>
+                <View style={{flex: 1, justifyContent: 'center'}}>
                   <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
                       <PeoplesIcon/>
                       <Title titlePropStyle={{
@@ -205,45 +206,42 @@ const HomeScreen = () => {
                       }}>
                           Он назначит консультацию, на которой вы вместе определите цели и план работ
                       </Text>
-                  </View>
-                    <View style={{flex: 1}}>
-                        <TouchableOpacity
-                            activeOpacity={0.7}
-                            style={styles.coach_box}
-                            onPress={()=>{navigation.navigate('CoachSingleScreen')}}
-                        >
-                            {coach.map((item) => (
-                                <View style={{
-                                    flexDirection: 'row',
-                                    alignItems: 'center',
-                                    justifyContent: 'space-between'
-                                }}>
-                                    <View style={{
-                                        flexDirection: 'row',
-                                        alignItems: 'center',
-                                    }}>
-                                        <View>
-                                            <Image
-                                                style={styles.coach_avatar}
-                                                source={{uri: userCoach.avatar}}/>
-                                        </View>
-                                        <View style={{paddingLeft: 12}}>
-                                            <Text style={styles.coach_name}>{userCoach.user.username}</Text>
-                                            <Text style={styles.coach_description}>Мой Health Buddy</Text>
-                                        </View>
-                                    </View>
+                      <TouchableOpacity
+                          activeOpacity={0.7}
+                          style={styles.coach_box}
+                          onPress={()=>{navigation.navigate('CoachSingleScreen')}}
+                      >
+                          {coach.map((item) => (
+                              <View style={{
+                                  flexDirection: 'row',
+                                  alignItems: 'center',
+                                  justifyContent: 'space-between'
+                              }}>
+                                  <View style={{
+                                      flexDirection: 'row',
+                                      alignItems: 'center',
+                                  }}>
+                                      <View>
+                                          <Image
+                                              style={styles.coach_avatar}
+                                              source={{uri: userCoach.user.avatar_thumbnail}}/>
+                                      </View>
+                                      <View style={{paddingLeft: 12}}>
+                                          <Text style={styles.coach_name}>{userCoach.user.username}</Text>
+                                          <Text style={styles.coach_description}>Мой Health Buddy</Text>
+                                      </View>
+                                  </View>
 
-                                    <View style={{}}>
-                                        <RightIcon/>
-                                    </View>
-                                </View>
-                            ))}
-                        </TouchableOpacity>
-                    </View>
+                                  <View style={{}}>
+                                      <RightIcon/>
+                                  </View>
+                              </View>
+                          ))}
+                      </TouchableOpacity>
+                  </View>
                 </View>
             )
     }}
-
     return (
         <MainContainer>
             <View
@@ -262,15 +260,13 @@ const HomeScreen = () => {
                         style={{flexDirection: "row", alignItems: "center",}}
                         onPress={()=>{navigation.navigate('UserSingle')}}
                     >
-                        {!userData.avatar ? <Image
-                                source={require("../../../../assets/images/np_img.png")}
-                                style={styles.image}
-                            />
-                            :
-                            <Image
-                                source={{uri: userData.avatar}}
-                                style={styles.image}
-                            />}
+                        <Image style={{
+                            width: 40,
+                            height: 40,
+                            borderRadius: 100,
+                            marginRight: 10
+                        }} source={{uri: user_data?.user?.avatar_thumbnail}}
+                        />
                         <Text
                             style={{
                                 lineHeight: 19.09,
@@ -344,7 +340,8 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: '600',
         fontStyle: "normal",
-        lineHeight: 19
+        lineHeight: 19,
+        marginBottom: 6
     },
     coach_description: {
         color: '#797979',

@@ -21,6 +21,7 @@ import {
   ThirdDayTutorialScreen,
   TyScreenFormTutorials,
   CoachSinglePage,
+    TyScreenFromSecondDay
 } from "../../screens/CoacheScreens/AuthScreens";
 import { TabNavigatorElem } from "../ClientNavigations/tab-bar-elem/tab-navigation-elems";
 import { HomeSvg } from "../ClientNavigations/icons/home";
@@ -108,6 +109,9 @@ function TyFormTutorials() {
 }
 function CoachSingleScreen() {
   return <CoachSinglePage />;
+}
+function TyScreenFromSecondDayPage() {
+  return <TyScreenFromSecondDay />;
 }
 
 export default function CoachVerify() {
@@ -337,6 +341,14 @@ export default function CoachVerify() {
       <Tab.Screen
         name="CoachSingleScreen"
         component={CoachSingleScreen}
+        options={({ route }) => ({
+          tabBarButton: () => null,
+          tabBarStyle: { display: "none" },
+        })}
+      />
+        <Tab.Screen
+        name="TyScreenFromSecondDayPage"
+        component={TyScreenFromSecondDayPage}
         options={({ route }) => ({
           tabBarButton: () => null,
           tabBarStyle: { display: "none" },

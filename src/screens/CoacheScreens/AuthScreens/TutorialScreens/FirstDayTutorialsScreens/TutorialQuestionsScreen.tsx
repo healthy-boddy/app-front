@@ -1,16 +1,17 @@
 import React, {useEffect, useState} from 'react';
-import {View, StyleSheet, Text, ScrollView, TouchableOpacity} from "react-native";
+import {View, StyleSheet, Text, ScrollView, TouchableOpacity, TextInput} from "react-native";
 import MainContainer from "../../../../../components/MainContainer";
 import BackButton from "../../../../../components/BackButton";
 import CustomButton from "../../../../../components/CustomButton";
 import {useNavigation} from "@react-navigation/native";
 import {useSelector} from "react-redux";
-import {ActivityIndicator, ProgressBar} from "react-native-paper";
+import {ProgressBar} from "react-native-paper";
 import CheckBox from "../../../../../assets/Icons/CheckBox";
 import Title from "../../../../../components/Title";
 import {color1} from "../../../../../helpers/colors";
 
 type Answer = {
+    other_answer?: string;
     question: number;
     answers: Array<number>;
 }
@@ -23,37 +24,47 @@ const TutorialQuestionsScreen = () => {
     let [questions, setQuestions] = useState<any>([])
     let [checkedAnswer, setCheckedAnswer] = useState<Array<Answer>>([])
 
+    let [inputAnswerVisible, setInputAnswerVisible] = useState(false)
     let AuthStr = "Bearer " + tokenFromReducer;
 
-    useEffect(()=>{
-        (async ()=>{
-            await fetch('http://92.53.97.238/quiz/coach_first_quiz/',{
+    console.log(checkedAnswer, 'checkedAnswer')
+
+    useEffect(() => {
+        (async () => {
+            await fetch('http://92.53.97.238/quiz/coach_first_quiz/', {
                 method: 'get',
-                headers:{
+                headers: {
                     "accept": "application/json",
                     "Authorization": AuthStr
                 }
-            }).then((res)=>{
+            }).then((res) => {
                 return res.json()
-            }).then((res)=>{
+            }).then((res) => {
                 setQuestions(res.questions)
                 console.log(res)
             })
         })();
-    },[])
+    }, [])
 
     const answerPressed = (answer: any, question: any) => {
         const answerId = answer.id;
         const questionId = question.id;
-        const currentQuestion = checkedAnswer.find(item => item.question === questionId);
+        const text = answer.text;
 
+        if (text === 'Другое') {
+            setInputAnswerVisible(true)
+        }
+        const currentQuestion = checkedAnswer.find(item => item.question === questionId);
         if (currentQuestion && question.is_multichoice) {
             if (currentQuestion.answers.includes(answerId)) {
+                if (text === 'Другое') {
+                    setInputAnswerVisible(false);
+                    currentQuestion.other_answer = '';
+                }
                 currentQuestion.answers.splice(currentQuestion.answers.indexOf(answerId), 1)
             } else {
                 currentQuestion.answers.push(answerId)
             }
-
             setCheckedAnswer(prev => ([...prev]));
         } else {
             if (currentQuestion) {
@@ -61,24 +72,55 @@ const TutorialQuestionsScreen = () => {
             }
             setCheckedAnswer(prev => ([...prev, {
                 question: questionId,
-                answers: [answerId]
+                answers: [answerId],
             }]));
+
         }
-        //console.log(checkedAnswer, 'after')
+        // console.log(checkedAnswer, 'after')
     }
 
-    const checked = (answerId: number, questionId: number) => {
+    const checked = (answerId: number, questionId: number,) => {
         const currentQuestion = checkedAnswer.find(item => item.question === questionId);
         let isChecked = false;
+
         if (currentQuestion) {
             isChecked = currentQuestion.answers.includes(answerId)
         }
+
         return (!isChecked ? null :
                 <View style={{left: -4.14, top: -4}}>
                     <CheckBox/>
                 </View>
         )
     }
+
+    const onNextPress = () => {
+        if (level < questions.length - 1) {
+            setInputAnswerVisible(false)
+            setLevel(level + 1);
+        } else if (level === questions.length - 1) {
+            handleSendQuestionsAnswers().then(r => console.log(r))
+            navigation.navigate("TyFormTutorials")
+        }
+    }
+
+    const handleOtherAnswer = val => {
+        const currentQuestion = getCurrentQuestion();
+        if (currentQuestion) {
+            currentQuestion.other_answer = val;
+            setCheckedAnswer(prev => ([...prev]));
+        }
+    }
+
+    const getCurrentQuestion = () => {
+        const questionId = questions[level]?.id;
+        return checkedAnswer.find(item => item.question === questionId);
+    }
+
+    useEffect(() => {
+        setInputAnswerVisible(!!getCurrentQuestion()?.other_answer);
+    }, [level])
+
     async function handleSendQuestionsAnswers() {
         let form = new FormData()
         // @ts-ignore
@@ -95,9 +137,9 @@ const TutorialQuestionsScreen = () => {
                 response_answers: checkedAnswer,
                 quiz: 3
             })
-        }).then((response)=>{
+        }).then((response) => {
             return response.json()
-        }).then((response)=>{
+        }).then((response) => {
             console.log(response, 'send questions quiz')
         })
 
@@ -111,13 +153,12 @@ const TutorialQuestionsScreen = () => {
                 "Content-Type": "multipart/form-data",
             },
             body: form
-        }).then((response)=>{
+        }).then((response) => {
             return response.json()
-        }).then((response)=>{
+        }).then((response) => {
             console.log(response, 'day 1 complated')
         })
     }
-
     return (
         <MainContainer>
             <View style={{
@@ -129,7 +170,7 @@ const TutorialQuestionsScreen = () => {
                         navigation.navigate("Greetings4")
                     }}
                     latter
-                    onPress={()=>{
+                    onPress={() => {
                         if (level >= 1) {
                             setLevel(level - 1);
                         }
@@ -172,28 +213,37 @@ const TutorialQuestionsScreen = () => {
                                                 color: "#1E1E1E",
                                                 textAlign: "left",
                                                 maxWidth: 303
-                                            }}
-                                        >
+                                            }}>
                                             {item?.text}
                                         </Text>
                                     </TouchableOpacity>
                                     <View style={styles.line}/>
                                 </View>
                             ))}
+                            {inputAnswerVisible &&
+                                <View style={{
+                                    width: '100%',
+                                    height: 48,
+                                    backgroundColor: '#F5F4F8',
+                                    borderRadius: 12,
+                                    marginTop: 15,
+                                    padding: 10
+                                }}>
+                                    <TextInput
+                                        value={getCurrentQuestion()?.other_answer || ''}
+                                        onChangeText={handleOtherAnswer}
+                                        style={{width: '100%'}}
+                                        placeholder={'Свой вариант'}
+                                        placeholderTextColor={'#797979'}
+                                    />
+                                </View>}
                         </ScrollView>
                     </View>
                 </View>
                 <View style={{marginBottom: 25}}>
                     <CustomButton
                         title={'Продолжить'}
-                        onPress={()=>{
-                            if (level < questions.length - 1) {
-                                setLevel(level + 1);
-                            } else if (level === questions.length - 1) {
-                                handleSendQuestionsAnswers().then(r => console.log(r))
-                                navigation.navigate("TyFormTutorials")
-                            }
-                        }}
+                        onPress={onNextPress}
                     />
                 </View>
             </View>
@@ -214,7 +264,7 @@ const styles = StyleSheet.create({
         borderRadius: 30,
         flexDirection: 'row',
         alignItems: "center",
-        marginVertical:6
+        marginVertical: 6
 
     },
     level_info: {
@@ -227,7 +277,7 @@ const styles = StyleSheet.create({
         marginBottom: 12
     },
     line: {
-        height: 2,
+        height: 1,
         backgroundColor: '#E2E2E2',
         width: '100%',
     },

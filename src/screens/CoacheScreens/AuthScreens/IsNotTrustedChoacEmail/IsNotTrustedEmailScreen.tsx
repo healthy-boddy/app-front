@@ -45,7 +45,7 @@ const IsNotTrustedEmailScreen = () => {
                     <CustomButton
                         buttonTitle={{color: color1}}
                         buttonStyles={{backgroundColor: 'transparent', borderColor: color1, borderWidth: 2}}
-                        title={'Войти как клиент'}
+                        title={'Написать в службу поддержки'}
                     />
                 </View>
             </View>
