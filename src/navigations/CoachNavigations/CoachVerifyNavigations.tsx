@@ -34,9 +34,11 @@ import { GoalsEditing } from "../../screens/CoacheScreens/AuthScreens/Constructo
 import { ProgramDetails } from "../../screens/CoacheScreens/AuthScreens/ConstructorScreen/program-details-screen";
 import { TaskEditing } from "../../screens/CoacheScreens/AuthScreens/ConstructorScreen/task-editing-screen";
 import { Goals } from "../../screens/CoacheScreens/AuthScreens/ConstructorScreen/goals-screen";
-import { ClientsPrograms } from "../../screens/CoacheScreens/MainScreens/client-programs/client-programs";
 import { ClientsTasks } from "../../screens/CoacheScreens/MainScreens/clients-goals/client-takts";
 import { ClientGoalsDetailsPage } from "../../screens/CoacheScreens/MainScreens/clients-goals/goals-screen";
+import { UserList } from "../../screens/CoacheScreens/AuthScreens/CalendarScreen/user-list-screen";
+import { ClientProgramsClient } from "../../screens/CoacheScreens/MainScreens/client-programs";
+import { ProgramDetailsClient } from "../../screens/CoacheScreens/MainScreens/client-programs/program-details-screen";
 
 function Greetings() {
   return <GreetingsScreen />;
@@ -175,6 +177,14 @@ export default function CoachVerify() {
           tabBarStyle: { display: "none" },
         })}
       />
+      <Tab.Screen
+        name={"ClientProgramsClient"}
+        component={ClientProgramsClient}
+        options={({ route }) => ({
+          tabBarButton: () => null,
+          tabBarStyle: { display: "none" },
+        })}
+      />
 
       <Tab.Screen
         name={"TaskDetails"}
@@ -306,14 +316,6 @@ export default function CoachVerify() {
           tabBarStyle: { display: "none" },
         })}
       />
-      <Tab.Screen
-        name="ClientsProgramsProfile"
-        component={ClientsPrograms}
-        options={({ route }) => ({
-          tabBarButton: () => null,
-          tabBarStyle: { display: "none" },
-        })}
-      />
 
       <Tab.Screen
         name="ConstructorScreen"
@@ -357,7 +359,7 @@ export default function CoachVerify() {
 
       <Tab.Screen
         name="CalendarPage"
-        component={CalendarPage}
+        component={UserList}
         options={{
           tabBarIcon: ({ focused }) => (
             <TabNavigatorElem
@@ -390,6 +392,23 @@ export default function CoachVerify() {
       <Tab.Screen
         name="ClientGoalsDetailsPage"
         component={ClientGoalsDetailsPage}
+        options={({ route }) => ({
+          tabBarButton: () => null,
+          tabBarStyle: { display: "none" },
+        })}
+      />
+
+      <Tab.Screen
+        name="ClientsDetailPageWithPrograms"
+        component={ClientProgramsClient}
+        options={({ route }) => ({
+          tabBarButton: () => null,
+          tabBarStyle: { display: "none" },
+        })}
+      />
+      <Tab.Screen
+        name="ProgramDetailsClient"
+        component={ProgramDetailsClient}
         options={({ route }) => ({
           tabBarButton: () => null,
           tabBarStyle: { display: "none" },

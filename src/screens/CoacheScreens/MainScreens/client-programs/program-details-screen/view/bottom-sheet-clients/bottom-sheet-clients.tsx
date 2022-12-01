@@ -5,7 +5,7 @@ import { BottomSheetComponent } from "../../../../../../../components/core/botto
 import CustomButton from "../../../../../../../components/CustomButton";
 import { ClientBlockForCoach } from "../../../../../../../components/core/client-block-for-coach/client-block-for-coach";
 import { useNavigation } from "@react-navigation/native";
-import { ProgramDetailsModel } from "../../model";
+import { ProgramDetailsClientModel } from "../../model";
 import { ClientResponse } from "../../../../CalendarScreen/user-list-screen/interface";
 
 interface ButtonSheetPersonalDoctorProps {
@@ -18,7 +18,7 @@ interface ButtonSheetPersonalDoctorProps {
 }
 
 export const BottomSheetClients: FC<ButtonSheetPersonalDoctorProps> =
-  ProgramDetailsModel.modelClient((props) => {
+  ProgramDetailsClientModel.modelClient((props) => {
     const navigation: any = useNavigation();
 
     const [clientData, senClientData] = useState<ClientResponse>();
