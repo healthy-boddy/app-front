@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { View } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import BackButton from "../../../../../../components/BackButton";
 import MainContainer from "../../../../../../components/MainContainer";
 import { useNavigation } from "@react-navigation/native";
@@ -16,14 +16,14 @@ export const GoalsView = GoalsModel.modelClient((props) => {
           title={"Цели"}
           onPressEdit={() => navigation.navigate("GoalsEditing")}
           onPress={() => {
-            navigation.navigate("ClientsTasks");
+            navigation.navigate("ClientGoals");
           }}
         />
 
         <View style={{ marginTop: 16 }} />
 
-        {props.model.goals.type === "HAS_DATA" &&
-          props.model.goals.data.map((data, index) => {
+        {props.model.globalGoals.type === "HAS_DATA" &&
+          props.model.globalGoals.data.map((data, index) => {
             return (
               <GoalsBlock
                 key={data.id}
@@ -32,6 +32,21 @@ export const GoalsView = GoalsModel.modelClient((props) => {
               />
             );
           })}
+
+        <TouchableOpacity onPress={() => console.log("pres")}>
+          <Text
+            style={{
+              color: "#7454CF",
+              marginLeft: 10,
+              fontSize: 18,
+              fontWeight: "400",
+              lineHeight: 21.48,
+              marginTop: 32,
+            }}
+          >
+            + Добавить еще одну цель
+          </Text>
+        </TouchableOpacity>
       </View>
     </MainContainer>
   );

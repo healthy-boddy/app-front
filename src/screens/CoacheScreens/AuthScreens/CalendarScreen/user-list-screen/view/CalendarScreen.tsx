@@ -74,6 +74,7 @@ const CalendarScreen = UserListModel.modelClient((props) => {
 
         {props.model.users.type === "HAS_DATA" &&
           props.model.users.data.map((client) => {
+            console.log("client", client);
             return (
               <React.Fragment key={client.user.id}>
                 <View style={{ marginTop: 16 }} />
@@ -86,6 +87,7 @@ const CalendarScreen = UserListModel.modelClient((props) => {
                         subscription: "Индивидуальный",
                         subscriptionDuration: "12",
                         clientID: client.user.id,
+                        client,
                       },
                     })
                   }

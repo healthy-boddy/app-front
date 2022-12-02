@@ -1,34 +1,63 @@
 import React, { FC } from "react";
-import { Text, View } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
+import { GlobalStatus } from "../../../../MainScreens/clients-goals/global-goasl-editing-screen/interface/interface";
+import { DoneGoalsSvg } from "../../../../../../components/icon/done-goals-svg";
+import { Goals } from "../model/goals";
 
 interface GoalsBlockProfile {
   title: string;
   description: string;
+  status: GlobalStatus;
+  onPress: () => void;
+  id: number;
 }
 
-export const GoalsBlock: FC<GoalsBlockProfile> = ({ title, description }) => {
+export const GoalsBlock: FC<GoalsBlockProfile> = ({
+  title,
+  description,
+  status,
+  onPress,
+  id,
+}) => {
   return (
-    <View
-      style={{
-        borderRadius: 12,
-        backgroundColor: "#F5F4F8",
-        paddingHorizontal: 16,
-        paddingVertical: 12,
-        alignItems: "flex-start",
-        marginTop: 16,
-      }}
+    <TouchableOpacity
+      onPress={status !== GlobalStatus.Done ? onPress : undefined}
+      style={[
+        {
+          borderRadius: 12,
+          backgroundColor: "#F5F4F8",
+          paddingHorizontal: 16,
+          paddingVertical: 12,
+          alignItems: "flex-start",
+          marginTop: 16,
+        },
+        status === GlobalStatus.Done && {
+          backgroundColor: "#E5DDFD",
+        },
+      ]}
     >
-      <Text
+      <View
         style={{
-          marginTop: 4,
-          fontSize: 18,
-          fontWeight: "600",
-          lineHeight: 21.48,
-          color: "#1E1E1E",
+          justifyContent: "space-between",
+          flexDirection: "row",
+          alignItems: "center",
+          width: "100%",
         }}
       >
-        {title}
-      </Text>
+        <Text
+          style={{
+            marginTop: 4,
+            fontSize: 18,
+            fontWeight: "600",
+            lineHeight: 21.48,
+            color: "#1E1E1E",
+          }}
+        >
+          {title}
+        </Text>
+
+        {status === GlobalStatus.Done && <DoneGoalsSvg />}
+      </View>
       <Text
         style={{
           marginTop: 4,
@@ -40,6 +69,6 @@ export const GoalsBlock: FC<GoalsBlockProfile> = ({ title, description }) => {
       >
         {description}
       </Text>
-    </View>
+    </TouchableOpacity>
   );
 };

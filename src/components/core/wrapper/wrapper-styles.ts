@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
   container: {
@@ -37,5 +37,10 @@ export const styles = StyleSheet.create({
     textAlign: "right",
     color: "#1C1C1E",
     paddingRight: 12,
+  },
+  back: {
+    flexDirection: "row",
+    marginTop: Platform.OS === "android" ? 35 : 0,
+    alignItems: "center",
   },
 });

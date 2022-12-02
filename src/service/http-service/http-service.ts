@@ -82,6 +82,18 @@ export class HttpService {
     );
   }
 
+  public async patch<T>(
+    relativeUrl: string,
+    props?: HttpMethodProps
+  ): Promise<AxiosResponse<T>> {
+    const axiosConfig = await this.getAxiosConfig<T>(props);
+    return this._axiosInstance.patch<T, AxiosResponse<T>, T>(
+      relativeUrl,
+      props?.data || {},
+      axiosConfig
+    );
+  }
+
   public async put<T>(
     relativeUrl: string,
     props?: HttpMethodProps

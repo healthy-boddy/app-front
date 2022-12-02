@@ -1,27 +1,24 @@
 import * as React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-
-let Tab = createBottomTabNavigator();
-
 import {
+  CalendarScreen,
+  CoachSinglePage,
+  FirstScreen,
+  FirstTutorialScreen,
   GreetingsScreen,
   GreetingsScreen2,
   GreetingsScreen3,
   GreetingsScreen4,
   GreetingsScreen5,
-  FirstScreen,
-  CalendarScreen,
-  FirstTutorialScreen,
-  SecondTutorialScreen,
-  TutorialQuestionsScreen,
-  ThirdTutorialScreen,
   SecondFirstTutorialScreen,
-  SecondTwoTutorialScreen,
   SecondThirdTutorialScreen,
+  SecondTutorialScreen,
+  SecondTwoTutorialScreen,
   ThirdDayTutorialScreen,
+  ThirdTutorialScreen,
+  TutorialQuestionsScreen,
   TyScreenFormTutorials,
-  CoachSinglePage,
-    TyScreenFromSecondDay
+  TyScreenFromSecondDay,
 } from "../../screens/CoacheScreens/AuthScreens";
 import { TabNavigatorElem } from "../ClientNavigations/tab-bar-elem/tab-navigation-elems";
 import { HomeSvg } from "../ClientNavigations/icons/home";
@@ -35,11 +32,14 @@ import { GoalsEditing } from "../../screens/CoacheScreens/AuthScreens/Constructo
 import { ProgramDetails } from "../../screens/CoacheScreens/AuthScreens/ConstructorScreen/program-details-screen";
 import { TaskEditing } from "../../screens/CoacheScreens/AuthScreens/ConstructorScreen/task-editing-screen";
 import { Goals } from "../../screens/CoacheScreens/AuthScreens/ConstructorScreen/goals-screen";
-import { ClientsTasks } from "../../screens/CoacheScreens/MainScreens/clients-goals/client-takts";
-import { ClientGoalsDetailsPage } from "../../screens/CoacheScreens/MainScreens/clients-goals/goals-screen";
+import { ClientGoalsDetailsPage } from "../../screens/CoacheScreens/MainScreens/clients-goals/global-goals-screen";
 import { UserList } from "../../screens/CoacheScreens/AuthScreens/CalendarScreen/user-list-screen";
 import { ClientProgramsClient } from "../../screens/CoacheScreens/MainScreens/client-programs";
 import { ProgramDetailsClient } from "../../screens/CoacheScreens/MainScreens/client-programs/program-details-screen";
+import { GlobalGoalsEditing } from "../../screens/CoacheScreens/MainScreens/clients-goals/global-goasl-editing-screen";
+import { ClientGoals } from "../../screens/CoacheScreens/MainScreens/clients-goals";
+
+let Tab = createBottomTabNavigator();
 
 function Greetings() {
   return <GreetingsScreen />;
@@ -235,8 +235,8 @@ export default function CoachVerify() {
         })}
       />
       <Tab.Screen
-        name="ClientsTasks"
-        component={ClientsTasks}
+        name="ClientGoals"
+        component={ClientGoals}
         options={({ route }) => ({
           tabBarButton: () => null,
           tabBarStyle: { display: "none" },
@@ -346,7 +346,7 @@ export default function CoachVerify() {
           tabBarStyle: { display: "none" },
         })}
       />
-        <Tab.Screen
+      <Tab.Screen
         name="TyScreenFromSecondDayPage"
         component={TyScreenFromSecondDayPage}
         options={({ route }) => ({
@@ -404,6 +404,15 @@ export default function CoachVerify() {
       <Tab.Screen
         name="ClientGoalsDetailsPage"
         component={ClientGoalsDetailsPage}
+        options={({ route }) => ({
+          tabBarButton: () => null,
+          tabBarStyle: { display: "none" },
+        })}
+      />
+
+      <Tab.Screen
+        name="GlobalGoalsEditing"
+        component={GlobalGoalsEditing}
         options={({ route }) => ({
           tabBarButton: () => null,
           tabBarStyle: { display: "none" },

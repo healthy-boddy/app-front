@@ -9,6 +9,7 @@ import {
 import { styles } from "./wrapper-styles";
 import CustomButton from "../../CustomButton";
 import BackIcon from "../../../assets/Icons/BackIcon";
+import { PencilSvg } from "../../icon/pencil";
 
 interface ButtonWrapperPageInterface {
   onPressBack?: () => void;
@@ -16,6 +17,7 @@ interface ButtonWrapperPageInterface {
   children: ReactNode;
   buttonTitle?: string;
   title: string;
+  onPressEdit?: () => void;
 }
 
 export const WrapperWithTitlePage: FC<ButtonWrapperPageInterface> = ({
@@ -24,16 +26,17 @@ export const WrapperWithTitlePage: FC<ButtonWrapperPageInterface> = ({
   onPressButton,
   buttonTitle,
   title,
+  onPressEdit,
 }) => {
   return (
-    <View style={styles.container}>
-      <SafeAreaView
+    <SafeAreaView style={styles.container}>
+      <View
         style={{
           flexDirection: "row",
           alignItems: "center",
           justifyContent: "space-between",
-          marginLeft: 16,
-          marginRight: 16,
+          paddingHorizontal: 16,
+          height: 60,
         }}
       >
         <TouchableOpacity
@@ -72,12 +75,12 @@ export const WrapperWithTitlePage: FC<ButtonWrapperPageInterface> = ({
           {title}
         </Text>
 
-        <View
-          style={{
-            width: 70,
-          }}
-        />
-      </SafeAreaView>
+        <View />
+
+        <TouchableOpacity onPress={onPressEdit} style={styles.back}>
+          <PencilSvg />
+        </TouchableOpacity>
+      </View>
       <View style={styles.bodyContainer}>{children}</View>
 
       {buttonTitle !== "" && (
@@ -85,6 +88,6 @@ export const WrapperWithTitlePage: FC<ButtonWrapperPageInterface> = ({
           <CustomButton onPress={onPressButton} title={buttonTitle} />
         </View>
       )}
-    </View>
+    </SafeAreaView>
   );
 };
