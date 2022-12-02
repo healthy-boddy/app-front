@@ -12,8 +12,7 @@ import MoneySvg from "../../../assets/Icons/MoneySvg";
 
 export const ClientDetailsPage = ({ route: { params } }) => {
   const navigation: any = useNavigation();
-
-  console.log("params ID", params.data.clientID);
+  console.log("params ClientDetailsPage", params);
   return (
     <WrapperTwoButtons
       onPressBack={() => navigation.navigate("CalendarPage")}
@@ -98,7 +97,13 @@ export const ClientDetailsPage = ({ route: { params } }) => {
           icon={<FormIcon />}
         />
         <ClientsDetailsBlockProfile
-          onPress={() => navigation.navigate("ClientsTasks")}
+          onPress={() =>
+            navigation.navigate("ClientGoals", {
+              data: {
+                client: params.data.client,
+              },
+            })
+          }
           title={"Цели"}
           icon={<TargetsIcons />}
         />

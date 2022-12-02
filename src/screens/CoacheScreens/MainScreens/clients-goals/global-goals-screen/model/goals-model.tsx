@@ -6,33 +6,48 @@ import * as stateCreator from "./state-creators";
 import { ConstructorState } from "./constructor-state";
 import { HttpService } from "../../../../../../service/http-service";
 import { GoalsResArray } from "../../../../AuthScreens/ConstructorScreen/goasl-editing-screen/interface/interface";
+import { GlobalGoalsResArray } from "../../global-goasl-editing-screen/interface/interface";
+import { ClientResponse } from "../../../../AuthScreens/CalendarScreen/user-list-screen/interface";
 
 export class GoalsModel {
   private readonly _httpService = new HttpService();
 
-  private _goals: ConstructorState = stateCreator.getInitialState();
+  private _globalGoals: ConstructorState = stateCreator.getInitialState();
 
-  private _program: number | null = null;
+  private _client: ClientResponse | undefined = undefined;
 
-  public get goals() {
-    return this._goals;
+  public get globalGoals() {
+    return this._globalGoals;
   }
 
-  public get program() {
-    return this._program;
+  public get clientsRouteData() {
+    return this._client;
+  }
+  public setClientsRouteData(clientData: ClientResponse) {
+    this._client = clientData;
   }
 
-  public setProgram(programId: number) {
-    this._program = programId;
-  }
+  // public getGoals() {
+  //   try {
+  //     this._httpService.get<GoalsResArray>(`/program/goal/`).then((res) => {
+  //       runInAction(() => {
+  //         this._goals = stateCreator.getHasDataState(res.data);
+  //       });
+  //     });
+  //   } catch (e: any) {
+  //     console.log("Error:", e.response.data);
+  //   }
+  // }
 
-  public getGoals() {
+  public getGlobalGoals() {
     try {
-      this._httpService.get<GoalsResArray>(`/program/goal/`).then((res) => {
-        runInAction(() => {
-          this._goals = stateCreator.getHasDataState(res.data);
+      this._httpService
+        .get<GlobalGoalsResArray>(`/global_goal/`)
+        .then((res) => {
+          runInAction(() => {
+            this._globalGoals = stateCreator.getHasDataState(res.data);
+          });
         });
-      });
     } catch (e: any) {
       console.log("Error:", e.response.data);
     }
@@ -46,7 +61,7 @@ export class GoalsModel {
   private static makeModel() {
     const model = React.useMemo(() => new GoalsModel(), []);
     useEffect(() => {
-      model.getGoals();
+      model.getGlobalGoals();
     }, [model]);
 
     return model;

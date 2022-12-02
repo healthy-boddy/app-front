@@ -9,8 +9,6 @@ import { ProgramBlock } from "../../../AuthScreens/ConstructorScreen/view/compon
 export const ClientsProgramsView = ClientsProgramsModel.modelClient((props) => {
   const navigation: any = useNavigation();
 
-  console.log("programInfo", props.model.programInfo.data);
-
   return (
     <WrapperWithTitlePage
       title={"Программы"}
@@ -31,7 +29,7 @@ export const ClientsProgramsView = ClientsProgramsModel.modelClient((props) => {
           }
         }
       >
-        {props.model.programInfo.data &&
+        {props.model.programInfo.type === "HAS_DATA" &&
         props.model.programInfo.data?.length > 0 ? (
           props.model.programInfo.data.map((programs) => {
             return (

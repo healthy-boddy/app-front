@@ -1,8 +1,12 @@
+import { GlobalGoalsEditing } from "../../../../MainScreens/clients-goals/global-goasl-editing-screen";
+
 export type UserArrays = Array<ClientResponse>;
 
 export type ClientResponse = {
   birthday: string;
   gender: string;
+  done_global_goals_count: number;
+  total_global_goals_count: number;
   user: User;
   weight: number;
 };
