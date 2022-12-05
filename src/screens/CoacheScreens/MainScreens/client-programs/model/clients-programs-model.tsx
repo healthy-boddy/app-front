@@ -49,9 +49,10 @@ export class ClientsProgramsModel {
     useEffect(() => {
       runInAction(() => {
         model._client = clientId;
+        model.getProgramAssignedById();
       });
     });
-    model.getProgramAssignedById();
+
     return model;
   }
 

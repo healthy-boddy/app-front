@@ -29,7 +29,11 @@ export const ClientProgramsView = ClientProgramsModel.modelClient((props) => {
         >
           <TouchableOpacity
             activeOpacity={0.6}
-            onPress={() => navigation.navigate("ClientsDetailPageWithPrograms")}
+            onPress={() =>
+              navigation.navigate("ClientsDetailPageWithPrograms", {
+                clientId: props.model.clientId,
+              })
+            }
             style={{
               alignItems: "center",
               justifyContent: "center",

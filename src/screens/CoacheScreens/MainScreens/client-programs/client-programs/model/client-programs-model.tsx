@@ -49,12 +49,9 @@ export class ClientProgramsModel {
   private static makeModel(clientId: number | undefined) {
     const model = React.useMemo(() => new ClientProgramsModel(clientId), []);
     useEffect(() => {
-      if (clientId) {
-        runInAction(() => {
-          model._client = clientId;
-        });
-      }
-
+      runInAction(() => {
+        model._client = clientId;
+      });
       model.getPrograms();
     }, [model]);
 
