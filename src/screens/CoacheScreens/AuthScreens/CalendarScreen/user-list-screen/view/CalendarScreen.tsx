@@ -74,7 +74,6 @@ const CalendarScreen = UserListModel.modelClient((props) => {
 
         {props.model.users.type === "HAS_DATA" &&
           props.model.users.data.map((client) => {
-            console.log("client", client);
             return (
               <React.Fragment key={client.user.id}>
                 <View style={{ marginTop: 16 }} />

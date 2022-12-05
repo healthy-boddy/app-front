@@ -9,11 +9,18 @@ import { ProgramBlock } from "../../../AuthScreens/ConstructorScreen/view/compon
 export const ClientsProgramsView = ClientsProgramsModel.modelClient((props) => {
   const navigation: any = useNavigation();
 
+  console.log("props.model.clientId", props.model.clientId);
   return (
     <WrapperWithTitlePage
       title={"Программы"}
       onPressBack={() => navigation.navigate("CalendarPage")}
-      onPressButton={() => navigation.navigate("ConstructorScreen")}
+      onPressButton={() =>
+        navigation.navigate("ClientProgramsScreen", {
+          data: {
+            clientID: props.model.clientId,
+          },
+        })
+      }
       buttonTitle={
         props.model.programInfo.data && props.model.programInfo.data?.length > 0
           ? ""
@@ -38,7 +45,7 @@ export const ClientsProgramsView = ClientsProgramsModel.modelClient((props) => {
                 key={programs.id}
                 onPress={() =>
                   navigation.navigate("ProgramDetailsClient", {
-                    programDetailForClient: programs,
+                    programId: programs.id,
                   })
                 }
                 title={programs.program_info.name}

@@ -38,6 +38,8 @@ import { ClientProgramsClient } from "../../screens/CoacheScreens/MainScreens/cl
 import { ProgramDetailsClient } from "../../screens/CoacheScreens/MainScreens/client-programs/program-details-screen";
 import { GlobalGoalsEditing } from "../../screens/CoacheScreens/MainScreens/clients-goals/global-goasl-editing-screen";
 import { ClientGoals } from "../../screens/CoacheScreens/MainScreens/clients-goals";
+import { ClientProgramsScreen } from "../../screens/CoacheScreens/MainScreens/client-programs/client-programs";
+import { ProgramDetailsForAssign } from "../../screens/CoacheScreens/MainScreens/client-programs/program-details-for-assigne";
 
 let Tab = createBottomTabNavigator();
 
@@ -430,6 +432,24 @@ export default function CoachVerify() {
       <Tab.Screen
         name="ProgramDetailsClient"
         component={ProgramDetailsClient}
+        options={({ route }) => ({
+          tabBarButton: () => null,
+          tabBarStyle: { display: "none" },
+        })}
+      />
+
+      <Tab.Screen
+        name="ClientProgramsScreen"
+        component={ClientProgramsScreen}
+        options={({ route }) => ({
+          tabBarButton: () => null,
+          tabBarStyle: { display: "none" },
+        })}
+      />
+
+      <Tab.Screen
+        name="ProgramDetailsForAssign"
+        component={ProgramDetailsForAssign}
         options={({ route }) => ({
           tabBarButton: () => null,
           tabBarStyle: { display: "none" },

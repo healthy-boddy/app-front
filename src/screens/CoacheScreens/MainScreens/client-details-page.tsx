@@ -10,9 +10,10 @@ import { TargetsIcons } from "../icon/targets";
 import { ProgramsIcons } from "../icon/programms";
 import MoneySvg from "../../../assets/Icons/MoneySvg";
 
-export const ClientDetailsPage = ({ route: { params } }) => {
+export const ClientDetailsPage = ({ route: { params } }: any) => {
   const navigation: any = useNavigation();
-  console.log("params ClientDetailsPage", params);
+  const userId = params?.data?.client?.user?.id;
+  console.log("params ClientDetailsPage", userId);
   return (
     <WrapperTwoButtons
       onPressBack={() => navigation.navigate("CalendarPage")}
@@ -110,7 +111,7 @@ export const ClientDetailsPage = ({ route: { params } }) => {
         <ClientsDetailsBlockProfile
           onPress={() =>
             navigation.navigate("ClientsDetailPageWithPrograms", {
-              clientId: params.data.clientID,
+              clientId: userId,
             })
           }
           title={"Программы"}
