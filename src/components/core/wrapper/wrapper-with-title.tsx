@@ -75,11 +75,12 @@ export const WrapperWithTitlePage: FC<ButtonWrapperPageInterface> = ({
           {title}
         </Text>
 
-        <View />
-
-        <TouchableOpacity onPress={onPressEdit} style={styles.back}>
-          <PencilSvg />
-        </TouchableOpacity>
+        <View style={{ width: 60 }} />
+        {onPressEdit && (
+          <TouchableOpacity onPress={onPressEdit} style={styles.back}>
+            <PencilSvg />
+          </TouchableOpacity>
+        )}
       </View>
       <View style={styles.bodyContainer}>{children}</View>
 
