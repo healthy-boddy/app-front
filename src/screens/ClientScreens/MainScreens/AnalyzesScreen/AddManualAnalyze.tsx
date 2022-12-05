@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {
-    FlatList, KeyboardAvoidingView,
+    FlatList,
+    KeyboardAvoidingView,
     SafeAreaView,
     ScrollView,
     StyleSheet,
@@ -18,11 +19,13 @@ import {IconDelete} from "../../../../components/icon/icon-delete";
 import {WrapperPage} from "../../../../components/core/wrapper";
 import {useSelector} from "react-redux";
 import moment from "moment";
+import {baseUrl2} from "../../../../helpers/url";
 
-type DataType = {
-    parameter: string;
+type ParameterType = {
+    name: string;
     value: string;
     id: number;
+    filteredUnits?: Array<any>;
 };
 
 const AddManualAnalyze = () => {
@@ -31,21 +34,27 @@ const AddManualAnalyze = () => {
     let AuthStr = "Bearer " + tokenFromReducer;
     const [analiseDate, setAnaliseDate] = useState<Date>(new Date());
     const [lab, setLab] = useState("");
-    const [parameterArray, setParameterArray] = useState([
+    const [parameterArray, setParameterArray] = useState<Array<ParameterType>>([
         {
             id: 1,
             name: "",
             value: "",
+            filteredUnits: []
         },
     ]);
     let [laboratory, setLaboratory] = useState([])
-
+    let [filteredLaboratory, setFilteredLaboratory] = useState<any>([])
+    let [labId, setLabId] = useState('')
+    const [labUnits, setLabUnits] = useState([]);
+    let [filteredAnalysesIndicator, setFilteredAnalysesIndicator] = useState([])
     function setBirthDate(date: Date) {
         setAnaliseDate(date);
     }
 
+
+
     async function handleGetLaboratory() {
-        await fetch('http://92.53.97.238/analysis/laboratory/', {
+        await fetch(baseUrl2 + '/analysis/laboratory/', {
             method: 'get',
             headers: {
                 Authorization: AuthStr,
@@ -60,8 +69,7 @@ const AddManualAnalyze = () => {
     }
 
     async function handleSaveAnalyzes() {
-        console.log(parameterArray)
-        fetch('http://92.53.97.238/analysis/', {
+        fetch(baseUrl2 + '/analysis/', {
             method: 'post',
             headers: {
                 Authorization: AuthStr,
@@ -70,8 +78,7 @@ const AddManualAnalyze = () => {
             },
             body: JSON.stringify({
                 date: moment(analiseDate).format("YYYY-MM-DD"),
-                laboratory: lab,
-                name: "Лейкоциты"
+                laboratory: +labId,
             })
         }).then((res) => {
             return res.json()
@@ -81,6 +88,13 @@ const AddManualAnalyze = () => {
                 // console.log(parameterArray[index], parameterArray, index, 'ex1')
                 // console.log(JSON.stringify({  analyzes: res.id,
                 //     ...parameterArray[index]}), 'after fetch')
+                const unit = labUnits.find(item => item.indicator_name === parameterArray[index].name);
+                console.log({unit})
+                console.log({
+                    unit: unit?.id || 0,
+                    value: +parameterArray[index].value,
+                    analysis: res.id,
+                }, 100001)
                 fetch('http://92.53.97.238/analysis/indicator/', {
                     method: 'post',
                     headers: {
@@ -89,19 +103,25 @@ const AddManualAnalyze = () => {
                         "Content-Type": "application/json"
                     },
                     body: JSON.stringify({
-                        ...parameterArray[index],
+                        unit: unit?.id || 0,
+                        value: parameterArray[index].value,
                         analysis: res.id,
                     })
                 }).then((res1) => {
                     return res1.json()
                 }).then((res1) => {
                     console.log(res1, 'handle save analyzes 2')
+                    setParameterArray([])
+                    setLab('')
                     navigation.navigate("Analyzes")
                 })
             }
         })
-
     }
+
+    useEffect(() => {
+        handleGetLaboratory().then(()=>{})
+    }, [])
 
     const addMooreParameters = () => {
         setParameterArray((prevData) => [
@@ -115,9 +135,36 @@ const AddManualAnalyze = () => {
         const items = parameterArray.filter((item) => item.id != data.id);
         setParameterArray(items);
     };
-    useEffect(() => {
-        handleGetLaboratory()
-    }, [])
+    const handleFilterLabs = (item) => {
+        let a
+        if (item.length >= 3){
+            a = laboratory.filter((labName) => myInclude(labName.name, item))
+            setFilteredLaboratory(a)
+        }else {
+            setFilteredLaboratory([])
+        }
+        setLab(item)
+    }
+
+    const handleParameters = (index, val, key, deleteFilteredUnits = false) => {
+        parameterArray[index][key] = val;
+        parameterArray.forEach(item => item.filteredUnits = []);
+        if (!deleteFilteredUnits && val.length >= 3) {
+            parameterArray[index].filteredUnits = labUnits.filter(item => myInclude(item.indicator_name, val));
+        }
+        setParameterArray([...parameterArray])
+    }
+
+    const onLabPress = lab => {
+        setLab(lab.name)
+        setLabId(lab.id)
+        setLabUnits(lab.units)
+        setFilteredLaboratory(null)
+    }
+
+    const myInclude = (big: string, small: string) => {
+        return big.toLowerCase().includes(small.toLowerCase());
+    }
 
     const RenderData = ({item, index}) => {
         return (
@@ -134,7 +181,6 @@ const AddManualAnalyze = () => {
                         <IconDelete/>
                     </TouchableOpacity>
                 </View>
-
                 <View style={styles.inputView}>
                     <TextInput
                         placeholder={"Выбрать показатель"}
@@ -142,8 +188,15 @@ const AddManualAnalyze = () => {
                         onChangeText={(val) => handleParameters(index, val, 'name')}
                         style={styles.input}
                     />
-                    <ChevronRight/>
                 </View>
+                {item.filteredUnits?.map((unit: any) => (
+                    <TouchableOpacity key={unit.id} onPress={() => handleParameters(index, unit?.indicator_name, 'name', true)}>
+                        <Text style={styles.laboratory_title}>
+                            {unit?.indicator_name}
+                        </Text>
+                        <View style={styles.line}/>
+                    </TouchableOpacity>
+                ))}
                 <View style={styles.inputView}>
                     <TextInput
                         placeholder={"Ввести результат"}
@@ -155,11 +208,6 @@ const AddManualAnalyze = () => {
             </>
         );
     };
-
-    const handleParameters = (index, val, key) => {
-        parameterArray[index][key] = val
-        setParameterArray([...parameterArray])
-    }
 
     const flatFooter = () => {
         return (
@@ -196,27 +244,20 @@ const AddManualAnalyze = () => {
             </View>
         )
     }
+
     const flatHeader = () => {
         return (
             <View>
                 <TextTitle title={"Дата"}/>
 
-                <View
-                    style={{
-                        marginTop: 9.5,
-                    }}
-                />
+                <View style={{marginTop: 9.5,}}/>
                 <DatePicker
                     date={analiseDate}
                     onDateChange={setBirthDate}
                     placeholder="Выбрать дату"
                     icon={<CalendarSvg/>}
                 />
-                <View
-                    style={{
-                        marginTop: 17.5,
-                    }}
-                />
+                <View style={{marginTop: 17.5}}/>
 
                 <TextTitle title={"Лаборатория"}/>
 
@@ -224,10 +265,19 @@ const AddManualAnalyze = () => {
                     <TextInput
                         placeholder={"Выбрать лабораторию"}
                         value={lab}
-                        onChangeText={setLab}
+                        onChangeText={handleFilterLabs}
                         style={styles.input}
                     />
-                    <ChevronRight/>
+                </View>
+                <View style={{width: '100%', backgroundColor: 'white', marginTop: 10}}>
+                    {filteredLaboratory?.map((lab: any) => (
+                        <TouchableOpacity key={lab.id} onPress={() => onLabPress(lab)}>
+                            <Text style={styles.laboratory_title}>
+                                {lab?.name}
+                            </Text>
+                            <View style={styles.line}/>
+                        </TouchableOpacity>
+                    ))}
                 </View>
             </View>
         )
@@ -285,4 +335,16 @@ const styles = StyleSheet.create({
         fontWeight: "400",
         width: '80%'
     },
+    line: {
+        width: '100%',
+        height: 1,
+        backgroundColor: '#E2E2E2'
+    },
+    laboratory_title: {
+        fontSize: 18,
+        fontWeight: '400',
+        lineHeight: 21,
+        paddingVertical: 8,
+        paddingHorizontal: 16
+    }
 });

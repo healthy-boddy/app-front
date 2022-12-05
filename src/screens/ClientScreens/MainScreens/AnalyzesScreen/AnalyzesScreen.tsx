@@ -8,6 +8,8 @@ import {useIsFocused, useNavigation} from "@react-navigation/native";
 import AnalysesIcon from "./analysisIcon/AnalysesIcon";
 import Title from "../../../../components/Title";
 import Description from "../../../../components/Description";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import {setLab} from "../../../../store/actions/laboratory";
 
 const wait = (timeout) => {
     return new Promise(resolve => setTimeout(resolve, timeout));
@@ -40,21 +42,31 @@ const AnalyzesScreen = () => {
             return res.json()
         }).then((res) => {
             setAnalyses(res)
-            console.log(res, 'analyzes')
         })
     }
 
     useEffect(() => {
-        getAnalysesList()
+        if (isFocused) {
+            getAnalysesList()
+        }
     }, [isFocused])
 
 
     const _onRefresh =()=>{
         console.log(2)
     }
+
+    const openSingleAnalyze = async item => {
+        dispatch(setLab(item))
+        navigation.navigate('AnalyseSingle')
+    }
+
     const renderAnalyses = ({item}: any) => {
         return (
-            <TouchableOpacity activeOpacity={0.6} style={styles.analyzes_box}>
+            <TouchableOpacity
+                onPress={() => openSingleAnalyze(item)}
+                activeOpacity={0.6}
+                style={styles.analyzes_box}>
                 <View style={styles.icon_box}>
                     <AnalysesIcon/>
                 </View>

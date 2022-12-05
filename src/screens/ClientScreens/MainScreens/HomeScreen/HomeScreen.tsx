@@ -64,7 +64,7 @@ const HomeScreen = () => {
                  //   console.log(userCoach, 'userCoach')
                 })
     }, [isFocused])
-    console.log(userCoach?.user?.avatar_thumbnail, 'userCoach.user.avatar')
+    console.log(userCoach?.user?.avatar_thumbnail, 'userCoach?.user?.avatar_thumbnail')
     const returnViews = () => {
         if (!freeQuizStatus) {
             return (
