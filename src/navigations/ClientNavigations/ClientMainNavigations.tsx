@@ -15,7 +15,9 @@ import {
     TyScreen,
     AddAnalyzes,
     AddManualAnalyze,
-    SaveAnalyzes
+    SaveAnalyzes,
+    AnalyseSingleScreen,
+    EditAnalyseScreen
 
 } from "../../screens/ClientScreens/MainScreens";
 import {TabNavigatorElem} from "./tab-bar-elem/tab-navigation-elems";
@@ -56,6 +58,12 @@ function AddAnalyzesScreen() {
 }
 function AddManual() {
     return <AddManualAnalyze/>;
+}
+function AnalyseSingle() {
+    return <AnalyseSingleScreen/>;
+}
+function EditAnalyse() {
+    return <EditAnalyseScreen/>;
 }
 
 
@@ -173,6 +181,22 @@ export default function ClientMain() {
             <Tab.Screen
                 name="SaveAnalyzesScreen"
                 component={SaveAnalyzes}
+                options={({route}) => ({
+                    tabBarButton: () => null,
+                    tabBarStyle: {display: 'none'},
+                })}
+            />
+            <Tab.Screen
+                name="AnalyseSingle"
+                component={AnalyseSingle}
+                options={({route}) => ({
+                    tabBarButton: () => null,
+                    tabBarStyle: {display: 'none'},
+                })}
+            />
+            <Tab.Screen
+                name="EditAnalyse"
+                component={EditAnalyse}
                 options={({route}) => ({
                     tabBarButton: () => null,
                     tabBarStyle: {display: 'none'},

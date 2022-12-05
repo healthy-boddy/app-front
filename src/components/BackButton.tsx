@@ -63,6 +63,16 @@ const BackButton = (props: any) => {
           <PencilSvg />
         </TouchableOpacity>
       )}
+      {props.editAnalyse && (
+          <TouchableOpacity onPress={props.onPressEditAnalyse} style={[styles.back, {top: 7}]}>
+            <Text style={styles.latterTitle}>Изменить</Text>
+          </TouchableOpacity>
+      )}
+      {props.saveAnalyse && (
+          <TouchableOpacity onPress={props.onPressSave} style={[styles.back, {top: 7}]}>
+            <Text style={styles.latterTitle}>Сохранить</Text>
+          </TouchableOpacity>
+      )}
     </View>
   );
 };
