@@ -5,9 +5,8 @@ import { ProgramAssignedToClient } from "../interface/interface";
 
 export const ProgramDetailsClient = ({ route }: any) => {
   const programDetailForClient: ProgramAssignedToClient | undefined =
-    route?.params?.programDetailForClient;
-  const programId = route?.params?.programDetailForClient?.program;
-
+    route?.params;
+  const programId = route?.params?.programId;
   return (
     <ProgramDetailsClientModel.Provider
       programId={programId}

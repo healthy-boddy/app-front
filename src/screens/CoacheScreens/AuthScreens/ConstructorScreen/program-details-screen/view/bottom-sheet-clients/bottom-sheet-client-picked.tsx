@@ -68,7 +68,7 @@ export const BottomSheetClientPicked: FC<ButtonSheetPersonalDoctorProps> = ({
             color: "#1E1E1E",
           }}
         >
-          Вы уверены, что хотите назначить программу {programName} клиенту
+          Вы уверены, что хотите назначить программу {programName} клиенту{`\n`}
           {clientData?.user.username}?
         </Text>
 
