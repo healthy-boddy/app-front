@@ -21,6 +21,7 @@ import { baseUrl } from "../../../../helpers/url";
 import FormattingExample from "../../../../components/FormattingExample";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { WrapperPinCode } from "./view/wrapper/wrapper-pin-code";
+import * as MailComposer from "expo-mail-composer";
 
 const PinCodeScreen = (props: any) => {
   const navigation: any = useNavigation();
@@ -98,7 +99,14 @@ const PinCodeScreen = (props: any) => {
     setResendPin(false);
     setTime(25);
   }
-
+  async function sendEmailAsync() {
+    let result = await MailComposer.composeAsync({
+      recipients: ['support@longlifelab.ru'],
+      subject: 'Email subject!!!!',
+      // body: 'This is the body of the email ✅',
+    });
+    alert(result.status);
+  }
   return (
     <WrapperPinCode
       onPressBack={() => navigation.navigate("CreateAccount")}
@@ -112,7 +120,7 @@ const PinCodeScreen = (props: any) => {
           }}
         >
           Не приходит код?
-          <TouchableOpacity onPress={() => console.log("Pressed")}>
+          <TouchableOpacity onPress={sendEmailAsync}>
             <Text
               style={{
                 color: color1,

@@ -45,8 +45,7 @@ const EditAnalyseScreen = ({}) => {
     const analyzeFromStorage = useSelector(store => store.laboratory.lab);
     const [activeAnalyzeId, setActiveAnalyzeId] = useState(analyzeFromStorage?.id);
     const [isLabChanged, setIsLabChanged] = useState(false);
-
-
+    console.log(activeAnalyzeId, 'editi')
     function setBirthDate(date: Date) {
         setAnaliseDate(date);
     }
@@ -295,12 +294,13 @@ const EditAnalyseScreen = ({}) => {
     }
     const renderItems = ({item, index}: any) => {
         return (
-            <>
-                <View style={{marginTop: 17.5}}/>
+            <View>
+                <View/>
                 <View style={{
                     flexDirection: "row",
                     justifyContent: "space-between",
                     width: "100%",
+
                 }}>
                     <TextTitle title={`Показатель ${index + 1}`}/>
 
@@ -332,7 +332,7 @@ const EditAnalyseScreen = ({}) => {
                         style={styles.input}
                     />
                 </View>
-            </>
+            </View>
         )
     }
 
@@ -352,11 +352,14 @@ const EditAnalyseScreen = ({}) => {
                     marginVertical: 20
                 }}>
                     <FlatList
+                        contentContainerStyle={{}}
                         data={analysesIndicators}
                         renderItem={renderItems}
                         ListFooterComponent={flatFooter()}
                         ListHeaderComponent={flatHeader()}
                         showsVerticalScrollIndicator={false}
+                        removeClippedSubviews={false}
+
                     />
                 </View>
                 <View style={{marginBottom: 25}}>

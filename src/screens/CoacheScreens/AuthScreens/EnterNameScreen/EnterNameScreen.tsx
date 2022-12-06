@@ -19,6 +19,9 @@ import {RadioButton} from "react-native-paper";
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
 import Delete from "../../../../assets/Icons/Delete";
 import {WrapperPage} from "../../../../components/core/wrapper";
+import MainContainer from "../../../../components/MainContainer";
+import CustomButton from "../../../../components/CustomButton";
+import BackButton from "../../../../components/BackButton";
 
 const EnterNameScreen = () => {
     const navigation: any = useNavigation();
@@ -85,157 +88,153 @@ const EnterNameScreen = () => {
     }
 
     return (
-        <WrapperPage
-            onPressBack={navigation.goBack}
-            onPressButton={handleSetNameAvatar}
-            buttonTitle={"Продолжить"}
-        >
-            <KeyboardAwareScrollView
-                showsVerticalScrollIndicator={false}
-                scrollEnabled={false}
-                style={{width: "100%", paddingHorizontal: 16}}
-            >
-                <View>
-                    {!nameValid && (
-                        <ErrorPopUp style={{marginBottom: 5}} error={"Введите имя"}/>
-                    )}
-                    {!imageValid && (
-                        <ErrorPopUp style={{marginBottom: 5}} error={"Добавьте фото"}/>
-                    )}
-                    {!roleValid && (
-                        <ErrorPopUp style={{marginBottom: 5}} error={"Выберете роль"}/>
-                    )}
-                </View>
-                <View style={{flex: 1, marginBottom: 30}}>
+        <MainContainer>
+            <View style={{flex: 1}}>
+                <BackButton onPress={()=>{
+                    navigation.navigate("Welcome")
+                }}/>
+                <KeyboardAwareScrollView
+                    style={{flex: 1}}
+                    showsVerticalScrollIndicator={false}
+                    scrollEnabled={false}
+                >
                     <View>
-                        <View style={styles.top_box}>
-                            <View style={{position: "relative"}}>
-                                <TouchableOpacity onPress={pickImage} style={styles.edit_icon}>
-                                    <PenIcon/>
-                                </TouchableOpacity>
-                                <View>
-                                    {!image ? (
-                                        <Image
-                                            style={styles.image}
-                                            source={require("../../../../assets/images/np_img.png")}
-                                        />
-                                    ) : (
-                                        <Image style={styles.image} source={{uri: image.uri}}/>
-                                    )}
-                                </View>
-                            </View>
-                            <View style={{marginTop: 15}}>
-                                <Text
-                                    style={{
-                                        color: color3,
-                                        fontWeight: "400",
-                                        fontSize: 14,
-                                        lineHeight: 16.71,
-                                        textAlign: "center",
-                                    }}
-                                >
-                                    Загрузите ваше реальное фото
-                                </Text>
-                            </View>
-                            <View style={styles.input_box}>
-                                <View>
-                                    <Title>Введите ваше имя</Title>
-                                </View>
-                                <View style={{marginTop: 12}}>
-                                    <View
-                                        style={[
-                                            {
-                                                backgroundColor: "#F5F4F8",
-                                                flexDirection: "row",
-                                                alignItems: "center",
-                                                justifyContent: "space-between",
-                                                paddingVertical: 14,
-                                                paddingHorizontal: 16,
-                                                borderRadius: 12,
-                                            },
-                                            name.length > 0 && {
-                                                borderColor: "#7454CF",
-                                                borderWidth: 1,
-                                            },
-                                        ]}
-                                    >
-                                        <TextInput
-                                            placeholder={"Имя"}
-                                            onChangeText={(name: string) => {
-                                                setName(name);
-                                            }}
-                                            value={name}
-                                            placeholderTextColor={"#797979"}
-                                            style={{
-                                                fontWeight: "400",
-                                                lineHeight: 20,
-                                                fontSize: 16,
-                                                textAlign: "left",
-                                                color: "#1E1E1E",
-                                                width: 400,
-                                            }}
-                                        />
-                                        {name.length > 0 && (
-                                            <TouchableOpacity
-                                                onPress={() => {
-                                                    setName("");
-                                                }}
-                                                activeOpacity={0.6}
-                                            >
-                                                <Delete/>
-                                            </TouchableOpacity>
+                        {!nameValid && (
+                            <ErrorPopUp style={{marginBottom: 5}} error={"Введите имя"}/>
+                        )}
+                        {!imageValid && (
+                            <ErrorPopUp style={{marginBottom: 5}} error={"Добавьте фото"}/>
+                        )}
+                        {!roleValid && (
+                            <ErrorPopUp style={{marginBottom: 5}} error={"Выберете роль"}/>
+                        )}
+                    </View>
+                    <View style={{flex: 1, marginBottom: 30}}>
+                        <View>
+                            <View style={styles.top_box}>
+                                <View style={{position: "relative"}}>
+                                    <TouchableOpacity onPress={pickImage} style={styles.edit_icon}>
+                                        <PenIcon/>
+                                    </TouchableOpacity>
+                                    <View>
+                                        {!image ? (
+                                            <Image
+                                                style={styles.image}
+                                                source={require("../../../../assets/images/np_img.png")}
+                                            />
+                                        ) : (
+                                            <Image style={styles.image} source={{uri: image.uri}}/>
                                         )}
                                     </View>
                                 </View>
-                            </View>
-                            <View
-                                style={{
-                                    alignSelf: "flex-start",
-                                    marginTop: 20,
-                                    marginBottom: 15,
-                                }}
-                            >
-                                <Title>Войти как</Title>
+                                <View style={{marginTop: 15}}>
+                                    <Text
+                                        style={{
+                                            color: color3,
+                                            fontWeight: "400",
+                                            fontSize: 14,
+                                            lineHeight: 16.71,
+                                            textAlign: "center",
+                                        }}
+                                    >
+                                        Загрузите ваше реальное фото
+                                    </Text>
+                                </View>
+                                <View style={styles.input_box}>
+                                    <View>
+                                        <Title>Введите ваше имя</Title>
+                                    </View>
+                                    <View style={{marginTop: 12}}>
+                                        <View
+                                            style={[
+                                                {
+                                                    backgroundColor: "#F5F4F8",
+                                                    flexDirection: "row",
+                                                    alignItems: "center",
+                                                    justifyContent: "space-between",
+                                                    paddingVertical: 14,
+                                                    paddingHorizontal: 16,
+                                                    borderRadius: 12,
+                                                },
+                                                name.length > 0 && {
+                                                    borderColor: "#7454CF",
+                                                    borderWidth: 1,
+                                                },
+                                            ]}
+                                        >
+                                            <TextInput
+                                                placeholder={"Имя"}
+                                                onChangeText={(name: string) => {
+                                                    setName(name);
+                                                }}
+                                                value={name}
+                                                placeholderTextColor={"#797979"}
+                                                style={{
+                                                    fontWeight: "400",
+                                                    lineHeight: 20,
+                                                    fontSize: 16,
+                                                    textAlign: "left",
+                                                    color: "#1E1E1E",
+                                                    width: 400,
+                                                }}
+                                            />
+                                            {name.length > 0 && (
+                                                <TouchableOpacity
+                                                    onPress={() => {
+                                                        setName("");
+                                                    }}
+                                                    activeOpacity={0.6}
+                                                >
+                                                    <Delete/>
+                                                </TouchableOpacity>
+                                            )}
+                                        </View>
+                                    </View>
+                                </View>
+                                <View
+                                    style={{
+                                        alignSelf: "flex-start",
+                                        marginTop: 20,
+                                        marginBottom: 15,
+                                    }}
+                                >
+                                    <Title>Войти как</Title>
+                                </View>
                             </View>
                         </View>
-                    </View>
-                    <View style={{marginBottom: "20%"}}>
-                        {roles.map((item) => (
-                            <TouchableOpacity
-                                key={item.key}
-                                onPress={() => {
-                                    setRole(item.role);
-                                }}
-                                style={[
-                                    styles.roleBox,
-                                    role === item.role && {
-                                        backgroundColor: "#E5DDFD",
-                                        borderWidth: 0,
-                                    },
-                                ]}>
-                                <Text
-                                    style={[
-                                        styles.roleItem,
-                                        role === item.role && {color: "#7454CF"},
-                                    ]}
+                        <View style={{flex: 1}}>
+                            {roles.map((item) => (
+                                <TouchableOpacity
                                     key={item.key}
-                                >
-                                    {item.name}
-                                </Text>
-                                <Text>
-                                    <RadioButton
-                                        value="first"
-                                        status={role === item.role ? "checked" : "unchecked"}
-                                        uncheckedColor={color1}
-                                        color={color1}
-                                    />
-                                </Text>
-                            </TouchableOpacity>
-                        ))}
+                                    onPress={() => {
+                                        setRole(item.role);
+                                    }}
+                                    style={[
+                                        styles.roleBox,
+                                        role === item.role && {
+                                            backgroundColor: "#E5DDFD",
+                                            borderWidth: 0,
+                                        },
+                                    ]}>
+                                    <Text
+                                        style={[
+                                            styles.roleItem,
+                                            role === item.role && {color: "#7454CF"},
+                                        ]}
+                                        key={item.key}
+                                    >
+                                        {item.name}
+                                    </Text>
+                                </TouchableOpacity>
+                            ))}
+                        </View>
                     </View>
-                </View>
-            </KeyboardAwareScrollView>
-        </WrapperPage>
+                    <View>
+                        <CustomButton title={'Продолжить'} onPress={handleSetNameAvatar}/>
+                    </View>
+                </KeyboardAwareScrollView>
+            </View>
+        </MainContainer>
     );
 };
 export default EnterNameScreen;

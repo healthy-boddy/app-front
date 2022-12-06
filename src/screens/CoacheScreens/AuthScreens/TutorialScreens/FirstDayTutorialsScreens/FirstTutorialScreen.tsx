@@ -98,7 +98,7 @@ const FirstTutorialScreen = () => {
                                         <View>
                                             <VideoPreViewVector/>
                                         </View>
-                                        <View style={{alignItems: 'center', justifyContent: 'center'}}>
+                                        <View style={{alignItems: 'center', justifyContent: 'center', right: 35}}>
                                             <StartVideoVector/>
                                         </View>
                                     </View>
