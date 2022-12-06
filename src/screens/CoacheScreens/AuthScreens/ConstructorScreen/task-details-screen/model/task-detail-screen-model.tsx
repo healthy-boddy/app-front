@@ -5,37 +5,23 @@ import { observer } from "mobx-react-lite";
 import * as stateCreator from "./state-creators";
 import { ConstructorCardState } from "./constructor-state";
 import { HttpService } from "../../../../../../service/http-service";
+import { TaskResponse } from "../../program-details-screen/editing-screen/interface";
 
 export class TaskDetailModel {
   private readonly _httpService = new HttpService();
 
-  // private getPrograms() {
-  //   try {
-  //     this._httpService.post("/program/").then((res) => {
-  //       console.log("res getPrograms", res.data);
-  //
-  //       if (res.data) {
-  //         runInAction(() => {
-  //           this._programs = stateCreator.getHasDataState(res.data);
-  //         });
-  //       }
-  //     });
-  //   } catch (e: any) {
-  //     alert(e.response.data);
-  //     runInAction(() => {
-  //       this._programs = stateCreator.getErrorState(e.response.data);
-  //     });
-  //   }
-  // }
+  private _taskElement: TaskResponse | undefined = undefined;
 
-  private constructor() {
+  private constructor(private readonly taskData: TaskResponse) {
     this._httpService = new HttpService({});
     makeAutoObservable(this, {}, { autoBind: true });
   }
 
-  private static makeModel() {
-    const model = React.useMemo(() => new TaskDetailModel(), []);
-    useEffect(() => {}, [model]);
+  private static makeModel(taskData: TaskResponse) {
+    const model = React.useMemo(() => new TaskDetailModel(taskData), []);
+    useEffect(() => {
+      model._taskElement = taskData;
+    }, [model]);
 
     return model;
   }
@@ -43,8 +29,12 @@ export class TaskDetailModel {
   private static MedicalCardPageContext =
     React.createContext<TaskDetailModel | null>(null);
 
-  public static Provider(props: React.PropsWithChildren<{}>) {
-    const model = TaskDetailModel.makeModel();
+  public static Provider(
+    props: React.PropsWithChildren<{
+      taskData: TaskResponse;
+    }>
+  ) {
+    const model = TaskDetailModel.makeModel(props.taskData);
 
     return (
       <TaskDetailModel.MedicalCardPageContext.Provider value={model}>
