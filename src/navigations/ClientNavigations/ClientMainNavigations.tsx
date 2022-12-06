@@ -17,7 +17,8 @@ import {
     AddManualAnalyze,
     SaveAnalyzes,
     AnalyseSingleScreen,
-    EditAnalyseScreen
+    EditAnalyseScreen,
+    AnalyseResultScreen
 
 } from "../../screens/ClientScreens/MainScreens";
 import {TabNavigatorElem} from "./tab-bar-elem/tab-navigation-elems";
@@ -64,6 +65,9 @@ function AnalyseSingle() {
 }
 function EditAnalyse() {
     return <EditAnalyseScreen/>;
+}
+function AnalyseResult() {
+    return <AnalyseResultScreen/>;
 }
 
 
@@ -197,6 +201,14 @@ export default function ClientMain() {
             <Tab.Screen
                 name="EditAnalyse"
                 component={EditAnalyse}
+                options={({route}) => ({
+                    tabBarButton: () => null,
+                    tabBarStyle: {display: 'none'},
+                })}
+            />
+            <Tab.Screen
+                name="AnalyseResult"
+                component={AnalyseResult}
                 options={({route}) => ({
                     tabBarButton: () => null,
                     tabBarStyle: {display: 'none'},

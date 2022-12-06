@@ -201,7 +201,7 @@ const styles = StyleSheet.create({
     ios_next_btn_box: {
         alignSelf: "flex-end",
         alignItems: "center",
-        width: 400,
+        width: 350,
         bottom: 35,
         transform: [
             {

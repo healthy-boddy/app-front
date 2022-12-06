@@ -123,6 +123,7 @@ export default function CoachVerify() {
       screenOptions={{
         headerShown: false,
       }}
+
     >
       <Tab.Screen
         name="First"

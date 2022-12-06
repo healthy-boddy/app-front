@@ -41,6 +41,7 @@ const AnalyzesScreen = () => {
         }).then((res) => {
             return res.json()
         }).then((res) => {
+            console.log(res, 'analyses')
             setAnalyses(res)
         })
     }

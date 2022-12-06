@@ -17,9 +17,11 @@ import {TextTitle} from "./view/text-title";
 import {ChevronRight} from "../../../../components/icon/chevron-right";
 import {IconDelete} from "../../../../components/icon/icon-delete";
 import {WrapperPage} from "../../../../components/core/wrapper";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import moment from "moment";
 import {baseUrl2} from "../../../../helpers/url";
+import {setLab} from "../../../../store/actions/laboratory";
+import * as ImagePicker from "expo-image-picker";
 
 type ParameterType = {
     name: string;
@@ -30,10 +32,11 @@ type ParameterType = {
 
 const AddManualAnalyze = () => {
     const navigation = useNavigation<any>();
+    const dispatch = useDispatch();
     let tokenFromReducer = useSelector((store: any) => store.user_token.user_token);
     let AuthStr = "Bearer " + tokenFromReducer;
     const [analiseDate, setAnaliseDate] = useState<Date>(new Date());
-    const [lab, setLab] = useState("");
+    const [lab, setLab1] = useState("");
     const [parameterArray, setParameterArray] = useState<Array<ParameterType>>([
         {
             id: 1,
@@ -47,11 +50,10 @@ const AddManualAnalyze = () => {
     let [labId, setLabId] = useState('')
     const [labUnits, setLabUnits] = useState([]);
     let [filteredAnalysesIndicator, setFilteredAnalysesIndicator] = useState([])
+    const [photo, setPhoto] = useState<any>([])
     function setBirthDate(date: Date) {
         setAnaliseDate(date);
     }
-
-
 
     async function handleGetLaboratory() {
         await fetch(baseUrl2 + '/analysis/laboratory/', {
@@ -83,6 +85,7 @@ const AddManualAnalyze = () => {
         }).then((res) => {
             return res.json()
         }).then((res) => {
+            dispatch(setLab(res))
             console.log(res, 'handle save analyzes')
             for (let index = 0; index < parameterArray.length; index++) {
                 // console.log(parameterArray[index], parameterArray, index, 'ex1')
@@ -112,8 +115,8 @@ const AddManualAnalyze = () => {
                 }).then((res1) => {
                     console.log(res1, 'handle save analyzes 2')
                     setParameterArray([])
-                    setLab('')
-                    navigation.navigate("Analyzes")
+                    setLab1('')
+                    navigation.navigate("AnalyseResult")
                 })
             }
         })
@@ -143,7 +146,7 @@ const AddManualAnalyze = () => {
         }else {
             setFilteredLaboratory([])
         }
-        setLab(item)
+        setLab1(item)
     }
 
     const handleParameters = (index, val, key, deleteFilteredUnits = false) => {
@@ -156,7 +159,7 @@ const AddManualAnalyze = () => {
     }
 
     const onLabPress = lab => {
-        setLab(lab.name)
+        setLab1(lab.name)
         setLabId(lab.id)
         setLabUnits(lab.units)
         setFilteredLaboratory(null)
@@ -165,7 +168,25 @@ const AddManualAnalyze = () => {
     const myInclude = (big: string, small: string) => {
         return big.toLowerCase().includes(small.toLowerCase());
     }
+    const pickImage = async () => {
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.All,
+            allowsEditing: true,
+            aspect: [4, 3],
+            quality: 1,
+        });
 
+        if (!result.cancelled) {
+            setPhoto({
+                uri: result.uri,
+                name: `IMG_` + Date.now() + `.JPG`,
+                type: result.type + "/jpeg",
+                id: Date.now(),
+                lastModified: Date.now(),
+            });
+        }
+    };
+    console.log(photo, 'avatar')
     const RenderData = ({item, index}) => {
         return (
             <>
@@ -226,9 +247,7 @@ const AddManualAnalyze = () => {
                     </Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity
-                    // add photo picker
-                >
+                <TouchableOpacity onPress={pickImage}>
                     <Text
                         style={{
                             color: "#7454CF",

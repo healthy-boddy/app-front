@@ -17,6 +17,7 @@ import Title from "../../../../components/Title";
 import Description from "../../../../components/Description";
 import PenIcon from "../../../../assets/Icons/PenIcon";
 import {setUserData} from "../../../../store/actions/user_data";
+import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
 
 const WelcomeScreen = () => {
     const dispatch = useDispatch();
@@ -32,6 +33,7 @@ const WelcomeScreen = () => {
     let [userToken, setUserToken] = useState<any>(null);
     let [avatar, setAvatar] = useState<any>([])
     const [valid, setValid] = useState(true);
+    let user_data = useSelector((store: any) => store.user_data?.user_data);
 
     const [certificate, setCertificate] = useState<any>([])
 
@@ -167,11 +169,13 @@ const WelcomeScreen = () => {
             onPressButton={handlePostInfo}
             buttonTitle={"Продолжить"}
         >
-            <ScrollView showsVerticalScrollIndicator={false} style={{width: '100%', paddingHorizontal: 16}}>
+            <KeyboardAwareScrollView showsVerticalScrollIndicator={false}
+                                     style={{width: '100%', paddingHorizontal: 16, marginBottom: 25}}
+            >
                 {!valid && <ErrorPopUp error={"Необходимо заполнить все поля"}/>}
                 <View style={{position: "relative", alignItems: 'center'}}>
                     <View>
-                        <Image style={styles.image} source={{uri: userData.avatar}}/>
+                        <Image style={styles.image} source={{uri: user_data.user.avatar_thumbnail}}/>
                         <TouchableOpacity onPress={pickAvatar} style={styles.edit_icon}>
                             <PenIcon/>
                         </TouchableOpacity>
@@ -298,10 +302,8 @@ const WelcomeScreen = () => {
                         marginTop: 5,
                         lineHeight: 20
                     }}>Заполните форму</Text>}
-
                 </View>
-
-            </ScrollView>
+            </KeyboardAwareScrollView>
         </WrapperPage>
     );
 };

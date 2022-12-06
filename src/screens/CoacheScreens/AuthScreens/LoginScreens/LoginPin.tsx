@@ -4,7 +4,8 @@ import {
   StyleSheet,
   Text,
   TextInput,
-  TouchableOpacity,
+  Linking,
+  TouchableOpacity, Alert,
 } from "react-native";
 import Container from "../../../../components/Container";
 import BackButton from "../../../../components/BackButton";
@@ -21,11 +22,12 @@ import FormattingExample from "../../../../components/FormattingExample";
 import CustomButton from "../../../../components/CustomButton";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { WrapperPinCode } from "../PinCodeScreen/view/wrapper/wrapper-pin-code";
+import * as MailComposer from 'expo-mail-composer';
 
 const LoginPin = (props: any) => {
   const dispatch = useDispatch();
   const navigation: any = useNavigation();
-
+  const [status, setStatus] = useState(null)
   const [resendPin, setResendPin] = useState(false);
 
   const [time, setTime] = React.useState(25);
@@ -115,6 +117,15 @@ const LoginPin = (props: any) => {
     }
   }
 
+  async function sendEmailAsync() {
+    let result = await MailComposer.composeAsync({
+      recipients: ['support@longlifelab.ru'],
+      subject: 'Email subject!!!!',
+     // body: 'This is the body of the email ✅',
+    });
+    alert(result.status);
+  }
+
   return (
     <WrapperPinCode
       onPressBack={() => navigation.navigate("Login")}
@@ -128,7 +139,11 @@ const LoginPin = (props: any) => {
           }}
         >
           Не приходит код?
-          <TouchableOpacity onPress={() => console.log("Pressed")}>
+          <TouchableOpacity
+              style={{top: 5}}
+              onPress={sendEmailAsync}
+
+          >
             <Text
               style={{
                 color: color1,
@@ -136,6 +151,7 @@ const LoginPin = (props: any) => {
                 fontWeight: "500",
                 lineHeight: 20,
                 paddingTop: 3,
+
               }}
             >
               {" "}
