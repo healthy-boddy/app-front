@@ -1,100 +1,116 @@
-import React, { useState } from "react";
+import React, { FC, useState } from "react";
 import { WrapperPage } from "../../../../../../components/core/wrapper";
 import { useNavigation } from "@react-navigation/native";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import Description from "../../../../../../components/Description";
-import { IconSearch } from "../../view/components/icons/icon-search";
-import { ImagePerson } from "../../view/components/icons/image-person";
-import { LargeIconPerson } from "../../view/components/icons/large-icon";
-import { CloseIcon } from "../../view/components/icons/close-icon";
+import { TaskDetailModel } from "../model";
+import { TaskResponse } from "../../program-details-screen/editing-screen/interface";
+import * as WebBrowser from "expo-web-browser";
+import { WebBrowserResult } from "expo-web-browser";
 
-export const TaskDetailsView = () => {
-  const navigation: any = useNavigation();
-  const [viewIcon, setViewIcon] = useState(false);
+interface TaskDetailsViewProps {
+  task: TaskResponse;
+}
 
-  return (
-    <WrapperPage
-      onPressButton={() => console.log("press")}
-      buttonTitle={"Задача выполнена"}
-      onPressBack={() => navigation.navigate("ProgramDetails")}
-    >
-      <View
-        style={[
-          {
-            height: "100%",
-            width: "100%",
-            paddingLeft: 16,
-          },
-        ]}
+export const TaskDetailsView: FC<TaskDetailsViewProps> =
+  TaskDetailModel.modelClient((props) => {
+    const navigation: any = useNavigation();
+    const [viewIcon, setViewIcon] = useState(false);
+    const [browser, setBrowser] = useState<WebBrowserResult>();
+
+    const handleShowBrowser = async () => {
+      const result = await WebBrowser.openBrowserAsync(
+        `${props.task.button_link}`
+      );
+      setBrowser(result);
+    };
+
+    return (
+      <WrapperPage
+        onPressButton={handleShowBrowser}
+        buttonTitle={props.task.button_text}
+        onPressBack={() => navigation.navigate("ProgramDetails")}
       >
-        {!viewIcon && (
-          <>
-            <Text style={styles.titleText}>
-              Контроль текущего состояния тела
-            </Text>
-            <View style={{ marginTop: 8 }} />
-            <Description>В течение 2 дней</Description>
+        <View
+          style={[
+            {
+              height: "100%",
+              width: "100%",
+              paddingLeft: 16,
+              paddingHorizontal: 16,
+            },
+          ]}
+        >
+          {!viewIcon && (
+            <>
+              <Text style={styles.titleText}>{props.task.name}</Text>
+              <View style={{ marginTop: 8 }} />
+              <Description>В течение {props.task.date} дней</Description>
 
-            <Text
-              style={{
-                marginTop: 24,
-                color: "#1E1E1E",
-                fontSize: 16,
-                lineHeight: 20,
-              }}
-            >
-              Утром до приема пищи и вечером перед сном сделайте замеры обхвата:
-              1) груди{`\n`} 2) талии{`\n`} 3) бедер{`\n`}
-              {`\n`} Результаты отправьте в чат с бадди.
-            </Text>
-          </>
-        )}
+              <Text
+                style={{
+                  marginTop: 24,
+                  color: "#1E1E1E",
+                  fontSize: 16,
+                  lineHeight: 20,
+                }}
+              >
+                {props.task.description}
+              </Text>
+            </>
+          )}
 
-        {viewIcon ? (
-          <View
-            style={{
-              flex: 1,
-              position: "absolute",
-              backgroundColor: "#fff",
-              alignSelf: "center",
-              justifyContent: "center",
-            }}
-          >
-            <TouchableOpacity
-              onPress={() => setViewIcon((state) => !state)}
-              style={{
-                alignSelf: "flex-end",
-              }}
-            >
-              <CloseIcon />
-            </TouchableOpacity>
-            <LargeIconPerson />
-          </View>
-        ) : (
-          <View
-            style={{
-              height: 258,
-              width: 100,
-              alignSelf: "center",
-              borderRadius: 12,
-              marginTop: 27,
-            }}
-          >
-            <TouchableOpacity
-              onPress={() => setViewIcon((state) => !state)}
-              style={{
-                alignSelf: "flex-end",
-              }}
-            >
-              <IconSearch />
-            </TouchableOpacity>
-            <ImagePerson />
-          </View>
-        )}
-      </View>
-    </WrapperPage>
-  );
-};
+          {/*  {viewIcon ? (*/}
+          {/*    <View*/}
+          {/*      style={{*/}
+          {/*        flex: 1,*/}
+          {/*        position: "absolute",*/}
+          {/*        backgroundColor: "#fff",*/}
+          {/*        alignSelf: "center",*/}
+          {/*        justifyContent: "center",*/}
+          {/*      }}*/}
+          {/*    >*/}
+          {/*      <TouchableOpacity*/}
+          {/*        onPress={() => setViewIcon((state) => !state)}*/}
+          {/*        style={{*/}
+          {/*          alignSelf: "flex-end",*/}
+          {/*        }}*/}
+          {/*      >*/}
+          {/*        <CloseIcon />*/}
+          {/*      </TouchableOpacity>*/}
+          {/*      <LargeIconPerson />*/}
+          {/*    </View>*/}
+          {/*  ) : (*/}
+          {/*    <View*/}
+          {/*      style={{*/}
+          {/*        height: 258,*/}
+          {/*        width: 100,*/}
+          {/*        alignSelf: "center",*/}
+          {/*        borderRadius: 12,*/}
+          {/*        marginTop: 27,*/}
+          {/*      }}*/}
+          {/*    >*/}
+          {/*      <TouchableOpacity*/}
+          {/*        onPress={() => setViewIcon((state) => !state)}*/}
+          {/*        style={{*/}
+          {/*          alignSelf: "flex-end",*/}
+          {/*        }}*/}
+          {/*      >*/}
+          {/*        <IconSearch />*/}
+          {/*      </TouchableOpacity>*/}
+          {/*      <ImagePerson />*/}
+          {/*    </View>*/}
+          {/*  )}*/}
+        </View>
+
+        {props.task.document && <Text>{props.task.document}</Text>}
+
+        <Text>
+          {browser?.type !== "cancel" && null && JSON.stringify(browser)}
+        </Text>
+      </WrapperPage>
+    );
+  });
 
 const styles = StyleSheet.create({
   titleText: {

@@ -9,16 +9,18 @@ import { ProgramResponse } from "../../../../AuthScreens/ConstructorScreen/inter
 import { UserArrays } from "../../../../AuthScreens/CalendarScreen/user-list-screen/interface";
 import { ProgramAssignedToClient } from "../../interface/interface";
 import { TaskResponseArray } from "../../../../AuthScreens/ConstructorScreen/program-details-screen/editing-screen/interface";
+import * as clientState from "../../../../AuthScreens/CalendarScreen/user-list-screen/model/state-creators";
+import { UsersStates } from "../../../../AuthScreens/CalendarScreen/user-list-screen/model/constructor-state";
 
-export class ProgramDetailsClientModel {
+export class ProgramDetailsForAssignModel {
   private readonly _httpService = new HttpService();
 
   private _programId: number | undefined = undefined;
 
   private _tasks: ConstructorStates = stateCreator.getInitialState();
+  private _users: UsersStates = clientState.getInitialState();
 
-  private _programDetailForClient: ProgramAssignedToClient | undefined =
-    undefined;
+  private _programDetailForClient: number | undefined = undefined;
 
   private _name = "";
   private _description = "";
@@ -28,11 +30,19 @@ export class ProgramDetailsClientModel {
     return this._programId;
   }
 
+  public get users() {
+    return this._users;
+  }
+
   // private _users: UsersStates = clientState.getInitialState();
 
   // public get users() {
   //   return this._users;
   // }
+
+  public get programDetailForClient() {
+    return this._programDetailForClient;
+  }
 
   public get name() {
     return this._name;
@@ -78,23 +88,6 @@ export class ProgramDetailsClientModel {
     }
   }
 
-  public deleteAssignedProgram(navigate: () => void) {
-    console.log("deleteAssignedProgram", this._programDetailForClient?.id);
-    try {
-      this._httpService
-        .delete(`/program/assign/${this._programDetailForClient?.id}/`)
-        .then((res) => {
-          navigate();
-          console.log("res getProgramById", res.status);
-        })
-        .catch((e) => {
-          alert(e.response.data);
-        });
-    } catch (e: any) {
-      alert(e.response.data);
-    }
-  }
-
   private getAvailableClients() {
     try {
       this._httpService
@@ -102,7 +95,7 @@ export class ProgramDetailsClientModel {
         .then((res) => {
           console.log("res getAvailableClients", res.data);
           runInAction(() => {
-            // this._users = clientState.getHasDataState(res.data);
+            this._users = clientState.getHasDataState(res.data);
           });
         });
     } catch (e: any) {
@@ -110,9 +103,26 @@ export class ProgramDetailsClientModel {
     }
   }
 
-  public assignProgramToClientById(clientId: number) {
+  // public deleteAssignedProgram(navigate: () => void) {
+  //   console.log("deleteAssignedProgram", this._programDetailForClient?.id);
+  //   try {
+  //     this._httpService
+  //       .delete(`/program/assign/${this._programDetailForClient?.id}/`)
+  //       .then((res) => {
+  //         navigate();
+  //         console.log("res getProgramById", res.status);
+  //       })
+  //       .catch((e) => {
+  //         alert(e.response.data);
+  //       });
+  //   } catch (e: any) {
+  //     alert(e.response.data);
+  //   }
+  // }
+
+  public assignProgramToClient() {
     const data = {
-      assigned_to: clientId,
+      assigned_to: this._programDetailForClient,
       program: this._programId,
     };
     try {
@@ -121,7 +131,7 @@ export class ProgramDetailsClientModel {
           data,
         })
         .then((res) => {
-          this.getAvailableClients();
+          console.log("RES", res.data, res.status);
         })
         .catch((err) => {
           console.log("Err", err.response);
@@ -154,9 +164,7 @@ export class ProgramDetailsClientModel {
 
   private constructor(
     private readonly programId: number | undefined,
-    private readonly programAssignedToClient:
-      | ProgramAssignedToClient
-      | undefined
+    private readonly programAssignedToClient: number | undefined
   ) {
     this._httpService = new HttpService({});
     makeAutoObservable(this, {}, { autoBind: true });
@@ -164,10 +172,11 @@ export class ProgramDetailsClientModel {
 
   private static makeModel(
     programId: number | undefined,
-    programAssignedToClient: ProgramAssignedToClient | undefined
+    programAssignedToClient: number | undefined
   ) {
     const model = React.useMemo(
-      () => new ProgramDetailsClientModel(programId, programAssignedToClient),
+      () =>
+        new ProgramDetailsForAssignModel(programId, programAssignedToClient),
       []
     );
     useEffect(() => {
@@ -190,33 +199,37 @@ export class ProgramDetailsClientModel {
   }
 
   private static MedicalCardPageContext =
-    React.createContext<ProgramDetailsClientModel | null>(null);
+    React.createContext<ProgramDetailsForAssignModel | null>(null);
 
   public static Provider(
     props: React.PropsWithChildren<{
       programId: number | undefined;
-      programAssignedToClient: ProgramAssignedToClient | undefined;
+      programAssignedToClient: number | undefined;
     }>
   ) {
-    const model = ProgramDetailsClientModel.makeModel(
+    const model = ProgramDetailsForAssignModel.makeModel(
       props.programId,
       props.programAssignedToClient
     );
 
     return (
-      <ProgramDetailsClientModel.MedicalCardPageContext.Provider value={model}>
+      <ProgramDetailsForAssignModel.MedicalCardPageContext.Provider
+        value={model}
+      >
         {props.children}
-      </ProgramDetailsClientModel.MedicalCardPageContext.Provider>
+      </ProgramDetailsForAssignModel.MedicalCardPageContext.Provider>
     );
   }
 
   public static modelClient<P extends object>(
-    Component: (props: P & { model: ProgramDetailsClientModel }) => JSX.Element
+    Component: (
+      props: P & { model: ProgramDetailsForAssignModel }
+    ) => JSX.Element
   ) {
     const WrappedComponent = observer(Component);
     return function ModelClient(props: P) {
       const model = React.useContext(
-        ProgramDetailsClientModel.MedicalCardPageContext
+        ProgramDetailsForAssignModel.MedicalCardPageContext
       );
       if (!model) {
         throw new Error("No model provider");

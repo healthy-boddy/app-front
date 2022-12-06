@@ -167,7 +167,11 @@ export const ProgramDetailsView = ProgramDetailsModel.modelClient((props) => {
                 return (
                   <AllTasksBlock
                     key={task.id}
-                    onPress={() => navigation.navigate("TaskDetails")}
+                    onPress={() =>
+                      navigation.navigate("TaskDetails", {
+                        ...task,
+                      })
+                    }
                     title={task.name}
                     duration={`В течение ${task.description} дней`}
                   />

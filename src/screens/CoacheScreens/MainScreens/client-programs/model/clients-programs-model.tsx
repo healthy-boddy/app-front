@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { useEffect } from "react";
-import { makeAutoObservable } from "mobx";
+import { makeAutoObservable, runInAction } from "mobx";
 import { observer } from "mobx-react-lite";
 import { HttpService } from "../../../../../service/http-service";
 import { ProgramAssignedToClientArray } from "../interface/interface";
@@ -10,7 +10,7 @@ import { UsersStates } from "./constructor-state";
 export class ClientsProgramsModel {
   private readonly _httpService = new HttpService();
 
-  private _clientId: number | null | undefined = null;
+  private _client: number | null | undefined = null;
 
   private _programInfo: UsersStates = stateCreator.getInitialState();
 
@@ -18,12 +18,17 @@ export class ClientsProgramsModel {
     return this._programInfo;
   }
 
+  public get clientId() {
+    return this._client;
+  }
+
   public getProgramAssignedById() {
+    console.log("getProgramAssignedById", this._client);
     try {
       this._httpService
         .get<ProgramAssignedToClientArray>(
-          this._clientId
-            ? `/program/assign/?assigned_to=${this._clientId}`
+          this._client
+            ? `/program/assign/?assigned_to=${this._client}`
             : `/program/assign/`
         )
         .then((res) => {
@@ -42,15 +47,12 @@ export class ClientsProgramsModel {
   private static makeModel(clientId: number | undefined) {
     const model = React.useMemo(() => new ClientsProgramsModel(clientId), []);
     useEffect(() => {
-      if (clientId !== undefined) {
-        model._clientId = clientId;
-      }
-
-      if (model.programId) {
+      runInAction(() => {
+        model._client = clientId;
         model.getProgramAssignedById();
-      }
-    }, [model]);
-    model.getProgramAssignedById();
+      });
+    });
+
     return model;
   }
 

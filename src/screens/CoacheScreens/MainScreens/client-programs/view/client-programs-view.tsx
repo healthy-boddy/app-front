@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
-import { Text, View } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import { ClientsEmptyPrograms } from "../../../icon/clients-empty-programms";
 import { WrapperWithTitlePage } from "../../../../../components/core/wrapper/wrapper-with-title";
 import { ClientsProgramsModel } from "../model";
@@ -9,11 +9,18 @@ import { ProgramBlock } from "../../../AuthScreens/ConstructorScreen/view/compon
 export const ClientsProgramsView = ClientsProgramsModel.modelClient((props) => {
   const navigation: any = useNavigation();
 
+  console.log("props.model.clientId", props.model.clientId);
   return (
     <WrapperWithTitlePage
       title={"Программы"}
       onPressBack={() => navigation.navigate("CalendarPage")}
-      onPressButton={() => navigation.navigate("ConstructorScreen")}
+      onPressButton={() =>
+        navigation.navigate("ClientProgramsScreen", {
+          data: {
+            clientID: props.model.clientId,
+          },
+        })
+      }
       buttonTitle={
         props.model.programInfo.data && props.model.programInfo.data?.length > 0
           ? ""
@@ -38,7 +45,7 @@ export const ClientsProgramsView = ClientsProgramsModel.modelClient((props) => {
                 key={programs.id}
                 onPress={() =>
                   navigation.navigate("ProgramDetailsClient", {
-                    programDetailForClient: programs,
+                    programId: programs.id,
                   })
                 }
                 title={programs.program_info.name}
@@ -69,6 +76,32 @@ export const ClientsProgramsView = ClientsProgramsModel.modelClient((props) => {
             </Text>
           </View>
         )}
+
+        {props.model.programInfo.data &&
+          props.model.programInfo.data.length > 0 && (
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate("ClientProgramsScreen", {
+                  data: {
+                    clientID: props.model.clientId,
+                  },
+                })
+              }
+            >
+              <Text
+                style={{
+                  color: "#7454CF",
+                  marginLeft: 10,
+                  fontSize: 18,
+                  fontWeight: "400",
+                  lineHeight: 21.48,
+                  marginTop: 32,
+                }}
+              >
+                + Добавить еще одну программу
+              </Text>
+            </TouchableOpacity>
+          )}
       </View>
     </WrapperWithTitlePage>
   );
