@@ -108,6 +108,7 @@ export const ClientDetailsPage = ({ route: { params } }: any) => {
           title={"Цели"}
           icon={<TargetsIcons />}
         />
+
         <ClientsDetailsBlockProfile
           onPress={() =>
             navigation.navigate("ClientsDetailPageWithPrograms", {

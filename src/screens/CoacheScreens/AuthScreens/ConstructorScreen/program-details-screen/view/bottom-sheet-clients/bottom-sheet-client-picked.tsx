@@ -12,7 +12,7 @@ interface ButtonSheetPersonalDoctorProps {
   snapPoints: (string | number)[];
   onClose: () => void;
   onPressToPick: (data: number | null) => void;
-  clientData: ClientResponse | null;
+  clientData: ClientResponse;
   programName: string;
 }
 
@@ -82,7 +82,7 @@ export const BottomSheetClientPicked: FC<ButtonSheetPersonalDoctorProps> = ({
             Эта программа сразу отобразится в аккаунте клиента
           </Text>
         </Description>
-
+        {console.log(clientData)}
         <View
           style={{
             marginTop: 46,

@@ -4,13 +4,15 @@ import { ProgramDetailsClientView } from "./view";
 import { ProgramAssignedToClient } from "../interface/interface";
 
 export const ProgramDetailsClient = ({ route }: any) => {
-  const programDetailForClient: ProgramAssignedToClient | undefined =
-    route?.params;
+  const assignedProgram: ProgramAssignedToClient | undefined =
+    route?.params?.assignedProgram;
   const programId = route?.params?.programId;
+  const clientID = route?.params?.clientID;
   return (
     <ProgramDetailsClientModel.Provider
       programId={programId}
-      programAssignedToClient={programDetailForClient}
+      programAssignedToClient={assignedProgram}
+      clientID={clientID}
     >
       <ProgramDetailsClientView />
     </ProgramDetailsClientModel.Provider>

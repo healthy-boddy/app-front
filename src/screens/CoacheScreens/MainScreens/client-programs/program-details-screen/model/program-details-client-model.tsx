@@ -14,6 +14,7 @@ export class ProgramDetailsClientModel {
   private readonly _httpService = new HttpService();
 
   private _programId: number | undefined = undefined;
+  private _clientID: number | undefined = undefined;
 
   private _tasks: ConstructorStates = stateCreator.getInitialState();
 
@@ -33,6 +34,10 @@ export class ProgramDetailsClientModel {
   // public get users() {
   //   return this._users;
   // }
+
+  public get client() {
+    return this._clientID;
+  }
 
   public get name() {
     return this._name;
@@ -79,16 +84,17 @@ export class ProgramDetailsClientModel {
   }
 
   public deleteAssignedProgram(navigate: () => void) {
-    console.log("deleteAssignedProgram", this._programDetailForClient?.id);
     try {
       this._httpService
-        .delete(`/program/assign/${this._programDetailForClient?.id}/`)
+        .delete(`/program/assign/${this._programDetailForClient}/`)
         .then((res) => {
-          navigate();
+          if (this._clientID) {
+            navigate();
+          }
           console.log("res getProgramById", res.status);
         })
         .catch((e) => {
-          alert(e.response.data);
+          console.log(e.response);
         });
     } catch (e: any) {
       alert(e.response.data);
@@ -156,7 +162,8 @@ export class ProgramDetailsClientModel {
     private readonly programId: number | undefined,
     private readonly programAssignedToClient:
       | ProgramAssignedToClient
-      | undefined
+      | undefined,
+    private readonly clientID: number | undefined
   ) {
     this._httpService = new HttpService({});
     makeAutoObservable(this, {}, { autoBind: true });
@@ -164,26 +171,25 @@ export class ProgramDetailsClientModel {
 
   private static makeModel(
     programId: number | undefined,
-    programAssignedToClient: ProgramAssignedToClient | undefined
+    programAssignedToClient: ProgramAssignedToClient | undefined,
+    clientID: number | undefined
   ) {
     const model = React.useMemo(
-      () => new ProgramDetailsClientModel(programId, programAssignedToClient),
+      () =>
+        new ProgramDetailsClientModel(
+          programId,
+          programAssignedToClient,
+          clientID
+        ),
       []
     );
     useEffect(() => {
-      if (programId !== undefined) {
-        model._programId = programId;
-      }
-
-      if (programAssignedToClient) {
-        model._programDetailForClient = programAssignedToClient;
-      }
-
-      if (model.programId) {
-        model.getProgramById();
-        model.getTasks();
-        model.getAvailableClients();
-      }
+      model._programId = programId;
+      model._programDetailForClient = programAssignedToClient;
+      model._clientID = clientID;
+      model.getProgramById();
+      model.getTasks();
+      model.getAvailableClients();
     }, [model, programId]);
 
     return model;
@@ -196,11 +202,13 @@ export class ProgramDetailsClientModel {
     props: React.PropsWithChildren<{
       programId: number | undefined;
       programAssignedToClient: ProgramAssignedToClient | undefined;
+      clientID: number | undefined;
     }>
   ) {
     const model = ProgramDetailsClientModel.makeModel(
       props.programId,
-      props.programAssignedToClient
+      props.programAssignedToClient,
+      props.clientID
     );
 
     return (
