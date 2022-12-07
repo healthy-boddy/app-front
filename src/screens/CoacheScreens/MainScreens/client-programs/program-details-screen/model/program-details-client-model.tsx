@@ -63,6 +63,7 @@ export class ProgramDetailsClientModel {
   }
 
   private getProgramById() {
+    console.log("getProgramById", this._programId);
     try {
       this._httpService
         .get<ProgramResponse>(`/program/${this._programId}/`)

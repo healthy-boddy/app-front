@@ -39,13 +39,14 @@ export const ClientsProgramsView = ClientsProgramsModel.modelClient((props) => {
         {props.model.programInfo.type === "HAS_DATA" &&
         props.model.programInfo.data?.length > 0 ? (
           props.model.programInfo.data.map((program) => {
+            console.log("propgam", program);
             return (
               <ProgramBlock
                 taskQuantity={program.program_info.tasks_quantity}
                 key={program.id}
                 onPress={() =>
                   navigation.navigate("ProgramDetailsClient", {
-                    programId: program.id,
+                    programId: program.program,
                     assignedProgram: program.id,
                     clientID: program.assigned_to,
                   })
