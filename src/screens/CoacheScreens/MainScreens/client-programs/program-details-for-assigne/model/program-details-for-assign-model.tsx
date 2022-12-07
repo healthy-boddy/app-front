@@ -180,19 +180,13 @@ export class ProgramDetailsForAssignModel {
       []
     );
     useEffect(() => {
-      if (programId !== undefined) {
+      runInAction(() => {
         model._programId = programId;
-      }
-
-      if (programAssignedToClient) {
         model._programDetailForClient = programAssignedToClient;
-      }
-
-      if (model.programId) {
-        model.getProgramById();
-        model.getTasks();
-        model.getAvailableClients();
-      }
+      });
+      model.getProgramById();
+      model.getTasks();
+      model.getAvailableClients();
     }, [model, programId]);
 
     return model;

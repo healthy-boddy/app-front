@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
-  Alert,
   SafeAreaView,
   ScrollView,
   Text,
@@ -16,7 +15,6 @@ import { ProgramDetailsForAssignModel } from "../model";
 import Description from "../../../../../../components/Description";
 import { ProgramsGoalsBlock } from "../../../../AuthScreens/ConstructorScreen/view/components/programs-goals-block";
 import { AllTasksBlock } from "../../../../AuthScreens/ConstructorScreen/view/components/all-tasks-block";
-import { color1 } from "../../../../../../helpers/colors";
 import { BottomSheetClientPicked } from "../../../../AuthScreens/ConstructorScreen/program-details-screen/view/bottom-sheet-clients/bottom-sheet-client-picked";
 import BottomSheet from "@gorhom/bottom-sheet";
 import { ClientResponse } from "../../../../AuthScreens/CalendarScreen/user-list-screen/interface";
@@ -39,7 +37,7 @@ export const ProgramDetailsForAssignView =
             .find((data) => data.user.id === props.model.programDetailForClient)
         );
       }
-    }, [props.model.programDetailForClient]);
+    });
 
     const handleSnapPressOneClient = useCallback((index: number) => {
       sheetRef.current?.snapToIndex(index);
@@ -60,9 +58,11 @@ export const ProgramDetailsForAssignView =
                   programId: props.model.currentProgramId,
                 })
               }
-              onPress={() => {
-                navigation.navigate("ClientsDetailPageWithPrograms");
-              }}
+              onPress={() =>
+                navigation.navigate("ClientsDetailPageWithPrograms", {
+                  clientId: props.model.programDetailForClient,
+                })
+              }
             />
             <Text
               style={{
@@ -173,7 +173,7 @@ export const ProgramDetailsForAssignView =
           snapPoints={snapPoints}
           sheetRef={sheetRef}
           onClose={() => setOpen(false)}
-          clientData={clientData ?? null}
+          clientData={clientData}
           programName={props.model.name}
           onPressToPick={props.model.assignProgramToClient}
         />

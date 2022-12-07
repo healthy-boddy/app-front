@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
   Alert,
   SafeAreaView,
@@ -17,28 +17,21 @@ import Description from "../../../../../../components/Description";
 import { ProgramsGoalsBlock } from "../../../../AuthScreens/ConstructorScreen/view/components/programs-goals-block";
 import { AllTasksBlock } from "../../../../AuthScreens/ConstructorScreen/view/components/all-tasks-block";
 import { color1 } from "../../../../../../helpers/colors";
+import { BottomSheetDeleteProgram } from "./bottom-sheet-clients/bottom-sheet-delete-program";
+import BottomSheet from "@gorhom/bottom-sheet";
 
 export const ProgramDetailsClientView = ProgramDetailsClientModel.modelClient(
   (props) => {
     const navigation = useNavigation<any>();
     const [reviewsVisible, setReviewsVisible] = useState(false);
+    const [isOpen, setOpen] = useState(false);
 
-    function createAlertMessageForDeleteProgram() {
-      Alert.alert("Внимание!", "Хотите удалить программу?", [
-        {
-          text: "Отмена",
-          onPress: () => console.log("Cancel Pressed"),
-          style: "cancel",
-        },
-        {
-          text: "Подтверждение",
-          onPress: () =>
-            props.model.deleteAssignedProgram(
-              navigation.navigate("ClientsDetailPageWithPrograms")
-            ),
-        },
-      ]);
-    }
+    const snapPoints = ["40%"];
+    const sheetRef = useRef<BottomSheet>(null);
+    const handleSnapPressDelete = useCallback((index: number) => {
+      sheetRef.current?.snapToIndex(index);
+      setOpen(true);
+    }, []);
 
     return (
       <>
@@ -55,7 +48,9 @@ export const ProgramDetailsClientView = ProgramDetailsClientModel.modelClient(
                 })
               }
               onPress={() => {
-                navigation.navigate("ClientsDetailPageWithPrograms");
+                navigation.navigate("ClientsDetailPageWithPrograms", {
+                  clientId: props.model.client,
+                });
               }}
             />
             <Text
@@ -165,9 +160,22 @@ export const ProgramDetailsClientView = ProgramDetailsClientModel.modelClient(
               borderColor: color1,
             }}
             title={"Удалить программу"}
-            onPress={createAlertMessageForDeleteProgram}
+            onPress={() => handleSnapPressDelete(0)}
           />
         </View>
+
+        <BottomSheetDeleteProgram
+          snapPoints={snapPoints}
+          sheetRef={sheetRef}
+          onPress={() =>
+            props.model.deleteAssignedProgram(
+              navigation.navigate("ClientsDetailPageWithPrograms", {
+                clientId: props.model.client,
+              })
+            )
+          }
+          onClose={() => setOpen(false)}
+        />
       </>
     );
   }
