@@ -8,6 +8,8 @@ export const ProgramDetailsClient = ({ route }: any) => {
     route?.params?.assignedProgram;
   const programId = route?.params?.programId;
   const clientID = route?.params?.clientID;
+
+  console.log("route", route);
   return (
     <ProgramDetailsClientModel.Provider
       programId={programId}

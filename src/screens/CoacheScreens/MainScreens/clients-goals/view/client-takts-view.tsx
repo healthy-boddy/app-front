@@ -89,13 +89,13 @@ export const ClientGoalsView: FC<ClientGoalsViewProps> = GoalsModel.modelClient(
           }
         >
           <View
-            style={
+            style={[
               props.model.globalGoals.type == "HAS_DATA" && {
                 flex: 1,
                 paddingHorizontal: 16,
                 width: "100%",
-              }
-            }
+              },
+            ]}
           >
             {props.model.globalGoals.type === "HAS_DATA" &&
             props.model.globalGoals.data.length > 0 ? (
