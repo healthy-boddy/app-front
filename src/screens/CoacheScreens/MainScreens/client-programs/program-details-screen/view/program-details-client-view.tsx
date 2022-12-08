@@ -1,6 +1,5 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import {
-  Alert,
   SafeAreaView,
   ScrollView,
   Text,
@@ -35,7 +34,7 @@ export const ProgramDetailsClientView = ProgramDetailsClientModel.modelClient(
 
     return (
       <>
-        <SafeAreaView style={[{ flex: 1, backgroundColor: "fff" }]}>
+        <SafeAreaView style={[{ flex: 1, backgroundColor: "#fff" }]}>
           <View
             style={{
               paddingHorizontal: 16,
@@ -43,7 +42,7 @@ export const ProgramDetailsClientView = ProgramDetailsClientModel.modelClient(
           >
             <BackButton
               onPressEdit={() =>
-                navigation.navigate("EditingScreen", {
+                navigation.navigate("EditingScreenClient", {
                   programId: props.model.currentProgramId,
                 })
               }
@@ -91,8 +90,10 @@ export const ProgramDetailsClientView = ProgramDetailsClientModel.modelClient(
             <View style={{ marginTop: 30 }} />
             <ProgramsGoalsBlock
               onPress={() =>
-                navigation.navigate("Goals", {
+                navigation.navigate("GoalsClient", {
                   programId: props.model.currentProgramId,
+                  clientId: props.model.client,
+                  assignedProgram: props.model.programDetailForClient,
                 })
               }
               number={props.model.goalsQuantity}

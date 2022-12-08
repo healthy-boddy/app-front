@@ -13,11 +13,16 @@ import MoneySvg from "../../../assets/Icons/MoneySvg";
 export const ClientDetailsPage = ({ route: { params } }: any) => {
   const navigation: any = useNavigation();
   const userId = params?.data?.client?.user?.id;
-  console.log("params ClientDetailsPage", userId);
   return (
     <WrapperTwoButtons
       onPressBack={() => navigation.navigate("CalendarPage")}
-      onPressButton={() => console.log("press1")}
+      onPressButton={() =>
+        navigation.navigate("ClientProgramsScreen", {
+          data: {
+            clientID: userId,
+          },
+        })
+      }
       onPressSecondButton={() => console.log("press1")}
       buttonTitle={"Назначить программу"}
       secondButtonTitle={"Поставить цели"}

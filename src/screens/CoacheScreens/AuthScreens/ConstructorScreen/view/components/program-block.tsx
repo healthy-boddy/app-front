@@ -24,7 +24,7 @@ export const ProgramBlock: FC<ProgramBlockProps> = ({
         backgroundColor: "#F5F4F8",
         paddingHorizontal: 16,
         paddingVertical: 12,
-        marginTop: 29,
+        marginTop: 16,
         borderRadius: 12,
       }}
     >

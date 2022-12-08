@@ -1,13 +1,14 @@
 import React, { FC } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
-import { GlobalStatus } from "../../../../MainScreens/clients-goals/global-goasl-editing-screen/interface/interface";
-import { DoneGoalsSvg } from "../../../../../../components/icon/done-goals-svg";
+import { Goals } from "../model/goals";
+import { GlobalStatus } from "../../../../clients-goals/global-goasl-editing-screen/interface/interface";
+import { DoneGoalsSvg } from "../../../../../../../components/icon/done-goals-svg";
 
 interface GoalsBlockProfile {
   title: string;
   description: string;
-  status: GlobalStatus;
-  onPress: () => void;
+  status?: GlobalStatus;
+  onPress?: () => void;
   id: number;
 }
 

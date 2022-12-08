@@ -8,18 +8,19 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import MainContainer from "../../../../../../../components/MainContainer";
+import MainContainer from "../../../../../../components/MainContainer";
 import { useNavigation } from "@react-navigation/native";
-import BackIcon from "../../../../../../../assets/Icons/BackIcon";
-import { ProgramsGoalsBlock } from "../../../view/components/programs-goals-block";
-import { AllTasksBlock } from "../../../view/components/all-tasks-block";
-import { ProgramDetailsModel } from "../../model";
+import BackIcon from "../../../../../../assets/Icons/BackIcon";
+import { ProgramsGoalsBlock } from "../../client-programs/view/components/programs-goals-block";
+import { AllTasksBlock } from "../../client-programs/view/components/all-tasks-block";
+import { ProgramDetailsModel } from "../../../../AuthScreens/ConstructorScreen/program-details-screen/model";
 
-interface EditingScreenViewProps {
-  programId: number | undefined;
-}
-export const EditingScreenView: FC<EditingScreenViewProps> =
+interface EditingScreenViewProps {}
+export const EditingScreenClientView: FC<EditingScreenViewProps> =
   ProgramDetailsModel.modelClient((props) => {
+    // if (props.programId) {
+    //   props.model.setProgram(props.programId);
+    // }
     const navigation: any = useNavigation();
 
     return (
@@ -116,13 +117,13 @@ export const EditingScreenView: FC<EditingScreenViewProps> =
           <ProgramsGoalsBlock
             number={props.model.goalsQuantity}
             title={"Цели программы"}
-            onPress={() =>
+            onPress={() => {
               navigation.navigate("GoalsEditingClient", {
                 programId: props.model.currentProgramId,
+                clientId: props.model.client,
                 assignedProgram: props.model.programDetailForClient,
-                clientID: props.model.client,
-              })
-            }
+              });
+            }}
           />
           <View style={{ marginTop: 36 }} />
           <Text

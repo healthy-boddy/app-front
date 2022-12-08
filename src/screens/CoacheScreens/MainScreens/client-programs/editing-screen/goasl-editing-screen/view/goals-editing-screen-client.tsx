@@ -9,13 +9,12 @@ import {
   View,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import MainContainer from "../../../../../../components/MainContainer";
-import BackIcon from "../../../../../../assets/Icons/BackIcon";
-import { IconDelete } from "../../../../../../components/icon/icon-delete";
-import { GoalsEditingModel } from "../model";
-import { Goals } from "../model/goals";
+import { GoalsEditingModelClient } from "../model";
+import MainContainer from "../../../../../../../components/MainContainer";
+import BackIcon from "../../../../../../../assets/Icons/BackIcon";
+import { IconDelete } from "../../../../../../../components/icon/icon-delete";
 
-export const GoalsEditingView = GoalsEditingModel.modelClient((props) => {
+export const GoalsEditingView = GoalsEditingModelClient.modelClient((props) => {
   const navigation = useNavigation<any>();
 
   // const handleAddTaskElement = () => {
@@ -38,8 +37,10 @@ export const GoalsEditingView = GoalsEditingModel.modelClient((props) => {
           <TouchableOpacity
             activeOpacity={0.6}
             onPress={() => {
-              navigation.navigate("Goals", {
-                programId: props.model.program,
+              navigation.navigate("GoalsClient", {
+                programId: props.model.programID,
+                clientId: props.model.client,
+                assignedProgram: props.model.programDetailForClient,
               });
             }}
             style={{
