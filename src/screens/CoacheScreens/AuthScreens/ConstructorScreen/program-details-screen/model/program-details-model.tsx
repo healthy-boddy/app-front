@@ -10,17 +10,26 @@ import { ConstructorStates } from "./constructor-state";
 import { UserArrays } from "../../../CalendarScreen/user-list-screen/interface";
 import { UsersStates } from "../../../CalendarScreen/user-list-screen/model/constructor-state";
 import * as clientState from "../../../CalendarScreen/user-list-screen/model/state-creators";
+import { ProgramAssignedToClient } from "../../../../MainScreens/client-programs/interface/interface";
 
 export class ProgramDetailsModel {
   private readonly _httpService = new HttpService();
-
-  private _programId: number | undefined = undefined;
-
   private _tasks: ConstructorStates = stateCreator.getInitialState();
 
   private _name = "";
   private _description = "";
   private _goals_quantity: number | null = null;
+  private _programDetailForClient: ProgramAssignedToClient | undefined =
+    undefined;
+  private _programId: number | undefined = undefined;
+  private _client: number | undefined = undefined;
+
+  public get programDetailForClient() {
+    return this._programDetailForClient;
+  }
+  public get client() {
+    return this._client;
+  }
 
   public get currentProgramId() {
     return this._programId;
@@ -147,23 +156,34 @@ export class ProgramDetailsModel {
   //   }
   // }
 
-  private constructor(private readonly programId: number | undefined) {
+  private constructor(
+    private readonly programId: number | undefined,
+    private readonly programAssignedToClient:
+      | ProgramAssignedToClient
+      | undefined,
+    private readonly clientID: number | undefined
+  ) {
     this._httpService = new HttpService({});
     makeAutoObservable(this, {}, { autoBind: true });
   }
 
-  private static makeModel(programId: number | undefined) {
-    const model = React.useMemo(() => new ProgramDetailsModel(programId), []);
+  private static makeModel(
+    programId: number | undefined,
+    programAssignedToClient: ProgramAssignedToClient | undefined,
+    clientID: number | undefined
+  ) {
+    const model = React.useMemo(
+      () =>
+        new ProgramDetailsModel(programId, programAssignedToClient, clientID),
+      []
+    );
     useEffect(() => {
-      if (programId !== undefined) {
-        model._programId = programId;
-      }
-
-      if (model.programId) {
-        model.getProgramById();
-        model.getTasks();
-        model.getAvailableClients();
-      }
+      model._programId = programId;
+      model._programDetailForClient = programAssignedToClient;
+      model._client = clientID;
+      model.getProgramById();
+      model.getTasks();
+      model.getAvailableClients();
     }, [model, programId]);
 
     return model;
@@ -175,9 +195,15 @@ export class ProgramDetailsModel {
   public static Provider(
     props: React.PropsWithChildren<{
       programId: number | undefined;
+      programAssignedToClient: ProgramAssignedToClient | undefined;
+      clientID: number | undefined;
     }>
   ) {
-    const model = ProgramDetailsModel.makeModel(props.programId);
+    const model = ProgramDetailsModel.makeModel(
+      props.programId,
+      props.programAssignedToClient,
+      props.clientID
+    );
 
     return (
       <ProgramDetailsModel.MedicalCardPageContext.Provider value={model}>

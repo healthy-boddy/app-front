@@ -13,13 +13,12 @@ import { TaskResponseArray } from "../../../../AuthScreens/ConstructorScreen/pro
 export class ProgramDetailsClientModel {
   private readonly _httpService = new HttpService();
 
-  private _programId: number | undefined = undefined;
-  private _clientID: number | undefined = undefined;
-
   private _tasks: ConstructorStates = stateCreator.getInitialState();
 
   private _programDetailForClient: ProgramAssignedToClient | undefined =
     undefined;
+  private _programId: number | undefined = undefined;
+  private _clientID: number | undefined = undefined;
 
   private _name = "";
   private _description = "";
@@ -28,15 +27,12 @@ export class ProgramDetailsClientModel {
   public get currentProgramId() {
     return this._programId;
   }
-
-  // private _users: UsersStates = clientState.getInitialState();
-
-  // public get users() {
-  //   return this._users;
-  // }
-
   public get client() {
     return this._clientID;
+  }
+
+  public get programDetailForClient() {
+    return this._programDetailForClient;
   }
 
   public get name() {

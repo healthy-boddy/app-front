@@ -40,6 +40,9 @@ import { GlobalGoalsEditing } from "../../screens/CoacheScreens/MainScreens/clie
 import { ClientGoals } from "../../screens/CoacheScreens/MainScreens/clients-goals";
 import { ClientProgramsScreen } from "../../screens/CoacheScreens/MainScreens/client-programs/client-programs";
 import { ProgramDetailsForAssign } from "../../screens/CoacheScreens/MainScreens/client-programs/program-details-for-assigne";
+import { EditingScreenClient } from "../../screens/CoacheScreens/MainScreens/client-programs/editing-screen";
+import { GoalsClient } from "../../screens/CoacheScreens/MainScreens/client-programs/editing-screen/goals-screen";
+import { GoalsEditingClient } from "../../screens/CoacheScreens/MainScreens/client-programs/editing-screen/goasl-editing-screen";
 
 let Tab = createBottomTabNavigator();
 
@@ -123,7 +126,6 @@ export default function CoachVerify() {
       screenOptions={{
         headerShown: false,
       }}
-
     >
       <Tab.Screen
         name="First"
@@ -451,6 +453,32 @@ export default function CoachVerify() {
       <Tab.Screen
         name="ProgramDetailsForAssign"
         component={ProgramDetailsForAssign}
+        options={({ route }) => ({
+          tabBarButton: () => null,
+          tabBarStyle: { display: "none" },
+        })}
+      />
+
+      <Tab.Screen
+        name="EditingScreenClient"
+        component={EditingScreenClient}
+        options={({ route }) => ({
+          tabBarButton: () => null,
+          tabBarStyle: { display: "none" },
+        })}
+      />
+
+      <Tab.Screen
+        name="GoalsEditingClient"
+        component={GoalsEditingClient}
+        options={({ route }) => ({
+          tabBarButton: () => null,
+          tabBarStyle: { display: "none" },
+        })}
+      />
+      <Tab.Screen
+        name="GoalsClient"
+        component={GoalsClient}
         options={({ route }) => ({
           tabBarButton: () => null,
           tabBarStyle: { display: "none" },

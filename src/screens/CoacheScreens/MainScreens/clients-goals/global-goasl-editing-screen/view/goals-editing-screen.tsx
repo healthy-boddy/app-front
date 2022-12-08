@@ -81,14 +81,21 @@ export const GoalsEditingView = GlobalGoalsEditingModel.modelClient((props) => {
                     }}
                   >
                     <Text style={styles.mainTitle}>{`Цель ${index + 1}`}</Text>
-                    <TouchableOpacity
-                      // onPress={() =>
-                      //   goal.deleteGoal(goal.id, props.model.getGoals)
-                      // }
-                      onPress={handlePush}
-                    >
-                      <IconDelete />
-                    </TouchableOpacity>
+
+                    {props.model.goals.data.length > 1 && (
+                      <TouchableOpacity onPress={handlePush}>
+                        <IconDelete />
+                      </TouchableOpacity>
+                    )}
+
+                    {props.model.goals.data.length === 1 &&
+                      goal.goalsDescription.length > 0 && (
+                        <TouchableOpacity
+                          onPress={() => goal.setGoalsDescription("")}
+                        >
+                          <IconDelete />
+                        </TouchableOpacity>
+                      )}
                   </View>
 
                   <View
@@ -104,11 +111,13 @@ export const GoalsEditingView = GlobalGoalsEditingModel.modelClient((props) => {
                     <TextInput
                       numberOfLines={20}
                       multiline={true}
+                      returnKeyType="done"
                       style={{
                         color: "#1E1E1E",
                         fontWeight: "400",
                         lineHeight: 22,
                         fontSize: 16,
+                        height: "100%",
                       }}
                       value={goal.goalsDescription}
                       onChangeText={goal.setGoalsDescription}

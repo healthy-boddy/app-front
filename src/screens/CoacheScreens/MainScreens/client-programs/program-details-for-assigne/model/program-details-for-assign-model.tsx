@@ -7,7 +7,6 @@ import { HttpService } from "../../../../../../service/http-service";
 import { ConstructorStates } from "./constructor-state";
 import { ProgramResponse } from "../../../../AuthScreens/ConstructorScreen/interfaces";
 import { UserArrays } from "../../../../AuthScreens/CalendarScreen/user-list-screen/interface";
-import { ProgramAssignedToClient } from "../../interface/interface";
 import { TaskResponseArray } from "../../../../AuthScreens/ConstructorScreen/program-details-screen/editing-screen/interface";
 import * as clientState from "../../../../AuthScreens/CalendarScreen/user-list-screen/model/state-creators";
 import { UsersStates } from "../../../../AuthScreens/CalendarScreen/user-list-screen/model/constructor-state";

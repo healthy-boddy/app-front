@@ -87,6 +87,10 @@ export const ClientGoalsView: FC<ClientGoalsViewProps> = GoalsModel.modelClient(
               },
             })
           }
+          editButton={
+            props.model.globalGoals.type === "HAS_DATA" &&
+            props.model.globalGoals.data.length > 0
+          }
         >
           <View
             style={[

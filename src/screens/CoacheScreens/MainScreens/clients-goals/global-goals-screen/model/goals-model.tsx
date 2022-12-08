@@ -5,7 +5,6 @@ import { observer } from "mobx-react-lite";
 import * as stateCreator from "./state-creators";
 import { ConstructorState } from "./constructor-state";
 import { HttpService } from "../../../../../../service/http-service";
-import { GoalsResArray } from "../../../../AuthScreens/ConstructorScreen/goasl-editing-screen/interface/interface";
 import { GlobalGoalsResArray } from "../../global-goasl-editing-screen/interface/interface";
 import { ClientResponse } from "../../../../AuthScreens/CalendarScreen/user-list-screen/interface";
 
@@ -62,7 +61,7 @@ export class GoalsModel {
     const model = React.useMemo(() => new GoalsModel(), []);
     useEffect(() => {
       model.getGlobalGoals();
-    }, [model]);
+    });
 
     return model;
   }

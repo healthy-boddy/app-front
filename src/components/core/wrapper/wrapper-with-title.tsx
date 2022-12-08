@@ -18,6 +18,7 @@ interface ButtonWrapperPageInterface {
   buttonTitle?: string;
   title: string;
   onPressEdit?: () => void;
+  editButton?: boolean;
 }
 
 export const WrapperWithTitlePage: FC<ButtonWrapperPageInterface> = ({
@@ -27,6 +28,7 @@ export const WrapperWithTitlePage: FC<ButtonWrapperPageInterface> = ({
   buttonTitle,
   title,
   onPressEdit,
+  editButton,
 }) => {
   return (
     <SafeAreaView style={styles.container}>
@@ -45,6 +47,7 @@ export const WrapperWithTitlePage: FC<ButtonWrapperPageInterface> = ({
           style={{
             alignItems: "center",
             flexDirection: "row",
+            marginRight: 20,
           }}
         >
           <View>
@@ -75,20 +78,22 @@ export const WrapperWithTitlePage: FC<ButtonWrapperPageInterface> = ({
           {title}
         </Text>
 
-        <View style={{ width: 60 }} />
-        {onPressEdit && (
+        <View />
+        {onPressEdit && editButton ? (
           <TouchableOpacity onPress={onPressEdit} style={styles.back}>
             <PencilSvg />
           </TouchableOpacity>
+        ) : (
+          <View />
         )}
       </View>
       <View style={styles.bodyContainer}>{children}</View>
 
-      {buttonTitle !== "" && (
+      {buttonTitle !== "" ? (
         <View style={styles.footerContainer}>
           <CustomButton onPress={onPressButton} title={buttonTitle} />
         </View>
-      )}
+      ) : null}
     </SafeAreaView>
   );
 };
