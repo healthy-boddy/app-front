@@ -103,7 +103,6 @@ export class ProgramDetailsClientModel {
       this._httpService
         .get<UserArrays>(`/program/${this._programId}/available_clients/`)
         .then((res) => {
-          console.log("res getAvailableClients", res.data);
           runInAction(() => {
             // this._users = clientState.getHasDataState(res.data);
           });

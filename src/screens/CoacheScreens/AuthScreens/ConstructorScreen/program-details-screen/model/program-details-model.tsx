@@ -24,11 +24,20 @@ export class ProgramDetailsModel {
   private _programId: number | undefined = undefined;
   private _client: number | undefined = undefined;
 
+  private _successesAssigned = false;
+
   public get programDetailForClient() {
     return this._programDetailForClient;
   }
   public get client() {
     return this._client;
+  }
+
+  public get successesAssigned() {
+    return this._successesAssigned;
+  }
+  public setAssessAssigned(state: boolean) {
+    this._successesAssigned = state;
   }
 
   public get currentProgramId() {
@@ -90,7 +99,6 @@ export class ProgramDetailsModel {
       this._httpService
         .get<UserArrays>(`/program/${this._programId}/available_clients/`)
         .then((res) => {
-          console.log("res getAvailableClients", res.data);
           runInAction(() => {
             this._users = clientState.getHasDataState(res.data);
           });
@@ -112,6 +120,7 @@ export class ProgramDetailsModel {
         })
         .then((res) => {
           this.getAvailableClients();
+          this.setAssessAssigned(true);
         })
         .catch((err) => {
           console.log("Err", err.response);

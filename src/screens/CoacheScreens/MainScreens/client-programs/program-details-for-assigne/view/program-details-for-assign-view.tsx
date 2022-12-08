@@ -18,6 +18,7 @@ import { AllTasksBlock } from "../../../../AuthScreens/ConstructorScreen/view/co
 import { BottomSheetClientPicked } from "../../../../AuthScreens/ConstructorScreen/program-details-screen/view/bottom-sheet-clients/bottom-sheet-client-picked";
 import BottomSheet from "@gorhom/bottom-sheet";
 import { ClientResponse } from "../../../../AuthScreens/CalendarScreen/user-list-screen/interface";
+import { SuccessAssignBanner } from "../../../../../../components/core/sussecc-assigne-bunner";
 
 export const ProgramDetailsForAssignView =
   ProgramDetailsForAssignModel.modelClient((props) => {
@@ -44,9 +45,21 @@ export const ProgramDetailsForAssignView =
       setOpen(true);
     }, []);
 
+    useEffect(() => {
+      if (props.model.successesAssigned) {
+        sheetRef.current?.close();
+      }
+    }, [props.model.successesAssigned]);
+
     return (
       <>
-        <SafeAreaView style={[{ flex: 1, backgroundColor: "fff" }]}>
+        {props.model.successesAssigned && (
+          <SuccessAssignBanner
+            onPress={() => props.model.setAssessAssigned(false)}
+          />
+        )}
+
+        <SafeAreaView style={[{ flex: 1, backgroundColor: "#fff" }]}>
           <View
             style={{
               paddingHorizontal: 16,

@@ -15,6 +15,15 @@ export class GoalsModel {
 
   private _client: ClientResponse | undefined = undefined;
 
+  private _successesAssigned = false;
+
+  public get successesAssigned() {
+    return this._successesAssigned;
+  }
+  public setAssessAssigned(state: boolean) {
+    this._successesAssigned = state;
+  }
+
   public get globalGoals() {
     return this._globalGoals;
   }
@@ -25,18 +34,6 @@ export class GoalsModel {
   public setClientsRouteData(clientData: ClientResponse) {
     this._client = clientData;
   }
-
-  // public getGoals() {
-  //   try {
-  //     this._httpService.get<GoalsResArray>(`/program/goal/`).then((res) => {
-  //       runInAction(() => {
-  //         this._goals = stateCreator.getHasDataState(res.data);
-  //       });
-  //     });
-  //   } catch (e: any) {
-  //     console.log("Error:", e.response.data);
-  //   }
-  // }
 
   public getGlobalGoals() {
     try {

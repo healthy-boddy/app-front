@@ -25,6 +25,15 @@ export class ProgramDetailsForAssignModel {
   private _description = "";
   private _goals_quantity: number | null = null;
 
+  private _successesAssigned = false;
+
+  public get successesAssigned() {
+    return this._successesAssigned;
+  }
+  public setAssessAssigned(state: boolean) {
+    this._successesAssigned = state;
+  }
+
   public get currentProgramId() {
     return this._programId;
   }
@@ -92,7 +101,6 @@ export class ProgramDetailsForAssignModel {
       this._httpService
         .get<UserArrays>(`/program/${this._programId}/available_clients/`)
         .then((res) => {
-          console.log("res getAvailableClients", res.data);
           runInAction(() => {
             this._users = clientState.getHasDataState(res.data);
           });
@@ -129,8 +137,8 @@ export class ProgramDetailsForAssignModel {
         .post<{ assigned_to: number; program: number }>("/program/assign/", {
           data,
         })
-        .then((res) => {
-          console.log("RES", res.data, res.status);
+        .then(() => {
+          this.setAssessAssigned(true);
         })
         .catch((err) => {
           console.log("Err", err.response);
@@ -182,10 +190,10 @@ export class ProgramDetailsForAssignModel {
       runInAction(() => {
         model._programId = programId;
         model._programDetailForClient = programAssignedToClient;
+        model.getProgramById();
+        model.getTasks();
+        model.getAvailableClients();
       });
-      model.getProgramById();
-      model.getTasks();
-      model.getAvailableClients();
     }, [model, programId]);
 
     return model;

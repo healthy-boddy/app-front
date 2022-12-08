@@ -11,6 +11,7 @@ import { Goals } from "../global-goals-screen/model/goals";
 import { BottomSheetDeleteProgram } from "../../client-programs/program-details-screen/view/bottom-sheet-clients/bottom-sheet-delete-program";
 import { BottomSheetGoalStatus } from "./bottom-sheet-goal-status/bottom-sheet-goal-status";
 import BottomSheet from "@gorhom/bottom-sheet";
+import { SuccessAssignBanner } from "../../../../../components/core/sussecc-assigne-bunner";
 
 interface ClientGoalsViewProps {
   client: any;
@@ -28,30 +29,6 @@ export const ClientGoalsView: FC<ClientGoalsViewProps> = GoalsModel.modelClient(
         props.model.setClientsRouteData(dataClient);
       });
     }
-
-    const showConfirmationAlert = (goal: Goals) => {
-      const options = [
-        {
-          text: "Отметить “В процессе”",
-          onPress: () =>
-            goal.assignStatusToGlobalGoal(
-              props.model.getGlobalGoals,
-              GlobalStatus.InProgress
-            ),
-        },
-        {
-          text: "Отметить выполненной",
-          onPress: () =>
-            goal.assignStatusToGlobalGoal(
-              props.model.getGlobalGoals,
-              GlobalStatus.Done
-            ),
-        },
-        { text: "Cancel" },
-      ];
-      return Alert.alert("Alert title", "Alert text", options);
-    };
-
     const snapPoints = ["40%"];
     const sheetRef = useRef<BottomSheet>(null);
     const handleSnapPressDelete = useCallback((index: number) => {
@@ -59,8 +36,20 @@ export const ClientGoalsView: FC<ClientGoalsViewProps> = GoalsModel.modelClient(
       setOpen(true);
     }, []);
 
+    useEffect(() => {
+      if (goalData && goalData.successesAssigned) {
+        sheetRef.current?.close();
+      }
+    }, [goalData && goalData.successesAssigned]);
+
     return (
       <>
+        {goalData && goalData.successesAssigned && (
+          <SuccessAssignBanner
+            title={"Цели успешно назначены!"}
+            onPress={() => goalData?.setAssessAssigned(false)}
+          />
+        )}
         <WrapperWithTitlePage
           title={"Цели"}
           onPressBack={() =>
@@ -107,18 +96,15 @@ export const ClientGoalsView: FC<ClientGoalsViewProps> = GoalsModel.modelClient(
                 const handlePress = (data: Goals) => {
                   setGoal(data), handleSnapPressDelete(0);
                 };
-                console.log("goal.status", goal.status);
                 return (
-                  <View key={goal.id}>
-                    <GoalsBlock
-                      id={goal.id}
-                      onPress={() => handlePress(goal)}
-                      key={goal.id}
-                      title={`Цель ${index + 1}`}
-                      description={goal.goalsDescription}
-                      status={goal.status}
-                    />
-                  </View>
+                  <GoalsBlock
+                    id={goal.id}
+                    onPress={() => handlePress(goal)}
+                    key={goal.id}
+                    title={`Цель ${index + 1}`}
+                    description={goal.goalsDescription}
+                    status={goal.status}
+                  />
                 );
               })
             ) : (

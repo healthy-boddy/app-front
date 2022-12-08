@@ -12,7 +12,14 @@ export class Goals {
     makeAutoObservable(this, {}, { autoBind: true });
   }
 
-  // private _pickedGoal: string = "";
+  private _successesAssigned = false;
+
+  public get successesAssigned() {
+    return this._successesAssigned;
+  }
+  public setAssessAssigned(state: boolean) {
+    this._successesAssigned = state;
+  }
 
   public get id() {
     return this.source.id;
@@ -41,7 +48,6 @@ export class Goals {
       client: this.source.client,
       description: this.source.description,
     };
-    console.log("addFilteredArray", addFilteredArray);
     this._httpService
       .put<GlobalGoalResponse>(`/global_goal/${this.source.id}/`, {
         data: addFilteredArray,
@@ -50,6 +56,7 @@ export class Goals {
         console.log("createNewGoal GLOBAL", res.status);
         if (res.data && getGoals) {
           getGoals();
+          this.setAssessAssigned(true);
         }
       })
       .catch((e) => {
