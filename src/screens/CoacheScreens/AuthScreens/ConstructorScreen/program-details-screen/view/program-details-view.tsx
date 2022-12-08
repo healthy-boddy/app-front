@@ -1,7 +1,9 @@
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
+  MaskedViewIOS,
   SafeAreaView,
   ScrollView,
+  StyleSheet,
   Text,
   TouchableOpacity,
   View,
@@ -14,11 +16,13 @@ import { AllTasksBlock } from "../../view/components/all-tasks-block";
 import CustomButton from "../../../../../../components/CustomButton";
 import { useNavigation } from "@react-navigation/native";
 import { ProgramDetailsModel } from "../model";
-import Description from "../../../../../../components/Description";
 import { BottomSheetClientPicked } from "./bottom-sheet-clients/bottom-sheet-client-picked";
 import BottomSheet from "@gorhom/bottom-sheet";
 import { BottomSheetClients } from "./bottom-sheet-clients/bottom-sheet-clients";
 import { ClientResponse } from "../../../CalendarScreen/user-list-screen/interface";
+import { LinearGradient } from "expo-linear-gradient";
+import MaskedView from "@react-native-masked-view/masked-view";
+import { SuccessAssignBanner } from "../../../../../../components/core/sussecc-assigne-bunner";
 
 export const ProgramDetailsView = ProgramDetailsModel.modelClient((props) => {
   const navigation = useNavigation<any>();
@@ -30,7 +34,7 @@ export const ProgramDetailsView = ProgramDetailsModel.modelClient((props) => {
 
   const sheetRef = useRef<BottomSheet>(null);
   const sheetRefClients = useRef<BottomSheet>(null);
-  const snapPoints = ["70%"];
+  const snapPoints = ["80%"];
 
   const handleSnapPressOneClient = useCallback((index: number) => {
     sheetRef.current?.snapToIndex(index);
@@ -52,8 +56,21 @@ export const ProgramDetailsView = ProgramDetailsModel.modelClient((props) => {
     }
   };
 
+  useEffect(() => {
+    if (props.model.successesAssigned) {
+      sheetRef.current?.close();
+      sheetRefClients.current?.close();
+    }
+  }, [props.model.successesAssigned]);
+
   return (
     <>
+      {props.model.successesAssigned && (
+        <SuccessAssignBanner
+          onPress={() => props.model.setAssessAssigned(false)}
+        />
+      )}
+
       <SafeAreaView
         style={[
           { flex: 1, backgroundColor: "fff" },
@@ -95,23 +112,59 @@ export const ProgramDetailsView = ProgramDetailsModel.modelClient((props) => {
               marginTop: 20,
               alignItems: "center",
               justifyContent: "space-between",
+              overflow: "hidden",
             }}
-            activeOpacity={0.7}
             onPress={() => {
               setReviewsVisible(!reviewsVisible);
             }}
           >
-            {reviewsVisible && (
-              <Description>{props.model.description}</Description>
+            {!reviewsVisible ? (
+              <>
+                <MaskedView
+                  maskElement={
+                    <LinearGradient
+                      style={StyleSheet.absoluteFill}
+                      colors={["white", "transparent"]}
+                      start={{ x: 0, y: 0.1 }}
+                      end={{ x: 0, y: 0.5 }}
+                    />
+                  }
+                >
+                  <Text
+                    style={{
+                      fontWeight: "400",
+                      lineHeight: 20,
+                      fontSize: 16,
+                      color: "#6f6f6f",
+                    }}
+                  >
+                    {props.model.description}
+                  </Text>
+                </MaskedView>
+                <ArrowDown />
+              </>
+            ) : (
+              <>
+                <Text
+                  style={{
+                    fontWeight: "400",
+                    lineHeight: 20,
+                    fontSize: 16,
+                    color: "#6f6f6f",
+                  }}
+                >
+                  {props.model.description}
+                </Text>
+                <ArrowUp />
+              </>
             )}
+
             <View
               style={{
                 alignItems: "center",
                 width: "100%",
               }}
-            >
-              {!reviewsVisible ? <ArrowDown /> : <ArrowUp />}
-            </View>
+            ></View>
           </TouchableOpacity>
 
           <View style={{ marginTop: 30 }} />
@@ -196,14 +249,16 @@ export const ProgramDetailsView = ProgramDetailsModel.modelClient((props) => {
         onPressPickButton={handlePressPickClient}
         programName={props.model.name}
       />
-      <BottomSheetClientPicked
-        snapPoints={snapPoints}
-        sheetRef={sheetRef}
-        onClose={() => setOpen(false)}
-        clientData={clientData ?? null}
-        programName={props.model.name}
-        onPressToPick={handleAssigned}
-      />
+      {clientData && (
+        <BottomSheetClientPicked
+          snapPoints={snapPoints}
+          sheetRef={sheetRef}
+          onClose={() => setOpen(false)}
+          clientData={clientData}
+          programName={props.model.name}
+          onPressToPick={handleAssigned}
+        />
+      )}
     </>
   );
 });

@@ -19,8 +19,6 @@ interface ButtonSheetPersonalDoctorProps {
 
 export const BottomSheetClients: FC<ButtonSheetPersonalDoctorProps> =
   ProgramDetailsModel.modelClient((props) => {
-    const navigation: any = useNavigation();
-
     const [clientData, senClientData] = useState<ClientResponse>();
 
     const handlePress = () => {

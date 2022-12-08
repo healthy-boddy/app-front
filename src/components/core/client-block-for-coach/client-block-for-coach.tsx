@@ -6,6 +6,7 @@ import { ChevronRight } from "../../icon/chevron-right";
 import { CalendarSvg } from "../../icon/calendar";
 import MoneySvg from "../../../assets/Icons/MoneySvg";
 import { ClientResponse } from "../../../screens/CoacheScreens/AuthScreens/CalendarScreen/user-list-screen/interface";
+import { color1 } from "../../../helpers/colors";
 
 interface ClientBlockForCoachProps {
   onPress: () => void;
@@ -36,13 +37,34 @@ export const ClientBlockForCoach: FC<ClientBlockForCoachProps> = ({
     >
       <View style={styles.secondView}>
         <View style={styles.row}>
-          <View style={styles.imageView}>
-            <Image
-              style={styles.image}
-              resizeMode="cover"
-              source={{ uri: url }}
-            />
-          </View>
+          {url ? (
+            <View style={styles.imageView}>
+              <Image
+                style={styles.image}
+                resizeMode="cover"
+                source={{ uri: url }}
+              />
+            </View>
+          ) : (
+            <View
+              style={[
+                styles.imageView,
+                {
+                  alignItems: "center",
+                  justifyContent: "center",
+                  borderWidth: 1,
+                  borderRadius: 100,
+                  borderColor: color1,
+                },
+              ]}
+            >
+              <Text>
+                {name.replace(/[^A-Z]/g, "").length !== 0
+                  ? name.replace(/[^A-Z]/g, "")
+                  : name.substring(0, 1)}
+              </Text>
+            </View>
+          )}
 
           <View
             style={{

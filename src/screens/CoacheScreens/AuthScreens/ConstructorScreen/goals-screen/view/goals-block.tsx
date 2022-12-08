@@ -20,7 +20,7 @@ export const GoalsBlock: FC<GoalsBlockProfile> = ({
 }) => {
   return (
     <TouchableOpacity
-      onPress={status !== GlobalStatus.Done ? onPress : undefined}
+      onPress={onPress}
       style={[
         {
           borderRadius: 12,
