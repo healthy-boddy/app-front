@@ -167,7 +167,7 @@ export const ProgramDetailsForAssignView =
                       key={task.id}
                       onPress={() => navigation.navigate("TaskDetails")}
                       title={task.name}
-                      duration={`В течение ${task.description} дней`}
+                      duration={`В течение ${task.date} дней`}
                     />
                   );
                 })}
