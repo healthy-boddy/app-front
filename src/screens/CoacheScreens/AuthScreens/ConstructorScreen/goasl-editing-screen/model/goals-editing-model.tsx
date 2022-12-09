@@ -13,7 +13,7 @@ export class GoalsEditingModel {
 
   private _goals: ConstructorState = stateCreator.getInitialState();
 
-  private _program: number | null = null;
+  private _program: number | undefined = undefined;
 
   private _arrayForDelete: Array<number> = [];
 
@@ -101,15 +101,28 @@ export class GoalsEditingModel {
     console.log("Error:", e.response.data);
   }
 
+  // public getGoals() {
+  //   try {
+  //     this._httpService.get<GoalsResArray>("/program/goal/").then((res) => {
+  //       console.log("GET: data goals", res.data);
+  //       runInAction(() => {
+  //         this._goals = stateCreator.getHasDataState(res.data);
+  //       });
+  //     });
+  //   } catch (e: any) {
+  //     console.log("Error:", e.response.data);
+  //   }
+  // }
+
   public getGoals() {
     try {
-      this._httpService.get<GoalsResArray>("/program/goal/").then((res) => {
-        console.log("GET: data goals", res.data);
-        runInAction(() => {
-          this._goals = stateCreator.getHasDataState(res.data);
-          this._program = res.data[0].program;
+      this._httpService
+        .get<GoalsResArray>(`/program/goal/?program=${this._program}`)
+        .then((res) => {
+          runInAction(() => {
+            this._goals = stateCreator.getHasDataState(res.data);
+          });
         });
-      });
     } catch (e: any) {
       console.log("Error:", e.response.data);
     }
@@ -120,16 +133,19 @@ export class GoalsEditingModel {
     this.deleteGoal();
   }
 
-  private constructor() {
+  private constructor(private readonly programId: number | undefined) {
     this._httpService = new HttpService({});
     makeAutoObservable(this, {}, { autoBind: true });
   }
 
-  private static makeModel() {
-    const model = React.useMemo(() => new GoalsEditingModel(), []);
+  private static makeModel(programId: number | undefined) {
+    const model = React.useMemo(() => new GoalsEditingModel(programId), []);
     useEffect(() => {
-      model.getGoals();
-    }, [model]);
+      runInAction(() => {
+        model._program = programId;
+        model.getGoals();
+      });
+    });
 
     return model;
   }
@@ -137,8 +153,12 @@ export class GoalsEditingModel {
   private static MedicalCardPageContext =
     React.createContext<GoalsEditingModel | null>(null);
 
-  public static Provider(props: React.PropsWithChildren<{}>) {
-    const model = GoalsEditingModel.makeModel();
+  public static Provider(
+    props: React.PropsWithChildren<{
+      programId: number | undefined;
+    }>
+  ) {
+    const model = GoalsEditingModel.makeModel(props.programId);
 
     return (
       <GoalsEditingModel.MedicalCardPageContext.Provider value={model}>

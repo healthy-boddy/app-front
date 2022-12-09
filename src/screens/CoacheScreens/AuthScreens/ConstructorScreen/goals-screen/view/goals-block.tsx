@@ -6,9 +6,9 @@ import { DoneGoalsSvg } from "../../../../../../components/icon/done-goals-svg";
 interface GoalsBlockProfile {
   title: string;
   description: string;
-  status: GlobalStatus;
-  onPress: () => void;
-  id: number;
+  status?: GlobalStatus;
+  onPress?: () => void;
+  id?: number;
 }
 
 export const GoalsBlock: FC<GoalsBlockProfile> = ({

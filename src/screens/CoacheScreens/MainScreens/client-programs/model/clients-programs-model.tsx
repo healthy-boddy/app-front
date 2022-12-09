@@ -32,7 +32,9 @@ export class ClientsProgramsModel {
             : `/program/assign/`
         )
         .then((res) => {
-          this._programInfo = stateCreator.getHasDataState(res.data);
+          runInAction(() => {
+            this._programInfo = stateCreator.getHasDataState(res.data);
+          });
         });
     } catch (e) {
       console.log(e);

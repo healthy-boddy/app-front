@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { useEffect } from "react";
-import { makeAutoObservable } from "mobx";
+import { makeAutoObservable, runInAction } from "mobx";
 import { observer } from "mobx-react-lite";
 import { HttpService } from "../../../../../service/http-service";
 import { ClientResponse } from "../../../AuthScreens/CalendarScreen/user-list-screen/interface";
@@ -25,7 +25,9 @@ export class ClientQuizModel {
   private getQuiz() {
     try {
       this._httpService.get<QuizArray>(`/quiz/response/`).then((res) => {
-        this._quiz = stateCreator.getHasDataState(res.data);
+        runInAction(() => {
+          this._quiz = stateCreator.getHasDataState(res.data);
+        });
       });
     } catch (e: any) {
       console.log(e.response);

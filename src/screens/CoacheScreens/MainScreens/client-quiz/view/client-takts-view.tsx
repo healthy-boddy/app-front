@@ -81,6 +81,7 @@ export const ClientQuizView: FC<ClientGoalsViewProps> =
           {props.model.quiz.type === "HAS_DATA" &&
             props.model.quiz.data.map((quiz) => (
               <QuizBlock
+                key={quiz.id}
                 title={quiz.quiz_name}
                 description={format(
                   new Date(quiz.created_at),

@@ -85,6 +85,7 @@ export const ClientQuizView: FC<ClientGoalsViewProps> =
                 return (
                   <>
                     <View
+                      key={index}
                       style={{
                         borderBottomWidth: 1,
                         paddingVertical: 16,
