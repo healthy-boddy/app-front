@@ -72,11 +72,13 @@ export class GoalsEditingModelClient {
           this._httpService
             .delete(`/program/goal/${deleteId}/`)
             .then((res) => {
-              console.log(
-                `Successfully deleted goal № ${deleteId}`,
-                res.status
-              );
-              this.getGoals();
+              runInAction(() => {
+                this.getGoals();
+                console.log(
+                  `Successfully deleted goal № ${deleteId}`,
+                  res.status
+                );
+              });
             })
             .catch((er) => {
               console.log(er.response);
@@ -105,7 +107,9 @@ export class GoalsEditingModelClient {
               data: addFilteredArray,
             })
             .then(() => {
-              this.getGoals();
+              runInAction(() => {
+                this.getGoals();
+              });
             })
             .catch((e) => {
               console.warn(e.response);

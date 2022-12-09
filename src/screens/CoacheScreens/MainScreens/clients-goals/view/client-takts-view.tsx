@@ -24,7 +24,7 @@ export const ClientGoalsView: FC<ClientGoalsViewProps> = GoalsModel.modelClient(
     const [goalData, setGoal] = useState<Goals>();
     const dataClient = props.client.data.client;
 
-    if (dataClient.user && dataClient.total_global_goals_count) {
+    if (dataClient?.user && dataClient?.total_global_goals_count) {
       runInAction(() => {
         props.model.setClientsRouteData(dataClient);
       });
@@ -37,10 +37,10 @@ export const ClientGoalsView: FC<ClientGoalsViewProps> = GoalsModel.modelClient(
     }, []);
 
     useEffect(() => {
-      if (goalData && goalData.successesAssigned) {
+      if (goalData && goalData?.successesAssigned) {
         sheetRef.current?.close();
       }
-    }, [goalData && goalData.successesAssigned]);
+    }, [goalData && goalData?.successesAssigned]);
 
     return (
       <>

@@ -26,7 +26,7 @@ export const GoalsEditingView = GoalsEditingModelClient.modelClient((props) => {
   const arrForDel: Array<number> = [];
   return (
     <MainContainer>
-      <View style={{ paddingHorizontal: 16, top: 30 }}>
+      <View>
         <View
           style={{
             flexDirection: "row",

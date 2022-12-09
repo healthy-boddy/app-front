@@ -20,28 +20,30 @@ export const GoalsView: FC<EditingScreenViewProps> = GoalsModel.modelClient(
 
     return (
       <MainContainer>
-        <View style={{ flex: 1, paddingHorizontal: 16 }}>
-          <BackButton
-            title={"Цели"}
-            onPressEdit={() => navigation.navigate("GoalsEditing")}
-            onPress={() => {
-              navigation.navigate("ConstructorPage");
-            }}
-          />
+        <BackButton
+          title={"Цели"}
+          onPressEdit={() =>
+            navigation.navigate("GoalsEditing", {
+              programId: props.programId,
+            })
+          }
+          onPress={() => {
+            navigation.navigate("ConstructorPage");
+          }}
+        />
 
-          <View style={{ marginTop: 16 }} />
+        <View style={{ marginTop: 16 }} />
 
-          {props.model.goals.type === "HAS_DATA" &&
-            props.model.goals.data.map((data, index) => {
-              return (
-                <GoalsBlock
-                  key={data.id}
-                  title={`Цель ${index + 1}`}
-                  description={data.goalsDescription}
-                />
-              );
-            })}
-        </View>
+        {props.model.goals.type === "HAS_DATA" &&
+          props.model.goals.data.map((data, index) => {
+            return (
+              <GoalsBlock
+                key={data.id}
+                title={`Цель ${index + 1}`}
+                description={data.goalsDescription}
+              />
+            );
+          })}
       </MainContainer>
     );
   }

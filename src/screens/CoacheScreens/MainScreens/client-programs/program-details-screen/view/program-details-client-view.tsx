@@ -2,6 +2,7 @@ import React, { useCallback, useRef, useState } from "react";
 import {
   SafeAreaView,
   ScrollView,
+  StyleSheet,
   Text,
   TouchableOpacity,
   View,
@@ -18,6 +19,8 @@ import { AllTasksBlock } from "../../../../AuthScreens/ConstructorScreen/view/co
 import { color1 } from "../../../../../../helpers/colors";
 import { BottomSheetDeleteProgram } from "./bottom-sheet-clients/bottom-sheet-delete-program";
 import BottomSheet from "@gorhom/bottom-sheet";
+import MaskedView from "@react-native-masked-view/masked-view";
+import { LinearGradient } from "expo-linear-gradient";
 
 export const ProgramDetailsClientView = ProgramDetailsClientModel.modelClient(
   (props) => {
@@ -68,23 +71,52 @@ export const ProgramDetailsClientView = ProgramDetailsClientModel.modelClient(
                 marginTop: 20,
                 alignItems: "center",
                 justifyContent: "space-between",
+                overflow: "hidden",
               }}
-              activeOpacity={0.7}
               onPress={() => {
                 setReviewsVisible(!reviewsVisible);
               }}
             >
-              {reviewsVisible && (
-                <Description>{props.model.description}</Description>
+              {!reviewsVisible ? (
+                <>
+                  <MaskedView
+                    maskElement={
+                      <LinearGradient
+                        style={StyleSheet.absoluteFill}
+                        colors={["white", "transparent"]}
+                        start={{ x: 0, y: 0.1 }}
+                        end={{ x: 0, y: 0.5 }}
+                      />
+                    }
+                  >
+                    <Text
+                      style={{
+                        fontWeight: "400",
+                        lineHeight: 20,
+                        fontSize: 16,
+                        color: "#6f6f6f",
+                      }}
+                    >
+                      {props.model.description}
+                    </Text>
+                  </MaskedView>
+                  <ArrowDown />
+                </>
+              ) : (
+                <>
+                  <Text
+                    style={{
+                      fontWeight: "400",
+                      lineHeight: 20,
+                      fontSize: 16,
+                      color: "#6f6f6f",
+                    }}
+                  >
+                    {props.model.description}
+                  </Text>
+                  <ArrowUp />
+                </>
               )}
-              <View
-                style={{
-                  alignItems: "center",
-                  width: "100%",
-                }}
-              >
-                {!reviewsVisible ? <ArrowDown /> : <ArrowUp />}
-              </View>
             </TouchableOpacity>
 
             <View style={{ marginTop: 30 }} />

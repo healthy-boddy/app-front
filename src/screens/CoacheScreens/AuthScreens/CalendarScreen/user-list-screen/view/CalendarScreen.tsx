@@ -1,7 +1,9 @@
 import React from "react";
 import {
   Image,
+  RefreshControl,
   SafeAreaView,
+  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -30,6 +32,8 @@ const CalendarScreen = UserListModel.modelClient((props) => {
     dispatch(deleteUserBio());
     dispatch(deleteUserData());
   };
+
+  const [refreshing, setRefreshing] = React.useState(false);
 
   return (
     <SafeAreaView
@@ -72,33 +76,43 @@ const CalendarScreen = UserListModel.modelClient((props) => {
 
         <View style={{ marginTop: 16 }} />
 
-        {props.model.users.type === "HAS_DATA" &&
-          props.model.users.data.map((client) => {
-            return (
-              <React.Fragment key={client.user.id}>
-                <View style={{ marginTop: 16 }} />
-                <ClientBlockForCoach
-                  onPress={() =>
-                    navigation.navigate("ClientDetailsPage", {
-                      data: {
-                        avatar: client.user.avatar_thumbnail,
-                        name: client.user.username,
-                        subscription: "Индивидуальный",
-                        subscriptionDuration: "12",
-                        clientID: client.user.id,
-                        client,
-                      },
-                    })
-                  }
-                  url={client.user.avatar_thumbnail}
-                  name={client.user.username}
-                  progress={"5/6"}
-                  subscriptionType={"Индивидуальный"}
-                  subscriptionDuration={"12"}
-                />
-              </React.Fragment>
-            );
-          })}
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={props.model.getUsers}
+            />
+          }
+        >
+          {props.model.users.type === "HAS_DATA" &&
+            props.model.users.data.map((client) => {
+              return (
+                <React.Fragment key={client.user.id}>
+                  <View style={{ marginTop: 16 }} />
+                  <ClientBlockForCoach
+                    onPress={() =>
+                      navigation.navigate("ClientDetailsPage", {
+                        data: {
+                          avatar: client.user.avatar_thumbnail,
+                          name: client.user.username,
+                          subscription: "Индивидуальный",
+                          subscriptionDuration: "12",
+                          clientID: client.user.id,
+                          client,
+                        },
+                      })
+                    }
+                    url={client.user.avatar_thumbnail}
+                    name={client.user.username}
+                    progress={"5/6"}
+                    subscriptionType={"Индивидуальный"}
+                    subscriptionDuration={"12"}
+                  />
+                </React.Fragment>
+              );
+            })}
+        </ScrollView>
       </View>
     </SafeAreaView>
   );

@@ -30,11 +30,9 @@ export class ClientProgramsModel {
           `/program/${this._client}/available_programs/`
         )
         .then((res) => {
-          if (res.data) {
-            runInAction(() => {
-              this._programs = stateCreator.getHasDataState(res.data);
-            });
-          }
+          runInAction(() => {
+            this._programs = stateCreator.getHasDataState(res.data);
+          });
         });
     } catch (e: any) {
       alert(e.response.data);

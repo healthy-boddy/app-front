@@ -16,7 +16,7 @@ export class UserListModel {
     return this._users;
   }
 
-  private async getUsers() {
+  public async getUsers() {
     try {
       await this._httpService
         .get<UserArrays>("/user/coach/client/")

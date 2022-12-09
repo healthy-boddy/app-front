@@ -79,7 +79,6 @@ export class ProgramDetailsModel {
         .get<ProgramResponse>(`/program/${this._programId}/`)
         .then((res) => {
           console.log("res getProgramById", res.data);
-
           if (res.data) {
             runInAction(() => {
               this._name = res.data.name;
@@ -119,8 +118,10 @@ export class ProgramDetailsModel {
           data,
         })
         .then((res) => {
-          this.getAvailableClients();
-          this.setAssessAssigned(true);
+          runInAction(() => {
+            this.getAvailableClients();
+            this.setAssessAssigned(true);
+          });
         })
         .catch((err) => {
           console.log("Err", err.response);
