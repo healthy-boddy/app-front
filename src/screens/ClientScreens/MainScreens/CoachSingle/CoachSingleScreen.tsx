@@ -27,22 +27,22 @@ const CoachSingleScreen = () => {
             setCoach(status.data.coach)
         })
     }, [])
+    console.log(coach, 'coach')
     return (
         <SafeAreaView
             style={{
                 flex: 1,
                 backgroundColor: '#fff',
-                paddingTop: 25
             }}>
             <View style={{
                 width: '100%',
                 paddingHorizontal: 16
             }}>
                 <View style={{
-                    width: '100%',
                     justifyContent: 'space-between',
                     flexDirection: 'row',
                     alignItems: 'center',
+                    height: 101
                 }}>
 
                     <TouchableOpacity
@@ -197,7 +197,7 @@ const styles = StyleSheet.create({
         width: '100%',
         height: 1,
         backgroundColor: '#E2E2E2',
-        marginTop: 50,
+        marginVertical: 16
 
     },
     education_description: {

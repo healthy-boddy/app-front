@@ -143,8 +143,8 @@ const ConditionScreen = () => {
     return (
         <MainContainer>
             <View style={{
-                marginTop: 35,
-                flex: 1
+                flex: 1,
+                paddingHorizontal: 16
             }}>
                 <Text
                     style={{
@@ -152,13 +152,12 @@ const ConditionScreen = () => {
                         fontWeight: '600',
                         lineHeight: 34,
                         color: '#000',
-                        paddingHorizontal: 20
-                    }}
-                >
+                        height: 101,
+                    }}>
                     Мое состояние
                 </Text>
 
-                {conditions.length ?
+                {conditions?.length ?
                     <View style={styles.content_box}>
                         <FlatList
                             data={conditions}
@@ -176,7 +175,7 @@ const ConditionScreen = () => {
                         />
                     </View>
                     :
-                    <View style={{flex: 1, alignItems: 'center', bottom: 40, justifyContent: 'center'}}>
+                    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
                         <EmptyStateIcon/>
                         <Text style={styles.empty_state_title}>
                             Здесь будет отображаться динамика состояния организма
@@ -205,16 +204,13 @@ export default ConditionScreen;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingHorizontal: 20,
+        paddingHorizontal: 16,
         justifyContent: "center",
         backgroundColor: "#FFFFFF",
         alignItems: "center",
         paddingBottom: 25,
     },
     content_box: {
-        marginTop: 29,
-        alignItems: "center",
-        justifyContent: "center",
     },
     content: {
         height: "auto",

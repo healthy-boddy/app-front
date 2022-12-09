@@ -22,6 +22,7 @@ import {WrapperPage} from "../../../../components/core/wrapper";
 import MainContainer from "../../../../components/MainContainer";
 import CustomButton from "../../../../components/CustomButton";
 import BackButton from "../../../../components/BackButton";
+import RegCheckbox from "../../../../assets/Icons/RegCheckbox";
 
 const EnterNameScreen = () => {
     const navigation: any = useNavigation();
@@ -96,7 +97,6 @@ const EnterNameScreen = () => {
                 <KeyboardAwareScrollView
                     style={{flex: 1}}
                     showsVerticalScrollIndicator={false}
-                    scrollEnabled={false}
                 >
                     <View>
                         {!nameValid && (
@@ -225,6 +225,7 @@ const EnterNameScreen = () => {
                                     >
                                         {item.name}
                                     </Text>
+                                    {role === item.role && <RegCheckbox/>}
                                 </TouchableOpacity>
                             ))}
                         </View>

@@ -18,6 +18,8 @@ import Description from "../../../../components/Description";
 import PenIcon from "../../../../assets/Icons/PenIcon";
 import {setUserData} from "../../../../store/actions/user_data";
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
+import MainContainer from "../../../../components/MainContainer";
+import BackButton from "../../../../components/BackButton";
 
 const WelcomeScreen = () => {
     const dispatch = useDispatch();
@@ -164,11 +166,8 @@ const WelcomeScreen = () => {
         }
     };
     return (
-        <WrapperPage
-            onPressBack={() => navigation.navigate("Greetings4")}
-            onPressButton={handlePostInfo}
-            buttonTitle={"Продолжить"}
-        >
+        <MainContainer>
+            <BackButton onPress={()=>{navigation.navigate("Greetings4")}}/>
             <KeyboardAwareScrollView showsVerticalScrollIndicator={false}
                                      style={{width: '100%', paddingHorizontal: 16, marginBottom: 25}}
             >
@@ -303,8 +302,11 @@ const WelcomeScreen = () => {
                         lineHeight: 20
                     }}>Заполните форму</Text>}
                 </View>
+                <CustomButton
+                    onPress={handlePostInfo}
+                    title={"Продолжить"}/>
             </KeyboardAwareScrollView>
-        </WrapperPage>
+        </MainContainer>
     );
 };
 

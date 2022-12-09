@@ -56,7 +56,7 @@ const LoginWithEmailScreen = (props: any) => {
       <KeyboardAwareScrollView
         showsVerticalScrollIndicator={false}
         scrollEnabled={false}
-        style={{ width: "100%", paddingHorizontal: 16 }}
+        style={{ width: "100%", paddingHorizontal: 16, marginTop: 16 }}
       >
         <Title>Введите свой Email</Title>
         <Text

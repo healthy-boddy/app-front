@@ -20,6 +20,7 @@ import * as ImagePicker from "expo-image-picker";
 import {baseUrl} from "../../../../helpers/url";
 import CustomButton from "../../../../components/CustomButton";
 import axios from "axios";
+import * as MailComposer from "expo-mail-composer";
 
 const deviceWidth = Dimensions.get("window").width;
 
@@ -116,6 +117,15 @@ const UserSinglePage = () => {
             }, 100)
         }
     }, [avatar])
+
+    async function sendEmailAsync() {
+        let result = await MailComposer.composeAsync({
+            recipients: ['support@longlifelab.ru'],
+            subject: 'Email subject!!!!',
+            // body: 'This is the body of the email ✅',
+        });
+        alert(result.status);
+    }
     console.log(user_data_form_axios, 'user_data_form_axios')
     return (
         <SafeAreaView style={{
@@ -164,18 +174,18 @@ const UserSinglePage = () => {
                 </TouchableOpacity>
                 <View style={styles.line}/>
 
-                <TouchableOpacity
-                    onPress={() => {
-                        console.log('notifications')
-                    }}
-                    style={styles.button}>
-                    <NotificationIcon/>
-                    <Text style={styles.button_title}>Уведомления</Text>
-                    <View style={{alignItems: 'flex-end'}}>
-                        <RightIcon fill={'#797979'}/>
-                    </View>
-                </TouchableOpacity>
-                <View style={styles.line}/>
+                {/*<TouchableOpacity*/}
+                {/*    onPress={() => {*/}
+                {/*        console.log('notifications')*/}
+                {/*    }}*/}
+                {/*    style={styles.button}>*/}
+                {/*    <NotificationIcon/>*/}
+                {/*    <Text style={styles.button_title}>Уведомления</Text>*/}
+                {/*    <View style={{alignItems: 'flex-end'}}>*/}
+                {/*        <RightIcon fill={'#797979'}/>*/}
+                {/*    </View>*/}
+                {/*</TouchableOpacity>*/}
+                {/*<View style={styles.line}/>*/}
                 <TouchableOpacity onPress={toggleBottomNavigationView}
                                   style={styles.button}>
                     <SmsIcon/>
@@ -253,7 +263,9 @@ const UserSinglePage = () => {
                             Служба поддержки
                         </Text>
 
-                        <TouchableOpacity style={{
+                        <TouchableOpacity
+                            onPress={sendEmailAsync}
+                            style={{
                             flexDirection: 'row',
                             marginVertical: 8,
                             paddingHorizontal: 16
@@ -264,16 +276,6 @@ const UserSinglePage = () => {
                             </Text>
                         </TouchableOpacity>
                         <View style={{marginVertical: 10}}/>
-                        <TouchableOpacity style={{
-                            flexDirection: 'row',
-                            paddingHorizontal: 16
-                        }}>
-                            <SendMessageIcon/>
-                            <Text style={styles.modal_text}>
-                                Написать в чат
-                            </Text>
-                        </TouchableOpacity>
-
                     </View>
                 </Modal>
             </View>
@@ -318,7 +320,7 @@ const styles = StyleSheet.create({
     },
     line: {
         height: 1,
-        backgroundColor: '#BDBDBD',
+        backgroundColor: '#e2e2e2',
         marginVertical: 15,
         width: '100%'
     },

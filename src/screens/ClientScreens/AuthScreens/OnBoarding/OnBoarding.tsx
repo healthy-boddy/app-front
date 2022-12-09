@@ -202,12 +202,11 @@ const styles = StyleSheet.create({
         ],
     },
     ios_next_btn:{
-        width: width - 5,
-        maxWidth: 390,
+        width: width - 32,
+        maxWidth: 450,
         backgroundColor: color1,
         padding: 15,
         borderRadius: 30,
         marginTop: 25,
-        left: -21
     }
 });

@@ -98,7 +98,7 @@ const GreetingsScreen4 = (props: any) => {
         <MainContainer>
             <ScrollView
                 refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh}/>}
-                style={{paddingHorizontal: 16}}>
+                style={{}}>
                 <View style={styles.header}>
                     <TouchableOpacity
                         activeOpacity={0.2}
@@ -118,12 +118,14 @@ const GreetingsScreen4 = (props: any) => {
                             {user_data.user.username}
                         </Text>
                     </TouchableOpacity>
-                    <View>
-                        <BellIcon/>
-                    </View>
+                    {/*<View>*/}
+                    {/*    <BellIcon/>*/}
+                    {/*</View>*/}
                 </View>
-                {!user_data.specialization ? <View style={{flex: 1}}>
-                        <View style={{marginVertical: 16}}>
+                {user_data.education_description === null || !coachTutorialDays[3]?.passed
+                    ?
+                    <View style={{flex: 1}}>
+                        <View>
                             <Title>Мое обучение</Title>
                         </View>
                         <TouchableOpacity
@@ -197,7 +199,8 @@ const GreetingsScreen4 = (props: any) => {
                                 navigation.navigate("Greetings5")
                             }}
                             disabled={!coachTutorialDays[3]?.available}
-                            style={styles.active_day_question}
+                            style={[coachTutorialDays[3]?.available ? styles.question_not_completed_style : styles.active_day_question]}
+
                         >
                             <Title titlePropStyle={[{marginBottom: 4}, (!coachTutorialDays[3]?.available && !coachTutorialDays[3]?.passed) && {color: '#C9C9C9'}]}>Заполните свой профиль</Title>
                             <Text style={[styles.day_questions_description, (!coachTutorialDays[3]?.available && !coachTutorialDays[3]?.passed) && {color: '#C9C9C9'}]}>
@@ -207,12 +210,12 @@ const GreetingsScreen4 = (props: any) => {
                     </View>
                     :
                     <View style={{flex: 1}}>
-                        <View style={{alignItems: 'center', marginTop: 200}}>
+                        <View style={{alignItems: 'center', marginTop: 150}}>
                             <MansIcon/>
                             <Title titlePropStyle={{marginTop: 25}}>
                                 Здравствуйте, {user_data.user.username}!
                             </Title>
-                            <Description textAlign={"center"} marginTop={10}>
+                            <Description width={"100%"} textAlign={"center"} marginTop={10}>
                                 Мы подбираем для вас клиентов. Это займет не больше 1 рабочего дня
                             </Description>
                         </View>
@@ -226,16 +229,12 @@ const GreetingsScreen4 = (props: any) => {
 export default GreetingsScreen4;
 
 const styles = StyleSheet.create({
-
-    inlineContainer: {
-        paddingHorizontal: 20,
-        paddingTop: 35,
-    },
     header: {
         flexDirection: 'row',
         justifyContent: "space-between",
         width: '100%',
-        alignItems: "center"
+        alignItems: "center",
+        height: 101
     },
     active_day_question: {
         width: '100%',

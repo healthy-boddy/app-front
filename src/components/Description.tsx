@@ -8,7 +8,7 @@ const Description = (props: any) => {
             color: '#797979',
             fontSize: 16,
             fontWeight: '400',
-            width: 343,
+            width: props.width ? props.width : 343,
             lineHeight: 20,
             marginTop: marginTop,
             marginBottom: marginBottom,

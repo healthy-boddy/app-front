@@ -134,13 +134,13 @@ const FirstTutorialScreen = () => {
                             </Text>}
                         </View>
                     </View>
+                    <View style={{marginBottom: 25}}>
+                        <CustomButton
+                            title={'Продолжить'}
+                            onPress={handleSendCheckList}
+                        />
+                    </View>
                 </KeyboardAwareScrollView>
-                <View style={{marginBottom: 25}}>
-                    <CustomButton
-                        title={'Продолжить'}
-                        onPress={handleSendCheckList}
-                    />
-                </View>
             </View>
         </MainContainer>
     );

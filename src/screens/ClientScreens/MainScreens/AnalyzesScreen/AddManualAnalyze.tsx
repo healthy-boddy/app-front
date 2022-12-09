@@ -22,6 +22,9 @@ import moment from "moment";
 import {baseUrl2} from "../../../../helpers/url";
 import {setLab} from "../../../../store/actions/laboratory";
 import * as ImagePicker from "expo-image-picker";
+import CustomButton from "../../../../components/CustomButton";
+import MainContainer from "../../../../components/MainContainer";
+import BackButton from "../../../../components/BackButton";
 
 type ParameterType = {
     name: string;
@@ -260,6 +263,9 @@ const AddManualAnalyze = () => {
                         + Добавить фото анализа
                     </Text>
                 </TouchableOpacity>
+                <View style={{marginVertical: 25}}>
+                    <CustomButton onPress={handleSaveAnalyzes} title={'Сохранить'}/>
+                </View>
             </View>
         )
     }
@@ -303,18 +309,17 @@ const AddManualAnalyze = () => {
     }
 
     return (
-        <WrapperPage
-            onPressButton={handleSaveAnalyzes}
-            buttonTitle={"Сохранить"}
-            onPressBack={() => navigation.navigate("AddAnalyzes")}
-        >
+        <MainContainer>
             <View
                 style={{
-                    width: "100%",
-                    paddingHorizontal: 20,
                     flex: 1,
+                    width: "100%",
+                    paddingHorizontal: 16,
                 }}>
-                <View style={{flex: 1}}>
+                <View>
+                    <BackButton onPress={() => navigation.navigate("AddAnalyzes")}/>
+                </View>
+                <KeyboardAvoidingView style={{flex: 1}}>
                     {parameterArray !== undefined && (
                         <View style={{flex: 1, marginVertical: 20}}>
                             <FlatList
@@ -327,9 +332,9 @@ const AddManualAnalyze = () => {
                             />
                         </View>
                     )}
-                </View>
+                </KeyboardAvoidingView>
             </View>
-        </WrapperPage>
+        </MainContainer>
     );
 };
 

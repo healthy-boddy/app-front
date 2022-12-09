@@ -111,30 +111,34 @@ const PinCodeScreen = (props: any) => {
     <WrapperPinCode
       onPressBack={() => navigation.navigate("CreateAccount")}
       footer={
-        <Text
-          style={{
-            color: "#797979",
-            fontSize: 16,
-            fontWeight: "500",
-            lineHeight: 20,
-          }}
-        >
-          Не приходит код?
-          <TouchableOpacity onPress={sendEmailAsync}>
-            <Text
+        <View style={{flexDirection: 'row'}}>
+          <Text
               style={{
-                color: color1,
+                color: "#797979",
                 fontSize: 16,
                 fontWeight: "500",
                 lineHeight: 20,
-                paddingTop: 3,
               }}
+          >
+            Не приходит код?
+          </Text>
+          <TouchableOpacity
+              onPress={sendEmailAsync}
+          >
+            <Text
+                style={{
+                  color: color1,
+                  fontSize: 16,
+                  fontWeight: "500",
+                  lineHeight: 20,
+
+                }}
             >
               {" "}
               Напишите нам
             </Text>
           </TouchableOpacity>
-        </Text>
+        </View>
       }
     >
       <KeyboardAwareScrollView

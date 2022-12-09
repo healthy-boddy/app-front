@@ -97,7 +97,7 @@ const EnterWeightScreen = () => {
             items={NUMBERS.map((name: any) => ({ label: name, value: "" }))}
             onChange={({ item }) => setNumber(item.label)}
             backgroundColor="#FFFFFF"
-            selectedStyle={{ borderWidth: 1 }}
+            selectedStyle={{ borderWidth: 1, borderColor: '#e3e3e3'}}
           />
         </View>
       </View>

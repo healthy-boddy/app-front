@@ -1,5 +1,14 @@
 import React, {useEffect, useState} from "react";
-import {View, StyleSheet, Text, Image, TouchableOpacity, ActivityIndicator, SafeAreaView} from "react-native";
+import {
+    View,
+    StyleSheet,
+    Text,
+    Image,
+    TouchableOpacity,
+    ActivityIndicator,
+    SafeAreaView,
+    ScrollView, RefreshControl
+} from "react-native";
 import MainContainer from "../../../../components/MainContainer";
 import {useDispatch, useSelector} from "react-redux";
 import {BellIcon} from "../../../../assets/Icons/BellIcon";
@@ -14,6 +23,9 @@ import {color1} from "../../../../helpers/colors";
 import PicCheck from "./HomeScreenIcons/PicCheck";
 import PeoplesIcon from "./HomeScreenIcons/PeoplesIcon";
 
+const wait = (timeout) => {
+    return new Promise(resolve => setTimeout(resolve, timeout));
+}
 const HomeScreen = () => {
     const navigation: any = useNavigation();
     const isFocused = useIsFocused();
@@ -25,9 +37,16 @@ const HomeScreen = () => {
     const [userCoach, setUserCoach] = useState<any>(false);
     let tokenFromReducer = useSelector((store: any) => store.user_token.user_token);
     const [loading, setLoading] = useState(true)
+    const [refreshing, setRefreshing] = React.useState(false);
 
-    useEffect(()=>{
-        setTimeout(()=>{
+    const onRefresh = React.useCallback(() => {
+        setRefreshing(true);
+        getClientStatus()
+        wait(1000).then(() => setRefreshing(false));
+    }, []);
+
+    useEffect(() => {
+        setTimeout(() => {
             setLoading(false)
         }, 2000)
     })
@@ -51,25 +70,30 @@ const HomeScreen = () => {
             })
     }, [])
 
+    function getClientStatus() {
+        axios.get(baseUrl + '/client/quiz_status/', {
+            headers: {
+                Authorization: "Bearer " + tokenFromReducer,
+            },
+        }).then((status) => {
+            console.log(status.data, 'status')
+            setFreeQuizStatus(status.data.is_free_quiz_passed)
+            setPaidQuizStatus(status.data.is_paid_quiz_passed)
+            setUserCoach(status.data.coach)
+            //   console.log(userCoach, 'userCoach')
+        })
+    }
+
     useEffect(() => {
-                axios.get(baseUrl + '/client/quiz_status/', {
-                    headers: {
-                        Authorization: "Bearer " + tokenFromReducer,
-                    },
-                }).then((status) => {
-                    console.log(status.data, 'status')
-                    setFreeQuizStatus(status.data.is_free_quiz_passed)
-                    setPaidQuizStatus(status.data.is_paid_quiz_passed)
-                    setUserCoach(status.data.coach)
-                 //   console.log(userCoach, 'userCoach')
-                })
+        getClientStatus()
     }, [isFocused])
+
     console.log(userCoach?.user?.avatar_thumbnail, 'userCoach?.user?.avatar_thumbnail')
     const returnViews = () => {
         if (!freeQuizStatus) {
             return (
                 <View style={{flex: 1}}>
-                    <View style={{marginTop: 20}}>
+                    <View style={{}}>
                         <Text
                             style={{
                                 lineHeight: 28,
@@ -86,17 +110,19 @@ const HomeScreen = () => {
                                 fontSize: 16,
                                 color: "#797979",
                                 fontWeight: "400",
+                                marginTop: 8
                             }}
                         >
                             Пройдите опрос, чтобы мы подобрали для вас наиболее подходящего
                             наставника. Это займет около 15 минут.
                         </Text>
                     </View>
-                    <View style={{flex: 1}}>
+                    <View style={{alignItems: 'center', height: 292, marginVertical:25}}>
                         <Image
-                            source={require("../../AuthScreens/OnBoarding/OnBoardingImages/blob1.png")}/>
+                            style={{ width: 278, height: 292}}
+                            source={require("../../AuthScreens/OnBoarding/OnBoardingImages/blob5.png")}
+                        />
                     </View>
-
                     <View style={{marginBottom: 40}}>
                         <CustomButton
                             onPress={() => {
@@ -126,34 +152,38 @@ const HomeScreen = () => {
             return (
                 <View style={{flex: 1}}>
                     <View style={{flex: 1}}>
-                       <View style={{flex: 1, marginTop: 100, alignItems:'center', justifyContent: 'center'}}>
-                          <PicCheck/>
-                           <View style={{marginTop: 30}}>
-                               <Title titlePropStyle={{textAlign: 'center'}}>Ваш Health Buddy найден!</Title>
-                               <Text style={{
-                                   textAlign: 'center',
-                                   color: '#797979',
-                                   width: 247,
-                                   marginTop: 10
-                               }}>
-                                   Для консультации с Health buddy, вам необходимо заполнить анкету
-                               </Text>
-                               <TouchableOpacity
-                                   onPress={()=>{navigation.navigate('PaidQuizzes')}}
-                                   style={{alignItems:'center', marginVertical: 40}}>
-                                   <Text style={{
-                                       color: color1
-                                   }}>
-                                       Заполнить анкету
-                                   </Text>
-                               </TouchableOpacity>
-                           </View>
-                       </View>
+                        <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+                            <PicCheck/>
+                            <View style={{}}>
+                                <Title titlePropStyle={{textAlign: 'center'}}>Ваш Health Buddy найден!</Title>
+                                <Text style={{
+                                    textAlign: 'center',
+                                    color: '#797979',
+                                    width: 247,
+                                    marginTop: 10
+                                }}>
+                                    Для консультации с Health buddy, вам необходимо заполнить анкету
+                                </Text>
+                                <TouchableOpacity
+                                    onPress={() => {
+                                        navigation.navigate('PaidQuizzes')
+                                    }}
+                                    style={{alignItems: 'center', marginVertical: 40}}>
+                                    <Text style={{
+                                        color: color1
+                                    }}>
+                                        Заполнить анкету
+                                    </Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
                         <View style={{flex: 1}}>
                             <TouchableOpacity
                                 activeOpacity={0.7}
                                 style={styles.coach_box}
-                                onPress={()=>{navigation.navigate('CoachSingleScreen')}}
+                                onPress={() => {
+                                    navigation.navigate('CoachSingleScreen')
+                                }}
                             >
                                 {coach.map((item) => (
                                     <View style={{
@@ -186,79 +216,85 @@ const HomeScreen = () => {
                     </View>
                 </View>
             )
-        }else if (userCoach && paidQuizStatus){
+        } else if (userCoach && paidQuizStatus) {
             return (
                 <View style={{flex: 1, justifyContent: 'center'}}>
-                  <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-                      <PeoplesIcon/>
-                      <Title titlePropStyle={{
-                          textAlign: 'center',
-                          width: 343,
-                          marginTop: 20
-                      }}>
-                          Ваш Health Buddy свяжется с вами в течение 24 часов
-                      </Title>
-                      <Text style={{
-                          marginTop: 20,
-                          color: '#797979',
-                          textAlign:'center',
-                          fontSize: 16
-                      }}>
-                          Он назначит консультацию, на которой вы вместе определите цели и план работ
-                      </Text>
-                      <TouchableOpacity
-                          activeOpacity={0.7}
-                          style={styles.coach_box}
-                          onPress={()=>{navigation.navigate('CoachSingleScreen')}}
-                      >
-                          {coach.map((item) => (
-                              <View style={{
-                                  flexDirection: 'row',
-                                  alignItems: 'center',
-                                  justifyContent: 'space-between'
-                              }}>
-                                  <View style={{
-                                      flexDirection: 'row',
-                                      alignItems: 'center',
-                                  }}>
-                                      <View>
-                                          <Image
-                                              style={styles.coach_avatar}
-                                              source={{uri: userCoach.user.avatar_thumbnail}}/>
-                                      </View>
-                                      <View style={{paddingLeft: 12}}>
-                                          <Text style={styles.coach_name}>{userCoach.user.username}</Text>
-                                          <Text style={styles.coach_description}>Мой Health Buddy</Text>
-                                      </View>
-                                  </View>
+                    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+                        <PeoplesIcon/>
+                        <Title titlePropStyle={{
+                            textAlign: 'center',
+                            width: 343,
+                            marginTop: 20
+                        }}>
+                            Ваш Health Buddy свяжется с вами в течение 24 часов
+                        </Title>
+                        <Text style={{
+                            marginTop: 20,
+                            color: '#797979',
+                            textAlign: 'center',
+                            fontSize: 16
+                        }}>
+                            Он назначит консультацию, на которой вы вместе определите цели и план работ
+                        </Text>
+                        <TouchableOpacity
+                            activeOpacity={0.7}
+                            style={styles.coach_box}
+                            onPress={() => {
+                                navigation.navigate('CoachSingleScreen')
+                            }}
+                        >
+                            {coach.map((item) => (
+                                <View style={{
+                                    flexDirection: 'row',
+                                    alignItems: 'center',
+                                    justifyContent: 'space-between'
+                                }}>
+                                    <View style={{
+                                        flexDirection: 'row',
+                                        alignItems: 'center',
+                                    }}>
+                                        <View>
+                                            <Image
+                                                style={styles.coach_avatar}
+                                                source={{uri: userCoach.user.avatar_thumbnail}}/>
+                                        </View>
+                                        <View style={{paddingLeft: 12}}>
+                                            <Text style={styles.coach_name}>{userCoach.user.username}</Text>
+                                            <Text style={styles.coach_description}>Мой Health Buddy</Text>
+                                        </View>
+                                    </View>
 
-                                  <View style={{}}>
-                                      <RightIcon/>
-                                  </View>
-                              </View>
-                          ))}
-                      </TouchableOpacity>
-                  </View>
+                                    <View style={{}}>
+                                        <RightIcon/>
+                                    </View>
+                                </View>
+                            ))}
+                        </TouchableOpacity>
+                    </View>
                 </View>
             )
-    }}
+        }
+    }
+
     return (
         <MainContainer>
             <View
                 style={{
-                    paddingHorizontal: 16,
-                    height: "100%",
+                    flex: 1,
+                    paddingHorizontal: 16
                 }}
             >
                 {loading ? <ActivityIndicator
                     size={'large'}
                     color={color1}
-                    style={{height: '120%', alignItems: 'center', alignSelf: 'center'}}
+                    style={{height: '150%', alignItems: 'center', alignSelf: 'center'}}
                 /> : null}
                 <SafeAreaView style={styles.header}>
                     <TouchableOpacity
                         style={{flexDirection: "row", alignItems: "center",}}
-                        onPress={()=>{navigation.navigate('UserSingle')}}
+                        onPress={() => {
+                            navigation.navigate('UserSingle')
+                        }}
                     >
                         <Image style={{
                             width: 40,
@@ -278,9 +314,17 @@ const HomeScreen = () => {
                             {user_data.user.username}
                         </Text>
                     </TouchableOpacity>
-                    <BellIcon/>
+                    {/*<BellIcon/>*/}
                 </SafeAreaView>
-                {returnViews()}
+
+                <ScrollView refreshControl={
+                    <RefreshControl
+                        refreshing={refreshing}
+                        onRefresh={onRefresh}
+                    />
+                } scrollEnabled={false}>
+                        {returnViews()}
+                </ScrollView>
             </View>
 
 
@@ -296,6 +340,7 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
         // marginTop: 52,
         alignItems: "center",
+        height: 101
     },
     image: {
         width: 40,

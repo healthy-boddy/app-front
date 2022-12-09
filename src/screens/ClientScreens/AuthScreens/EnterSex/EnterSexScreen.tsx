@@ -22,6 +22,7 @@ import { deleteUserData } from "../../../../store/actions/user_data";
 import { useDispatch, useSelector } from "react-redux";
 import ErrorPopUp from "../../../../components/ErrorPopUp";
 import { setFormData } from "../../../../store/actions/auth_data";
+import RegCheckbox from "../../../../assets/Icons/RegCheckbox";
 
 const EnterSexScreen = () => {
   const dispatch = useDispatch();
@@ -110,12 +111,7 @@ const EnterSexScreen = () => {
               {item.gender}
             </Text>
             <Text>
-              <RadioButton
-                value="first"
-                status={radioGender === item.gender ? "checked" : "unchecked"}
-                uncheckedColor={color1}
-                color={color1}
-              />
+                {radioGender === item.gender && <RegCheckbox/>}
             </Text>
           </TouchableOpacity>
         ))}

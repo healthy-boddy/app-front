@@ -13,8 +13,8 @@ const GreetingsScreen3 = () => {
             onPressButton={() => navigation.navigate("Greetings4")}
             buttonTitle={"Вперед!"}
         >
-            <View style={{width: '100%', flex: 1, paddingHorizontal: 16}}>
-                <View>
+            <View style={{width: '100%', flex: 1, paddingHorizontal: 16, marginTop: 16}}>
+                <View style={{width: '100%'}}>
                     <Text style={[styles.title,{marginBottom:16}]}>
                         {`Впереди вас ждёт трехдневное обучение!`}
                     </Text>
@@ -52,11 +52,12 @@ const GreetingsScreen3 = () => {
                 </View>
 
                 <View style={{
-                    alignItems:'center',
-                    justifyContent:'center',
-                    marginTop: 53
+                    marginTop: 53,
+                    width: '100%',
+                    alignItems: 'center'
                 }}>
-                    <CoachIconOnboarding />
+                        <CoachIconOnboarding />
+
                 </View>
             </View>
         </WrapperPage>
@@ -76,9 +77,9 @@ const styles = StyleSheet.create({
         color: "#1E1E1E",
         textAlign: "left",
         alignSelf: "flex-start",
+        marginBottom: 5
     },
     description: {
-        marginTop: 12,
         fontWeight: "400",
         fontSize: 16,
         lineHeight: 20,
