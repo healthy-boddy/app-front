@@ -18,16 +18,19 @@ const AnalyseResultScreen = () => {
             filteredUnits: []
         },
     ])
+
     const navigation = useNavigation<any>()
     const [firstIndicators, setFirstIndicators] = useState([])
     const isFocused = useIsFocused();
     const analyzeFromStorage = useSelector(store => store.laboratory.lab);
-    const [activeAnalyzeId, setActiveAnalyzeId] = useState(analyzeFromStorage.id);
+    const savedAnalyseId = useSelector(store => store.laboratory.analyseId);
+    const [analyseId, setAnalyseId] = useState(savedAnalyseId)
+    const [activeAnalyzeId, setActiveAnalyzeId] = useState(analyzeFromStorage?.id);
     const [analyse, setAnalyse] = useState([])
-    console.log(activeAnalyzeId?.id, 'singl')
+    console.log(analyseId, 'singl')
 
     function handleGetAnalyseIndicators() {
-        fetch(baseUrl2 + `/analysis/indicator?analysis=${activeAnalyzeId}`, {
+        fetch(baseUrl2 + `/analysis/indicator?analysis=${analyseId}`, {
             method: 'get',
             headers: {
                 "accept": "application/json",
@@ -41,6 +44,9 @@ const AnalyseResultScreen = () => {
             console.log(res, 'response 2')
         })
     }
+    useEffect(() => {
+        setAnalyseId(savedAnalyseId)
+    }, [savedAnalyseId])
 
     function handleGetAnalyse() {
         fetch(baseUrl2 + `/analysis/${activeAnalyzeId}`, {

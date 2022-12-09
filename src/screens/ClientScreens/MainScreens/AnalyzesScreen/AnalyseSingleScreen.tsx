@@ -20,7 +20,6 @@ const AnalyseSingleScreen = ({routes}) => {
     let [indicators, setIndicators] = useState([])
     let [analyse, setAnalyse] = useState([])
 
-
     function handleGetAnalyseIndicators() {
         fetch(baseUrl2 + `/analysis/indicator?analysis=${activeAnalyzeId}`, {
             method: 'get',
@@ -99,7 +98,7 @@ const AnalyseSingleScreen = ({routes}) => {
                         renderItem={renderItem}
                     />
                     <Title titlePropStyle={{fontSize: 16}}>
-                        Оцифровано по документу
+                        {/*Оцифровано по документу*/}
                     </Title>
                 </View>
             </View>

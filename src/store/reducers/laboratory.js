@@ -1,7 +1,8 @@
-import {SET_LAB} from "../actions/laboratory";
+import {SET_LAB, SET_SAVED_ANALYSE_ID} from "../actions/laboratory";
 
 const initialState = {
     lab: {},
+    analyseId: ''
 };
 
 export default function reducer(state = initialState, action) {
@@ -11,6 +12,14 @@ export default function reducer(state = initialState, action) {
             return {
                 ...state,
                 lab,
+            };
+        }
+        case SET_SAVED_ANALYSE_ID: {
+            const {analyseId}  = action.payload;
+            console.log(analyseId,'analyseId from reducer')
+            return {
+                ...state,
+                analyseId
             };
         }
         default: {
