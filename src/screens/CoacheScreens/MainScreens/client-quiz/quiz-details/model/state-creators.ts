@@ -5,13 +5,13 @@ import {
   StateInitial,
   StateLoading,
 } from "./constructor-state";
-import { QuizArray } from "../interface";
+import { QuizAnswersText } from "../../interface";
 
 export function getInitialState(): StateInitial {
   return { type: "INITIAL", data: null, error: null };
 }
 
-export function getLoadingState(data: QuizArray | null): StateLoading {
+export function getLoadingState(data: QuizAnswersText | null): StateLoading {
   return { type: "LOADING", data, error: null };
 }
 
@@ -23,7 +23,7 @@ export function getErrorState(error: Error): StateError {
   return { type: "ERROR", data: null, error };
 }
 
-export function getHasDataState(response: QuizArray): StateHasData {
+export function getHasDataState(response: QuizAnswersText): StateHasData {
   return {
     type: "HAS_DATA",
     data: response,
