@@ -44,6 +44,7 @@ import { EditingScreenClient } from "../../screens/CoacheScreens/MainScreens/cli
 import { GoalsClient } from "../../screens/CoacheScreens/MainScreens/client-programs/editing-screen/goals-screen";
 import { GoalsEditingClient } from "../../screens/CoacheScreens/MainScreens/client-programs/editing-screen/goasl-editing-screen";
 import { ClientQuiz } from "../../screens/CoacheScreens/MainScreens/client-quiz";
+import { ClientQuizDetails } from "../../screens/CoacheScreens/MainScreens/client-quiz/quiz-details";
 
 let Tab = createBottomTabNavigator();
 
@@ -252,6 +253,14 @@ export default function CoachVerify() {
       <Tab.Screen
         name="ClientQuiz"
         component={ClientQuiz}
+        options={({ route }) => ({
+          tabBarButton: () => null,
+          tabBarStyle: { display: "none" },
+        })}
+      />
+      <Tab.Screen
+        name="ClientQuizDetails"
+        component={ClientQuizDetails}
         options={({ route }) => ({
           tabBarButton: () => null,
           tabBarStyle: { display: "none" },

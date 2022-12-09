@@ -4,14 +4,32 @@ import { makeAutoObservable } from "mobx";
 import { observer } from "mobx-react-lite";
 import { HttpService } from "../../../../../service/http-service";
 import { ClientResponse } from "../../../AuthScreens/CalendarScreen/user-list-screen/interface";
+import { QuizArray } from "../interface";
+import { QuizState } from "./constructor-state";
+import * as stateCreator from "./state-creators";
 
 export class ClientQuizModel {
   private readonly _httpService = new HttpService();
 
-  private _client: ClientResponse | undefined = undefined;
+  private _clientData: ClientResponse | undefined = undefined;
 
-  public get client() {
-    return this._client;
+  private _quiz: QuizState = stateCreator.getInitialState();
+
+  public get quiz() {
+    return this._quiz;
+  }
+  public get clientData() {
+    return this._clientData;
+  }
+
+  private getQuiz() {
+    try {
+      this._httpService.get<QuizArray>(`/quiz/response/`).then((res) => {
+        this._quiz = stateCreator.getHasDataState(res.data);
+      });
+    } catch (e: any) {
+      console.log(e.response);
+    }
   }
 
   private constructor(private client: ClientResponse) {
@@ -21,7 +39,10 @@ export class ClientQuizModel {
 
   private static makeModel(client: ClientResponse) {
     const model = React.useMemo(() => new ClientQuizModel(client), []);
-    useEffect(() => {}, [model]);
+    useEffect(() => {
+      model._clientData = client;
+      model.getQuiz();
+    }, [model]);
 
     return model;
   }

@@ -1,4 +1,4 @@
-import { QuizArray } from "../interface";
+import { QuizAnswersText } from "../../interface";
 
 export interface StateInitial {
   type: "INITIAL";
@@ -8,13 +8,13 @@ export interface StateInitial {
 
 export interface StateLoading {
   type: "LOADING";
-  data: QuizArray | null;
+  data: QuizAnswersText | null;
   error: null;
 }
 
 export interface StateHasData {
   type: "HAS_DATA";
-  data: QuizArray;
+  data: QuizAnswersText;
   error: null;
 }
 
@@ -30,7 +30,7 @@ export interface StateError {
   error: Error;
 }
 
-export type QuizState =
+export type QuizAnswersState =
   | StateInitial
   | StateLoading
   | StateHasData
