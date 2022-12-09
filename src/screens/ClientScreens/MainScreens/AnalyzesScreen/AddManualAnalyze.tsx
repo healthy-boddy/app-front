@@ -20,7 +20,7 @@ import {WrapperPage} from "../../../../components/core/wrapper";
 import {useDispatch, useSelector} from "react-redux";
 import moment from "moment";
 import {baseUrl2} from "../../../../helpers/url";
-import {setLab} from "../../../../store/actions/laboratory";
+import {setLab, setSavedAnalyseId} from "../../../../store/actions/laboratory";
 import * as ImagePicker from "expo-image-picker";
 import CustomButton from "../../../../components/CustomButton";
 import MainContainer from "../../../../components/MainContainer";
@@ -54,6 +54,7 @@ const AddManualAnalyze = () => {
     const [labUnits, setLabUnits] = useState([]);
     let [filteredAnalysesIndicator, setFilteredAnalysesIndicator] = useState([])
     const [photo, setPhoto] = useState<any>([])
+
     function setBirthDate(date: Date) {
         setAnaliseDate(date);
     }
@@ -89,6 +90,7 @@ const AddManualAnalyze = () => {
             return res.json()
         }).then((res) => {
             dispatch(setLab(res))
+            dispatch(setSavedAnalyseId(res?.id))
             console.log(res, 'handle save analyzes')
             for (let index = 0; index < parameterArray.length; index++) {
                 // console.log(parameterArray[index], parameterArray, index, 'ex1')
@@ -126,7 +128,8 @@ const AddManualAnalyze = () => {
     }
 
     useEffect(() => {
-        handleGetLaboratory().then(()=>{})
+        handleGetLaboratory().then(() => {
+        })
     }, [])
 
     const addMooreParameters = () => {
@@ -143,10 +146,10 @@ const AddManualAnalyze = () => {
     };
     const handleFilterLabs = (item) => {
         let a
-        if (item.length >= 3){
+        if (item.length >= 1) {
             a = laboratory.filter((labName) => myInclude(labName.name, item))
             setFilteredLaboratory(a)
-        }else {
+        } else {
             setFilteredLaboratory([])
         }
         setLab1(item)
@@ -155,7 +158,7 @@ const AddManualAnalyze = () => {
     const handleParameters = (index, val, key, deleteFilteredUnits = false) => {
         parameterArray[index][key] = val;
         parameterArray.forEach(item => item.filteredUnits = []);
-        if (!deleteFilteredUnits && val.length >= 3) {
+        if (!deleteFilteredUnits && val.length >= 1) {
             parameterArray[index].filteredUnits = labUnits.filter(item => myInclude(item.indicator_name, val));
         }
         setParameterArray([...parameterArray])
@@ -214,7 +217,8 @@ const AddManualAnalyze = () => {
                     />
                 </View>
                 {item.filteredUnits?.map((unit: any) => (
-                    <TouchableOpacity key={unit.id} onPress={() => handleParameters(index, unit?.indicator_name, 'name', true)}>
+                    <TouchableOpacity key={unit.id}
+                                      onPress={() => handleParameters(index, unit?.indicator_name, 'name', true)}>
                         <Text style={styles.laboratory_title}>
                             {unit?.indicator_name}
                         </Text>

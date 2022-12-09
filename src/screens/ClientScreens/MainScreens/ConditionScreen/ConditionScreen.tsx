@@ -8,6 +8,7 @@ import EmptyStateIcon from "./CondationIcons/EmptyStateIcon";
 import {color1} from "../../../../helpers/colors";
 import UnicIcon from "./CondationIcons/UnicIcon";
 import {useIsFocused} from "@react-navigation/native";
+import moment from "moment/moment";
 
 const ConditionScreen = () => {
     let tokenFromReducer = useSelector((store: any) => store.user_token.user_token);
@@ -26,6 +27,7 @@ const ConditionScreen = () => {
     ]);
 
     let [conditions, setConditions] = useState<any>([])
+    const format3 = "YYYY-MM-DD";
 
     useEffect(() => {
         try {
@@ -38,9 +40,8 @@ const ConditionScreen = () => {
                     }
                 }).then((response) => {
                     //  console.log(response.data, 'state')
-                    setConditions(response.data.condition)
+                    setConditions(response.data)
                 })
-
             })();
         } catch (error) {
             console.log(error, 'condition error')
@@ -134,7 +135,7 @@ const ConditionScreen = () => {
                         <Text style={styles.content_item_description}>
                             {item.name}
                         </Text>
-                        <Text style={styles.content_item_day}>Сегодня</Text>
+                        <Text style={styles.content_item_day}>{moment(item?.updated_at).format(format3)}</Text>
                     </View>
                 </View>
             </>

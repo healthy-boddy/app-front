@@ -6,3 +6,11 @@ export function setLab(lab) {
         payload: {lab}
     }
 }
+export const SET_SAVED_ANALYSE_ID = 'SET_SAVED_ANALYSE_ID'
+
+export function setSavedAnalyseId(analyseId) {
+    return{
+        type: SET_SAVED_ANALYSE_ID,
+        payload: {analyseId}
+    }
+}

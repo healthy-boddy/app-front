@@ -88,7 +88,8 @@ const HomeScreen = () => {
         getClientStatus()
     }, [isFocused])
 
-    console.log(userCoach?.user?.avatar_thumbnail, 'userCoach?.user?.avatar_thumbnail')
+    //console.log(userCoach?.user?.avatar_thumbnail, 'userCoach?.user?.avatar_thumbnail')
+
     const returnViews = () => {
         if (!freeQuizStatus) {
             return (
