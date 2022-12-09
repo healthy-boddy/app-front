@@ -55,7 +55,7 @@ const SecondFirstTutorialScreen = () => {
                 }} onPress={() => {
                     navigation.navigate("Greetings4")
                 }}/>
-                <KeyboardAwareScrollView style={{flex: 1, marginTop: 16}}>
+                <KeyboardAwareScrollView showsVerticalScrollIndicator={false} style={{flex: 1, marginTop: 16}}>
                     <Title titlePropStyle={{fontSize: 24}}>
                         Переходим к знакомству с клиентом
                     </Title>
@@ -118,13 +118,13 @@ const SecondFirstTutorialScreen = () => {
                     }}>
                         Необходимо заполнить поле
                     </Text>}
+                    <View style={{marginVertical: 25}}>
+                        <CustomButton
+                            title={'Продолжить'}
+                            onPress={handleSendCheckList}
+                        />
+                    </View>
                 </KeyboardAwareScrollView>
-                <View style={{marginBottom: 25}}>
-                    <CustomButton
-                        title={'Продолжить'}
-                        onPress={handleSendCheckList}
-                    />
-                </View>
             </View>
         </MainContainer>
     );

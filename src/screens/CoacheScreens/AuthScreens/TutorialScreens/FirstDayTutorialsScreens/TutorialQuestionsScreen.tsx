@@ -51,13 +51,13 @@ const TutorialQuestionsScreen = () => {
         const questionId = question.id;
         const text = answer.text;
 
-        if (text === 'Другое') {
+        if (text === 'другое') {
             setInputAnswerVisible(true)
         }
         const currentQuestion = checkedAnswer.find(item => item.question === questionId);
         if (currentQuestion && question.is_multichoice) {
             if (currentQuestion.answers.includes(answerId)) {
-                if (text === 'Другое') {
+                if (text === 'другое') {
                     setInputAnswerVisible(false);
                     currentQuestion.other_answer = '';
                 }

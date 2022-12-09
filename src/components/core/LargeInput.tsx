@@ -2,7 +2,6 @@ import React from 'react';
 import {TextInput, View} from "react-native";
 
 export const LargeInput = ({value, setValue, placeholder, valueError}) => {
-    console.log(valueError, 'largeinputS')
     return (
         <View style={[{
             marginTop: 12,
@@ -31,7 +30,7 @@ export const LargeInput = ({value, setValue, placeholder, valueError}) => {
                     fontWeight: '400',
                     lineHeight: 20,
                     fontSize: 16,
-                    color: '#1e1e1e'
+                    color: '#1e1e1e',
                 }]}
                 multiline={true}
                 onChangeText={setValue}

@@ -13,7 +13,7 @@ const SecondTwoTutorialScreen = () => {
     const navigation = useNavigation<any>()
     return (
         <MainContainer>
-            <View style={{flex: 1, paddingHorizontal: 16}}>
+            <View style={{flex: 1}}>
                 <View>
                     <BackButton   onPressLetter={() => {
                         navigation.navigate("Greetings4")
@@ -25,7 +25,12 @@ const SecondTwoTutorialScreen = () => {
                     <Title titlePropStyle={{fontSize: 24}}>
                         Закрепите свои знания
                     </Title>
-                    <Description marginTop={8} marginBottom={24}>Пройдите небольшое тестирование, чтобы закрепить пройденный этап обучения, выделить
+                    <Description
+                        marginTop={8}
+                        marginBottom={24}
+                        width={'100%'}
+                    >
+                        Пройдите небольшое тестирование, чтобы закрепить пройденный этап обучения, выделить
                         ключевые моменты из изученного материала.</Description>
                     <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
                         <ManAvatar/>

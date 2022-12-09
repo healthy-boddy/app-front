@@ -26,7 +26,7 @@ const QuestionsScreen = () => {
     const [userToken, setUserToken] = useState<any>("");
     let [loading, setLoading] = useState<boolean>(true);
     const [level, setLevel] = useState(0);
-    let progress = (1 / 46) * level;
+    let progress = (1 / 50) * level;
 
     let [checkedAnswer, setCheckedAnswer] = useState<Array<Answer>>([])
 
@@ -216,7 +216,7 @@ const styles = StyleSheet.create({
         marginVertical: 6
     },
     line: {
-        height: 2,
+        height: 1,
         backgroundColor: '#E2E2E2',
         width: '100%',
     },

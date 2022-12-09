@@ -13,6 +13,7 @@ import {useSelector} from "react-redux";
 import {WebView} from "react-native-webview";
 import VideoPreViewVector from "../TutorialScreensIcons/VideoPreViewVector";
 import StartVideoVector from "../TutorialScreensIcons/StartVideoVector";
+import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
 
 const ThirdDayTutorialScreen = () => {
     const [page, setPage] = useState(1)
@@ -214,7 +215,7 @@ const ThirdDayTutorialScreen = () => {
                                     paddingVertical: 8,
                                     paddingHorizontal: 15,
                                     borderRadius: 20,
-                                    marginRight: 20
+                                    right: 35,
                                 }}>
                                     <Text style={{color: '#FFFFFF'}}>Смотреть презентацию</Text>
                                 </TouchableOpacity>
@@ -235,7 +236,7 @@ const ThirdDayTutorialScreen = () => {
             return (
                 <MainContainer>
                     <View style={{flex: 1, paddingHorizontal: 16}}>
-                        <ScrollView>
+                        <KeyboardAwareScrollView>
                             <View style={{flex: 1}}>
                                 <BackButton   onPressLetter={() => {
                                     navigation.navigate("Greetings4")
@@ -245,24 +246,24 @@ const ThirdDayTutorialScreen = () => {
                                 <Title titlePropStyle={{fontSize: 24, marginTop: 14, marginBottom: 8}}>
                                     Закрепите свои знания
                                 </Title>
-                                <Description>
+                                <Description width={"100%"}>
                                     Сформулируйте 8 целей для двух клиентов.
                                 </Description>
                                 <Description marginVertical={12}>
                                     Цель должен быть:
                                 </Description>
-                                <Description>
+                                <Description width={"100%"}>
                                     {`\u2022 краткострочные,`}{"\n"}
                                     {`\u2022 долгосрочные,`}{"\n"}
                                     {`\u2022 промежуточные,`}{"\n"}
                                     {`\u2022 конечные,`}{"\n"}
                                 </Description>
-                                <Description marginBottom={5}>
+                                <Description width={"100%"} marginBottom={5}>
                                     1. Клиент 45 лет, мужчина, жалобы на боли в области сердца, лишний вес 5 кг,
                                     отсуствие
                                     либидо, программа 3 месяца
                                 </Description>
-                                <Description>
+                                <Description width={"100%"}>
                                     2. Клиент 30 лет, женщина, усталость, слабость, выпадение волос, проблемы со стулом
                                     и
                                     настроением, программа 6 месяца
@@ -285,12 +286,12 @@ const ThirdDayTutorialScreen = () => {
                                     </Text>}
                                 </View>
                             </View>
-                        </ScrollView>
-                        <View style={{marginBottom: 25}}>
-                            <CustomButton
-                                onPress={handleSendLastAnswers}
-                                title={'Продолжить'}/>
-                        </View>
+                            <View style={{marginVertical: 25}}>
+                                <CustomButton
+                                    onPress={handleSendLastAnswers}
+                                    title={'Продолжить'}/>
+                            </View>
+                        </KeyboardAwareScrollView>
                     </View>
                 </MainContainer>
             )

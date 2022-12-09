@@ -24,7 +24,7 @@ export const WrapperTwoButtons: React.FC<ButtonWrapperPageInterface> = ({
 }) => {
   return (
     <View style={styles.container}>
-      <StatusBar />
+      <StatusBar barStyle={'dark-content'} backgroundColor={'white'}/>
       <SafeAreaView
         style={{
           marginLeft: 16,

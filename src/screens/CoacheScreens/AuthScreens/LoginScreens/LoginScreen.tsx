@@ -59,7 +59,7 @@ const LoginScreen = () => {
         scrollEnabled={false}
         style={{ width: "100%", paddingHorizontal: 16 }}
       >
-        <View>
+        <View style={{marginTop: 16}}>
           <Title>Введите свой телефон</Title>
 
           <View style={{ marginBottom: 15 }}>

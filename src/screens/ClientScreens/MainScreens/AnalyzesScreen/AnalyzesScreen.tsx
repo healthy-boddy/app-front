@@ -94,13 +94,13 @@ const AnalyzesScreen = () => {
     return (
         <MainContainer>
             <View style={{flex: 1, paddingTop: 12, paddingHorizontal: 16}}>
-                    {!analyses.length ? <View style={{paddingHorizontal: 16, height: '100%'}}>
+                    {!analyses.length ? <View style={{height: '100%'}}>
                             <Text style={{
                                 fontSize: 32,
                                 fontWeight: '600',
                                 lineHeight: 34,
                                 color: '#000',
-                                marginTop: 24
+                                height: 101
                             }}>
                                 Анализы
                             </Text>

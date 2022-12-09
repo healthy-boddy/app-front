@@ -65,7 +65,8 @@ const ThirdTutorialScreen = () => {
                             paddingVertical: 8,
                             paddingHorizontal: 15,
                             borderRadius: 20,
-                            marginRight: 20
+                            right: 35,
+
                         }}>
                             <Text style={{color: '#FFFFFF'}}>Смотреть презентацию</Text>
                         </TouchableOpacity>
@@ -90,7 +91,7 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         backgroundColor: '#8C64FF',
         flexDirection: 'row',
-        justifyContent: "space-between"
+        justifyContent: "space-between",
     },
     presentation: {},
     pdf: {

@@ -21,6 +21,8 @@ import * as ImagePicker from "expo-image-picker";
 import EducationIcon from "../../../../assets/Icons/EducationIcon";
 import axios from "axios";
 import {baseUrl} from "../../../../helpers/url";
+import * as MailComposer from "expo-mail-composer";
+
 const deviceWidth = Dimensions.get("window").width;
 
 const CoachSinglePage = () => {
@@ -39,10 +41,10 @@ const CoachSinglePage = () => {
 
     function getUserNewData() {
         axios.get(baseUrl + "/me/", {
-                headers: {
-                    Authorization: "Bearer " + tokenFromReducer,
-                },
-            }).then((res) => {
+            headers: {
+                Authorization: "Bearer " + tokenFromReducer,
+            },
+        }).then((res) => {
             console.log(res.data, 'MEEEEEEEEEEE')
             setUserDataFromAxios(res.data)
             dispatch(setUserData(res.data));
@@ -53,7 +55,7 @@ const CoachSinglePage = () => {
             });
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         getUserNewData()
     }, [])
 
@@ -92,7 +94,7 @@ const CoachSinglePage = () => {
         }
     };
 
-    function handleSendNewProfileImage(){
+    function handleSendNewProfileImage() {
         let AuthStr = "Bearer " + tokenFromReducer;
         form.append('avatar', avatar)
         fetch(`http://92.53.97.238/user/coach/update_me/`, {
@@ -112,15 +114,24 @@ const CoachSinglePage = () => {
     }
 
     useEffect(() => {
-        if (!avatar){
+        if (!avatar) {
             // console.log('', avatar)
-        }else {
+        } else {
             handleSendNewProfileImage()
-            setTimeout(()=>{
+            setTimeout(() => {
                 getUserNewData()
             }, 100)
         }
     }, [avatar])
+
+    async function sendEmailAsync() {
+        let result = await MailComposer.composeAsync({
+            recipients: ['support@longlifelab.ru'],
+            subject: 'Email subject!!!!',
+            // body: 'This is the body of the email ✅',
+        });
+        alert(result.status);
+    }
 
     return (
         <SafeAreaView style={{
@@ -140,7 +151,7 @@ const CoachSinglePage = () => {
                                 style={styles.image}
                                 source={{uri: avatar?.uri}}
                             />
-                        ):(
+                        ) : (
                             <Image
                                 style={styles.image}
                                 source={{uri: user_data_form_axios?.user?.avatar_thumbnail}}
@@ -160,19 +171,19 @@ const CoachSinglePage = () => {
                     </Title>
                 </View>
                 <View style={{marginTop: 40, flex: 1}}/>
-                <TouchableOpacity
-                    onPress={() => {
-                        console.log('notifications')
-                    }}
-                    style={styles.button}>
-                    <NotificationIcon/>
-                    <Text style={styles.button_title}>Уведомления</Text>
-                    <View style={{alignItems: 'flex-end'}}>
-                        <RightIcon fill={'#797979'}/>
-                    </View>
-                </TouchableOpacity>
+                {/*<TouchableOpacity*/}
+                {/*    onPress={() => {*/}
+                {/*        console.log('notifications')*/}
+                {/*    }}*/}
+                {/*    style={styles.button}>*/}
+                {/*    <NotificationIcon/>*/}
+                {/*    <Text style={styles.button_title}>Уведомления</Text>*/}
+                {/*    <View style={{alignItems: 'flex-end'}}>*/}
+                {/*        <RightIcon fill={'#797979'}/>*/}
+                {/*    </View>*/}
+                {/*</TouchableOpacity>*/}
 
-                <View style={styles.line}/>
+                {/*<View style={styles.line}/>*/}
                 <TouchableOpacity style={styles.button}>
                     <EmailIcon/>
                     <Text style={styles.button_title}>Имя, номер телефона, email</Text>
@@ -268,26 +279,28 @@ const CoachSinglePage = () => {
                             Служба поддержки
                         </Text>
 
-                        <TouchableOpacity style={{
-                            flexDirection: 'row',
-                            marginVertical: 8,
-                            paddingHorizontal: 16
-                        }}>
+                        <TouchableOpacity
+                            onPress={sendEmailAsync}
+                            style={{
+                                flexDirection: 'row',
+                                marginVertical: 8,
+                                paddingHorizontal: 16
+                            }}>
                             <ChatMessageIcon/>
                             <Text style={styles.modal_text}>
                                 Написать на почту
                             </Text>
                         </TouchableOpacity>
                         <View style={{marginVertical: 10}}/>
-                        <TouchableOpacity style={{
-                            flexDirection: 'row',
-                            paddingHorizontal: 16
-                        }}>
-                            <SendMessageIcon/>
-                            <Text style={styles.modal_text}>
-                                Написать в чат
-                            </Text>
-                        </TouchableOpacity>
+                        {/*<TouchableOpacity style={{*/}
+                        {/*    flexDirection: 'row',*/}
+                        {/*    paddingHorizontal: 16*/}
+                        {/*}}>*/}
+                        {/*    <SendMessageIcon/>*/}
+                        {/*    <Text style={styles.modal_text}>*/}
+                        {/*        Написать в чат*/}
+                        {/*    </Text>*/}
+                        {/*</TouchableOpacity>*/}
 
                     </View>
                 </Modal>
