@@ -23,9 +23,12 @@ export class ClientProgramsModel {
   }
 
   private getPrograms() {
+    console.log("CLIENT", this._client);
     try {
       this._httpService
-        .get<ResponseArrayConstructor>("/program/")
+        .get<ResponseArrayConstructor>(
+          `/program/${this._client}/available_programs/`
+        )
         .then((res) => {
           if (res.data) {
             runInAction(() => {
@@ -51,8 +54,8 @@ export class ClientProgramsModel {
     useEffect(() => {
       runInAction(() => {
         model._client = clientId;
+        model.getPrograms();
       });
-      model.getPrograms();
     }, [model]);
 
     return model;
