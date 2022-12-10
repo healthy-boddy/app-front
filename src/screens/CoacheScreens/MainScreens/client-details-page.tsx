@@ -9,6 +9,8 @@ import { FormIcon } from "../icon/form";
 import { TargetsIcons } from "../icon/targets";
 import { ProgramsIcons } from "../icon/programms";
 import MoneySvg from "../../../assets/Icons/MoneySvg";
+import { color1 } from "../../../helpers/colors";
+import { LinearGradient } from "expo-linear-gradient";
 
 export const ClientDetailsPage = ({ route: { params } }: any) => {
   const navigation: any = useNavigation();
@@ -34,24 +36,69 @@ export const ClientDetailsPage = ({ route: { params } }: any) => {
           paddingHorizontal: 16,
         }}
       >
-        <View
-          style={{
-            width: 186,
-            height: 186,
-            marginTop: 16,
-            alignSelf: "center",
-          }}
-        >
-          <Image
+        {params?.data?.avatar ? (
+          <View
             style={{
-              width: "100%",
-              height: "100%",
-              borderRadius: 24,
+              width: 186,
+              height: 186,
+              marginTop: 16,
+              alignSelf: "center",
             }}
-            resizeMode={"cover"}
-            source={{ uri: params.data.avatar }}
-          />
-        </View>
+          >
+            <Image
+              style={{
+                width: "100%",
+                height: "100%",
+                borderRadius: 24,
+              }}
+              resizeMode={"cover"}
+              source={{ uri: params.data.avatar }}
+            />
+          </View>
+        ) : (
+          // <View
+          //   style={[
+          //     {
+          //       alignItems: "center",
+          //       justifyContent: "center",
+          //       borderWidth: 1,
+          //       borderRadius: 16,
+          //       borderColor: color1,
+          //       width: 186,
+          //       height: 186,
+          //       alignSelf: "center",
+          //     },
+          //   ]}
+          // >
+          <LinearGradient
+            colors={["#8C64FF", "#B49AFF"]}
+            start={{ x: 0.0, y: 1.0 }}
+            end={{ x: 1.0, y: 1.0 }}
+            style={{
+              alignItems: "center",
+              justifyContent: "center",
+              borderWidth: 1,
+              borderRadius: 16,
+              borderColor: color1,
+              width: 186,
+              height: 186,
+              alignSelf: "center",
+            }}
+          >
+            <Text
+              style={{
+                fontSize: 24,
+                lineHeight: 28,
+                fontWeight: "600",
+                color: "#fff",
+              }}
+            >
+              {params?.data?.name.replace(/[^A-Z]/g, "").length !== 0
+                ? params?.data?.name.replace(/[^A-Z]/g, "")
+                : params?.data?.name?.substring(0, 1)}
+            </Text>
+          </LinearGradient>
+        )}
 
         <Text
           style={{

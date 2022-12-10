@@ -7,6 +7,7 @@ import { CalendarSvg } from "../../icon/calendar";
 import MoneySvg from "../../../assets/Icons/MoneySvg";
 import { ClientResponse } from "../../../screens/CoacheScreens/AuthScreens/CalendarScreen/user-list-screen/interface";
 import { color1 } from "../../../helpers/colors";
+import { LinearGradient } from "expo-linear-gradient";
 
 interface ClientBlockForCoachProps {
   onPress: () => void;
@@ -46,24 +47,31 @@ export const ClientBlockForCoach: FC<ClientBlockForCoachProps> = ({
               />
             </View>
           ) : (
-            <View
-              style={[
-                styles.imageView,
-                {
-                  alignItems: "center",
-                  justifyContent: "center",
-                  borderWidth: 1,
-                  borderRadius: 100,
-                  borderColor: color1,
-                },
-              ]}
+            <LinearGradient
+              colors={["#8C64FF", "#B49AFF"]}
+              start={{ x: 0.0, y: 1.0 }}
+              end={{ x: 1.0, y: 1.0 }}
+              style={{
+                alignItems: "center",
+                justifyContent: "center",
+                borderWidth: 1,
+                borderRadius: 100,
+                borderColor: "#fff",
+              }}
             >
-              <Text>
+              <Text
+                style={{
+                  fontSize: 24,
+                  lineHeight: 28,
+                  fontWeight: "600",
+                  color: "#fff",
+                }}
+              >
                 {name.replace(/[^A-Z]/g, "").length !== 0
                   ? name.replace(/[^A-Z]/g, "")
                   : name.substring(0, 1)}
               </Text>
-            </View>
+            </LinearGradient>
           )}
 
           <View
