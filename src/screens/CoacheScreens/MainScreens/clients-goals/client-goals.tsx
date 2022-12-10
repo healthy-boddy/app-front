@@ -5,9 +5,10 @@ import { ClientResponse } from "../../AuthScreens/CalendarScreen/user-list-scree
 
 export const ClientGoals = ({ route: { params } }: any) => {
   const client: ClientResponse = params.data.client;
+  console.log("client", client);
   return (
     <GoalsModel.Provider>
-      <ClientGoalsView client={params} />
+      <ClientGoalsView client={client} />
     </GoalsModel.Provider>
   );
 };

@@ -22,7 +22,7 @@ export const ClientGoalsView: FC<ClientGoalsViewProps> = GoalsModel.modelClient(
     const navigation: any = useNavigation();
     const [isOpen, setOpen] = useState(false);
     const [goalData, setGoal] = useState<Goals>();
-    const dataClient = props.client.data.client;
+    const dataClient = props.client;
 
     if (dataClient?.user && dataClient?.total_global_goals_count) {
       runInAction(() => {
@@ -42,6 +42,8 @@ export const ClientGoalsView: FC<ClientGoalsViewProps> = GoalsModel.modelClient(
       }
     }, [goalData && goalData?.successesAssigned]);
 
+    console.log("props.model.clientsRouteData", props.model.clientsRouteData);
+
     return (
       <>
         {goalData && goalData.successesAssigned && (
@@ -55,8 +57,11 @@ export const ClientGoalsView: FC<ClientGoalsViewProps> = GoalsModel.modelClient(
           onPressBack={() =>
             navigation.navigate("ClientDetailsPage", {
               data: {
+                avatar: props.model.clientsRouteData?.user.avatar_thumbnail,
+                name: props.model.clientsRouteData?.user.username,
                 subscription: "Индивидуальный",
                 subscriptionDuration: "12",
+                clientID: props.model.clientsRouteData?.user.id,
                 client: props.model.clientsRouteData,
               },
             })
