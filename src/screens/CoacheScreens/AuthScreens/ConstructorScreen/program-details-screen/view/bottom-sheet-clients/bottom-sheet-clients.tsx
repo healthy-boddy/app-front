@@ -22,9 +22,7 @@ export const BottomSheetClients: FC<ButtonSheetPersonalDoctorProps> =
     const [clientData, senClientData] = useState<ClientResponse>();
 
     const handlePress = () => {
-      if (clientData) {
-        props.onPressPickButton(clientData);
-      }
+      clientData && props.onPressPickButton(clientData);
       props.onPress();
     };
 

@@ -1,4 +1,4 @@
-import React, { FC, RefObject } from "react";
+import React, { FC, RefObject, useEffect } from "react";
 import { Image, Text, View } from "react-native";
 import BottomSheet from "@gorhom/bottom-sheet";
 import { BottomSheetComponent } from "../../../../../../../components/core/bottom-sheet";
@@ -6,6 +6,7 @@ import CustomButton from "../../../../../../../components/CustomButton";
 import { color1 } from "../../../../../../../helpers/colors";
 import Description from "../../../../../../../components/Description";
 import { ClientResponse } from "../../../../CalendarScreen/user-list-screen/interface";
+import { LinearGradient } from "expo-linear-gradient";
 
 interface ButtonSheetPersonalDoctorProps {
   sheetRef: RefObject<BottomSheet>;
@@ -24,6 +25,9 @@ export const BottomSheetClientPicked: FC<ButtonSheetPersonalDoctorProps> = ({
   clientData,
   programName,
 }) => {
+  useEffect(() => {
+    console.log("clientData", clientData);
+  }, [clientData]);
   return (
     <BottomSheetComponent
       onClose={onClose}
@@ -40,23 +44,54 @@ export const BottomSheetClientPicked: FC<ButtonSheetPersonalDoctorProps> = ({
           width: "100%",
         }}
       >
-        <View
-          style={{
-            width: 120,
-            height: 120,
-            alignSelf: "center",
-          }}
-        >
-          <Image
+        {clientData?.user?.avatar_thumbnail !== null ? (
+          <View
             style={{
-              width: "100%",
-              height: "100%",
-              borderRadius: 100,
+              width: 120,
+              height: 120,
+              alignSelf: "center",
             }}
-            resizeMode={"cover"}
-            source={{ uri: clientData?.user?.avatar_thumbnail }}
-          />
-        </View>
+          >
+            <Image
+              style={{
+                width: "100%",
+                height: "100%",
+                borderRadius: 100,
+              }}
+              resizeMode={"cover"}
+              source={{ uri: clientData?.user?.avatar_thumbnail }}
+            />
+          </View>
+        ) : (
+          <LinearGradient
+            colors={["#8C64FF", "#B49AFF"]}
+            start={{ x: 0.0, y: 1.0 }}
+            end={{ x: 1.0, y: 1.0 }}
+            style={{
+              alignItems: "center",
+              justifyContent: "center",
+              borderWidth: 1,
+              borderRadius: 100,
+              borderColor: color1,
+              width: 120,
+              height: 120,
+              alignSelf: "center",
+            }}
+          >
+            <Text
+              style={{
+                fontSize: 24,
+                lineHeight: 28,
+                fontWeight: "600",
+                color: "#fff",
+              }}
+            >
+              {clientData?.user?.username.replace(/[^A-Z]/g, "").length !== 0
+                ? clientData?.user?.username.replace(/[^A-Z]/g, "")
+                : clientData?.user?.username.substring(0, 1)}
+            </Text>
+          </LinearGradient>
+        )}
 
         <Text
           style={{
@@ -82,7 +117,6 @@ export const BottomSheetClientPicked: FC<ButtonSheetPersonalDoctorProps> = ({
             Эта программа сразу отобразится в аккаунте клиента
           </Text>
         </Description>
-        {console.log(clientData)}
         <View
           style={{
             marginTop: 46,
