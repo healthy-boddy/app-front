@@ -57,6 +57,8 @@ export const ClientBlockForCoach: FC<ClientBlockForCoachProps> = ({
                 borderWidth: 1,
                 borderRadius: 100,
                 borderColor: "#fff",
+                height: 56,
+                width: 56,
               }}
             >
               <Text

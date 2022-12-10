@@ -83,23 +83,21 @@ export const ClientQuizView: FC<ClientGoalsViewProps> =
             {props.model.quizAnswerText.type === "HAS_DATA" &&
               props.model.quizAnswerText.data.map((answer, index) => {
                 return (
-                  <>
-                    <View
-                      key={index}
-                      style={{
-                        borderBottomWidth: 1,
-                        paddingVertical: 16,
-                        borderColor: "#E2E2E2",
-                      }}
-                    >
-                      <Text style={styles.titleText}>
-                        {index + 1}. {answer.question_text}
-                      </Text>
-                      <Text
-                        style={styles.titleAnswer}
-                      >{`   \u2022 ${answer.answers_text_list[0]}`}</Text>
-                    </View>
-                  </>
+                  <View
+                    key={index}
+                    style={{
+                      borderBottomWidth: 1,
+                      paddingVertical: 16,
+                      borderColor: "#E2E2E2",
+                    }}
+                  >
+                    <Text style={styles.titleText}>
+                      {index + 1}. {answer.question_text}
+                    </Text>
+                    <Text
+                      style={styles.titleAnswer}
+                    >{`   \u2022 ${answer.answers_text_list[0]}`}</Text>
+                  </View>
                 );
               })}
           </ScrollView>

@@ -20,39 +20,37 @@ export const GoalsViewClient: FC<EditingScreenViewProps> =
 
     return (
       <MainContainer>
-        <View style={{ flex: 1, paddingHorizontal: 16 }}>
-          <BackButton
-            title={"Цели"}
-            onPressEdit={() =>
-              navigation.navigate("GoalsEditingClient", {
-                programId: props.model.program,
-                assignedProgram: props.model.programDetailForClient,
-                clientID: props.model.client,
-              })
-            }
-            onPress={() =>
-              navigation.navigate("ProgramDetailsClient", {
-                programId: props.model.program,
-                assignedProgram: props.model.programDetailForClient,
-                clientID: props.model.client,
-              })
-            }
-          />
+        <BackButton
+          title={"Цели"}
+          onPressEdit={() =>
+            navigation.navigate("GoalsEditingClient", {
+              programId: props.model.program,
+              assignedProgram: props.model.programDetailForClient,
+              clientID: props.model.client,
+            })
+          }
+          onPress={() =>
+            navigation.navigate("ProgramDetailsClient", {
+              programId: props.model.program,
+              assignedProgram: props.model.programDetailForClient,
+              clientID: props.model.client,
+            })
+          }
+        />
 
-          <View style={{ marginTop: 16 }} />
+        <View style={{ marginTop: 16 }} />
 
-          {props.model.goals.type === "HAS_DATA" &&
-            props.model.goals.data.map((data, index) => {
-              return (
-                <GoalsBlock
-                  id={data.id}
-                  key={data.id}
-                  title={`Цель ${index + 1}`}
-                  description={data.goalsDescription}
-                />
-              );
-            })}
-        </View>
+        {props.model.goals.type === "HAS_DATA" &&
+          props.model.goals.data.map((data, index) => {
+            return (
+              <GoalsBlock
+                id={data.id}
+                key={data.id}
+                title={`Цель ${index + 1}`}
+                description={data.goalsDescription}
+              />
+            );
+          })}
       </MainContainer>
     );
   });
