@@ -209,7 +209,7 @@ const EditAnalyseScreen = ({}) => {
             console.log(labUnits, el.name)
             const unit = labUnits.find(item => item.indicator_name === el.name);
             const requestBody = {
-                unit: unit?.id || el.unit_info.id,
+                unit: unit?.id || el?.unit_info?.id,
                 value: +el.value,
                 analysis: analyzeId,
             };
