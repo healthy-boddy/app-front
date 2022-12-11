@@ -19,6 +19,8 @@ import {
   TutorialQuestionsScreen,
   TyScreenFormTutorials,
   TyScreenFromSecondDay,
+    CoachEditDataScreen,
+    EducationAndSpecialisations
 } from "../../screens/CoacheScreens/AuthScreens";
 import { TabNavigatorElem } from "../ClientNavigations/tab-bar-elem/tab-navigation-elems";
 import { HomeSvg } from "../ClientNavigations/icons/home";
@@ -119,6 +121,13 @@ function CoachSingleScreen() {
 }
 function TyScreenFromSecondDayPage() {
   return <TyScreenFromSecondDay />;
+}
+function CoachEditData() {
+  return <CoachEditDataScreen />;
+}
+
+function EducationAndSpecialisationsScreen() {
+  return <EducationAndSpecialisations />;
 }
 
 export default function CoachVerify() {
@@ -498,6 +507,22 @@ export default function CoachVerify() {
       <Tab.Screen
         name="GoalsClient"
         component={GoalsClient}
+        options={({ route }) => ({
+          tabBarButton: () => null,
+          tabBarStyle: { display: "none" },
+        })}
+      />
+      <Tab.Screen
+        name="CoachEditData"
+        component={CoachEditData}
+        options={({ route }) => ({
+          tabBarButton: () => null,
+          tabBarStyle: { display: "none" },
+        })}
+      />
+      <Tab.Screen
+        name="EducationAndSpecialisationsScreen"
+        component={EducationAndSpecialisationsScreen}
         options={({ route }) => ({
           tabBarButton: () => null,
           tabBarStyle: { display: "none" },

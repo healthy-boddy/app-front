@@ -6,14 +6,15 @@ import Delete from "../assets/Icons/Delete";
 const CustomInput = (props: any) => {
     const {onChangeText, placeholder, value} = props;
     return (
-        <View style={[styles.input_box]}>
+        <View style={[styles.input_box, props.input_style]}>
             <View style={{width: '90%'}}>
                 <TextInput
                     value={value}
                     onChangeText={onChangeText}
                     placeholder={placeholder}
-                    style={[styles.input]}
-                    placeholderTextColor={"#797979"}
+                    style={[styles.input, props.input_content]}
+                    placeholderTextColor={props.placeholderTextColor ? props.placeholderTextColor :
+                        "#797979"}
                     textContentType="emailAddress"
                     keyboardType="email-address"
                     autoCapitalize="none"

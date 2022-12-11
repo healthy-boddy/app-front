@@ -58,7 +58,7 @@ const HomeScreen = () => {
                     </Text>
                 </View>
                 <View style={{top: 15}}>
-                    <BellIcon fill={"#797979"}/>
+                    {/*<BellIcon fill={"#797979"}/>*/}
                 </View>
             </View>
 

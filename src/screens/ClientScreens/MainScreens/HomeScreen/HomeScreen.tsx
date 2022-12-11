@@ -94,7 +94,7 @@ const HomeScreen = () => {
         if (!freeQuizStatus) {
             return (
                 <View style={{flex: 1}}>
-                    <View style={{}}>
+                    <View style={{flex: 1}}>
                         <Text
                             style={{
                                 lineHeight: 28,
@@ -118,10 +118,10 @@ const HomeScreen = () => {
                             наставника. Это займет около 15 минут.
                         </Text>
                     </View>
-                    <View style={{alignItems: 'center', height: 292, marginVertical:25}}>
+                    <View style={{alignItems: 'center',flex: 1, height: 292, marginVertical:25}}>
                         <Image
-                            style={{ width: 278, height: 292}}
-                            source={require("../../AuthScreens/OnBoarding/OnBoardingImages/blob5.png")}
+                            style={{ width: 300, height: 292}}
+                            source={require("../../AuthScreens/OnBoarding/OnBoardingImages/blob6.png")}
                         />
                     </View>
                     <View style={{marginBottom: 40}}>
@@ -152,7 +152,6 @@ const HomeScreen = () => {
         } else if (userCoach && !paidQuizStatus) {
             return (
                 <View style={{flex: 1}}>
-                    <View style={{flex: 1}}>
                         <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
                             <PicCheck/>
                             <View style={{}}>
@@ -177,8 +176,6 @@ const HomeScreen = () => {
                                     </Text>
                                 </TouchableOpacity>
                             </View>
-                        </View>
-                        <View style={{flex: 1}}>
                             <TouchableOpacity
                                 activeOpacity={0.7}
                                 style={styles.coach_box}
@@ -214,7 +211,6 @@ const HomeScreen = () => {
                                 ))}
                             </TouchableOpacity>
                         </View>
-                    </View>
                 </View>
             )
         } else if (userCoach && paidQuizStatus) {
@@ -282,7 +278,6 @@ const HomeScreen = () => {
             <View
                 style={{
                     flex: 1,
-                    paddingHorizontal: 16
                 }}
             >
                 {loading ? <ActivityIndicator
@@ -318,7 +313,9 @@ const HomeScreen = () => {
                     {/*<BellIcon/>*/}
                 </SafeAreaView>
 
-                <ScrollView refreshControl={
+                <ScrollView
+                    contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}
+                    refreshControl={
                     <RefreshControl
                         refreshing={refreshing}
                         onRefresh={onRefresh}

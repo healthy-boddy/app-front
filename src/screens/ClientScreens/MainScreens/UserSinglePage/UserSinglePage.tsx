@@ -12,7 +12,7 @@ import {color1} from "../../../../helpers/colors";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {deleteClientData, deleteUserBio, deleteUserToken} from "../../../../store/actions/user_token";
 import {deleteUserData, setUserData} from "../../../../store/actions/user_data";
-import {useNavigation} from "@react-navigation/native";
+import {useIsFocused, useNavigation} from "@react-navigation/native";
 import SendMessageIcon from "./SingleScreenIcons/SendMessageIcon";
 import ChatMessageIcon from "./SingleScreenIcons/ChatMessageIcon";
 import Modal from "react-native-modal";
@@ -21,6 +21,7 @@ import {baseUrl} from "../../../../helpers/url";
 import CustomButton from "../../../../components/CustomButton";
 import axios from "axios";
 import * as MailComposer from "expo-mail-composer";
+import MainContainer from "../../../../components/MainContainer";
 
 const deviceWidth = Dimensions.get("window").width;
 
@@ -34,6 +35,7 @@ const UserSinglePage = () => {
     let [avatar, setAvatar] = useState<any>(null)
     const [logOutModalVisible, setLogOutModalVisible] = useState(false)
     let [user_data_form_axios, setUserDataFromAxios] = useState<any>([])
+    let isFocused = useIsFocused()
 
     function getUserNewData() {
         axios.get(baseUrl + "/me/", {
@@ -56,10 +58,13 @@ const UserSinglePage = () => {
     const toggleBottomNavigationView = () => {
         setVisible(!visible);
     };
+    const toggleLogOutModalView = () => {
+        setLogOutModalVisible(!logOutModalVisible);
+    };
 
-    useEffect(()=>{
+    useEffect(() => {
         getUserNewData()
-    }, [])
+    }, [isFocused])
 
     const handleLogOut = async () => {
         await AsyncStorage.removeItem('userToken');
@@ -126,15 +131,11 @@ const UserSinglePage = () => {
         });
         alert(result.status);
     }
+
     console.log(user_data_form_axios, 'user_data_form_axios')
     return (
-        <SafeAreaView style={{
-            flex: 1,
-            backgroundColor: "#FFFFFF",
-            width: '100%',
-        }}>
-            <View
-                style={styles.container}>
+        <MainContainer>
+            <View style={styles.container}>
                 <BackButton onPress={() => {
                     navigation.navigate('Main')
                 }}/>
@@ -165,7 +166,11 @@ const UserSinglePage = () => {
                     </Title>
                 </View>
                 <View style={{marginTop: 40, flex: 1}}/>
-                <TouchableOpacity style={styles.button}>
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={() => {
+                        navigation.navigate("UserEditName")
+                    }}>
                     <EmailIcon/>
                     <Text style={styles.button_title}>Имя, номер телефона, email</Text>
                     <View style={{alignItems: 'flex-end'}}>
@@ -196,7 +201,7 @@ const UserSinglePage = () => {
                 </TouchableOpacity>
                 <View style={styles.line}/>
                 <TouchableOpacity
-                    onPress={logOut}
+                    onPress={toggleLogOutModalView}
                     style={{
                         marginTop: 9
                     }}>
@@ -206,33 +211,87 @@ const UserSinglePage = () => {
                 </TouchableOpacity>
             </View>
             <Modal
+                style={{
+                    flex: 1,
+                    justifyContent: 'flex-end',
+                    width: '100%',
+                    left: 0,
+                    marginLeft: 'auto',
+                    marginBottom: 'auto',
+                }}
                 isVisible={logOutModalVisible}
+                onBackdropPress={toggleLogOutModalView}
                 useNativeDriver={true}
+                propagateSwipe={true}
+                animationIn={'fadeInUp'}
+                animationOut={'fadeOutDownBig'}
+                deviceWidth={deviceWidth}
             >
-                <View style={styles.logOut_box}>
-                    <Text style={styles.logOut_text}>
+                <View style={[styles.modal, {height: 290}]}>
+                    <Text style={{
+                        fontWeight: '600',
+                        fontSize: 19,
+                        lineHeight: 20,
+                        textAlign: 'center',
+                        color: '#1E1E1E',
+                        marginTop: 40,
+                        marginBottom: 48
+
+                    }}>
                         Вы уверены, что хотите выйти из аккаунта?
                     </Text>
-                    <View style={styles.log_out_buttons}>
-                        <View style={{width: '40%'}}>
-                            <CustomButton
-                                title={'Остаться'}
-                                onPress={() => {
-                                    setLogOutModalVisible(false)
-                                }}
-                            />
-                        </View>
-                        <View style={{width: '40%'}}>
-                            <CustomButton
-                                buttonStyles={{backgroundColor: 'transparent', borderColor: color1, borderWidth: 2,}}
-                                buttonTitle={{color: color1}}
-                                title={'Выйти'}
-                                onPress={handleLogOut}
-                            />
-                        </View>
+                    <View style={{marginBottom: 12}}>
+                        <CustomButton
+                            title={"Остаться"}
+                            onPress={() => {
+                                setLogOutModalVisible(false)
+                            }}
+                        />
                     </View>
+                    <View>
+                        <CustomButton
+                            buttonStyles={{
+                                backgroundColor: 'white',
+                                borderColor: color1,
+                                borderWidth: 2
+                            }}
+                            buttonTitle={{color: color1}}
+                            title={"Выйти"}
+                            onPress={handleLogOut}
+                        />
+                    </View>
+                    <View style={{marginVertical: 10}}/>
                 </View>
             </Modal>
+
+            {/*<Modal*/}
+            {/*    isVisible={logOutModalVisible}*/}
+            {/*    useNativeDriver={true}*/}
+            {/*>*/}
+            {/*    <View style={styles.logOut_box}>*/}
+            {/*        <Text style={styles.logOut_text}>*/}
+            {/*            Вы уверены, что хотите выйти из аккаунта?*/}
+            {/*        </Text>*/}
+            {/*        <View style={styles.log_out_buttons}>*/}
+            {/*            <View style={{width: '40%'}}>*/}
+            {/*                <CustomButton*/}
+            {/*                    title={'Остаться'}*/}
+            {/*                    onPress={() => {*/}
+            {/*                        setLogOutModalVisible(false)*/}
+            {/*                    }}*/}
+            {/*                />*/}
+            {/*            </View>*/}
+            {/*            <View style={{width: '40%'}}>*/}
+            {/*                <CustomButton*/}
+            {/*                    buttonStyles={{backgroundColor: 'transparent', borderColor: color1, borderWidth: 2,}}*/}
+            {/*                    buttonTitle={{color: color1}}*/}
+            {/*                    title={'Выйти'}*/}
+            {/*                    onPress={handleLogOut}*/}
+            {/*                />*/}
+            {/*            </View>*/}
+            {/*        </View>*/}
+            {/*    </View>*/}
+            {/*</Modal>*/}
             <View style={{flex: 1, width: '100%'}}>
                 <Modal
                     style={{
@@ -266,10 +325,10 @@ const UserSinglePage = () => {
                         <TouchableOpacity
                             onPress={sendEmailAsync}
                             style={{
-                            flexDirection: 'row',
-                            marginVertical: 8,
-                            paddingHorizontal: 16
-                        }}>
+                                flexDirection: 'row',
+                                marginVertical: 8,
+                                paddingHorizontal: 16
+                            }}>
                             <ChatMessageIcon/>
                             <Text style={styles.modal_text}>
                                 Написать на почту
@@ -279,7 +338,7 @@ const UserSinglePage = () => {
                     </View>
                 </Modal>
             </View>
-        </SafeAreaView>
+        </MainContainer>
 
     );
 };
@@ -288,7 +347,7 @@ export default UserSinglePage;
 
 const styles = StyleSheet.create({
     container: {
-        paddingHorizontal: 16,
+        flex: 1,
         backgroundColor: "#fff",
     },
     edit_icon: {
@@ -332,7 +391,7 @@ const styles = StyleSheet.create({
         lineHeight: 20
     },
     modal: {
-        height: 212,
+        height: 145,
         backgroundColor: '#fff',
         borderTopLeftRadius: 24,
         borderTopRightRadius: 24,

@@ -61,7 +61,7 @@ const CalendarScreen = UserListModel.modelClient((props) => {
                   borderRadius: 100,
                   marginRight: 10,
                 }}
-                source={{ uri: user_data.avatar }}
+                source={{ uri: user_data.user.avatar_thumbnail }}
               />
             </View>
             <Text style={styles.user_name}>{user_data.user.username}</Text>
