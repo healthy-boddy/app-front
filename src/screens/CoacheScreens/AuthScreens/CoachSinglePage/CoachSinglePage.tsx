@@ -13,7 +13,7 @@ import {color1} from "../../../../helpers/colors";
 import ChatMessageIcon from "../../../ClientScreens/MainScreens/UserSinglePage/SingleScreenIcons/ChatMessageIcon";
 import SendMessageIcon from "../../../ClientScreens/MainScreens/UserSinglePage/SingleScreenIcons/SendMessageIcon";
 import {useDispatch, useSelector} from "react-redux";
-import {useNavigation} from "@react-navigation/native";
+import {useIsFocused, useNavigation} from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {deleteClientData, deleteUserBio, deleteUserToken} from "../../../../store/actions/user_token";
 import {deleteUserData, setUserData} from "../../../../store/actions/user_data";
@@ -22,15 +22,17 @@ import EducationIcon from "../../../../assets/Icons/EducationIcon";
 import axios from "axios";
 import {baseUrl} from "../../../../helpers/url";
 import * as MailComposer from "expo-mail-composer";
+import MainContainer from "../../../../components/MainContainer";
 
 const deviceWidth = Dimensions.get("window").width;
 
 const CoachSinglePage = () => {
     const userData = useSelector((store: any) => store.user_data?.user_data);
     let tokenFromReducer = useSelector((store: any) => store.user_token?.user_token);
+    const isFocused = useIsFocused();
 
     const dispatch = useDispatch();
-    const navigation = useNavigation();
+    const navigation = useNavigation<any>();
     const [visible, setVisible] = useState(false)
     let [avatar, setAvatar] = useState<any>(null)
     let [logOutModalVisible, setLogOutModalVisible] = useState(false)
@@ -57,12 +59,14 @@ const CoachSinglePage = () => {
 
     useEffect(() => {
         getUserNewData()
-    }, [])
+    }, [isFocused])
 
     const logOut = async () => {
         setLogOutModalVisible(!logOutModalVisible)
     }
-
+    const toggleLogOutModalView = () => {
+        setLogOutModalVisible(!logOutModalVisible);
+    };
     const toggleBottomNavigationView = () => {
         setVisible(!visible);
     };
@@ -134,11 +138,7 @@ const CoachSinglePage = () => {
     }
 
     return (
-        <SafeAreaView style={{
-            flex: 1,
-            backgroundColor: "#FFFFFF",
-            width: '100%',
-        }}>
+        <MainContainer>
             <View
                 style={styles.container}>
                 <BackButton onPress={() => { // @ts-ignore
@@ -184,7 +184,10 @@ const CoachSinglePage = () => {
                 {/*</TouchableOpacity>*/}
 
                 {/*<View style={styles.line}/>*/}
-                <TouchableOpacity style={styles.button}>
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={()=>{navigation.navigate("CoachEditData")}}
+                >
                     <EmailIcon/>
                     <Text style={styles.button_title}>Имя, номер телефона, email</Text>
                     <View style={{alignItems: 'flex-end'}}>
@@ -193,7 +196,11 @@ const CoachSinglePage = () => {
                 </TouchableOpacity>
                 <View style={styles.line}/>
 
-                <TouchableOpacity style={styles.button}>
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={()=>{navigation.navigate("EducationAndSpecialisationsScreen")}}
+
+                >
                     <EducationIcon/>
                     <Text style={styles.button_title}>Образование и специализация</Text>
                     <View style={{alignItems: 'flex-end'}}>
@@ -222,33 +229,59 @@ const CoachSinglePage = () => {
                 </TouchableOpacity>
             </View>
             <Modal
+                style={{
+                    flex: 1,
+                    justifyContent: 'flex-end',
+                    width: '100%',
+                    left: 0,
+                    marginLeft: 'auto',
+                    marginBottom: 'auto',
+                }}
                 isVisible={logOutModalVisible}
+                onBackdropPress={toggleLogOutModalView}
                 useNativeDriver={true}
+                propagateSwipe={true}
+                animationIn={'fadeInUp'}
+                animationOut={'fadeOutDownBig'}
+                deviceWidth={deviceWidth}
             >
-                <View style={styles.logOut_box}>
-                    <Text style={styles.logOut_text}>
+                <View style={[styles.modal, {height: 290}]}>
+                    <Text style={{
+                        fontWeight: '600',
+                        fontSize: 19,
+                        lineHeight: 20,
+                        textAlign: 'center',
+                        color: '#1E1E1E',
+                        marginTop: 40,
+                        marginBottom: 48
+
+                    }}>
                         Вы уверены, что хотите выйти из аккаунта?
                     </Text>
-                    <View style={styles.log_out_buttons}>
-                        <View style={{width: '40%'}}>
-                            <CustomButton
-                                title={'Остаться'}
-                                onPress={() => {
-                                    setLogOutModalVisible(false)
-                                }}
-                            />
-                        </View>
-                        <View style={{width: '40%'}}>
-                            <CustomButton
-                                buttonStyles={{backgroundColor: 'transparent', borderColor: color1, borderWidth: 2,}}
-                                buttonTitle={{color: color1}}
-                                title={'Выйти'}
-                                onPress={handleLogOut}
-                            />
-                        </View>
+                    <View style={{marginBottom: 12}}>
+                        <CustomButton
+                            title={"Остаться"}
+                            onPress={() => {
+                                setLogOutModalVisible(false)
+                            }}
+                        />
                     </View>
+                    <View>
+                        <CustomButton
+                            buttonStyles={{
+                                backgroundColor: 'white',
+                                borderColor: color1,
+                                borderWidth: 2
+                            }}
+                            buttonTitle={{color: color1}}
+                            title={"Выйти"}
+                            onPress={handleLogOut}
+                        />
+                    </View>
+                    <View style={{marginVertical: 10}}/>
                 </View>
             </Modal>
+
             <View style={{flex: 1, width: '100%'}}>
                 <Modal
                     style={{
@@ -301,19 +334,18 @@ const CoachSinglePage = () => {
                         {/*        Написать в чат*/}
                         {/*    </Text>*/}
                         {/*</TouchableOpacity>*/}
-
                     </View>
                 </Modal>
             </View>
-        </SafeAreaView>
+        </MainContainer>
     );
 };
 
 export default CoachSinglePage;
 const styles = StyleSheet.create({
     container: {
-        paddingHorizontal: 16,
         backgroundColor: "#fff",
+        flex: 1
     },
     edit_icon: {
         position: "absolute",
@@ -356,7 +388,7 @@ const styles = StyleSheet.create({
         lineHeight: 20
     },
     modal: {
-        height: 212,
+        height: 145,
         backgroundColor: '#fff',
         borderTopLeftRadius: 24,
         borderTopRightRadius: 24,

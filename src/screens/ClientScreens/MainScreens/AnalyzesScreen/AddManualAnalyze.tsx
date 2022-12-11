@@ -53,7 +53,7 @@ const AddManualAnalyze = () => {
     let [labId, setLabId] = useState('')
     const [labUnits, setLabUnits] = useState([]);
     let [filteredAnalysesIndicator, setFilteredAnalysesIndicator] = useState([])
-    const [photo, setPhoto] = useState<any>([])
+    const [photo, setPhoto] = useState<any>(null)
 
     function setBirthDate(date: Date) {
         setAnaliseDate(date);
@@ -85,6 +85,7 @@ const AddManualAnalyze = () => {
             body: JSON.stringify({
                 date: moment(analiseDate).format("YYYY-MM-DD"),
                 laboratory: +labId,
+                photo: photo ? photo : null
             })
         }).then((res) => {
             return res.json()
@@ -318,7 +319,6 @@ const AddManualAnalyze = () => {
                 style={{
                     flex: 1,
                     width: "100%",
-                    paddingHorizontal: 16,
                 }}>
                 <View>
                     <BackButton onPress={() => navigation.navigate("AddAnalyzes")}/>

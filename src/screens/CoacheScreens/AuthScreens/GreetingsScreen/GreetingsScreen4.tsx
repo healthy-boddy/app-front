@@ -91,7 +91,7 @@ const GreetingsScreen4 = (props: any) => {
         getCoachLearnStatus().then((r) => r);
         wait(1000).then(() => setRefreshing(false));
     }, []);
-    console.log(user_data, 'user_data.user.avatar')
+    //console.log(user_data, 'user_data.user.avatar')
 
 
     return (
