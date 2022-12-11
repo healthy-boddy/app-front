@@ -1,13 +1,16 @@
 import React, {useEffect, useState} from 'react';
-import {View, StyleSheet, Text, FlatList} from "react-native";
+import {View, StyleSheet, TouchableOpacity, Image, Text, FlatList} from "react-native";
 import MainContainer from "../../../../components/MainContainer";
 import BackButton from "../../../../components/BackButton";
 import {useIsFocused, useNavigation} from "@react-navigation/native";
 import Description from "../../../../components/Description";
 import Title from '../../../../components/Title';
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {baseUrl2} from "../../../../helpers/url";
+import ShareIcon from "./AnalyzesScreenIcons/ShareIcon";
+import XMark from "../../../CoacheScreens/AuthScreens/TutorialScreens/ThirdDayTutorialScreen/icons/xMark";
+import * as Sharing from 'expo-sharing';
+import {shareAsync} from "expo-sharing";
 
 const AnalyseSingleScreen = ({routes}) => {
     const navigation = useNavigation<any>();
@@ -19,6 +22,7 @@ const AnalyseSingleScreen = ({routes}) => {
     let AuthStr = "Bearer " + tokenFromReducer;
     let [indicators, setIndicators] = useState([])
     let [analyse, setAnalyse] = useState([])
+    const [visible, setIsVisible] = useState(false);
 
     function handleGetAnalyseIndicators() {
         fetch(baseUrl2 + `/analysis/indicator?analysis=${activeAnalyzeId}`, {
@@ -48,34 +52,78 @@ const AnalyseSingleScreen = ({routes}) => {
             return res.json()
         }).then((res) => {
             setAnalyse(res)
-             console.log(res, 'handleGetAnalyse')
+            console.log(res, 'handleGetAnalyse')
         })
     }
-    useEffect(() => {
-        setActiveAnalyzeId(analyzeFromStorage?.id)
-    }, [analyzeFromStorage])
 
     useEffect(() => {
         if (isFocused) {
             handleGetAnalyseIndicators()
             handleGetAnalyse()
         }
-    }, [isFocused, analyzeFromStorage])
+    }, [analyzeFromStorage, isFocused])
 
+    useEffect(() => {
+        setActiveAnalyzeId(analyzeFromStorage?.id)
+    }, [analyzeFromStorage])
 
     console.log(isFocused, activeAnalyzeId)
 
     const renderItem = ({item}) => {
         return (
             <View style={styles.item_box}>
-                <Text style={styles.item_title}>{item.unit_info.indicator_name}</Text>
-                <Text style={styles.item_indicator}>{item.value} {item.unit_info.unit_name}</Text>
+                <Text style={styles.item_title}>{item.unit_info?.indicator_name}</Text>
+                <Text style={styles.item_indicator}>{item.value} {item.unit_info?.unit_name}</Text>
             </View>
         )
     }
+    const handleShareImage = async () => {
+        console.log(222)
+        // if (!(await Sharing.isAvailableAsync())) {
+        //     alert("Tú dispositivo no soporta esta funcionalidad");
+        //     return;
+        // }
+        // await Sharing.shareAsync('http://92.53.97.238/media/IMG_1670761773570.JPG').catch((error) => {
+        //     console.log(error);
+        // });
+    };
+
     return (
         <MainContainer>
-            <View style={{paddingHorizontal: 16, flex: 1}}>
+            <View style={{flex: 1}}>
+                {visible &&
+                    <View style={{
+                        width: '100%',
+                        height: '100%',
+                        justifyContent: 'center',
+                        alignItems: 'center'
+                    }}>
+                        <View style={{
+                            flexDirection: 'row',
+                            width: '100%',
+                            justifyContent: 'space-between',
+                            marginTop: 50
+                        }}>
+                            <TouchableOpacity
+                                onPress={handleShareImage}
+                            >
+                                <ShareIcon/>
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={()=>{setIsVisible(false)}}>
+                                <XMark/>
+                            </TouchableOpacity>
+                        </View>
+                        <View style={{
+                            flex: 1,
+                            width: '100%',
+                            alignItems: 'center',
+                            justifyContent: 'center'
+                        }}>
+                            <Image
+                                style={{width: '100%', height: 300}}
+                                source={{uri: analyse?.photo}}/>
+                        </View>
+                    </View>}
                 <View>
                     <BackButton
                         onPressEditAnalyse={() => {
@@ -90,16 +138,27 @@ const AnalyseSingleScreen = ({routes}) => {
                     <Text>
                         {analyse?.date}
                     </Text>
-                    <Description marginTop={8}>Инвитро, Сампсоньевский, 32</Description>
+                    <Description marginTop={8}>{analyse?.laboratory_name}</Description>
                 </View>
                 <View style={styles.items}>
                     <FlatList
                         data={indicators}
                         renderItem={renderItem}
                     />
-                    <Title titlePropStyle={{fontSize: 16}}>
-                        {/*Оцифровано по документу*/}
-                    </Title>
+                    {analyse?.photo &&
+                        <View>
+                            <Title titlePropStyle={{fontSize: 16, marginBottom: 14}}>
+                                Оцифровано по документу
+                            </Title>
+                            <TouchableOpacity onPress={() => {
+                                setIsVisible(true)
+                            }}>
+                                <Image
+                                    style={{width: 150, height: 150, borderRadius: 5}}
+                                    source={{uri: analyse?.photo}}/>
+                            </TouchableOpacity>
+                        </View>
+                    }
                 </View>
             </View>
         </MainContainer>

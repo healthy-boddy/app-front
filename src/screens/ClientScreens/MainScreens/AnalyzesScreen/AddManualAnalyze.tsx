@@ -50,11 +50,11 @@ const AddManualAnalyze = () => {
     ]);
     let [laboratory, setLaboratory] = useState([])
     let [filteredLaboratory, setFilteredLaboratory] = useState<any>([])
-    let [labId, setLabId] = useState('')
+    let [labId, setLabId] = useState<any>('')
     const [labUnits, setLabUnits] = useState([]);
     let [filteredAnalysesIndicator, setFilteredAnalysesIndicator] = useState([])
     const [photo, setPhoto] = useState<any>(null)
-
+    const form = new FormData()
     function setBirthDate(date: Date) {
         setAnaliseDate(date);
     }
@@ -75,18 +75,17 @@ const AddManualAnalyze = () => {
     }
 
     async function handleSaveAnalyzes() {
+        form.append('date', moment(analiseDate).format("YYYY-MM-DD"))
+        form.append('laboratory', +labId)
+        photo ? form.append('photo', photo) : null
         fetch(baseUrl2 + '/analysis/', {
             method: 'post',
             headers: {
                 Authorization: AuthStr,
                 "accept": "application/json",
-                "Content-Type": "application/json"
+                "Content-Type": "multipart/form-data",
             },
-            body: JSON.stringify({
-                date: moment(analiseDate).format("YYYY-MM-DD"),
-                laboratory: +labId,
-                photo: photo ? photo : null
-            })
+            body: form
         }).then((res) => {
             return res.json()
         }).then((res) => {
