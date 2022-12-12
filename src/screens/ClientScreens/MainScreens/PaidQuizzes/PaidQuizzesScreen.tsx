@@ -130,6 +130,8 @@ const PaidQuizzesScreen = () => {
       onPressBack={() => {
         if (level >= 1) {
           setLevel(level - 1);
+        }else {
+          navigation.navigate("Main")
         }
       }}
       onPressButton={() => {
