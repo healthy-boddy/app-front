@@ -110,13 +110,11 @@ const EnterSexScreen = () => {
             >
               {item.gender}
             </Text>
-            <Text>
-                {radioGender === item.gender && <RegCheckbox/>}
-            </Text>
+            <Text>{radioGender === item.gender && <RegCheckbox />}</Text>
           </TouchableOpacity>
         ))}
       </View>
-      <View style={{ marginBottom: 25 }}>
+      <View style={{ marginBottom: 40 }}>
         <CustomButton onPress={handleNavigate} title={"Продолжить"} />
       </View>
     </ClientContainer>

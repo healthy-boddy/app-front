@@ -1,17 +1,8 @@
-import React, { useEffect, useRef, useState } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  TextInput,
-  TouchableOpacity,
-} from "react-native";
-import Container from "../../../../components/Container";
+import React, { useEffect, useState } from "react";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import BackButton from "../../../../components/BackButton";
 import { color1, color2, color3 } from "../../../../helpers/colors";
-import ErrorIcon from "../../../../assets/Icons/ErrorIcon";
 import { useNavigation } from "@react-navigation/native";
-import CustomButton from "../../../../components/CustomButton";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -20,7 +11,6 @@ import { setUserToken } from "../../../../store/actions/user_token";
 import { baseUrl } from "../../../../helpers/url";
 import FormattingExample from "../../../../components/FormattingExample";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { WrapperPinCode } from "./view/wrapper/wrapper-pin-code";
 import * as MailComposer from "expo-mail-composer";
 import MainContainer from "../../../../components/MainContainer";
 
@@ -102,19 +92,64 @@ const PinCodeScreen = (props: any) => {
   }
   async function sendEmailAsync() {
     let result = await MailComposer.composeAsync({
-      recipients: ['support@longlifelab.ru'],
-      subject: 'Email subject!!!!',
+      recipients: ["support@longlifelab.ru"],
+      subject: "Email subject!!!!",
       // body: 'This is the body of the email ✅',
     });
     alert(result.status);
   }
   return (
+<<<<<<< HEAD
     <MainContainer>
       <View style={{marginBottom: 16}}>
         <BackButton
             onPress={()=>{navigation.navigate("EmailReg")}}
         />
       </View>
+||||||| 6d32f1e
+    <WrapperPinCode
+      onPressBack={() => navigation.navigate("CreateAccount")}
+      footer={
+        <View style={{flexDirection: 'row'}}>
+          <Text
+              style={{
+                color: "#797979",
+                fontSize: 16,
+                fontWeight: "500",
+                lineHeight: 20,
+              }}
+          >
+            Не приходит код?
+          </Text>
+          <TouchableOpacity
+              onPress={sendEmailAsync}
+          >
+            <Text
+                style={{
+                  color: color1,
+                  fontSize: 16,
+                  fontWeight: "500",
+                  lineHeight: 20,
+
+                }}
+            >
+              {" "}
+              Напишите нам
+            </Text>
+          </TouchableOpacity>
+        </View>
+      }
+    >
+=======
+    <MainContainer>
+      <View style={{ marginBottom: 16 }}>
+        <BackButton
+          onPress={() => {
+            navigation.navigate("EmailReg");
+          }}
+        />
+      </View>
+>>>>>>> a35e9c01ee46fea38f399b630959a3120d511240
       <KeyboardAwareScrollView
         style={{
           width: "100%",
@@ -171,6 +206,7 @@ const PinCodeScreen = (props: any) => {
           </TouchableOpacity>
         )}
       </KeyboardAwareScrollView>
+<<<<<<< HEAD
       <View style={{marginBottom: 25, alignItems: 'center'}}>
         <View style={{flexDirection: 'row'}}>
           <Text
@@ -202,6 +238,38 @@ const PinCodeScreen = (props: any) => {
         </View>
       </View>
     </MainContainer>
+||||||| 6d32f1e
+    </WrapperPinCode>
+=======
+      <View style={{ marginBottom: 25, alignItems: "center" }}>
+        <View style={{ flexDirection: "row" }}>
+          <Text
+            style={{
+              color: "#797979",
+              fontSize: 16,
+              fontWeight: "500",
+              lineHeight: 20,
+            }}
+          >
+            Не приходит код?
+          </Text>
+          <TouchableOpacity onPress={sendEmailAsync}>
+            <Text
+              style={{
+                color: color1,
+                fontSize: 16,
+                fontWeight: "500",
+                lineHeight: 20,
+              }}
+            >
+              {" "}
+              Напишите нам
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    </MainContainer>
+>>>>>>> a35e9c01ee46fea38f399b630959a3120d511240
   );
 };
 

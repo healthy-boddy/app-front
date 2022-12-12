@@ -1,10 +1,12 @@
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
-import { Text, TouchableOpacity, View } from "react-native";
+import { Image, Text, TouchableOpacity, View } from "react-native";
 import { ClientsEmptyPrograms } from "../../../icon/clients-empty-programms";
 import { WrapperWithTitlePage } from "../../../../../components/core/wrapper/wrapper-with-title";
 import { ClientsProgramsModel } from "../model";
 import { ProgramBlock } from "../../../AuthScreens/ConstructorScreen/view/components/program-block";
+
+const imagePrograms = require("../../image/no_programs.png");
 
 export const ClientsProgramsView = ClientsProgramsModel.modelClient((props) => {
   const navigation: any = useNavigation();
@@ -65,7 +67,21 @@ export const ClientsProgramsView = ClientsProgramsModel.modelClient((props) => {
               justifyContent: "center",
             }}
           >
-            <ClientsEmptyPrograms />
+            <View
+              style={{
+                width: 300,
+                height: 300,
+              }}
+            >
+              <Image
+                style={{
+                  width: "100%",
+                  height: "100%",
+                }}
+                resizeMode={"contain"}
+                source={imagePrograms}
+              />
+            </View>
             <Text
               style={{
                 textAlign: "center",
