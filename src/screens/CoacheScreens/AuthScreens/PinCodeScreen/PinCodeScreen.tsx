@@ -13,6 +13,7 @@ import FormattingExample from "../../../../components/FormattingExample";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import * as MailComposer from "expo-mail-composer";
 import MainContainer from "../../../../components/MainContainer";
+import {WrapperPinCode} from "./view/wrapper/wrapper-pin-code";
 
 const PinCodeScreen = (props: any) => {
   const navigation: any = useNavigation();
@@ -99,177 +100,99 @@ const PinCodeScreen = (props: any) => {
     alert(result.status);
   }
   return (
-<<<<<<< HEAD
-    <MainContainer>
-      <View style={{marginBottom: 16}}>
-        <BackButton
-            onPress={()=>{navigation.navigate("EmailReg")}}
-        />
-      </View>
-||||||| 6d32f1e
-    <WrapperPinCode
-      onPressBack={() => navigation.navigate("CreateAccount")}
-      footer={
-        <View style={{flexDirection: 'row'}}>
-          <Text
-              style={{
-                color: "#797979",
-                fontSize: 16,
-                fontWeight: "500",
-                lineHeight: 20,
-              }}
-          >
-            Не приходит код?
-          </Text>
-          <TouchableOpacity
-              onPress={sendEmailAsync}
-          >
-            <Text
-                style={{
-                  color: color1,
-                  fontSize: 16,
-                  fontWeight: "500",
-                  lineHeight: 20,
-
-                }}
-            >
-              {" "}
-              Напишите нам
-            </Text>
-          </TouchableOpacity>
+      <MainContainer>
+        <View style={{marginBottom: 16}}>
+          <BackButton
+              onPress={()=>{navigation.navigate("CreateAccount")}}
+          />
         </View>
-      }
-    >
-=======
-    <MainContainer>
-      <View style={{ marginBottom: 16 }}>
-        <BackButton
-          onPress={() => {
-            navigation.navigate("EmailReg");
-          }}
-        />
-      </View>
->>>>>>> a35e9c01ee46fea38f399b630959a3120d511240
-      <KeyboardAwareScrollView
-        style={{
-          width: "100%",
-        }}
-      >
-        <Title>Введите код подтверждения</Title>
-        <Text
-          style={{
-            marginTop: 8,
-            color: color3,
-            fontWeight: "400",
-            fontSize: 16,
-            lineHeight: 20,
-          }}
+        <KeyboardAwareScrollView
+            style={{
+              width: "100%",
+            }}
         >
-          Введите код, который мы отправили сообщением на {props?.email_name}{" "}
-          {props?.phone_number}
-        </Text>
-        <FormattingExample handleSend={handleSend} error={false} />
-        {!resendPin ? (
-          <Text
-            style={{
-              textAlign: "center",
-              fontSize: 16,
-              lineHeight: 19,
-              fontWeight: "700",
-              color: "#797979",
-            }}
-          >
-            Получить новый код можно через{" "}
-            <Text
-              style={{
-                color: "#7454CF",
-              }}
-            >
-              {time} сек.
-            </Text>
-          </Text>
-        ) : (
-          <TouchableOpacity activeOpacity={0.6} onPress={handleSendEmail}>
-            <Text
-              style={{
-                color: "#7454CF",
-                fontSize: 16,
-                fontWeight: "600",
-                lineHeight: 19,
-                textDecorationLine: "underline",
-                alignSelf: "center",
-                textAlign: "center",
-              }}
-            >
-              Получить новый код
-            </Text>
-          </TouchableOpacity>
-        )}
-      </KeyboardAwareScrollView>
-<<<<<<< HEAD
-      <View style={{marginBottom: 25, alignItems: 'center'}}>
-        <View style={{flexDirection: 'row'}}>
+          <Title>Введите код подтверждения</Title>
           <Text
               style={{
-                color: "#797979",
+                marginTop: 8,
+                color: color3,
+                fontWeight: "400",
                 fontSize: 16,
-                fontWeight: "500",
                 lineHeight: 20,
               }}
           >
-            Не приходит код?
+            Введите код, который мы отправили сообщением на {props?.email_name}{" "}
+            {props?.phone_number}
           </Text>
-          <TouchableOpacity
-              onPress={sendEmailAsync}
-          >
+          <FormattingExample handleSend={handleSend} error={false} />
+          {!resendPin ? (
+              <Text
+                  style={{
+                    textAlign: "center",
+                    fontSize: 16,
+                    lineHeight: 19,
+                    fontWeight: "700",
+                    color: "#797979",
+                  }}
+              >
+                Получить новый код можно через{" "}
+                <Text
+                    style={{
+                      color: "#7454CF",
+                    }}
+                >
+                  {time} сек.
+                </Text>
+              </Text>
+          ) : (
+              <TouchableOpacity activeOpacity={0.6} onPress={handleSendEmail}>
+                <Text
+                    style={{
+                      color: "#7454CF",
+                      fontSize: 16,
+                      fontWeight: "600",
+                      lineHeight: 19,
+                      textDecorationLine: "underline",
+                      alignSelf: "center",
+                      textAlign: "center",
+                    }}
+                >
+                  Получить новый код
+                </Text>
+              </TouchableOpacity>
+          )}
+        </KeyboardAwareScrollView>
+        <View style={{marginBottom: 25, alignItems: 'center'}}>
+          <View style={{flexDirection: 'row'}}>
             <Text
                 style={{
-                  color: color1,
+                  color: "#797979",
                   fontSize: 16,
                   fontWeight: "500",
                   lineHeight: 20,
-
                 }}
             >
-              {" "}
-              Напишите нам
+              Не приходит код?
             </Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    </MainContainer>
-||||||| 6d32f1e
-    </WrapperPinCode>
-=======
-      <View style={{ marginBottom: 25, alignItems: "center" }}>
-        <View style={{ flexDirection: "row" }}>
-          <Text
-            style={{
-              color: "#797979",
-              fontSize: 16,
-              fontWeight: "500",
-              lineHeight: 20,
-            }}
-          >
-            Не приходит код?
-          </Text>
-          <TouchableOpacity onPress={sendEmailAsync}>
-            <Text
-              style={{
-                color: color1,
-                fontSize: 16,
-                fontWeight: "500",
-                lineHeight: 20,
-              }}
+            <TouchableOpacity
+                onPress={sendEmailAsync}
             >
-              {" "}
-              Напишите нам
-            </Text>
-          </TouchableOpacity>
+              <Text
+                  style={{
+                    color: color1,
+                    fontSize: 16,
+                    fontWeight: "500",
+                    lineHeight: 20,
+
+                  }}
+              >
+                {" "}
+                Напишите нам
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
-    </MainContainer>
->>>>>>> a35e9c01ee46fea38f399b630959a3120d511240
+      </MainContainer>
   );
 };
 

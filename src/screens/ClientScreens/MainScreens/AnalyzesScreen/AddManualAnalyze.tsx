@@ -25,6 +25,8 @@ import * as ImagePicker from "expo-image-picker";
 import CustomButton from "../../../../components/CustomButton";
 import MainContainer from "../../../../components/MainContainer";
 import BackButton from "../../../../components/BackButton";
+import {File} from "../../../../components/icon/file";
+import Delete from "../../../../assets/Icons/Delete";
 
 type ParameterType = {
     name: string;
@@ -55,6 +57,7 @@ const AddManualAnalyze = () => {
     let [filteredAnalysesIndicator, setFilteredAnalysesIndicator] = useState([])
     const [photo, setPhoto] = useState<any>(null)
     const form = new FormData()
+
     function setBirthDate(date: Date) {
         setAnaliseDate(date);
     }
@@ -119,8 +122,15 @@ const AddManualAnalyze = () => {
                     return res1.json()
                 }).then((res1) => {
                     console.log(res1, 'handle save analyzes 2')
-                    setParameterArray([])
+                    setParameterArray([{
+                        id: 1,
+                        name: "",
+                        value: "",
+                        filteredUnits: []
+                    },])
                     setLab1('')
+                    setPhoto(null)
+
                     navigation.navigate("AnalyseResult")
                 })
             }
@@ -267,6 +277,25 @@ const AddManualAnalyze = () => {
                         + Добавить фото анализа
                     </Text>
                 </TouchableOpacity>
+                {photo !== null &&
+                    <View style={{flexDirection: 'row', justifyContent: 'space-between', marginTop: 15}}>
+                        <View style={{flexDirection: 'row'}}>
+                            <Text>
+                                <File/>
+                            </Text>
+                            <Text style={{
+                                marginLeft: 10
+                            }}>
+                                {photo?.name}
+                            </Text>
+                        </View>
+                        <TouchableOpacity onPress={() => {
+                            setPhoto(null)
+                        }} style={{top: 3}}>
+                            <IconDelete/>
+                        </TouchableOpacity>
+                    </View>
+                }
                 <View style={{marginVertical: 25}}>
                     <CustomButton onPress={handleSaveAnalyzes} title={'Сохранить'}/>
                 </View>

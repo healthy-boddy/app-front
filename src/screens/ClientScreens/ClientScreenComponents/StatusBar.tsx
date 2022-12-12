@@ -19,13 +19,16 @@ const styles = StyleSheet.create({
         backgroundColor: '#dadae0',
         height: 9,
         marginTop: 25,
-        borderRadius: 20
+        borderRadius: 20,
+
     },
     active_status:{
         width: '25%',
         backgroundColor: color1,
         height: 9,
         borderTopLeftRadius:  20,
-        borderBottomLeftRadius:  20
+        borderBottomLeftRadius:  20,
+        borderTopRightRadius: 20,
+        borderBottomRightRadius: 20
     }
 })

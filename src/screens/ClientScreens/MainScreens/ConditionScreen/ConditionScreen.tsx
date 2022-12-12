@@ -6,7 +6,7 @@ import {
   StyleSheet,
   ScrollView,
   TouchableOpacity,
-  SafeAreaView,
+  SafeAreaView, Image,
 } from "react-native";
 import { useSelector } from "react-redux";
 import axios from "axios";
@@ -211,7 +211,7 @@ const ConditionScreen = () => {
         <View
           style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
         >
-          <EmptyStateIcon />
+          <Image style={{width: 264, height: 264}} source={require('./CondationIcons/emptyState.png')} />
           <Text style={styles.empty_state_title}>
             Здесь будет отображаться динамика состояния организма
           </Text>
