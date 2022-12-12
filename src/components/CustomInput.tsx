@@ -1,59 +1,64 @@
-import React from "react";
-import {TextInput, StyleSheet, View, TouchableOpacity} from "react-native";
-import {color2} from "../helpers/colors";
+import React, { useState } from "react";
+import { TextInput, StyleSheet, View, TouchableOpacity } from "react-native";
+import { color2 } from "../helpers/colors";
 import Delete from "../assets/Icons/Delete";
 
 const CustomInput = (props: any) => {
-    const {onChangeText, placeholder, value} = props;
-    return (
-        <View style={[styles.input_box, props.input_style]}>
-            <View style={{width: '90%'}}>
-                <TextInput
-                    value={value}
-                    onChangeText={onChangeText}
-                    placeholder={placeholder}
-                    style={[styles.input, props.input_content]}
-                    placeholderTextColor={props.placeholderTextColor ? props.placeholderTextColor :
-                        "#797979"}
-                    textContentType="emailAddress"
-                    keyboardType="email-address"
-                    autoCapitalize="none"
-                    autoCorrect={false}
-                />
-
-            </View>
-            {props.delete && (
-                <TouchableOpacity
-                    activeOpacity={0.6}
-                    style={styles.delete}
-                    onPress={props.onPressDelete}
-                >
-                    <Delete/>
-                </TouchableOpacity>
-            )}
-        </View>
-    );
+  const { onChangeText, placeholder, value } = props;
+  return (
+    <View
+      style={[
+        styles.input_box,
+        props.input_style,
+        // value.length > 0 && { borderColor: "#7454CF", borderWidth: 2 },
+      ]}
+    >
+      <View style={[{ width: "90%" }]}>
+        <TextInput
+          value={value}
+          onChangeText={onChangeText}
+          placeholder={placeholder}
+          style={[styles.input]}
+          placeholderTextColor={
+            props.placeholderTextColor ? props.placeholderTextColor : "#797979"
+          }
+          textContentType="emailAddress"
+          keyboardType="email-address"
+          autoCapitalize="none"
+          autoCorrect={false}
+        />
+      </View>
+      {props.delete && (
+        <TouchableOpacity
+          activeOpacity={0.6}
+          style={styles.delete}
+          onPress={props.onPressDelete}
+        >
+          <Delete />
+        </TouchableOpacity>
+      )}
+    </View>
+  );
 };
 
 export default CustomInput;
 const styles = StyleSheet.create({
-    input_box: {
-        borderRadius: 12,
-        backgroundColor: "#F5F4F8",
-        paddingHorizontal: 16,
-        paddingVertical: 14,
-        flexDirection: "row",
-        justifyContent: "space-between",
-        width: "100%",
-
-    },
-    input: {
-        fontSize: 16,
-        width: "auto",
-        color: "#797979",
-    },
-    delete: {
-        top: 5,
-        marginRight: 20,
-    },
+  input_box: {
+    borderRadius: 12,
+    backgroundColor: "#F5F4F8",
+    paddingHorizontal: 16,
+    paddingVertical: 14,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "100%",
+  },
+  input: {
+    fontSize: 16,
+    width: "auto",
+    color: "black",
+  },
+  delete: {
+    top: 5,
+    marginRight: 20,
+  },
 });

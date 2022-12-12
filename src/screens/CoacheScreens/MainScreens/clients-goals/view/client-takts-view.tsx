@@ -1,14 +1,12 @@
 import React, { FC, useCallback, useEffect, useRef, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
-import { Alert, Text, View } from "react-native";
+import { Image, Text, View } from "react-native";
 import { WrapperWithTitlePage } from "../../../../../components/core/wrapper/wrapper-with-title";
-import { ClientsEmptyTarget } from "../../../icon/clients-empty-target";
 import { GoalsModel } from "../global-goals-screen/model";
 import { GoalsBlock } from "../../../AuthScreens/ConstructorScreen/goals-screen/view/goals-block";
 import { runInAction } from "mobx";
 import { GlobalStatus } from "../global-goasl-editing-screen/interface/interface";
 import { Goals } from "../global-goals-screen/model/goals";
-import { BottomSheetDeleteProgram } from "../../client-programs/program-details-screen/view/bottom-sheet-clients/bottom-sheet-delete-program";
 import { BottomSheetGoalStatus } from "./bottom-sheet-goal-status/bottom-sheet-goal-status";
 import BottomSheet from "@gorhom/bottom-sheet";
 import { SuccessAssignBanner } from "../../../../../components/core/sussecc-assigne-bunner";
@@ -16,6 +14,8 @@ import { SuccessAssignBanner } from "../../../../../components/core/sussecc-assi
 interface ClientGoalsViewProps {
   client: any;
 }
+
+const imageGoals = require("../../image/no_goals.png");
 
 export const ClientGoalsView: FC<ClientGoalsViewProps> = GoalsModel.modelClient(
   (props) => {
@@ -120,7 +120,21 @@ export const ClientGoalsView: FC<ClientGoalsViewProps> = GoalsModel.modelClient(
                   justifyContent: "center",
                 }}
               >
-                <ClientsEmptyTarget />
+                <View
+                  style={{
+                    width: 300,
+                    height: 300,
+                  }}
+                >
+                  <Image
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                    }}
+                    resizeMode={"contain"}
+                    source={imageGoals}
+                  />
+                </View>
                 <Text
                   style={{
                     textAlign: "center",
