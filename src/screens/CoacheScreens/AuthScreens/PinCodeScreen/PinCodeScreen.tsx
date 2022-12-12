@@ -22,6 +22,7 @@ import FormattingExample from "../../../../components/FormattingExample";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { WrapperPinCode } from "./view/wrapper/wrapper-pin-code";
 import * as MailComposer from "expo-mail-composer";
+import MainContainer from "../../../../components/MainContainer";
 
 const PinCodeScreen = (props: any) => {
   const navigation: any = useNavigation();
@@ -108,43 +109,15 @@ const PinCodeScreen = (props: any) => {
     alert(result.status);
   }
   return (
-    <WrapperPinCode
-      onPressBack={() => navigation.navigate("CreateAccount")}
-      footer={
-        <View style={{flexDirection: 'row'}}>
-          <Text
-              style={{
-                color: "#797979",
-                fontSize: 16,
-                fontWeight: "500",
-                lineHeight: 20,
-              }}
-          >
-            Не приходит код?
-          </Text>
-          <TouchableOpacity
-              onPress={sendEmailAsync}
-          >
-            <Text
-                style={{
-                  color: color1,
-                  fontSize: 16,
-                  fontWeight: "500",
-                  lineHeight: 20,
-
-                }}
-            >
-              {" "}
-              Напишите нам
-            </Text>
-          </TouchableOpacity>
-        </View>
-      }
-    >
+    <MainContainer>
+      <View style={{marginBottom: 16}}>
+        <BackButton
+            onPress={()=>{navigation.navigate("EmailReg")}}
+        />
+      </View>
       <KeyboardAwareScrollView
         style={{
           width: "100%",
-          paddingHorizontal: 16,
         }}
       >
         <Title>Введите код подтверждения</Title>
@@ -197,38 +170,38 @@ const PinCodeScreen = (props: any) => {
             </Text>
           </TouchableOpacity>
         )}
-
-        {/*<TouchableOpacity*/}
-        {/*  activeOpacity={0.6}*/}
-        {/*  style={{*/}
-        {/*    height: 20,*/}
-        {/*    marginTop: 15,*/}
-        {/*    flexDirection: "row",*/}
-        {/*    justifyContent: "center",*/}
-        {/*  }}*/}
-        {/*  onPress={() => {*/}
-        {/*    navigation.navigate("EmailReg", {*/}
-        {/*      role: props.role,*/}
-        {/*    });*/}
-        {/*  }}*/}
-        {/*>*/}
-        {/*  <Text*/}
-        {/*    style={{*/}
-        {/*      color: "#797979",*/}
-        {/*      fontSize: 16,*/}
-        {/*      fontWeight: "500",*/}
-        {/*      lineHeight: 20,*/}
-        {/*    }}*/}
-        {/*  >*/}
-        {/*    Либо{` `}*/}
-        {/*    <Text style={{ marginHorizontal: 3, color: color1 }}>*/}
-        {/*      зарегистрируйтесь*/}
-        {/*    </Text>*/}
-        {/*    <Text> по почте</Text>*/}
-        {/*  </Text>*/}
-        {/*</TouchableOpacity>*/}
       </KeyboardAwareScrollView>
-    </WrapperPinCode>
+      <View style={{marginBottom: 25, alignItems: 'center'}}>
+        <View style={{flexDirection: 'row'}}>
+          <Text
+              style={{
+                color: "#797979",
+                fontSize: 16,
+                fontWeight: "500",
+                lineHeight: 20,
+              }}
+          >
+            Не приходит код?
+          </Text>
+          <TouchableOpacity
+              onPress={sendEmailAsync}
+          >
+            <Text
+                style={{
+                  color: color1,
+                  fontSize: 16,
+                  fontWeight: "500",
+                  lineHeight: 20,
+
+                }}
+            >
+              {" "}
+              Напишите нам
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    </MainContainer>
   );
 };
 

@@ -1,212 +1,256 @@
-import React, { useState } from "react";
+import * as React from "react";
+import {useEffect, useRef, useState} from "react";
 import {
-    View,
-    Text,
-    StyleSheet,
+    Animated, Button,
+    Dimensions,
+    FlatList,
     Image,
-    Pressable,
-    Dimensions, Platform,
+    StatusBar,
+    StyleSheet,
+    Text, TouchableOpacity,
+    View,
 } from "react-native";
-import AppIntroSlider from "react-native-app-intro-slider";
-import { color1, color2, color3 } from "../../../../helpers/colors";
-import Title from "../../../../components/Title";
-import { useNavigation } from "@react-navigation/native";
-import Container from "../../../../components/Container";
+import {useNavigation} from "@react-navigation/native";
+import CustomButton from "../../../../components/CustomButton";
+import {color1} from "../../../../helpers/colors";
 
-const { width, height } = Dimensions.get("window");
+const {width, height} = Dimensions.get("screen");
 
-const OnBoarding = () => {
-  const navigation: any = useNavigation();
-  const [index, setIndex] = useState(0);
+const bgs = ["#A5BBFF", "#DDBEFE", "#5dc6ec", "#B98EFF"];
 
-  const data = [
+const DATA = [
     {
-      title: "Раскрой потенциал здоровья",
-      description: "Трансформируем твои биоданные в простые графики",
-      image: "blob1.png",
+        key: 1,
+        title: "Раскрой потенциал здоровья",
+        description:
+            "Трансформируем твои биоданные в простые графики",
+        // imageData: <FirstItemPreview />,
+        imageData: require("../OnBoarding/OnBoardingImages/blob1.png"),
+
     },
     {
-      title: "Персональная программа",
-      description: "Разработана практикующими врачами и нутрициологами для вас",
-      image: "blob2.png",
+        key: 2,
+        title: "Персональная программа",
+        description:
+            "Разработана практикующими врачами и нутрициологами для вас",
+        // imageData: <SecondItemPreview />,
+        imageData: require("../OnBoarding/OnBoardingImages/blob1.png"),
+
     },
     {
-      title: "Наставник здоровья",
-      description:
-        "Твой личный Health-coach - персональный тренер в прокачке здоровья",
-      image: "blob3.png",
+        key: 3,
+        title: "Наставник здоровья",
+        description: "Твой личный Health-coach - персональный тренер в прокачке здоровья",
+        // imageData: <ThirdItemPreview />,
+        imageData: require("../OnBoarding/OnBoardingImages/blob1.png"),
+
     },
     {
-      title: "Отслеживание состояния здоровья",
-      description:
-        "Пройдите первый опрос, чтобы ваши данные появились в прилжении",
-      image: "blob4.png",
+        key: 4,
+        title: "Отслеживание состояния здоровья",
+        description: "Пройдите первый опрос, чтобы ваши данные появились в прилжении",
+        // imageData: <FourthItemPreview />,
+        imageData: require("../OnBoarding/OnBoardingImages/blob1.png"),
     },
-  ];
-  const RenderItem = (item: any) => {
+];
+
+const Indicator = ({scrollX}) => {
     return (
-      <View
-        style={{
-          flex: 1,
-          width: "100%",
-          justifyContent: "center",
-          bottom: 80,
-          alignItems: 'center'
-        }}
-      >
-        <View style={{alignItems: "center", justifyContent: 'center'}}>
-          <Image source={require(`./OnBoardingImages/blob1.png`)} />
-        </View>
         <View
-          style={{
-            alignItems: "center",
-          }}
+            style={{
+                position: "absolute",
+                bottom: 40,
+                flexDirection: "row",
+                alignSelf: "center",
+            }}
         >
-          <Text
-            style={{
-              textAlign: "center",
-              fontWeight: "700",
-              lineHeight: 40,
-              fontSize: 34,
-              color: "#1E1E1E",
-              marginVertical: 12,
-              width: width - 32,
-            }}
-          >
-            {item.title}
-          </Text>
-          <Text
-            style={{
-              paddingHorizontal: 16,
-              textAlign: "center",
-              fontWeight: "400",
-              lineHeight: 20,
-              fontSize: 16,
-              color: "#797979",
-            }}
-          >
-            {item.description}
-          </Text>
+            {DATA.map((_, i) => {
+                const inputRange = [(i - 1) * width, i * width, (i + 1) * width];
+                const scale = scrollX.interpolate({
+                    inputRange,
+                    outputRange: [0.8, 1.4, 0.8],
+                    extrapolate: "clamp",
+                });
+                const opacity = scrollX.interpolate({
+                    inputRange,
+                    outputRange: [0.6, 1, 0.6],
+                    extrapolate: "clamp",
+                });
+                return (
+                    <Animated.View
+                        key={`indicator-${i}`}
+                        style={{
+                            width: 10,
+                            height: 10,
+                            backgroundColor: "#fff",
+                            borderRadius: 5,
+                            marginHorizontal: 10,
+                            opacity,
+                            transform: [
+                                {
+                                    scale,
+                                },
+                            ],
+                        }}
+                    />
+                );
+            })}
         </View>
-      </View>
     );
-  };
-
-  return (
-    <Container containerProp={{ width: "100%", flex: 1, marginTop: 50 }}>
-      <AppIntroSlider
-        activeDotStyle={{ backgroundColor: color1, top: -750 }}
-        dotStyle={{ backgroundColor: color2, top: -750 }}
-        data={data}
-        onSlideChange={setIndex}
-        renderItem={(data) => RenderItem(data.item)}
-        renderNextButton={() => (
-          <View style={Platform.OS !== "android" ? styles.next_btn_box : styles.ios_next_btn_box}>
-             <View style={Platform.OS !== "android" ? styles.next_btn : styles.ios_next_btn}>
-                  <Text
-                      style={{
-                          color: "#fff",
-                          textAlign: "center",
-                          fontWeight: "500",
-                          lineHeight: 20,
-                          fontSize: 16,
-                      }}
-                  >
-                      Далее
-                  </Text>
-              </View>
-          </View>
-        )}
-      />
-      <Pressable
-        onPress={() => {
-          navigation.navigate("EnterSex");
-        }}
-        style={styles.skip_btn}
-      >
-          {index === 3 ? (
-              <View style={styles.next_btn_finish}>
-                  <View style={styles.next_btn}>
-                      <Text
-                          style={{
-                              color: "#fff",
-                              textAlign: "center",
-                              fontWeight: "500",
-                              lineHeight: 20,
-                              fontSize: 16,
-                          }}>
-                          Начать
-                      </Text>
-                  </View>
-              </View>
-          ) : (
-              <Text
-                  style={{
-                      color: "#7454CF",
-                      textAlign: "center",
-                      fontWeight: "500",
-                      lineHeight: 20,
-                      fontSize: 16,
-                  }}
-              >
-                  Пропустить
-              </Text>
-          )}
-      </Pressable>
-    </Container>
-  );
 };
 
+const BackDrop = ({scrollX}) => {
+    const backgroundColor = scrollX.interpolate({
+        inputRange: bgs.map((_, i) => i * width),
+        outputRange: bgs.map((bg) => bg),
+    });
+    return (
+        <Animated.View
+            style={[
+                StyleSheet.absoluteFillObject,
+            ]}
+        />
+    );
+};
+
+const OnBoarding = () => {
+    const scrollX = useRef(new Animated.Value(0)).current;
+    const slider = useRef(null);
+    const [itemIndex, setItemIndex] = useState(0);
+    const navigation: any = useNavigation();
+    const goNext = async () => {
+        scrollX.current.scrollToOffset({
+            offset: (itemIndex + 1) * width,
+        });
+    };
+    useEffect(() => {
+        scrollX.addListener(({value}) => {
+            const val = Math.round(value / width);
+            setItemIndex(val);
+        });
+        return () => {
+            scrollX.removeAllListeners();
+        };
+    }, []);
+    console.log(itemIndex, 'itemindex')
+    return (
+        <View style={styles.container}>
+            <StatusBar hidden/>
+            <BackDrop scrollX={scrollX}/>
+            {itemIndex === 3 && (
+
+                <Indicator scrollX={scrollX}/>
+            )}
+
+            {/*<Square scrollX={scrollX} />*/}
+            <View style={{width: '100%', alignItems: 'center', flex: 1}}>
+                <Image
+                    style={{
+                        width: 468,
+                        height: 412,
+                        resizeMode: "contain",
+                        marginTop: 60,
+                    }}
+                    source={require('../OnBoarding/OnBoardingImages/blob1.png')}
+                />
+            </View>
+            <View style={{width: '100%', flex: 1,}}>
+                <FlatList
+                    ref={slider}
+                    scrollEventThrottle={32}
+                    contentContainerStyle={{}}
+                    showsHorizontalScrollIndicator={false}
+                    horizontal
+                    data={DATA}
+                    pagingEnabled
+                    onScroll={Animated.event(
+                        [
+                            {
+                                nativeEvent: {contentOffset: {x: scrollX}},
+                            },
+                        ],
+                        {useNativeDriver: false}
+                    )}
+                    renderItem={({item}) => {
+                        return (
+                            <View style={{width, alignItems: "center"}}>
+                                <View
+                                    style={{
+                                        flex: 0.3,
+                                        width: '100%',
+                                        paddingHorizontal: 16,
+                                        transform: [
+                                            {
+                                                translateY: 140,
+                                            },
+                                        ],
+                                    }}
+                                >
+                                    <Text
+                                        style={{
+                                            fontSize: 24,
+                                            fontWeight: "700",
+                                            lineHeight: 28,
+                                            color: "black",
+                                            textAlign: 'center'
+                                        }}
+                                    >
+                                        {item.title}
+                                    </Text>
+                                    <Text
+                                        style={{
+                                            fontSize: 16,
+                                            fontWeight: "400",
+                                            lineHeight: 24,
+                                            marginTop: 12,
+                                            color: "black",
+                                            paddingHorizontal: 36,
+                                            textAlign: 'center'
+                                        }}
+                                    >
+                                        {item.description}
+                                    </Text>
+                                </View>
+                            </View>
+                        );
+                    }}
+                />
+                {itemIndex < 3 && (
+                    <View style={{marginBottom: 25, paddingHorizontal: 16}}>
+                        <TouchableOpacity
+                            onPress={()=>{navigation.navigate("EnterSex")}}
+                            style={{alignItems: 'center', marginBottom: 10}}>
+                            <Text style={{
+                                color: color1,
+                                fontWeight: '600',
+                                fontSize: 16
+                            }}>
+                                Пропустить
+                            </Text>
+                        </TouchableOpacity>
+                        <CustomButton
+                            title={"Далее"}
+                            onPress={goNext}/>
+                    </View>
+                )}
+                {itemIndex === 3 && (
+                    <View style={{paddingHorizontal: 16, marginBottom: 25}}>
+                        <CustomButton
+                            onPress={()=>{navigation.navigate("EnterSex")}}
+                            title={'Начать'}
+                        />
+                    </View>
+                )}
+            </View>
+        </View>
+    );
+};
 export default OnBoarding;
+
 const styles = StyleSheet.create({
-  next_btn_box: {
-    alignSelf: "flex-end",
-    alignItems: "center",
-    width: 400,
-    bottom: 35,
-      transform: [
-          {
-              translateX: Dimensions.get('screen').width / 100,
-          },
-      ],
-  },
-  next_btn: {
-    width: width - 32,
-    maxWidth: 380,
-    backgroundColor: color1,
-    padding: 15,
-    borderRadius: 30,
-    marginTop: 25,
-  },
-  skip_btn: {
-    top: "85%",
-    alignSelf: "center",
-    position: "absolute",
-  },
-    next_btn_finish: {
-        alignSelf: "flex-end",
-        alignItems: "center",
-        width: 400,
-        bottom: -8,
-        left: -1
+    container: {
+        justifyContent: "center",
+        backgroundColor: "#fff",
+        flex: 1,
     },
-    ios_next_btn_box:{
-        alignSelf: "flex-end",
-        alignItems: "center",
-        width: 400,
-        bottom: 35,
-        transform: [
-            {
-                translateX: Dimensions.get('screen').width / 100,
-            },
-        ],
-    },
-    ios_next_btn:{
-        width: width - 32,
-        maxWidth: 450,
-        backgroundColor: color1,
-        padding: 15,
-        borderRadius: 30,
-        marginTop: 25,
-    }
 });
