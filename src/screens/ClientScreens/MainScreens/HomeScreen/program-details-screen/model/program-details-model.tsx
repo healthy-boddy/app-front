@@ -4,13 +4,12 @@ import { makeAutoObservable, runInAction } from "mobx";
 import { observer } from "mobx-react-lite";
 import * as stateCreator from "./state-creators";
 import { HttpService } from "../../../../../../service/http-service";
-import { ProgramResponse } from "../../interfaces";
-import { TaskResponseArray } from "../editing-screen/interface";
 import { ConstructorStates } from "./constructor-state";
-import { UserArrays } from "../../../CalendarScreen/user-list-screen/interface";
-import { UsersStates } from "../../../CalendarScreen/user-list-screen/model/constructor-state";
-import * as clientState from "../../../CalendarScreen/user-list-screen/model/state-creators";
-import { ProgramAssignedToClient } from "../../../../MainScreens/client-programs/interface/interface";
+import { ProgramAssignedToClient } from "../../../../../CoacheScreens/MainScreens/client-programs/interface/interface";
+import { UsersStates } from "../../../../../CoacheScreens/MainScreens/client-programs/model/constructor-state";
+import * as clientState from "./state-creators";
+import { ProgramResponse } from "../../../../../CoacheScreens/AuthScreens/ConstructorScreen/interfaces";
+import { TaskResponseArray } from "../../../../../CoacheScreens/MainScreens/client-programs/editing-screen/interface";
 
 export class ProgramDetailsModel {
   private readonly _httpService = new HttpService();
@@ -74,57 +73,22 @@ export class ProgramDetailsModel {
   }
 
   private getProgramById() {
+    console.log("this._client", this._client);
     try {
       this._httpService
-        .get<ProgramResponse>(`/program/${this._programId}/`)
+        .get<Array<ProgramResponse>>(
+          `/program/assign/?assigned_to=${this._client}`
+        )
         .then((res) => {
-          console.log("res getProgramById", res.data);
-          if (res.data) {
+          res.data.map((response) => {
+            console.log("NAME getProgramById", response);
             runInAction(() => {
-              this._name = res.data.name;
-              this._description = res.data.description;
-              this._goals_quantity = res.data.goals_quantity;
-              this._programId = res.data.id;
+              this._name = response?.program_info?.name;
+              this._description = response?.program_info?.description;
+              this._goals_quantity = response?.program_info?.goals_quantity;
+              this._programId = response.id;
             });
-          }
-        });
-    } catch (e: any) {
-      alert(e.response.data);
-    }
-  }
-
-  private getAvailableClients() {
-    try {
-      this._httpService
-        .get<UserArrays>(`/program/${this._programId}/available_clients/`)
-        .then((res) => {
-          runInAction(() => {
-            this._users = clientState.getHasDataState(res.data);
           });
-        });
-    } catch (e: any) {
-      alert(e.response.data);
-    }
-  }
-
-  public assignProgramToClientById(clientId: number) {
-    const data = {
-      assigned_to: clientId,
-      program: this._programId,
-    };
-    try {
-      this._httpService
-        .post<{ assigned_to: number; program: number }>("/program/assign/", {
-          data,
-        })
-        .then((res) => {
-          runInAction(() => {
-            this.getAvailableClients();
-            this.setAssessAssigned(true);
-          });
-        })
-        .catch((err) => {
-          console.log("Err", err.response);
         });
     } catch (e: any) {
       alert(e.response.data);
@@ -136,7 +100,6 @@ export class ProgramDetailsModel {
       this._httpService
         .get<TaskResponseArray>(`program/task/?program=${this._programId}`)
         .then((res) => {
-          console.log("getTasks program page", res.data);
           if (res.data) {
             runInAction(() => {
               this._programId = res.data[0].program;
@@ -171,7 +134,7 @@ export class ProgramDetailsModel {
     private readonly programAssignedToClient:
       | ProgramAssignedToClient
       | undefined,
-    private readonly clientID: number | undefined
+    public readonly clientID: number | undefined
   ) {
     this._httpService = new HttpService({});
     makeAutoObservable(this, {}, { autoBind: true });
@@ -193,8 +156,7 @@ export class ProgramDetailsModel {
       model._client = clientID;
       model.getProgramById();
       model.getTasks();
-      model.getAvailableClients();
-    }, [model, programId]);
+    });
 
     return model;
   }

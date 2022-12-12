@@ -23,6 +23,10 @@ import RightIcon from "../../../../assets/Icons/RightIcon";
 import { color1 } from "../../../../helpers/colors";
 import PicCheck from "./HomeScreenIcons/PicCheck";
 import PeoplesIcon from "./HomeScreenIcons/PeoplesIcon";
+import { ProgramBlock } from "../../../CoacheScreens/AuthScreens/ConstructorScreen/view/components/program-block";
+import { ProgramAssignedToClientArray } from "../../../CoacheScreens/MainScreens/client-programs/interface/interface";
+import { ProgramsGoalsBlock } from "../../../CoacheScreens/MainScreens/client-programs/client-programs/view/components/programs-goals-block";
+import { GoalsResArray } from "../../../CoacheScreens/AuthScreens/ConstructorScreen/goasl-editing-screen/interface/interface";
 
 const wait = (timeout) => {
   return new Promise((resolve) => setTimeout(resolve, timeout));
@@ -36,6 +40,13 @@ const HomeScreen = () => {
   const [freeQuizStatus, setFreeQuizStatus] = useState(false);
   const [paidQuizStatus, setPaidQuizStatus] = useState(false);
   const [userCoach, setUserCoach] = useState<any>(false);
+
+  // programs
+  const [programs, setPrograms] = useState<ProgramAssignedToClientArray>([]);
+
+  // goals
+  const [goals, setGoals] = useState<GoalsResArray>([]);
+
   let tokenFromReducer = useSelector(
     (store: any) => store.user_token.user_token
   );
@@ -93,26 +104,29 @@ const HomeScreen = () => {
 
   function getPrograms() {
     axios
-      .get("http://92.53.97.238/program/assign/", {
-        headers: {
-          Authorization: "Bearer " + tokenFromReducer,
-        },
-      })
+      .get<ProgramAssignedToClientArray>(
+        "http://92.53.97.238/program/assign/",
+        {
+          headers: {
+            Authorization: "Bearer " + tokenFromReducer,
+          },
+        }
+      )
       .then((res) => {
-        console.log("RES getPrograms", res.data);
+        setPrograms(res.data);
         //   console.log(userCoach, 'userCoach')
       });
   }
 
   function getGoals() {
     axios
-      .get("http://92.53.97.238/program/goal/", {
+      .get<GoalsResArray>("http://92.53.97.238/program/goal/", {
         headers: {
           Authorization: "Bearer " + tokenFromReducer,
         },
       })
       .then((res) => {
-        console.log("RES Goals", res.data);
+        setGoals(res.data);
         //   console.log(userCoach, 'userCoach')
       });
   }
@@ -284,29 +298,105 @@ const HomeScreen = () => {
       return (
         <View style={{ flex: 1, justifyContent: "center" }}>
           <View
-            style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
+            style={{
+              flex: 1,
+              alignItems: "center",
+              justifyContent: "flex-start",
+              marginTop: 24,
+            }}
           >
-            <PeoplesIcon />
-            <Title
-              titlePropStyle={{
-                textAlign: "center",
-                width: 343,
-                marginTop: 20,
-              }}
-            >
-              Ваш Health Buddy свяжется с вами в течение 24 часов
-            </Title>
-            <Text
-              style={{
-                marginTop: 20,
-                color: "#797979",
-                textAlign: "center",
-                fontSize: 16,
-              }}
-            >
-              Он назначит консультацию, на которой вы вместе определите цели и
-              план работ
-            </Text>
+            {goals && goals.length > 0 && (
+              <View
+                style={{
+                  width: "100%",
+                }}
+              >
+                <Text
+                  style={{
+                    fontWeight: "600",
+                    lineHeight: 22.67,
+                    fontSize: 19,
+                    color: "#1E1E1E",
+                  }}
+                >
+                  Мои цели
+                </Text>
+                <View style={{ marginTop: 24 }} />
+                <ProgramsGoalsBlock
+                  number={goals.length}
+                  title={"Мои цели"}
+                  onPress={() => {
+                    navigation.navigate("GoalsClientDetails");
+                  }}
+                />
+              </View>
+            )}
+
+            {programs && programs.length > 0 ? (
+              <>
+                <Text
+                  style={{
+                    alignSelf: "flex-start",
+                    fontWeight: "600",
+                    fontSize: 19,
+                    lineHeight: 22.67,
+                    color: "black",
+                    marginTop: 40,
+                  }}
+                >
+                  Мои программы
+                </Text>
+                {programs.map((program) => (
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      width: "100%",
+                    }}
+                  >
+                    <ProgramBlock
+                      taskQuantity={program.program_info.tasks_quantity}
+                      key={program.id}
+                      onPress={() =>
+                        navigation.navigate("DetailsProgramClient", {
+                          programId: program.program,
+                          assignedProgram: program.id,
+                          clientID: program.assigned_to,
+                        })
+                      }
+                      title={program.program_info.name}
+                      subtitle={program.program_info.description}
+                      duration={`Длительность - ${program.program_info.duration} дня`}
+                    />
+                  </View>
+                ))}
+              </>
+            ) : (
+              <>
+                <PeoplesIcon />
+                <Title
+                  titlePropStyle={{
+                    textAlign: "center",
+                    width: 343,
+                    marginTop: 20,
+                  }}
+                >
+                  Ваш Health Buddy свяжется с вами в течение 24 часов
+                </Title>
+                <Text
+                  style={{
+                    marginTop: 20,
+                    color: "#797979",
+                    textAlign: "center",
+                    fontSize: 16,
+                  }}
+                >
+                  Он назначит консультацию, на которой вы вместе определите цели
+                  и план работ
+                </Text>
+              </>
+            )}
+
             <TouchableOpacity
               activeOpacity={0.7}
               style={styles.coach_box}
