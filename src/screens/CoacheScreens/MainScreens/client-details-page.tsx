@@ -1,5 +1,5 @@
 import React from "react";
-import { Image, Text, View } from "react-native";
+import { Image, Platform, Text, View } from "react-native";
 import { WrapperTwoButtons } from "../../../components/core/wrapper/wrapper-two-buttons";
 import { useNavigation } from "@react-navigation/native";
 import { WrapperClientData } from "../../../components/core/wrapper-client-data";
@@ -93,7 +93,8 @@ export const ClientDetailsPage = ({ route: { params } }: any) => {
                 color: "#fff",
               }}
             >
-              {params?.data?.name.replace(/[^A-Z]/g, "").length !== 0
+              {params?.data?.name &&
+              params.data.name.replace(/[^A-Z]/g, "").length !== 0
                 ? params?.data?.name.replace(/[^A-Z]/g, "")
                 : params?.data?.name?.substring(0, 1)}
             </Text>

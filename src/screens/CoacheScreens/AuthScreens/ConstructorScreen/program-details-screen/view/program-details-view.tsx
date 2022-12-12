@@ -1,16 +1,12 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
-  MaskedViewIOS,
   SafeAreaView,
   ScrollView,
-  StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from "react-native";
 import BackButton from "../../../../../../components/BackButton";
-import ArrowDown from "../../../../../ClientScreens/MainScreens/CoachSingle/CoachSingleIcons/ArrowDown";
-import ArrowUp from "../../../../../ClientScreens/MainScreens/CoachSingle/CoachSingleIcons/ArrowUp";
 import { ProgramsGoalsBlock } from "../../view/components/programs-goals-block";
 import { AllTasksBlock } from "../../view/components/all-tasks-block";
 import CustomButton from "../../../../../../components/CustomButton";
@@ -20,13 +16,10 @@ import { BottomSheetClientPicked } from "./bottom-sheet-clients/bottom-sheet-cli
 import BottomSheet from "@gorhom/bottom-sheet";
 import { BottomSheetClients } from "./bottom-sheet-clients/bottom-sheet-clients";
 import { ClientResponse } from "../../../CalendarScreen/user-list-screen/interface";
-import { LinearGradient } from "expo-linear-gradient";
-import MaskedView from "@react-native-masked-view/masked-view";
 import { SuccessAssignBanner } from "../../../../../../components/core/sussecc-assigne-bunner";
 
 export const ProgramDetailsView = ProgramDetailsModel.modelClient((props) => {
   const navigation = useNavigation<any>();
-  const [reviewsVisible, setReviewsVisible] = useState(false);
   const [isOpen, setOpen] = useState(false);
   const [isOpenClients, setOpenClients] = useState(false);
   const [showAll, setShowAll] = useState(false);
@@ -98,8 +91,12 @@ export const ProgramDetailsView = ProgramDetailsModel.modelClient((props) => {
             }}
           />
           <ScrollView
+            style={{
+              marginBottom: 40,
+            }}
             scrollEnabled={
-              props.model.tasks.data && props.model.tasks.data.length > 4
+              (props.model.tasks.data && props.model.tasks.data.length > 4) ||
+              props.model.description.length > 300
             }
             showsVerticalScrollIndicator={false}
           >
@@ -114,58 +111,72 @@ export const ProgramDetailsView = ProgramDetailsModel.modelClient((props) => {
               {props.model.name}
             </Text>
 
-            <TouchableOpacity
+            {/*<TouchableOpacity*/}
+            {/*  style={{*/}
+            {/*    marginTop: 20,*/}
+            {/*    alignItems: "center",*/}
+            {/*    justifyContent: "space-between",*/}
+            {/*    overflow: "hidden",*/}
+            {/*  }}*/}
+            {/*  onPress={() => {*/}
+            {/*    setReviewsVisible(!reviewsVisible);*/}
+            {/*  }}*/}
+            {/*>*/}
+            {/*  {!reviewsVisible ? (*/}
+            {/*    <>*/}
+            {/*      <MaskedView*/}
+            {/*        maskElement={*/}
+            {/*          <>*/}
+            {/*            <LinearGradient*/}
+            {/*              style={StyleSheet.absoluteFill}*/}
+            {/*              colors={["white", "transparent"]}*/}
+            {/*              start={{ x: 0, y: 0.1 }}*/}
+            {/*              end={{ x: 0, y: 0.5 }}*/}
+            {/*            />*/}
+            {/*            <ArrowDown />*/}
+            {/*          </>*/}
+            {/*        }*/}
+            {/*      >*/}
+            {/*        <Text*/}
+            {/*          style={{*/}
+            {/*            fontWeight: "400",*/}
+            {/*            lineHeight: 20,*/}
+            {/*            fontSize: 16,*/}
+            {/*            color: "#6f6f6f",*/}
+            {/*          }}*/}
+            {/*        >*/}
+            {/*          {props.model.description}*/}
+            {/*        </Text>*/}
+            {/*      </MaskedView>*/}
+            {/*    </>*/}
+            {/*  ) : (*/}
+            {/*    <>*/}
+            {/*      <Text*/}
+            {/*        style={{*/}
+            {/*          fontWeight: "400",*/}
+            {/*          lineHeight: 20,*/}
+            {/*          fontSize: 16,*/}
+            {/*          color: "#6f6f6f",*/}
+            {/*        }}*/}
+            {/*      >*/}
+            {/*        {props.model.description}*/}
+            {/*      </Text>*/}
+            {/*      <ArrowUp />*/}
+            {/*    </>*/}
+            {/*  )}*/}
+            {/*</TouchableOpacity>*/}
+
+            <Text
               style={{
-                marginTop: 20,
-                alignItems: "center",
-                justifyContent: "space-between",
-                overflow: "hidden",
-              }}
-              onPress={() => {
-                setReviewsVisible(!reviewsVisible);
+                fontWeight: "400",
+                lineHeight: 20,
+                fontSize: 16,
+                color: "#6f6f6f",
+                marginTop: 12,
               }}
             >
-              {!reviewsVisible ? (
-                <>
-                  <MaskedView
-                    maskElement={
-                      <LinearGradient
-                        style={StyleSheet.absoluteFill}
-                        colors={["white", "transparent"]}
-                        start={{ x: 0, y: 0.1 }}
-                        end={{ x: 0, y: 0.5 }}
-                      />
-                    }
-                  >
-                    <Text
-                      style={{
-                        fontWeight: "400",
-                        lineHeight: 20,
-                        fontSize: 16,
-                        color: "#6f6f6f",
-                      }}
-                    >
-                      {props.model.description}
-                    </Text>
-                  </MaskedView>
-                  <ArrowDown />
-                </>
-              ) : (
-                <>
-                  <Text
-                    style={{
-                      fontWeight: "400",
-                      lineHeight: 20,
-                      fontSize: 16,
-                      color: "#6f6f6f",
-                    }}
-                  >
-                    {props.model.description}
-                  </Text>
-                  <ArrowUp />
-                </>
-              )}
-            </TouchableOpacity>
+              {props.model.description}
+            </Text>
 
             <View style={{ marginTop: 30 }} />
             <ProgramsGoalsBlock
@@ -218,16 +229,22 @@ export const ProgramDetailsView = ProgramDetailsModel.modelClient((props) => {
                 {props.model.tasks.type === "HAS_DATA" &&
                   props.model.tasks.data.map((task) => {
                     return (
-                      <AllTasksBlock
-                        key={task.id}
-                        onPress={() =>
-                          navigation.navigate("TaskDetails", {
-                            ...task,
-                          })
-                        }
-                        title={task.name}
-                        duration={`В течение ${task.date} дней`}
-                      />
+                      <>
+                        <AllTasksBlock
+                          key={task.id}
+                          onPress={() =>
+                            navigation.navigate("TaskDetails", {
+                              ...task,
+                            })
+                          }
+                          title={task.name}
+                          duration={
+                            task.date !== 0
+                              ? `В течение ${task.date} дней`
+                              : `В течение всей программы`
+                          }
+                        />
+                      </>
                     );
                   })}
               </View>
@@ -235,6 +252,7 @@ export const ProgramDetailsView = ProgramDetailsModel.modelClient((props) => {
               <View style={{ marginTop: 32 }}>
                 {props.model.tasks.type === "HAS_DATA" &&
                   props.model.tasks.data.slice(0, 4).map((task) => {
+                    console.log(task);
                     return (
                       <AllTasksBlock
                         key={task.id}

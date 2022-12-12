@@ -48,7 +48,13 @@ export const ProgramBlock: FC<ProgramBlockProps> = ({
         <Text style={styles.secondaryText}>{taskQuantity}</Text>
       </View>
 
-      <Text style={styles.secondaryText}>{subtitle}</Text>
+      <Text
+        ellipsizeMode={"tail"}
+        numberOfLines={2}
+        style={styles.secondaryText}
+      >
+        {subtitle}
+      </Text>
       <Text
         style={{
           marginTop: 4,
