@@ -19,8 +19,8 @@ import {
   TutorialQuestionsScreen,
   TyScreenFormTutorials,
   TyScreenFromSecondDay,
-    CoachEditDataScreen,
-    EducationAndSpecialisations
+  CoachEditDataScreen,
+  EducationAndSpecialisations,
 } from "../../screens/CoacheScreens/AuthScreens";
 import { TabNavigatorElem } from "../ClientNavigations/tab-bar-elem/tab-navigation-elems";
 import { HomeSvg } from "../ClientNavigations/icons/home";
