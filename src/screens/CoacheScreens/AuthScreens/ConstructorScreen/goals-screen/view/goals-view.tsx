@@ -21,14 +21,16 @@ export const GoalsView: FC<EditingScreenViewProps> = GoalsModel.modelClient(
     return (
       <MainContainer>
         <BackButton
-          title={"Цели"}
+          title={"Цели программы"}
           onPressEdit={() =>
             navigation.navigate("GoalsEditing", {
               programId: props.programId,
             })
           }
           onPress={() => {
-            navigation.navigate("ConstructorPage");
+            navigation.navigate("ProgramDetails", {
+              programId: props.programId,
+            });
           }}
         />
 

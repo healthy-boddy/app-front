@@ -257,6 +257,7 @@ const HomeScreen = () => {
             >
               {coach.map((item) => (
                 <View
+                  key={item.name}
                   style={{
                     flexDirection: "row",
                     alignItems: "center",
@@ -301,39 +302,38 @@ const HomeScreen = () => {
             style={{
               flex: 1,
               alignItems: "center",
-              justifyContent: "flex-start",
+              justifyContent: programs?.length > 0 ? "flex-start" : "center",
               marginTop: 24,
             }}
           >
-            {goals && goals.length > 0 && (
-              <View
-                style={{
-                  width: "100%",
-                }}
-              >
-                <Text
-                  style={{
-                    fontWeight: "600",
-                    lineHeight: 22.67,
-                    fontSize: 19,
-                    color: "#1E1E1E",
-                  }}
-                >
-                  Мои цели
-                </Text>
-                <View style={{ marginTop: 24 }} />
-                <ProgramsGoalsBlock
-                  number={goals.length}
-                  title={"Мои цели"}
-                  onPress={() => {
-                    navigation.navigate("GoalsClientDetails");
-                  }}
-                />
-              </View>
-            )}
-
             {programs && programs.length > 0 ? (
               <>
+                {goals && goals.length > 0 && (
+                  <View
+                    style={{
+                      width: "100%",
+                    }}
+                  >
+                    <Text
+                      style={{
+                        fontWeight: "600",
+                        lineHeight: 22.67,
+                        fontSize: 19,
+                        color: "#1E1E1E",
+                      }}
+                    >
+                      Мои цели
+                    </Text>
+                    <View style={{ marginTop: 24 }} />
+                    <ProgramsGoalsBlock
+                      number={goals.length}
+                      title={"Мои цели"}
+                      onPress={() => {
+                        navigation.navigate("GoalsClientDetails");
+                      }}
+                    />
+                  </View>
+                )}
                 <Text
                   style={{
                     alignSelf: "flex-start",
@@ -348,9 +348,8 @@ const HomeScreen = () => {
                 </Text>
                 {programs.map((program) => (
                   <View
+                    key={program.id}
                     style={{
-                      flexDirection: "row",
-                      alignItems: "center",
                       width: "100%",
                     }}
                   >
@@ -406,6 +405,7 @@ const HomeScreen = () => {
             >
               {coach.map((item) => (
                 <View
+                  key={item.name}
                   style={{
                     flexDirection: "row",
                     alignItems: "center",
@@ -545,8 +545,8 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 96,
     backgroundColor: "#F5F4F8",
-    marginTop: 24,
-    borderRadius: 24,
+    marginTop: 40,
+    borderRadius: 12,
     paddingVertical: 20,
     paddingLeft: 16,
     paddingRight: 25,

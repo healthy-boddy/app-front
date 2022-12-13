@@ -73,58 +73,71 @@ export const ProgramDetailsClientView = ProgramDetailsClientModel.modelClient(
                 {props.model.name}
               </Text>
 
-              <TouchableOpacity
+              {/*<TouchableOpacity*/}
+              {/*  style={{*/}
+              {/*    marginTop: 20,*/}
+              {/*    alignItems: "center",*/}
+              {/*    justifyContent: "space-between",*/}
+              {/*    overflow: "hidden",*/}
+              {/*  }}*/}
+              {/*  onPress={() => {*/}
+              {/*    setReviewsVisible(!reviewsVisible);*/}
+              {/*  }}*/}
+              {/*>*/}
+
+              {/*{!reviewsVisible ? (*/}
+              {/*  <>*/}
+              {/*    <MaskedView*/}
+              {/*      maskElement={*/}
+              {/*        <LinearGradient*/}
+              {/*          style={StyleSheet.absoluteFill}*/}
+              {/*          colors={["white", "transparent"]}*/}
+              {/*          start={{ x: 0, y: 0.1 }}*/}
+              {/*          end={{ x: 0, y: 0.5 }}*/}
+              {/*        />*/}
+              {/*      }*/}
+              {/*    >*/}
+              {/*      <Text*/}
+              {/*        style={{*/}
+              {/*          fontWeight: "400",*/}
+              {/*          lineHeight: 20,*/}
+              {/*          fontSize: 16,*/}
+              {/*          color: "#6f6f6f",*/}
+              {/*        }}*/}
+              {/*      >*/}
+              {/*        {props.model.description}*/}
+              {/*      </Text>*/}
+              {/*    </MaskedView>*/}
+              {/*    <ArrowDown />*/}
+              {/*  </>*/}
+              {/*) : (*/}
+              {/*  <>*/}
+              {/*    <Text*/}
+              {/*      style={{*/}
+              {/*        fontWeight: "400",*/}
+              {/*        lineHeight: 20,*/}
+              {/*        fontSize: 16,*/}
+              {/*        color: "#6f6f6f",*/}
+              {/*      }}*/}
+              {/*    >*/}
+              {/*      {props.model.description}*/}
+              {/*    </Text>*/}
+              {/*    <ArrowUp />*/}
+              {/*  </>*/}
+              {/*)}*/}
+              {/*</TouchableOpacity>*/}
+
+              <Text
                 style={{
-                  marginTop: 20,
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  overflow: "hidden",
-                }}
-                onPress={() => {
-                  setReviewsVisible(!reviewsVisible);
+                  fontWeight: "400",
+                  lineHeight: 20,
+                  fontSize: 16,
+                  color: "#6f6f6f",
+                  marginTop: 12,
                 }}
               >
-                {!reviewsVisible ? (
-                  <>
-                    <MaskedView
-                      maskElement={
-                        <LinearGradient
-                          style={StyleSheet.absoluteFill}
-                          colors={["white", "transparent"]}
-                          start={{ x: 0, y: 0.1 }}
-                          end={{ x: 0, y: 0.5 }}
-                        />
-                      }
-                    >
-                      <Text
-                        style={{
-                          fontWeight: "400",
-                          lineHeight: 20,
-                          fontSize: 16,
-                          color: "#6f6f6f",
-                        }}
-                      >
-                        {props.model.description}
-                      </Text>
-                    </MaskedView>
-                    <ArrowDown />
-                  </>
-                ) : (
-                  <>
-                    <Text
-                      style={{
-                        fontWeight: "400",
-                        lineHeight: 20,
-                        fontSize: 16,
-                        color: "#6f6f6f",
-                      }}
-                    >
-                      {props.model.description}
-                    </Text>
-                    <ArrowUp />
-                  </>
-                )}
-              </TouchableOpacity>
+                {props.model.description}
+              </Text>
 
               <View style={{ marginTop: 30 }} />
               <ProgramsGoalsBlock

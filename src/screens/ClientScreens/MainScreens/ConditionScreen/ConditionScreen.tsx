@@ -6,7 +6,8 @@ import {
   StyleSheet,
   ScrollView,
   TouchableOpacity,
-  SafeAreaView, Image,
+  SafeAreaView,
+  Image,
 } from "react-native";
 import { useSelector } from "react-redux";
 import axios from "axios";
@@ -177,17 +178,22 @@ const ConditionScreen = () => {
   };
   return (
     <MainContainer>
-      <Text
+      <View
         style={{
-          fontSize: 32,
-          fontWeight: "600",
-          lineHeight: 34,
-          color: "#000",
-          height: 48,
+          paddingVertical: 16,
         }}
       >
-        Мое состояние
-      </Text>
+        <Text
+          style={{
+            fontSize: 32,
+            fontWeight: "600",
+            lineHeight: 34,
+            color: "#000",
+          }}
+        >
+          Мое состояние
+        </Text>
+      </View>
 
       {conditions?.length ? (
         <View style={styles.content_box}>
@@ -211,7 +217,10 @@ const ConditionScreen = () => {
         <View
           style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
         >
-          <Image style={{width: 264, height: 264}} source={require('./CondationIcons/emptyState.png')} />
+          <Image
+            style={{ width: 264, height: 264 }}
+            source={require("./CondationIcons/emptyState.png")}
+          />
           <Text style={styles.empty_state_title}>
             Здесь будет отображаться динамика состояния организма
           </Text>

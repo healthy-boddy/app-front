@@ -34,10 +34,10 @@ export const EditingScreenView: FC<EditingScreenViewProps> =
           <TouchableOpacity
             activeOpacity={0.6}
             onPress={() =>
-              navigation.navigate("ProgramDetailsClient", {
+              navigation.navigate("ProgramDetails", {
                 programId: props.model.currentProgramId,
-                assignedProgram: props.model.programDetailForClient,
-                clientID: props.model.client,
+                // assignedProgram: props.model.programDetailForClient,
+                // clientID: props.model.client,
               })
             }
             style={{
