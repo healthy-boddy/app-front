@@ -14,6 +14,7 @@ import BackIcon from "../../../../../../assets/Icons/BackIcon";
 import { ProgramsGoalsBlock } from "../../client-programs/view/components/programs-goals-block";
 import { AllTasksBlock } from "../../client-programs/view/components/all-tasks-block";
 import { ProgramDetailsModel } from "../../../../AuthScreens/ConstructorScreen/program-details-screen/model";
+import BackButton from "../../../../../../components/BackButton";
 
 interface EditingScreenViewProps {}
 export const EditingScreenClientView: FC<EditingScreenViewProps> =
@@ -25,37 +26,55 @@ export const EditingScreenClientView: FC<EditingScreenViewProps> =
 
     return (
       <MainContainer>
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            paddingVertical: 14,
-          }}
-        >
-          <TouchableOpacity
-            activeOpacity={0.6}
-            onPress={() =>
-              navigation.navigate("ProgramDetailsClient", {
-                programId: props.model.currentProgramId,
-                assignedProgram: props.model.programDetailForClient,
-                clientID: props.model.client,
-              })
-            }
-            style={{
-              flexDirection: "row",
-              marginTop: Platform.OS === "android" ? 35 : 0,
-              alignItems: "center",
-            }}
-          >
-            <View>
-              <BackIcon />
-            </View>
-            <View>
-              <Text style={styles.headerTitle}>Назад</Text>
-            </View>
-          </TouchableOpacity>
-          <Text style={styles.headerTitle}>Сохранить</Text>
-        </View>
+        <BackButton
+          onPress={() =>
+            navigation.navigate("ProgramDetailsClient", {
+              programId: props.model.currentProgramId,
+              assignedProgram: props.model.programDetailForClient,
+              clientID: props.model.client,
+            })
+          }
+          saveDate
+          // onPressSaveDate={() =>
+          //     props.model.handlePress(
+          //         navigation.navigate("Goals", {
+          //             programId: props.model.program,
+          //         })
+          //     )
+          // }
+        />
+
+        {/*<View*/}
+        {/*  style={{*/}
+        {/*    flexDirection: "row",*/}
+        {/*    justifyContent: "space-between",*/}
+        {/*    paddingVertical: 14,*/}
+        {/*  }}*/}
+        {/*>*/}
+        {/*  <TouchableOpacity*/}
+        {/*    activeOpacity={0.6}*/}
+        {/*    onPress={() =>*/}
+        {/*      navigation.navigate("ProgramDetailsClient", {*/}
+        {/*        programId: props.model.currentProgramId,*/}
+        {/*        assignedProgram: props.model.programDetailForClient,*/}
+        {/*        clientID: props.model.client,*/}
+        {/*      })*/}
+        {/*    }*/}
+        {/*    style={{*/}
+        {/*      flexDirection: "row",*/}
+        {/*      marginTop: Platform.OS === "android" ? 35 : 0,*/}
+        {/*      alignItems: "center",*/}
+        {/*    }}*/}
+        {/*  >*/}
+        {/*    <View>*/}
+        {/*      <BackIcon />*/}
+        {/*    </View>*/}
+        {/*    <View>*/}
+        {/*      <Text style={styles.headerTitle}>Назад</Text>*/}
+        {/*    </View>*/}
+        {/*  </TouchableOpacity>*/}
+        {/*  <Text style={styles.headerTitle}>Сохранить</Text>*/}
+        {/*</View>*/}
 
         <Text style={styles.mainTitle}>Название программы</Text>
 

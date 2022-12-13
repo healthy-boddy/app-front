@@ -106,6 +106,7 @@ export const ProgramDetailsView = ProgramDetailsModel.modelClient((props) => {
                 fontSize: 24,
                 lineHeight: 28,
                 fontWeight: "600",
+                marginTop: 16,
               }}
             >
               {props.model.name}

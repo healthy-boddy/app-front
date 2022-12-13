@@ -39,8 +39,8 @@ export const ClientDetailsPage = ({ route: { params } }: any) => {
         {params?.data?.avatar ? (
           <View
             style={{
-              width: 186,
-              height: 186,
+              width: 150,
+              height: 150,
               marginTop: 16,
               alignSelf: "center",
             }}
@@ -80,8 +80,8 @@ export const ClientDetailsPage = ({ route: { params } }: any) => {
               borderWidth: 1,
               borderRadius: 16,
               borderColor: color1,
-              width: 186,
-              height: 186,
+              width: 150,
+              height: 150,
               alignSelf: "center",
             }}
           >

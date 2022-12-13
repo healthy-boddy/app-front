@@ -150,7 +150,7 @@ export const ProgramDetailsView = ProgramDetailsModel.modelClient((props) => {
                 })
               }
               number={props.model.goalsQuantity}
-              title={"Мои цели"}
+              title={"Цели программы"}
             />
 
             <View

@@ -194,7 +194,7 @@ export class ProgramDetailsModel {
       model.getProgramById();
       model.getTasks();
       model.getAvailableClients();
-    }, [model, programId]);
+    });
 
     return model;
   }

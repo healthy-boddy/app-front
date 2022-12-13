@@ -159,14 +159,19 @@ const CoachSinglePage = () => {
 
   return (
     <MainContainer>
-      <View style={styles.container}>
+      <View style={[styles.container]}>
         <BackButton
           onPress={() => {
             // @ts-ignore
             navigation.navigate("Greetings4");
           }}
         />
-        <View style={{ position: "relative", alignItems: "center" }}>
+        <View
+          style={{
+            position: "relative",
+            alignItems: "center",
+          }}
+        >
           <View>
             {!user_data_form_axios?.user?.avatar ? (
               <Image style={styles.image} source={{ uri: avatar?.uri }} />
@@ -374,6 +379,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "#fff",
     flex: 1,
+    height: "100%",
   },
   edit_icon: {
     position: "absolute",

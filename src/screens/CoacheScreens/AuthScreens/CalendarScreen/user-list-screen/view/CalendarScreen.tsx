@@ -9,7 +9,6 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { BellIcon } from "../../../../../../assets/Icons/BellIcon";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -67,16 +66,14 @@ const CalendarScreen = UserListModel.modelClient((props) => {
             <Text style={styles.user_name}>{user_data.user.username}</Text>
           </TouchableOpacity>
 
-          <View>
-            <BellIcon />
-          </View>
+          {/*<View>*/}
+          {/*  <BellIcon />*/}
+          {/*</View>*/}
         </View>
-
-        <Text style={styles.myClients}>Мои клиенты</Text>
-
-        <View style={{ marginTop: 16 }} />
-
         <ScrollView
+          style={{
+            marginBottom: 80,
+          }}
           showsVerticalScrollIndicator={false}
           refreshControl={
             <RefreshControl
@@ -85,6 +82,10 @@ const CalendarScreen = UserListModel.modelClient((props) => {
             />
           }
         >
+          <Text style={styles.myClients}>Мои клиенты</Text>
+
+          {/*<View style={{ marginTop: 16 }} />*/}
+
           {props.model.users.type === "HAS_DATA" &&
             props.model.users.data.map((client) => {
               console.log("CLIENT", client);
@@ -126,6 +127,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     width: "100%",
     alignItems: "center",
+    paddingVertical: 8,
   },
   user_name: {
     color: "#1E1E1E",
@@ -140,6 +142,6 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "600",
     lineHeight: 28,
-    marginTop: 20,
+    marginTop: 16,
   },
 });

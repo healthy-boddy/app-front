@@ -101,6 +101,7 @@ export class ProgramDetailsModel {
         .get<TaskResponseArray>(`program/task/?program=${this._programId}`)
         .then((res) => {
           if (res.data) {
+            console.log("Response data get tasks", res.data);
             runInAction(() => {
               this._programId = res.data[0].program;
               this._tasks = stateCreator.getHasDataState(res.data);
