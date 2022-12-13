@@ -48,9 +48,10 @@ const FirstScreen: React.FC = (props) => {
         },
     ];
     const goNext = async () => {
-        scrollX.current.scrollToOffset({
+        slider.current.scrollToOffset({
             offset: (itemIndex + 1) * width,
         });
+        setItemIndex(prevState => prevState + 1)
     };
     const Indicator = ({scrollX}) => {
         return (

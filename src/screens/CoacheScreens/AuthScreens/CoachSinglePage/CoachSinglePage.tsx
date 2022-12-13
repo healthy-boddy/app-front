@@ -157,7 +157,6 @@ const CoachSinglePage = () => {
         alert(result.status);
     }
 
-
     return (
         <MainContainer>
             <View style={[styles.container]}>

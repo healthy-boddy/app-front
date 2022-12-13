@@ -64,7 +64,7 @@ const EditAnalyseScreen = ({}) => {
             const currentLab = res.find(item => item.id === analyzeFromStorage?.laboratory);
             if (currentLab) {
                 setFirstLabName(currentLab.name);
-                onLabPress(currentLab)
+                onLabPress(currentLab, true)
             }
         })
     }
@@ -90,7 +90,7 @@ const EditAnalyseScreen = ({}) => {
         if (!isLabChanged) {
             setIsLabChanged(true)
         }
-        if (item.length >= 3){
+        if (item.length >= 1){
             const a = laboratory.filter((labName) => myInclude(labName.name, item))
             setFilteredLaboratory(a)
         }else {
@@ -115,6 +115,7 @@ const EditAnalyseScreen = ({}) => {
                 name: item?.unit_info?.indicator_name || ''
             }))
             setAnalysesIndicators(a);
+            console.log(a, 'aaaaaaa')
             setFirstIndicators(a);
         })
     }
@@ -125,19 +126,21 @@ const EditAnalyseScreen = ({}) => {
     const handleParameters = (index, val, key, deleteFilteredUnits = false) => {
         analysesIndicators[index][key] = val;
         analysesIndicators.forEach(item => item.filteredUnits = []);
-        if (!deleteFilteredUnits && val.length >= 3) {
+        if (!deleteFilteredUnits && val.length >= 1 && key !== 'value') {
             analysesIndicators[index].filteredUnits = labUnits.filter(item => myInclude(item.indicator_name, val));
         }
         setAnalysesIndicators([...analysesIndicators])
     }
 
-    const onLabPress = lab => {
-        setAnalysesIndicators([{
-            id: 1,
-            name: "",
-            value: "",
-            filteredUnits: []
-        }]);
+    const onLabPress = (lab, isFirstTime = false) => {
+        if (!isFirstTime){
+            setAnalysesIndicators([{
+                id: 1,
+                name: "",
+                value: "",
+                filteredUnits: []
+            }]);
+        }
         setLab(lab.name)
         setLabId(lab.id)
         setLabUnits(lab.units)

@@ -96,8 +96,8 @@ const WelcomeScreen = () => {
 
   async function handleSendCertificates() {
     let AuthStr = "Bearer " + userToken;
-    let formData = new FormData();
-    for (let i = 0; i <= certificate.length; i++) {
+    for (let i = 0; i < certificate.length; i++) {
+      let formData = new FormData();
       formData.append("file", certificate[i]);
 
       await fetch(baseUrl + "/coach_certificate/", {
@@ -112,9 +112,9 @@ const WelcomeScreen = () => {
           return res.json();
         })
         .then((res) => {
+          navigation.navigate("Greetings4");
           console.log(res, "res");
         });
-      navigation.navigate("Greetings4");
     }
   }
 

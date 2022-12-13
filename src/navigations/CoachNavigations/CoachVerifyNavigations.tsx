@@ -402,20 +402,20 @@ export default function CoachVerify() {
         }}
       />
 
-      <Tab.Screen
-        name="CalendarPage"
-        component={UserList}
-        options={{
-          tabBarIcon: ({ focused }) => (
-            <TabNavigatorElem
-              colorItem={focused ? "#7454CF" : "#797979"}
-              icon={<CalendarSvg color={focused ? "#7454CF" : "#797979"} />}
-              navigatorName="Календарь"
-            />
-          ),
-          tabBarShowLabel: false,
-        }}
-      />
+      {/*<Tab.Screen*/}
+      {/*  name="CalendarPage"*/}
+      {/*  component={UserList}*/}
+      {/*  options={{*/}
+      {/*    tabBarIcon: ({ focused }) => (*/}
+      {/*      <TabNavigatorElem*/}
+      {/*        colorItem={focused ? "#7454CF" : "#797979"}*/}
+      {/*        icon={<CalendarSvg color={focused ? "#7454CF" : "#797979"} />}*/}
+      {/*        navigatorName="Календарь"*/}
+      {/*      />*/}
+      {/*    ),*/}
+      {/*    tabBarShowLabel: false,*/}
+      {/*  }}*/}
+      {/*/>*/}
 
       <Tab.Screen
         name="ConstructorPage"

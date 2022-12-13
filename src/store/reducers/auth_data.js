@@ -33,7 +33,7 @@ export default function reducer(state = initialState, action){
 
         case SET_USER_TUTORIAL_ARRAY:{
             const {setTutorialsArray} = action.payload;
-            console.log(setTutorialsArray, ' SET_USER_TUTORIAL_ARRAY 1')
+            // console.log(setTutorialsArray, ' SET_USER_TUTORIAL_ARRAY 1')
             return {
                 ...state,
                 setTutorialsArray: setTutorialsArray

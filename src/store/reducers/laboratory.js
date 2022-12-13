@@ -9,6 +9,7 @@ export default function reducer(state = initialState, action) {
     switch (action.type) {
         case SET_LAB: {
             const {lab}  = action.payload;
+            console.log(lab.id, 'reducer id')
             return {
                 ...state,
                 lab,

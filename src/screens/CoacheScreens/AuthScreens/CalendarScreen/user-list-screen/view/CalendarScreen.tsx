@@ -43,29 +43,10 @@ const CalendarScreen = UserListModel.modelClient((props) => {
     >
       <View
         style={{
-          paddingHorizontal: 16,
+
         }}
       >
         <View style={styles.header}>
-          <TouchableOpacity
-            activeOpacity={0.2}
-            onLongPress={handleLogOut}
-            style={{ flexDirection: "row", alignItems: "center" }}
-          >
-            <View>
-              <Image
-                style={{
-                  width: 40,
-                  height: 40,
-                  borderRadius: 100,
-                  marginRight: 10,
-                }}
-                source={{ uri: user_data.user.avatar_thumbnail }}
-              />
-            </View>
-            <Text style={styles.user_name}>{user_data.user.username}</Text>
-          </TouchableOpacity>
-
           {/*<View>*/}
           {/*  <BellIcon />*/}
           {/*</View>*/}

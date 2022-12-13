@@ -119,19 +119,22 @@ const OnBoarding = () => {
     const [itemIndex, setItemIndex] = useState(0);
     const navigation: any = useNavigation();
     const goNext = async () => {
-        scrollX.current.scrollToOffset({
+        slider.current.scrollToOffset({
             offset: (itemIndex + 1) * width,
         });
+        setItemIndex(prevState => prevState + 1)
     };
     useEffect(() => {
         scrollX.addListener(({value}) => {
             const val = Math.round(value / width);
             setItemIndex(val);
+            console.log(val, value)
         });
         return () => {
             scrollX.removeAllListeners();
         };
     }, []);
+
     console.log(itemIndex, 'itemindex')
     return (
         <View style={styles.container}>
@@ -218,7 +221,9 @@ const OnBoarding = () => {
                 {itemIndex < 3 && (
                     <View style={{marginBottom: 25, paddingHorizontal: 16}}>
                         <TouchableOpacity
-                            onPress={()=>{navigation.navigate("EnterSex")}}
+                            onPress={() => {
+                                navigation.navigate("EnterSex")
+                            }}
                             style={{alignItems: 'center', marginBottom: 10}}>
                             <Text style={{
                                 color: color1,
@@ -236,7 +241,9 @@ const OnBoarding = () => {
                 {itemIndex === 3 && (
                     <View style={{paddingHorizontal: 16, marginBottom: 25}}>
                         <CustomButton
-                            onPress={()=>{navigation.navigate("EnterSex")}}
+                            onPress={() => {
+                                navigation.navigate("EnterSex")
+                            }}
                             title={'Начать'}
                         />
                     </View>
