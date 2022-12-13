@@ -15,6 +15,8 @@ import { ProgramAssignedToClient } from "../../../../MainScreens/client-programs
 export class ProgramDetailsModel {
   private readonly _httpService = new HttpService();
   private _tasks: ConstructorStates = stateCreator.getInitialState();
+  private _tasksComplete: ConstructorStates = stateCreator.getInitialState();
+  private _users: UsersStates = clientState.getInitialState();
 
   private _name = "";
   private _description = "";
@@ -44,8 +46,6 @@ export class ProgramDetailsModel {
     return this._programId;
   }
 
-  private _users: UsersStates = clientState.getInitialState();
-
   public get users() {
     return this._users;
   }
@@ -65,6 +65,10 @@ export class ProgramDetailsModel {
     return this._tasks;
   }
 
+  public get tasksComplete() {
+    return this._tasksComplete;
+  }
+
   public setName(name: string) {
     this._name = name;
   }
@@ -78,7 +82,6 @@ export class ProgramDetailsModel {
       this._httpService
         .get<ProgramResponse>(`/program/${this._programId}/`)
         .then((res) => {
-          console.log("res getProgramById", res.data);
           if (res.data) {
             runInAction(() => {
               this._name = res.data.name;
@@ -136,11 +139,32 @@ export class ProgramDetailsModel {
       this._httpService
         .get<TaskResponseArray>(`program/task/?program=${this._programId}`)
         .then((res) => {
-          console.log("getTasks program page", res.data);
           if (res.data) {
             runInAction(() => {
               this._programId = res.data[0].program;
               this._tasks = stateCreator.getHasDataState(res.data);
+            });
+          }
+        });
+    } catch (e: any) {
+      alert(e.response.data);
+      runInAction(() => {
+        this._tasks = stateCreator.getErrorState(e.response.data);
+      });
+    }
+  }
+
+  private getCompleteTasks() {
+    try {
+      this._httpService
+        .get<TaskResponseArray>(
+          `program/task/complete/?program=${this._programId}`
+        )
+        .then((res) => {
+          console.log("getCompleteTasks res data", res.data);
+          if (res.data) {
+            runInAction(() => {
+              this._tasksComplete = stateCreator.getHasDataState(res.data);
             });
           }
         });
@@ -194,6 +218,7 @@ export class ProgramDetailsModel {
       model.getProgramById();
       model.getTasks();
       model.getAvailableClients();
+      model.getCompleteTasks();
     });
 
     return model;
