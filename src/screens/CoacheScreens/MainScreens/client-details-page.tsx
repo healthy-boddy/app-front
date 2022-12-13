@@ -25,7 +25,13 @@ export const ClientDetailsPage = ({ route: { params } }: any) => {
           },
         })
       }
-      onPressSecondButton={() => console.log("press1")}
+      onPressSecondButton={() =>
+        navigation.navigate("ClientGoals", {
+          data: {
+            client: params.data.client,
+          },
+        })
+      }
       buttonTitle={"Назначить программу"}
       secondButtonTitle={"Поставить цели"}
     >
@@ -140,7 +146,11 @@ export const ClientDetailsPage = ({ route: { params } }: any) => {
         />
 
         <ClientsDetailsBlockProfile
-          onPress={() => console.log("press")}
+          onPress={() =>
+            navigation.navigate("ClientCondition", {
+              clientId: userId,
+            })
+          }
           title={"Состояние"}
           icon={<StateClient />}
         />
