@@ -157,27 +157,33 @@ const CoachSinglePage = () => {
         alert(result.status);
     }
 
+
     return (
         <MainContainer>
-            <View style={styles.container}>
+            <View style={[styles.container]}>
                 <BackButton
                     onPress={() => {
                         // @ts-ignore
                         navigation.navigate("Greetings4");
                     }}
                 />
-                <View style={{position: "relative", alignItems: "center"}}>
+                <View
+                    style={{
+                        position: "relative",
+                        alignItems: "center",
+                    }}
+                >
                     <View>
                         {!user_data_form_axios?.user?.avatar ? (
-                            <Image style={styles.image} source={{uri: avatar?.uri}}/>
+                            <Image style={styles.image} source={{ uri: avatar?.uri }} />
                         ) : (
                             <Image
                                 style={styles.image}
-                                source={{uri: user_data_form_axios?.user?.avatar_thumbnail}}
+                                source={{ uri: user_data_form_axios?.user?.avatar_thumbnail }}
                             />
                         )}
                         <TouchableOpacity onPress={pickImage} style={styles.edit_icon}>
-                            <PenIcon/>
+                            <PenIcon />
                         </TouchableOpacity>
                     </View>
                     <Title
@@ -191,60 +197,68 @@ const CoachSinglePage = () => {
                         {userData.user.username}
                     </Title>
                 </View>
-                <View style={{}}>
-                    <View style={{marginTop: 40}}/>
+                <View style={{ marginTop: 40 }} />
+                {/*<TouchableOpacity*/}
+                {/*    onPress={() => {*/}
+                {/*        console.log('notifications')*/}
+                {/*    }}*/}
+                {/*    style={styles.button}>*/}
+                {/*    <NotificationIcon/>*/}
+                {/*    <Text style={styles.button_title}>Уведомления</Text>*/}
+                {/*    <View style={{alignItems: 'flex-end'}}>*/}
+                {/*        <RightIcon fill={'#797979'}/>*/}
+                {/*    </View>*/}
+                {/*</TouchableOpacity>*/}
 
-                    <TouchableOpacity
-                        style={styles.button}
-                        onPress={() => {
-                            navigation.navigate("CoachEditData");
-                        }}
-                    >
-                        <EmailIcon/>
-                        <Text style={styles.button_title}>Имя, номер телефона, email</Text>
-                        <View style={{alignItems: "flex-end"}}>
-                            <RightIcon fill={"#797979"}/>
-                        </View>
-                    </TouchableOpacity>
-                    <View style={styles.line}/>
+                {/*<View style={styles.line}/>*/}
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={() => {
+                        navigation.navigate("CoachEditData");
+                    }}
+                >
+                    <EmailIcon />
+                    <Text style={styles.button_title}>Имя, номер телефона, email</Text>
+                    <View style={{ alignItems: "flex-end" }}>
+                        <RightIcon fill={"#797979"} />
+                    </View>
+                </TouchableOpacity>
+                <View style={styles.line} />
 
-                    <TouchableOpacity
-                        style={styles.button}
-                        onPress={() => {
-                            navigation.navigate("EducationAndSpecialisationsScreen");
-                        }}
-                    >
-                        <EducationIcon/>
-                        <Text style={styles.button_title}>Образование и специализация</Text>
-                        <View style={{alignItems: "flex-end"}}>
-                            <RightIcon fill={"#797979"}/>
-                        </View>
-                    </TouchableOpacity>
-                    <View style={styles.line}/>
-                    <TouchableOpacity
-                        onPress={toggleBottomNavigationView}
-                        style={styles.button}
-                    >
-                        <SmsIcon/>
-                        <Text style={styles.button_title}>Помощь</Text>
-                        <View style={{alignItems: "flex-end"}}>
-                            <RightIcon fill={"#797979"}/>
-                        </View>
-                    </TouchableOpacity>
-                    <View style={styles.line}/>
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={() => {
+                        navigation.navigate("EducationAndSpecialisationsScreen");
+                    }}
+                >
+                    <EducationIcon />
+                    <Text style={styles.button_title}>Образование и специализация</Text>
+                    <View style={{ alignItems: "flex-end" }}>
+                        <RightIcon fill={"#797979"} />
+                    </View>
+                </TouchableOpacity>
+                <View style={styles.line} />
+                <TouchableOpacity
+                    onPress={toggleBottomNavigationView}
+                    style={styles.button}
+                >
+                    <SmsIcon />
+                    <Text style={styles.button_title}>Помощь</Text>
+                    <View style={{ alignItems: "flex-end" }}>
+                        <RightIcon fill={"#797979"} />
+                    </View>
+                </TouchableOpacity>
+                <View style={styles.line} />
 
-                    <TouchableOpacity
-                        onPress={logOut}
-                        style={{
-                            marginTop: 9,
-                            height: 30
-                        }}
-                    >
-                        <Text style={styles.logOut}>Выйти из учетной записи</Text>
-                    </TouchableOpacity>
-                </View>
+                <TouchableOpacity
+                    onPress={logOut}
+                    style={{
+                        marginTop: 9,
+                    }}
+                >
+                    <Text style={styles.logOut}>Выйти из учетной записи</Text>
+                </TouchableOpacity>
             </View>
-
             <Modal
                 style={{
                     flex: 1,
@@ -262,7 +276,7 @@ const CoachSinglePage = () => {
                 animationOut={"fadeOutDownBig"}
                 deviceWidth={deviceWidth}
             >
-                <View style={[styles.modal, {height: 290}]}>
+                <View style={[styles.modal, { height: 290 }]}>
                     <Text
                         style={{
                             fontWeight: "600",
@@ -276,7 +290,7 @@ const CoachSinglePage = () => {
                     >
                         Вы уверены, что хотите выйти из аккаунта?
                     </Text>
-                    <View style={{marginBottom: 12}}>
+                    <View style={{ marginBottom: 12 }}>
                         <CustomButton
                             title={"Остаться"}
                             onPress={() => {
@@ -291,16 +305,16 @@ const CoachSinglePage = () => {
                                 borderColor: color1,
                                 borderWidth: 2,
                             }}
-                            buttonTitle={{color: color1}}
+                            buttonTitle={{ color: color1 }}
                             title={"Выйти"}
                             onPress={handleLogOut}
                         />
                     </View>
-                    <View style={{marginVertical: 10}}/>
+                    <View style={{ marginVertical: 10 }} />
                 </View>
             </Modal>
 
-            <View style={{flex: 1, width: "100%"}}>
+            <View style={{ flex: 1, width: "100%" }}>
                 <Modal
                     style={{
                         flex: 1,
@@ -319,7 +333,7 @@ const CoachSinglePage = () => {
                     deviceWidth={deviceWidth}
                 >
                     <View style={styles.modal}>
-                        <View style={styles.modal_line}/>
+                        <View style={styles.modal_line} />
                         <Text
                             style={{
                                 fontWeight: "400",
@@ -341,10 +355,10 @@ const CoachSinglePage = () => {
                                 paddingHorizontal: 16,
                             }}
                         >
-                            <ChatMessageIcon/>
+                            <ChatMessageIcon />
                             <Text style={styles.modal_text}>Написать на почту</Text>
                         </TouchableOpacity>
-                        <View style={{marginVertical: 10}}/>
+                        <View style={{ marginVertical: 10 }} />
                         {/*<TouchableOpacity style={{*/}
                         {/*    flexDirection: 'row',*/}
                         {/*    paddingHorizontal: 16*/}
@@ -358,14 +372,14 @@ const CoachSinglePage = () => {
                 </Modal>
             </View>
         </MainContainer>
-    );
-};
+)};
 
 export default CoachSinglePage;
 const styles = StyleSheet.create({
     container: {
         backgroundColor: "#fff",
         flex: 1,
+        height: "100%",
     },
     edit_icon: {
         position: "absolute",

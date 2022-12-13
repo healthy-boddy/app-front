@@ -14,124 +14,101 @@ import BackIcon from "../../../../../../assets/Icons/BackIcon";
 import { IconDelete } from "../../../../../../components/icon/icon-delete";
 import { GoalsEditingModel } from "../model";
 import { Goals } from "../model/goals";
+import BackButton from "../../../../../../components/BackButton";
 
 export const GoalsEditingView = GoalsEditingModel.modelClient((props) => {
   const navigation = useNavigation<any>();
 
-  // const handleAddTaskElement = () => {
-  //   props.model.createNewGoal({
-  //     description: ".",
-  //     program: props.model.program,
-  //   });
-  // };
   const arrForDel: Array<number> = [];
   return (
     <MainContainer>
-      <View style={{ paddingHorizontal: 16, top: 30 }}>
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            paddingVertical: 14,
-          }}
-        >
-          <TouchableOpacity
-            activeOpacity={0.6}
-            onPress={() => {
-              navigation.navigate("Goals", {
-                programId: props.model.program,
-              });
-            }}
-            style={{
-              flexDirection: "row",
-              marginTop: Platform.OS === "android" ? 35 : 0,
-              alignItems: "center",
-            }}
-          >
-            <View>
-              <BackIcon />
-            </View>
-            <View>
-              <Text style={styles.headerTitle}>Назад</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={props.model.handlePress}>
-            <Text style={styles.headerTitle}>Сохранить</Text>
-          </TouchableOpacity>
-        </View>
-        <ScrollView
-          style={{
-            marginBottom: 100,
-          }}
-          showsVerticalScrollIndicator={false}
-        >
-          {props.model.goals.type === "HAS_DATA" &&
-            props.model.goals.data.map((goal, index) => {
-              const handlePush = () => {
-                arrForDel.push(goal.id);
-                props.model.addObjectsForDelete(arrForDel, goal.id);
-              };
-              return (
-                <React.Fragment key={goal.id}>
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                    }}
+      <BackButton
+        onPress={() =>
+          navigation.navigate("Goals", {
+            programId: props.model.program,
+          })
+        }
+        saveDate
+        onPressSaveDate={() =>
+          props.model.handlePress(
+            navigation.navigate("Goals", {
+              programId: props.model.program,
+            })
+          )
+        }
+      />
+      <ScrollView
+        style={{
+          marginBottom: 100,
+        }}
+        showsVerticalScrollIndicator={false}
+      >
+        {props.model.goals.type === "HAS_DATA" &&
+          props.model.goals.data.map((goal, index) => {
+            const handlePush = () => {
+              arrForDel.push(goal.id);
+              props.model.addObjectsForDelete(arrForDel, goal.id);
+            };
+            return (
+              <React.Fragment key={goal.id}>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                  }}
+                >
+                  <Text style={styles.mainTitle}>{`Цель ${index + 1}`}</Text>
+                  <TouchableOpacity
+                    // onPress={() =>
+                    //   goal.deleteGoal(goal.id, props.model.getGoals)
+                    // }
+                    onPress={handlePush}
                   >
-                    <Text style={styles.mainTitle}>{`Цель ${index + 1}`}</Text>
-                    <TouchableOpacity
-                      // onPress={() =>
-                      //   goal.deleteGoal(goal.id, props.model.getGoals)
-                      // }
-                      onPress={handlePush}
-                    >
-                      <IconDelete />
-                    </TouchableOpacity>
-                  </View>
+                    <IconDelete />
+                  </TouchableOpacity>
+                </View>
 
-                  <View
+                <View
+                  style={{
+                    backgroundColor: "#F5F4F8",
+                    paddingVertical: 14,
+                    paddingHorizontal: 16,
+                    borderRadius: 12,
+                    marginTop: 12,
+                    height: 140,
+                  }}
+                >
+                  <TextInput
+                    numberOfLines={20}
+                    multiline={true}
                     style={{
-                      backgroundColor: "#F5F4F8",
-                      paddingVertical: 14,
-                      paddingHorizontal: 16,
-                      borderRadius: 12,
-                      marginTop: 12,
-                      height: 140,
+                      color: "#1E1E1E",
+                      fontWeight: "400",
+                      lineHeight: 22,
+                      fontSize: 16,
                     }}
-                  >
-                    <TextInput
-                      numberOfLines={20}
-                      multiline={true}
-                      style={{
-                        color: "#1E1E1E",
-                        fontWeight: "400",
-                        lineHeight: 22,
-                        fontSize: 16,
-                      }}
-                      value={goal.goalsDescription}
-                      onChangeText={goal.setGoalsDescription}
-                      onBlur={() =>
-                        goal.editGoals(
-                          goal.goalsDescription,
-                          goal.id,
-                          props.model.program
-                        )
-                      }
-                      placeholder={"Введите описание"}
-                    />
-                  </View>
-                </React.Fragment>
-              );
-            })}
+                    value={goal.goalsDescription}
+                    onChangeText={goal.setGoalsDescription}
+                    onBlur={() =>
+                      goal.editGoals(
+                        goal.goalsDescription,
+                        goal.id,
+                        props.model.program
+                      )
+                    }
+                    placeholder={"Введите описание"}
+                  />
+                </View>
+              </React.Fragment>
+            );
+          })}
 
-          <View style={{ marginTop: 32 }} />
-          <TouchableOpacity onPress={props.model.addNewProgram}>
-            <Text style={styles.headerTitle}>+ Добавить еще одну цель</Text>
-          </TouchableOpacity>
-        </ScrollView>
-      </View>
+        <View style={{ marginTop: 32 }} />
+        <TouchableOpacity onPress={props.model.addNewProgram}>
+          <Text style={styles.headerTitle}>+ Добавить еще одну цель</Text>
+        </TouchableOpacity>
+      </ScrollView>
     </MainContainer>
   );
 });

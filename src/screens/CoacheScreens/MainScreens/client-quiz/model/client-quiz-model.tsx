@@ -23,12 +23,16 @@ export class ClientQuizModel {
   }
 
   private getQuiz() {
+    console.log(this.client);
     try {
-      this._httpService.get<QuizArray>(`/quiz/response/`).then((res) => {
-        runInAction(() => {
-          this._quiz = stateCreator.getHasDataState(res.data);
+      this._httpService
+        .get<QuizArray>(`/quiz/response/?user=${this._clientData?.user.id}`)
+        .then((res) => {
+          runInAction(() => {
+            console.log("RES GET QUIZ", res.data);
+            this._quiz = stateCreator.getHasDataState(res.data);
+          });
         });
-      });
     } catch (e: any) {
       console.log(e.response);
     }
@@ -44,7 +48,7 @@ export class ClientQuizModel {
     useEffect(() => {
       model._clientData = client;
       model.getQuiz();
-    }, [model]);
+    });
 
     return model;
   }
