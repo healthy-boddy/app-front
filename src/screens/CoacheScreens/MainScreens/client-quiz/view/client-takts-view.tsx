@@ -37,7 +37,7 @@ export const ClientQuizView: FC<ClientGoalsViewProps> =
           >
             <TouchableOpacity
               activeOpacity={0.6}
-              onPress={() => navigation.navigate("CalendarPage")}
+              onPress={() => navigation.navigate("Greetings4")}
               style={{
                 alignItems: "center",
                 justifyContent: "center",
