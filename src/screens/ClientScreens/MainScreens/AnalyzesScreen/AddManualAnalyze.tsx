@@ -166,9 +166,10 @@ const AddManualAnalyze = () => {
     }
 
     const handleParameters = (index, val, key, deleteFilteredUnits = false) => {
+        console.log({index, val, key}, '')
         parameterArray[index][key] = val;
         parameterArray.forEach(item => item.filteredUnits = []);
-        if (!deleteFilteredUnits && val.length >= 1) {
+        if (!deleteFilteredUnits && val.length >= 1 && key !== 'value') {
             parameterArray[index].filteredUnits = labUnits.filter(item => myInclude(item.indicator_name, val));
         }
         setParameterArray([...parameterArray])

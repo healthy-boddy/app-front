@@ -25,7 +25,7 @@ const AnalyseSingleScreen = ({routes}) => {
     const [visible, setIsVisible] = useState(false);
 
     function handleGetAnalyseIndicators() {
-        fetch(baseUrl2 + `/analysis/indicator?analysis=${activeAnalyzeId}`, {
+        fetch(baseUrl2 + `/analysis/indicator?analysis=${analyzeFromStorage?.id}`, {
             method: 'get',
             headers: {
                 "accept": "application/json",
@@ -41,7 +41,7 @@ const AnalyseSingleScreen = ({routes}) => {
     }
 
     function handleGetAnalyse() {
-        fetch(baseUrl2 + `/analysis/${activeAnalyzeId}`, {
+        fetch(baseUrl2 + `/analysis/${analyzeFromStorage?.id}`, {
             method: 'get',
             headers: {
                 "accept": "application/json",
@@ -131,6 +131,8 @@ const AnalyseSingleScreen = ({routes}) => {
                         }}
                         editAnalyse
                         onPress={() => {
+                            setAnalyse({})
+                            setIndicators({})
                             navigation.navigate("Analyzes")
                         }}/>
                 </View>

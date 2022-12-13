@@ -29,8 +29,14 @@ const PaidQuizzesScreen = () => {
   const [level, setLevel] = useState(0);
   let [questions, setQuestions] = useState<any>([]);
   let [loading, setLoading] = useState(true);
-  let progress = (1 / 51) * level;
+  const [questionsCount, setQuestionsCount] = useState(1)
+  let [progress, setProgress] = useState(1)
   let [checkedAnswer, setCheckedAnswer] = useState<Array<Answer>>([]);
+
+  useEffect(()=>{
+    console.log(questionsCount, level)
+    setProgress((1 / questionsCount) * level)
+  },[level, questionsCount])
 
   useEffect(() => {
     (async () => {
@@ -45,8 +51,9 @@ const PaidQuizzesScreen = () => {
           })
           .then((res) => {
             setQuestions(res.data.questions);
-            console.log(res.data.questions);
+            setQuestionsCount(res.data.questions.length)
             setLoading(false);
+            //console.log(res.data.questions);
             //   setLoading(false);
           });
       } catch (error) {
@@ -193,7 +200,7 @@ const PaidQuizzesScreen = () => {
                       maxWidth: 303,
                     }}
                   >
-                    {item?.text}
+                    {item?.text.toString()[0].toUpperCase() + item?.text.slice(1)}
                   </Text>
                 </TouchableOpacity>
                 <View style={styles.line} />

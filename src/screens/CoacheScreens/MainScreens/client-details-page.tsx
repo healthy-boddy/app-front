@@ -17,7 +17,7 @@ export const ClientDetailsPage = ({ route: { params } }: any) => {
   const userId = params?.data?.client?.user?.id;
   return (
     <WrapperTwoButtons
-      onPressBack={() => navigation.navigate("CalendarPage")}
+      onPressBack={() => navigation.navigate("Greetings4")}
       onPressButton={() =>
         navigation.navigate("ClientProgramsScreen", {
           data: {

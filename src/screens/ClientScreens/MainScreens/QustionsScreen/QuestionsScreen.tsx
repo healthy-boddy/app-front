@@ -26,9 +26,14 @@ const QuestionsScreen = () => {
     const [userToken, setUserToken] = useState<any>("");
     let [loading, setLoading] = useState<boolean>(true);
     const [level, setLevel] = useState(0);
-    let progress = (1 / 50) * level;
-
+    const [questionsCount, setQuestionsCount] = useState(1)
+    let [progress, setProgress] = useState(1)
     let [checkedAnswer, setCheckedAnswer] = useState<Array<Answer>>([])
+
+    useEffect(()=>{
+        console.log(questionsCount, level)
+        setProgress((1 / questionsCount) * level)
+    },[level, questionsCount])
 
     useEffect(() => {
         (async () => {
@@ -49,6 +54,9 @@ const QuestionsScreen = () => {
                 }).then((res) => {
                     setQuestions(res.data.questions);
                     console.log(res.data.questions);
+                    console.log(res.data.questions.length, 'res.data.questions.length')
+                    setQuestionsCount(res.data.questions.length)
+
                     setLoading(false);
                 });
             } catch (error) {
@@ -117,6 +125,7 @@ const QuestionsScreen = () => {
         })
     }
 
+    console.log(progress, 'progress')
     return (
         <QuestionsWrapper
             buttonTitle={"Продолжить"}
@@ -183,9 +192,8 @@ const QuestionsScreen = () => {
                                             color: "#1E1E1E",
                                             textAlign: "left",
                                             maxWidth: 303
-                                        }}
-                                    >
-                                        {item?.text}
+                                        }}>
+                                        {item?.text.toString()[0].toUpperCase() + item?.text.slice(1)}
                                     </Text>
                                 </TouchableOpacity>
                                 <View style={styles.line}/>
