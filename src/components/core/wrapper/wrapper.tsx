@@ -29,9 +29,11 @@ export const WrapperPage: FC<ButtonWrapperPageInterface> = ({
       </SafeAreaView>
       <View style={styles.bodyContainer}>{children}</View>
 
-      <View style={styles.footerContainer}>
-        <CustomButton onPress={onPressButton} title={buttonTitle} />
-      </View>
+      {buttonTitle.length > 0 && (
+        <View style={styles.footerContainer}>
+          <CustomButton onPress={onPressButton} title={buttonTitle} />
+        </View>
+      )}
     </View>
   );
 };

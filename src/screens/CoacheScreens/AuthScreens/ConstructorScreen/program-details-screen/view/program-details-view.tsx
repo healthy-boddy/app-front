@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { FC, useCallback, useEffect, useRef, useState } from "react";
 import {
   SafeAreaView,
   ScrollView,
@@ -235,7 +235,8 @@ export const ProgramDetailsView = ProgramDetailsModel.modelClient((props) => {
                           key={task.id}
                           onPress={() =>
                             navigation.navigate("TaskDetails", {
-                              ...task,
+                              task: task,
+                              // clientId: props.model.client,
                             })
                           }
                           title={task.name}
@@ -259,7 +260,8 @@ export const ProgramDetailsView = ProgramDetailsModel.modelClient((props) => {
                         key={task.id}
                         onPress={() =>
                           navigation.navigate("TaskDetails", {
-                            ...task,
+                            task: task,
+                            // clientId: props.model.client,
                           })
                         }
                         title={task.name}

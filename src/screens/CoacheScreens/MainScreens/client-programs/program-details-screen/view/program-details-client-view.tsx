@@ -195,8 +195,9 @@ export const ProgramDetailsClientView = ProgramDetailsClientModel.modelClient(
                         <AllTasksBlock
                           key={task.id}
                           onPress={() =>
-                            navigation.navigate("TaskDetails", {
-                              ...task,
+                            navigation.navigate("TaskDetailsClientScreen", {
+                              task: task,
+                              clientID: props.model.client,
                             })
                           }
                           title={task.name}
@@ -213,8 +214,12 @@ export const ProgramDetailsClientView = ProgramDetailsClientModel.modelClient(
                         <AllTasksBlock
                           key={task.id}
                           onPress={() =>
-                            navigation.navigate("TaskDetails", {
-                              ...task,
+                            navigation.navigate("TaskDetailsClientScreen", {
+                              task: task,
+                              programId: props.model.programDetailForClient,
+                              assignedProgram:
+                                props.model.programDetailForClient,
+                              clientID: props.model.client,
                             })
                           }
                           title={task.name}
