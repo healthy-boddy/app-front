@@ -135,7 +135,7 @@ const OnBoarding = () => {
     console.log(itemIndex, 'itemindex')
     return (
         <View style={styles.container}>
-            <StatusBar hidden/>
+            <StatusBar barStyle={'dark-content'} backgroundColor={'white'}/>
             <BackDrop scrollX={scrollX}/>
             {itemIndex === 3 && (
 

@@ -1,11 +1,11 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {
     View,
     Text,
     StyleSheet,
     Image,
     Pressable,
-    Dimensions, Platform,
+    Dimensions, Platform, Animated, StatusBar, FlatList, TouchableOpacity,
 } from "react-native";
 import {color1, color2, color3} from "../../../../helpers/colors";
 import AppIntroSlider from "react-native-app-intro-slider";
@@ -19,11 +19,107 @@ const {width, height} = Dimensions.get("window");
 
 const FirstScreen: React.FC = (props) => {
     const navigation: any = useNavigation();
+    const bgs = ["#A5BBFF", "#DDBEFE", "#5dc6ec", "#B98EFF"];
     let user_data = useSelector((store: any) => store.user_data?.user_data);
     let [loaded, setLoaded] = useState(true)
     let isFocused = useIsFocused()
+    const scrollX = useRef(new Animated.Value(0)).current;
+    const slider = useRef(null);
+    const [itemIndex, setItemIndex] = useState(0);
+    const DATA = [
+        {
+            key: 1,
+            title: "Health Buddy",
+            description: "Сервис наставников по восстановлению и сохранению здоровья",
+            imageData: require('../FirstScreen/OnBoardingImages/blob1.png'),
+        },
+        {
+            key: 2,
+            title: "Программы для клиентов",
+            description: "Отслеживаем динамику назначений через цифровой аватар по всем параметрам организма ",
+            imageData: require('../FirstScreen/OnBoardingImages/blob1.png'),
+        },
+        {
+            key: 3,
+            title: "Постоянная база клиентов",
+            description:
+                "Зарегистрируй профиль врача  и получай быстрый доступ к базе знаний и клиентов ",
+            imageData: require('../FirstScreen/OnBoardingImages/blob1.png'),
+        },
+    ];
+    const goNext = async () => {
+        scrollX.current.scrollToOffset({
+            offset: (itemIndex + 1) * width,
+        });
+    };
+    const Indicator = ({scrollX}) => {
+        return (
+            <View
+                style={{
+                    position: "absolute",
+                    bottom: 40,
+                    flexDirection: "row",
+                    alignSelf: "center",
+                }}
+            >
+                {DATA.map((_, i) => {
+                    const inputRange = [(i - 1) * width, i * width, (i + 1) * width];
+                    const scale = scrollX.interpolate({
+                        inputRange,
+                        outputRange: [0.8, 1.4, 0.8],
+                        extrapolate: "clamp",
+                    });
+                    const opacity = scrollX.interpolate({
+                        inputRange,
+                        outputRange: [0.6, 1, 0.6],
+                        extrapolate: "clamp",
+                    });
+                    return (
+                        <Animated.View
+                            key={`indicator-${i}`}
+                            style={{
+                                width: 10,
+                                height: 10,
+                                backgroundColor: "#fff",
+                                borderRadius: 5,
+                                marginHorizontal: 10,
+                                opacity,
+                                transform: [
+                                    {
+                                        scale,
+                                    },
+                                ],
+                            }}
+                        />
+                    );
+                })}
+            </View>
+        );
+    };
 
-    useEffect(()=>{
+    const BackDrop = ({scrollX}) => {
+        const backgroundColor = scrollX.interpolate({
+            inputRange: bgs.map((_, i) => i * width),
+            outputRange: bgs.map((bg) => bg),
+        });
+        return (
+            <Animated.View
+                style={[
+                    StyleSheet.absoluteFillObject,
+                ]}
+            />
+        );
+    };
+    useEffect(() => {
+        scrollX.addListener(({value}) => {
+            const val = Math.round(value / width);
+            setItemIndex(val);
+        });
+        return () => {
+            scrollX.removeAllListeners();
+        };
+    }, []);
+    useEffect(() => {
         setLoaded(false)
     }, [])
 
@@ -35,24 +131,7 @@ const FirstScreen: React.FC = (props) => {
         })()
     }, [!loaded])
 
-    const data = [
-        {
-            title: "Health Buddy",
-            description: "Сервис наставников по восстановлению и сохранению здоровья",
-            image: "blob1.png",
-        },
-        {
-            title: "Программы для клиентов",
-            description: "Отслеживаем динамику назначений через цифровой аватар по всем параметрам организма ",
-            image: "blob2.png",
-        },
-        {
-            title: "Постоянная база клиентов",
-            description:
-                "Зарегистрируй профиль врача  и получай быстрый доступ к базе знаний и клиентов ",
-            image: "blob3.png",
-        },
-    ];
+
     const [index, setIndex] = useState(0);
 
 
@@ -66,9 +145,7 @@ const FirstScreen: React.FC = (props) => {
                     bottom: 80,
                 }}
             >
-                <View style={{alignItems: "center"}}>
-                    <Image source={require(`./OnBoardingImages/blob1.png`)}/>
-                </View>
+
                 <View
                     style={{
                         alignItems: "center",
@@ -106,123 +183,135 @@ const FirstScreen: React.FC = (props) => {
     };
 
     return (
-        <Container containerProp={{width: "100%", flex: 1, marginTop: 50}}>
-            <AppIntroSlider
-                activeDotStyle={{backgroundColor: color1, top: -750}}
-                dotStyle={{backgroundColor: color2, top: -750}}
-                data={data}
-                onSlideChange={setIndex}
-                renderItem={(data) => RenderItem(data.item)}
-                renderNextButton={() => (
-                    <View style={Platform.OS !== "android" ? styles.next_btn_box : styles.ios_next_btn_box}>
-                        <View style={Platform.OS !== "android" ? styles.next_btn : styles.ios_next_btn}>
-                            <Text
-                                style={{
-                                    color: "#fff",
-                                    textAlign: "center",
-                                    fontWeight: "500",
-                                    lineHeight: 20,
-                                    fontSize: 16,
-                                }}
-                            >
-                                Далее
-                            </Text>
-                        </View>
-                    </View>
+        <View style={styles.container}>
+            <StatusBar barStyle={'dark-content'} backgroundColor={'white'}/>
+            <BackDrop scrollX={scrollX}/>
+            {itemIndex === 3 && (
 
-                )}
-            />
-            <Pressable
-                onPress={() => {
-                    navigation.navigate("Greetings");
-                }}
-                style={styles.skip_btn}
-            >
-                {index === 2 ? (
-                    <View style={styles.next_btn_finish}>
-                        <View style={styles.next_btn}>
-                            <Text
-                                style={{
-                                    color: "#fff",
-                                    textAlign: "center",
-                                    fontWeight: "500",
-                                    lineHeight: 20,
-                                    fontSize: 16,
-                                }}>
-                                Начать
+                <Indicator scrollX={scrollX}/>
+            )}
+
+            {/*<Square scrollX={scrollX} />*/}
+            <View style={{width: '100%', alignItems: 'center', flex: 1}}>
+                <Image
+                    style={{
+                        width: 468,
+                        height: 412,
+                        resizeMode: "contain",
+                        marginTop: 60,
+                    }}
+                    source={require('../FirstScreen/OnBoardingImages/blob1.png')}/>
+            </View>
+            <View style={{width: '100%', flex: 1,}}>
+                <FlatList
+                    ref={slider}
+                    scrollEventThrottle={32}
+                    contentContainerStyle={{}}
+                    showsHorizontalScrollIndicator={false}
+                    horizontal
+                    data={DATA}
+                    pagingEnabled
+                    onScroll={Animated.event(
+                        [
+                            {
+                                nativeEvent: {contentOffset: {x: scrollX}},
+                            },
+                        ],
+                        {useNativeDriver: false}
+                    )}
+                    renderItem={({item}) => {
+                        return (
+                            <View style={{width, alignItems: "center"}}>
+                                <View
+                                    style={{
+                                        flex: 0.3,
+                                        width: '100%',
+                                        paddingHorizontal: 16,
+                                        transform: [
+                                            {
+                                                translateY: 140,
+                                            },
+                                        ],
+                                    }}
+                                >
+                                    <Text
+                                        style={{
+                                            fontSize: 24,
+                                            fontWeight: "700",
+                                            lineHeight: 28,
+                                            color: "black",
+                                            textAlign: 'center'
+                                        }}
+                                    >
+                                        {item.title}
+                                    </Text>
+                                    <Text
+                                        style={{
+                                            fontSize: 16,
+                                            fontWeight: "400",
+                                            lineHeight: 24,
+                                            marginTop: 12,
+                                            color: "black",
+                                            paddingHorizontal: 36,
+                                            textAlign: 'center'
+                                        }}
+                                    >
+                                        {item.description}
+                                    </Text>
+                                </View>
+                            </View>
+                        );
+                    }}
+                />
+                {itemIndex < 2 && (
+                    <View style={{marginBottom: 25, paddingHorizontal: 16}}>
+                        <TouchableOpacity
+                            onPress={() => {
+                                navigation.navigate("EnterSex")
+                            }}
+                            style={{alignItems: 'center', marginBottom: 10}}>
+                            <Text style={{
+                                color: color1,
+                                fontWeight: '600',
+                                fontSize: 16
+                            }}>
+                                Пропустить
                             </Text>
-                        </View>
+                        </TouchableOpacity>
+                        <CustomButton
+                            title={"Далее"}
+                            onPress={goNext}/>
                     </View>
-                ) : (
-                    <Text
-                        style={{
-                            color: "#7454CF",
-                            textAlign: "center",
-                            fontWeight: "500",
-                            lineHeight: 20,
-                            fontSize: 16,
-                        }}
-                    >
-                        Пропустить
-                    </Text>
                 )}
-            </Pressable>
-        </Container>
+                {itemIndex === 2 && (
+                    <View style={{paddingHorizontal: 16, marginBottom: 25}}>
+                        <CustomButton
+                            onPress={() => {
+                                navigation.navigate("Greetings4")
+                            }}
+                            title={'Начать'}
+                        />
+                    </View>
+                )}
+                {itemIndex === 3 && (
+                    <View style={{paddingHorizontal: 16, marginBottom: 25}}>
+                        <CustomButton
+                            onPress={()=>{navigation.navigate("EnterSex")}}
+                            title={'Начать'}
+                        />
+                    </View>
+                )}
+            </View>
+        </View>
     );
 };
 
 export default FirstScreen;
 
 const styles = StyleSheet.create({
-    next_btn_box: {
-        alignSelf: "flex-end",
-        alignItems: "center",
-        width: 400,
-        bottom: 35,
-        transform: [
-            {
-                translateX: Dimensions.get('screen').width / 100,
-            },
-        ],
-    },
-    next_btn: {
-        width: width - 32,
-        maxWidth: 380,
-        backgroundColor: color1,
-        padding: 15,
-        borderRadius: 30,
-        marginTop: 25,
-    },
-    skip_btn: {
-        top: "85%",
-        alignSelf: "center",
-        position: "absolute",
-    },
-    ios_next_btn_box: {
-        alignSelf: "flex-end",
-        alignItems: "center",
-        width: 350,
-        bottom: 35,
-        transform: [
-            {
-                translateX: Dimensions.get('screen').width / 100,
-            },
-        ],
-    },
-    ios_next_btn: {
-        width: width - 5,
-        maxWidth: 390,
-        backgroundColor: color1,
-        padding: 15,
-        borderRadius: 30,
-        marginTop: 25,
-        left: -21
-    },
-    next_btn_finish: {
-        alignSelf: "flex-end",
-        alignItems: "center",
-        width: 400,
-        bottom: -8,
-        left: -1
+    container: {
+        justifyContent: "center",
+        backgroundColor: "#fff",
+        flex: 1,
     },
 });

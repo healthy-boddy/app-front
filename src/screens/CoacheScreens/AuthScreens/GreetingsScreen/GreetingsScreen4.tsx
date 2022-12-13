@@ -20,6 +20,7 @@ import {
 import DoubleChecked from "../../../../assets/Icons/DoubleChecked";
 import MansIcon from "./ScreenIcons/MansIcon";
 import Description from "../../../../components/Description";
+import { CalendarScreen } from "../CalendarScreen";
 
 const GreetingsScreen4 = (props: any) => {
   const dispatch = useDispatch();
@@ -93,7 +94,6 @@ const GreetingsScreen4 = (props: any) => {
     }, []);
     //console.log(user_data, 'user_data.user.avatar')
 
-
     return (
         <MainContainer>
             <ScrollView
@@ -122,7 +122,8 @@ const GreetingsScreen4 = (props: any) => {
                     {/*    <BellIcon/>*/}
                     {/*</View>*/}
                 </View>
-                {user_data.education_description === null || !coachTutorialDays[3]?.passed
+
+                {user_data.specialization === null || !coachTutorialDays[3]?.passed
                     ?
                     <View style={{flex: 1}}>
                         <View>
