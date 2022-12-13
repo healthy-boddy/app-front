@@ -268,7 +268,7 @@ const FirstScreen: React.FC = (props) => {
                     <View style={{marginBottom: 25, paddingHorizontal: 16}}>
                         <TouchableOpacity
                             onPress={() => {
-                                navigation.navigate("EnterSex")
+                                navigation.navigate("Greetings")
                             }}
                             style={{alignItems: 'center', marginBottom: 10}}>
                             <Text style={{
@@ -288,16 +288,8 @@ const FirstScreen: React.FC = (props) => {
                     <View style={{paddingHorizontal: 16, marginBottom: 25}}>
                         <CustomButton
                             onPress={() => {
-                                navigation.navigate("Greetings4")
+                                navigation.navigate("Greetings")
                             }}
-                            title={'Начать'}
-                        />
-                    </View>
-                )}
-                {itemIndex === 3 && (
-                    <View style={{paddingHorizontal: 16, marginBottom: 25}}>
-                        <CustomButton
-                            onPress={()=>{navigation.navigate("EnterSex")}}
                             title={'Начать'}
                         />
                     </View>

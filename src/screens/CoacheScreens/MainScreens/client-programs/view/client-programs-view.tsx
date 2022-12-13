@@ -15,7 +15,7 @@ export const ClientsProgramsView = ClientsProgramsModel.modelClient((props) => {
   return (
     <WrapperWithTitlePage
       title={"Программы"}
-      onPressBack={() => navigation.navigate("CalendarPage")}
+      onPressBack={() => navigation.navigate("Greetings4")}
       onPressButton={() =>
         navigation.navigate("ClientProgramsScreen", {
           data: {
