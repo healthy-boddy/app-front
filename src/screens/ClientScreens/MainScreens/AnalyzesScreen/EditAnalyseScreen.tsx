@@ -341,7 +341,6 @@ const EditAnalyseScreen = ({}) => {
 
     return (
         <MainContainer>
-            <View style={{paddingHorizontal: 16, flex: 1}}>
                 <BackButton
                     saveAnalyse
                     onPress={() => {
@@ -383,7 +382,6 @@ const EditAnalyseScreen = ({}) => {
                         title={'Удалить анализ'}
                     />
                 </View>
-            </View>
         </MainContainer>
     );
 };

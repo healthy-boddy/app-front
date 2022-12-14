@@ -227,18 +227,18 @@ const ConditionScreen = () => {
           <Text style={styles.description}>
             Доступно по подписке Health Buddy
           </Text>
-          <TouchableOpacity style={{ paddingTop: 15 }}>
-            <Text
-              style={{
-                color: color1,
-                fontSize: 16,
-                fontWeight: "500",
-                marginTop: 20,
-              }}
-            >
-              Оформить подписку
-            </Text>
-          </TouchableOpacity>
+          {/*<TouchableOpacity style={{ paddingTop: 15 }}>*/}
+          {/*  <Text*/}
+          {/*    style={{*/}
+          {/*      color: color1,*/}
+          {/*      fontSize: 16,*/}
+          {/*      fontWeight: "500",*/}
+          {/*      marginTop: 20,*/}
+          {/*    }}*/}
+          {/*  >*/}
+          {/*    Оформить подписку*/}
+          {/*  </Text>*/}
+          {/*</TouchableOpacity>*/}
         </View>
       )}
     </MainContainer>
