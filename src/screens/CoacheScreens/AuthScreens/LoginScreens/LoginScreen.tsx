@@ -67,7 +67,7 @@ const LoginScreen = () => {
                 <View style={{marginTop: 16}}>
                     <Title>Введите свой телефон</Title>
 
-                    <View style={{marginBottom: 15}}>
+                    <View style={{marginBottom: 35}}>
                         <Text
                             style={{
                                 color: "#797979",

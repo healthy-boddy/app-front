@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {
+    ActivityIndicator,
     FlatList,
     KeyboardAvoidingView,
     SafeAreaView,
@@ -27,6 +28,7 @@ import MainContainer from "../../../../components/MainContainer";
 import BackButton from "../../../../components/BackButton";
 import {File} from "../../../../components/icon/file";
 import Delete from "../../../../assets/Icons/Delete";
+import {color1} from "../../../../helpers/colors";
 
 type ParameterType = {
     name: string;
@@ -57,7 +59,7 @@ const AddManualAnalyze = () => {
     let [filteredAnalysesIndicator, setFilteredAnalysesIndicator] = useState([])
     const [photo, setPhoto] = useState<any>(null)
     const form = new FormData()
-
+    const [loading, setLoading] = useState(false)
     function setBirthDate(date: Date) {
         setAnaliseDate(date);
     }
@@ -78,6 +80,7 @@ const AddManualAnalyze = () => {
     }
 
     async function handleSaveAnalyzes() {
+        setLoading(true)
         form.append('date', moment(analiseDate).format("YYYY-MM-DD"))
         form.append('laboratory', +labId)
         photo ? form.append('photo', photo) : null
@@ -130,7 +133,7 @@ const AddManualAnalyze = () => {
                     },])
                     setLab1('')
                     setPhoto(null)
-
+                    setLoading(false)
                     navigation.navigate("AnalyseResult")
                 })
             }
@@ -298,7 +301,10 @@ const AddManualAnalyze = () => {
                     </View>
                 }
                 <View style={{marginVertical: 25}}>
-                    <CustomButton onPress={handleSaveAnalyzes} title={'Сохранить'}/>
+                    <CustomButton
+                        disabled={loading}
+                        onPress={handleSaveAnalyzes} title={'Сохранить'}
+                    />
                 </View>
             </View>
         )
@@ -344,6 +350,9 @@ const AddManualAnalyze = () => {
 
     return (
         <MainContainer>
+            {loading
+                &&
+                <ActivityIndicator style={{justifyContent: 'center'}} size={'large'} color={color1}/>}
             <View
                 style={{
                     flex: 1,

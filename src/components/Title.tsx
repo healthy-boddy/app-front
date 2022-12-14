@@ -2,8 +2,8 @@ import React from "react";
 import { Text, StyleSheet } from "react-native";
 
 const Title = (props: any) => {
-  const { children, titlePropStyle } = props;
-  return <Text style={[styles.title, titlePropStyle]}>{children}</Text>;
+  const { children, titlePropStyle, numberOfLines } = props;
+  return <Text numberOfLines={numberOfLines} style={[styles.title, titlePropStyle]}>{children}</Text>;
 };
 export default Title;
 
