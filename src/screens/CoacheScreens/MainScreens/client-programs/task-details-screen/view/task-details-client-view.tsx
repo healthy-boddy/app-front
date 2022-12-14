@@ -19,10 +19,13 @@ export const TaskDetailsClientView: FC<TaskDetailsViewProps> =
     const [browser, setBrowser] = useState<WebBrowserResult>();
 
     const handleShowBrowser = async () => {
-      const result = await WebBrowser.openBrowserAsync(
-        `${props.task.button_link}`
-      );
-      setBrowser(result);
+      if (props?.task?.button_link) {
+        const result = await WebBrowser.openBrowserAsync(
+          `${props.task.button_link}`
+        );
+        setBrowser(result);
+      }
+      return;
     };
 
     const handlePress = () => {
