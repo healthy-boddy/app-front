@@ -48,6 +48,7 @@ export class TaskEditingModel {
   }
 
   public deleteProgramById() {
+    console.log("TASK ID", this._taskId);
     try {
       this._httpService.delete(`/program/task/${this._taskId}/`).then((res) => {
         console.log(`successfully deleted task ${this._taskId}`);
@@ -113,11 +114,9 @@ export class TaskEditingModel {
   private static makeModel(taskId: number | undefined) {
     const model = React.useMemo(() => new TaskEditingModel(taskId), []);
     useEffect(() => {
-      if (taskId !== undefined) {
-        model._taskId = taskId;
-        model.getTasks();
-      }
-    }, [model]);
+      model._taskId = taskId;
+      model.getTasks();
+    });
 
     return model;
   }

@@ -18,22 +18,22 @@ export const WrapperPage: FC<ButtonWrapperPageInterface> = ({
   buttonTitle,
 }) => {
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <StatusBar barStyle={"dark-content"} backgroundColor={"white"} />
-      <SafeAreaView
+      <View
         style={{
           marginLeft: 16,
         }}
       >
         <BackButton onPress={onPressBack} />
-      </SafeAreaView>
+      </View>
       <View style={styles.bodyContainer}>{children}</View>
 
-      {buttonTitle.length > 0 && (
+      {buttonTitle !== null && buttonTitle?.length > 0 && (
         <View style={styles.footerContainer}>
           <CustomButton onPress={onPressButton} title={buttonTitle} />
         </View>
       )}
-    </View>
+    </SafeAreaView>
   );
 };
