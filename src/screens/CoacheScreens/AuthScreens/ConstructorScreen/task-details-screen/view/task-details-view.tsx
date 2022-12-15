@@ -1,12 +1,21 @@
 import React, { FC, useState } from "react";
 import { WrapperPage } from "../../../../../../components/core/wrapper";
 import { useNavigation } from "@react-navigation/native";
-import { StyleSheet, Text, View } from "react-native";
+import {
+  Image,
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Linking,
+} from "react-native";
 import Description from "../../../../../../components/Description";
 import { TaskDetailModel } from "../model";
 import { TaskResponse } from "../../program-details-screen/editing-screen/interface";
 import * as WebBrowser from "expo-web-browser";
 import { WebBrowserResult } from "expo-web-browser";
+import { CloseIcon } from "../../view/components/icons/close-icon";
+import { IconSearch } from "../../view/components/icons/icon-search";
 
 interface TaskDetailsViewProps {
   task: TaskResponse;
@@ -19,11 +28,21 @@ export const TaskDetailsView: FC<TaskDetailsViewProps> =
     const [browser, setBrowser] = useState<WebBrowserResult>();
 
     const handleShowBrowser = async () => {
-      const result = await WebBrowser.openBrowserAsync(
-        `${props.task.button_link}`
-      );
-      setBrowser(result);
+      if (props?.task?.button_link !== null) {
+        const result = await WebBrowser.openBrowserAsync(
+          `${props.task.button_link}`
+        );
+        setBrowser(result);
+      } else {
+        return;
+      }
     };
+
+    async function openPdf(pdf: string) {
+      await Linking.openURL(pdf);
+    }
+
+    console.log("PROPS", props);
 
     return (
       <WrapperPage
@@ -43,9 +62,14 @@ export const TaskDetailsView: FC<TaskDetailsViewProps> =
         >
           {!viewIcon && (
             <>
+              <View style={{ marginTop: 16 }} />
               <Text style={styles.titleText}>{props.task.name}</Text>
               <View style={{ marginTop: 8 }} />
-              <Description>В течение {props.task.date} дней</Description>
+              <Description>
+                {props.task.date === 0
+                  ? "В течение всего срока"
+                  : `В течение ${props.task.date} дней`}
+              </Description>
 
               <Text
                 style={{
@@ -57,53 +81,105 @@ export const TaskDetailsView: FC<TaskDetailsViewProps> =
               >
                 {props.task.description}
               </Text>
+
+              {props.task.document && (
+                <TouchableOpacity
+                  onPress={() => openPdf(props.task.document)}
+                  style={{
+                    alignSelf: "flex-start",
+                    marginTop: 16,
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: "black",
+                      fontSize: 20,
+                      lineHeight: 24,
+                      fontWeight: "500",
+                    }}
+                  >
+                    Открыть документ
+                  </Text>
+                </TouchableOpacity>
+              )}
             </>
           )}
 
-          {/*  {viewIcon ? (*/}
-          {/*    <View*/}
-          {/*      style={{*/}
-          {/*        flex: 1,*/}
-          {/*        position: "absolute",*/}
-          {/*        backgroundColor: "#fff",*/}
-          {/*        alignSelf: "center",*/}
-          {/*        justifyContent: "center",*/}
-          {/*      }}*/}
-          {/*    >*/}
-          {/*      <TouchableOpacity*/}
-          {/*        onPress={() => setViewIcon((state) => !state)}*/}
-          {/*        style={{*/}
-          {/*          alignSelf: "flex-end",*/}
-          {/*        }}*/}
-          {/*      >*/}
-          {/*        <CloseIcon />*/}
-          {/*      </TouchableOpacity>*/}
-          {/*      <LargeIconPerson />*/}
-          {/*    </View>*/}
-          {/*  ) : (*/}
-          {/*    <View*/}
-          {/*      style={{*/}
-          {/*        height: 258,*/}
-          {/*        width: 100,*/}
-          {/*        alignSelf: "center",*/}
-          {/*        borderRadius: 12,*/}
-          {/*        marginTop: 27,*/}
-          {/*      }}*/}
-          {/*    >*/}
-          {/*      <TouchableOpacity*/}
-          {/*        onPress={() => setViewIcon((state) => !state)}*/}
-          {/*        style={{*/}
-          {/*          alignSelf: "flex-end",*/}
-          {/*        }}*/}
-          {/*      >*/}
-          {/*        <IconSearch />*/}
-          {/*      </TouchableOpacity>*/}
-          {/*      <ImagePerson />*/}
-          {/*    </View>*/}
-          {/*  )}*/}
+          {props?.task.image !== null && props?.task.image && (
+            <>
+              {viewIcon ? (
+                <View
+                  style={{
+                    flex: 1,
+                    position: "absolute",
+                    backgroundColor: "#fff",
+                    alignSelf: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <TouchableOpacity
+                    onPress={() => setViewIcon((state) => !state)}
+                    style={{
+                      alignSelf: "flex-end",
+                    }}
+                  >
+                    <CloseIcon />
+                  </TouchableOpacity>
+                  <View
+                    style={{
+                      width: 350,
+                      height: 600,
+                    }}
+                  >
+                    <Image
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                      }}
+                      resizeMode="stretch"
+                      source={{ uri: props?.task.image }}
+                    />
+                  </View>
+                </View>
+              ) : (
+                <View
+                  style={{
+                    height: 258,
+                    width: 100,
+                    alignSelf: "center",
+                    borderRadius: 12,
+                    marginTop: 27,
+                  }}
+                >
+                  <TouchableOpacity
+                    onPress={() => setViewIcon((state) => !state)}
+                    style={{
+                      alignSelf: "flex-end",
+                    }}
+                  >
+                    <IconSearch />
+                  </TouchableOpacity>
+                  <View
+                    style={{
+                      height: "auto",
+                    }}
+                  >
+                    <Image
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                      }}
+                      resizeMode="cover"
+                      source={{ uri: props?.task.image }}
+                    />
+                  </View>
+                </View>
+              )}
+            </>
+          )}
         </View>
 
-        {props.task.document && <Text>{props.task.document}</Text>}
+        {/*{props.task.document && <Text>{props.task.document}</Text>}*/}
 
         <Text>
           {browser?.type !== "cancel" && null && JSON.stringify(browser)}

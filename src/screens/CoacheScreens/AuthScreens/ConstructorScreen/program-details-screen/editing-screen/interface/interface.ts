@@ -9,4 +9,5 @@ export type TaskResponse = {
   date: number;
   button_text: string;
   button_link: string;
+  image: string;
 };

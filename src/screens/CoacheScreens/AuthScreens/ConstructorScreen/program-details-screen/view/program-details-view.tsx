@@ -220,7 +220,7 @@ export const ProgramDetailsView = ProgramDetailsModel.modelClient((props) => {
                     fontWeight: "400",
                   }}
                 >
-                  Показать все
+                  {showAll ? "Скрыть" : "Показать все"}
                 </Text>
               </TouchableOpacity>
             </View>
@@ -230,7 +230,7 @@ export const ProgramDetailsView = ProgramDetailsModel.modelClient((props) => {
                 {props.model.tasks.type === "HAS_DATA" &&
                   props.model.tasks.data.map((task) => {
                     return (
-                      <>
+                      <React.Fragment key={task.id}>
                         <AllTasksBlock
                           key={task.id}
                           onPress={() =>
@@ -246,7 +246,7 @@ export const ProgramDetailsView = ProgramDetailsModel.modelClient((props) => {
                               : `В течение всей программы`
                           }
                         />
-                      </>
+                      </React.Fragment>
                     );
                   })}
               </View>
