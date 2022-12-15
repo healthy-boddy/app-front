@@ -93,7 +93,7 @@ const AnalyseResultScreen = () => {
                     {analyse?.date}
                 </Text>
                 <Description marginTop={10}>
-                    Инвитро, Сампсоньевский, 32
+                    {analyse?.laboratory_name}
                 </Description>
                 <View style={{flex: 1, marginTop: 35}}>
                     <FlatList

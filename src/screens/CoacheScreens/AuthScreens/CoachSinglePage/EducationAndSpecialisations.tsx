@@ -14,7 +14,7 @@ const EducationAndSpecialisations = () => {
     return (
         <MainContainer>
             <ScrollView style={{width: '100%'}} showsVerticalScrollIndicator={false}>
-                <View style={{height: 101}}>
+                <View style={{height: 90}}>
                     <BackButton
                         onPress={() => {
                             navigation.navigate("CoachSingleScreen")

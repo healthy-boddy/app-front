@@ -14,6 +14,7 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import Title from "../../../../components/Title";
 import CheckBox from "../../../../assets/Icons/CheckBox";
+import Description from "../../../../components/Description";
 
 type Answer = {
   question: number;
@@ -174,10 +175,15 @@ const PaidQuizzesScreen = () => {
           }}
         />
 
-        <View style={{ marginTop: 32, marginBottom: 20 }}>
+        <View style={{ marginTop: 32, marginBottom: 8 }}>
           <Title>{questions[level]?.text}</Title>
         </View>
-
+        <Description>
+          {questions[level]?.is_multichoice ?
+              'Выберите один или несколько вариантов'
+              :
+              'Выберите один вариант'}
+        </Description>
         <View style={{ flex: 1 }}>
           <ScrollView showsVerticalScrollIndicator={false}>
             {questions[level]?.answers?.map((item: any, index: number) => (

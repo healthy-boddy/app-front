@@ -84,7 +84,12 @@ const AnalyzesScreen = () => {
                     <AnalysesIcon/>
                 </View>
                 <View style={styles.content_box}>
-                    <Title numberOfLines={1} titlePropStyle={{fontSize: 18, width: '80%'}}>{item.name}</Title>
+                    <Title
+                        numberOfLines={1}
+                        titlePropStyle={{fontSize: 18, width: '85%'}}
+                    >
+                        {item?.name}
+                    </Title>
                     <Description marginVertical={4}>Создано мной</Description>
                     <Text
                         style={{
@@ -208,5 +213,6 @@ const styles = StyleSheet.create({
     icon_box: {},
     content_box: {
         marginLeft: 12,
+        width: '100%'
     },
 });

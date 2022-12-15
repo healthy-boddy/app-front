@@ -61,6 +61,7 @@ const FirstScreen: React.FC = (props) => {
                     bottom: 40,
                     flexDirection: "row",
                     alignSelf: "center",
+                    backgroundColor: 'red'
                 }}
             >
                 {DATA.map((_, i) => {
@@ -98,19 +99,7 @@ const FirstScreen: React.FC = (props) => {
         );
     };
 
-    const BackDrop = ({scrollX}) => {
-        const backgroundColor = scrollX.interpolate({
-            inputRange: bgs.map((_, i) => i * width),
-            outputRange: bgs.map((bg) => bg),
-        });
-        return (
-            <Animated.View
-                style={[
-                    StyleSheet.absoluteFillObject,
-                ]}
-            />
-        );
-    };
+
     useEffect(() => {
         scrollX.addListener(({value}) => {
             const val = Math.round(value / width);
@@ -186,14 +175,12 @@ const FirstScreen: React.FC = (props) => {
     return (
         <View style={styles.container}>
             <StatusBar barStyle={'dark-content'} backgroundColor={'white'}/>
-            <BackDrop scrollX={scrollX}/>
             {itemIndex === 3 && (
-
                 <Indicator scrollX={scrollX}/>
             )}
 
             {/*<Square scrollX={scrollX} />*/}
-            <View style={{width: '100%', alignItems: 'center', flex: 1}}>
+            <View style={{width: '100%', alignItems: 'center', flex: 1, justifyContent: 'center'}}>
                 <Image
                     style={{
                         width: 468,
@@ -202,6 +189,7 @@ const FirstScreen: React.FC = (props) => {
                         marginTop: 60,
                     }}
                     source={require('../FirstScreen/OnBoardingImages/blob1.png')}/>
+
             </View>
             <View style={{width: '100%', flex: 1,}}>
                 <FlatList
@@ -265,12 +253,12 @@ const FirstScreen: React.FC = (props) => {
                     }}
                 />
                 {itemIndex < 2 && (
-                    <View style={{marginBottom: 25, paddingHorizontal: 16}}>
+                    <View style={{marginBottom: 40, paddingHorizontal: 16}}>
                         <TouchableOpacity
                             onPress={() => {
                                 navigation.navigate("Greetings")
                             }}
-                            style={{alignItems: 'center', marginBottom: 10}}>
+                            style={{alignItems: 'center', marginBottom: 16}}>
                             <Text style={{
                                 color: color1,
                                 fontWeight: '600',
@@ -285,7 +273,7 @@ const FirstScreen: React.FC = (props) => {
                     </View>
                 )}
                 {itemIndex === 2 && (
-                    <View style={{paddingHorizontal: 16, marginBottom: 25}}>
+                    <View style={{paddingHorizontal: 16, marginBottom: 40}}>
                         <CustomButton
                             onPress={() => {
                                 navigation.navigate("Greetings")

@@ -30,12 +30,7 @@ const GreetingsScreen = (props: any) => {
         <MainContainer
             buttonTitle={"Отлично! Продолжить"}
         >
-            <View
-                style={{
-                    paddingHorizontal: 16,
-                    flex: 1
-                }}
-            >
+
                 <Text
                     style={{
                         fontWeight: "600",
@@ -63,13 +58,12 @@ const GreetingsScreen = (props: any) => {
                 <View style={styles.image_box}>
                     <Doctor/>
                 </View>
-            </View>
-            <View style={{marginBottom: 25}}>
+            <View style={{marginBottom: 40}}>
                 <CustomButton
                     onPress={() => {
                         navigation.navigate("Greetings2")
                     }}
-                    title={'Отлично! Проджолжить'}/>
+                    title={'Отлично! Продолжить'}/>
             </View>
         </MainContainer>
     );
