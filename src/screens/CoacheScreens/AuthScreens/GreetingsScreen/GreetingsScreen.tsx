@@ -45,6 +45,43 @@ const GreetingsScreen = (props: any) => {
             marginTop: 25,
           }}
         >
+
+                <Text
+                    style={{
+                        fontWeight: "600",
+                        fontSize: 24,
+                        lineHeight: 28,
+                        color: "#1E1E1E",
+                        textAlign: "left",
+                        alignSelf: "flex-start",
+                        marginTop: 25
+                    }}
+                >
+                    Здравствуйте, {user_data?.user?.username} !
+                </Text>
+                <Text
+                    style={{
+                        marginTop: 12,
+                        fontWeight: "400",
+                        fontSize: 16,
+                        lineHeight: 20,
+                        color: "#797979",
+                    }}
+                >
+                    Мы вас нашли в списке верифицированных в бадди.
+                </Text>
+                <View style={styles.image_box}>
+                    <Doctor/>
+                </View>
+            <View style={{marginBottom: 40}}>
+                <CustomButton
+                    onPress={() => {
+                        navigation.navigate("Greetings2")
+                    }}
+                    title={'Отлично! Продолжить'}/>
+            </View>
+        </MainContainer>
+    );
           Здравствуйте, {user_data?.user?.username} !
         </Text>
         <Text

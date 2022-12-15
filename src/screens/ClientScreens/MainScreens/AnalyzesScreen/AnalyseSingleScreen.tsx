@@ -21,7 +21,7 @@ const AnalyseSingleScreen = ({routes}) => {
     let tokenFromReducer = useSelector((store: any) => store.user_token.user_token);
     let AuthStr = "Bearer " + tokenFromReducer;
     let [indicators, setIndicators] = useState([])
-    let [analyse, setAnalyse] = useState([])
+    let [analyse, setAnalyse] = useState<any>([])
     const [visible, setIsVisible] = useState(false);
 
     function handleGetAnalyseIndicators() {

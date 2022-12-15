@@ -86,6 +86,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     // marginTop: Platform.OS === "android" ? 35 : 0,
     alignItems: "center",
+    marginRight: 16
   },
   title: {
     color: "#7454CF",

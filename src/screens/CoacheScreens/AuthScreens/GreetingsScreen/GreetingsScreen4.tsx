@@ -108,7 +108,7 @@ const GreetingsScreen4 = (props: any) => {
     console.log(user_data, 'user_data.user.avatar')
 
     const handleQuestionsRender = () => {
-        console.log(!user_data.education_description, coachTutorialDays[3]?.passed, 'verev')
+       // console.log(!user_data.education_description, coachTutorialDays[3]?.passed, 'verev')
         if (!user_data.education_description) {
             return (
                 <View style={{flex: 1}}>

@@ -16,6 +16,8 @@ import { useSelector } from "react-redux";
 import CheckBox from "../../../../../assets/Icons/CheckBox";
 import { color1 } from "../../../../../helpers/colors";
 import Title from "../../../../../components/Title";
+import Modal from "react-native-modal";
+import Description from "../../../../../components/Description";
 
 type Answer = {
   other_answer?: string;
@@ -35,6 +37,7 @@ const SecondThirdTutorialScreen = () => {
   let [questions, setQuestions] = useState<any>([]);
   let [checkedAnswer, setCheckedAnswer] = useState<Array<Answer>>([]);
   let [inputAnswerVisible, setInputAnswerVisible] = useState(false);
+  let [isVisible, setIsVisible] = useState(false);
 
   let AuthStr = "Bearer " + tokenFromReducer;
 
@@ -115,6 +118,10 @@ const SecondThirdTutorialScreen = () => {
   };
 
   const onNextPress = () => {
+    if (checkedAnswer.length < level + 1) {
+      setIsVisible(true)
+      return false
+    }
     if (level < questions.length - 1) {
       setInputAnswerVisible(false);
       setLevel(level + 1);
@@ -211,9 +218,15 @@ const SecondThirdTutorialScreen = () => {
             borderRadius: 20,
           }}
         />
-        <View style={{ marginTop: 32, marginBottom: 20 }}>
+        <View style={{ marginTop: 32, marginBottom: 8 }}>
           <Title>{questions[level]?.text}</Title>
         </View>
+        <Description>
+          {questions[level]?.is_multichoice ?
+              'Выберите один или несколько вариантов'
+              :
+              'Выберите один вариант'}
+        </Description>
         <View style={{ flex: 1 }}>
           <ScrollView showsVerticalScrollIndicator={false}>
             {questions[level]?.answers?.map((item: any, index: number) => (
@@ -263,6 +276,31 @@ const SecondThirdTutorialScreen = () => {
               </View>
             )}
           </ScrollView>
+          <Modal useNativeDriver={true} isVisible={isVisible}>
+            <View style={styles.modal}>
+              <Text style={{
+                textAlign: 'center',
+                fontStyle: 'normal',
+                fontWeight: '600',
+                fontSize: 19,
+                lineHeight: 22,
+                flex: 1
+              }}>
+                Необходимо выбрать 1 из вариантов ответа
+              </Text>
+              <CustomButton
+                  title={'Продолжить'}
+                  onPress={()=>{setIsVisible(false)}}
+               >
+                <Text style={{
+                  fontSize: 16,
+                  fontWeight: '600'
+                }}>
+                  Продолжить
+                </Text>
+              </CustomButton>
+            </View>
+          </Modal>
         </View>
       </View>
       <View style={{ marginBottom: 25 }}>
@@ -310,4 +348,12 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     borderWidth: 2,
   },
+  modal: {
+    backgroundColor: 'white',
+    width: '100%',
+    height: 220,
+    borderRadius: 30,
+    paddingVertical: 40,
+    paddingHorizontal: 16
+  }
 });

@@ -14,6 +14,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import {ActivityIndicator, ProgressBar, RadioButton} from "react-native-paper";
 import {color1} from "../../../../helpers/colors";
 import CheckBox from "../../../../assets/Icons/CheckBox";
+import Description from "../../../../components/Description";
 
 type Answer = {
     question: number;
@@ -168,10 +169,15 @@ const QuestionsScreen = () => {
                     }}
                 />
 
-                <View style={{marginTop: 32, marginBottom: 20}}>
+                <View style={{marginTop: 32, marginBottom: 8}}>
                     <Title>{questions[level]?.text}</Title>
                 </View>
-
+                <Description>
+                    {questions[level]?.is_multichoice ?
+                        'Выберите один или несколько вариантов'
+                        :
+                        'Выберите один вариант'}
+                </Description>
                 <View style={{flex: 1}}>
                     <ScrollView showsVerticalScrollIndicator={false}>
                         {questions[level]?.answers?.map((item: any, index: number) => (
