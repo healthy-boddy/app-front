@@ -28,7 +28,7 @@ export class GoalsDetailsClientModel {
 
   public getGoals() {
     try {
-      this._httpService.get<GoalsResArray>(`/program/goal/`).then((res) => {
+      this._httpService.get<GoalsResArray>(`/global_goal/`).then((res) => {
         runInAction(() => {
           this._goals = stateCreator.getHasDataState(res.data);
         });

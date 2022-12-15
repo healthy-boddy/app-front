@@ -120,12 +120,13 @@ const HomeScreen = () => {
 
   function getGoals() {
     axios
-      .get<GoalsResArray>("http://92.53.97.238/program/goal/", {
+      .get<GoalsResArray>("http://92.53.97.238/global_goal/", {
         headers: {
           Authorization: "Bearer " + tokenFromReducer,
         },
       })
       .then((res) => {
+        console.log("RES getGoals", res.data);
         setGoals(res.data);
         //   console.log(userCoach, 'userCoach')
       });
