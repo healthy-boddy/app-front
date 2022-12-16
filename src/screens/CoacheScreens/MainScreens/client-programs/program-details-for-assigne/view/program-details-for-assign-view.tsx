@@ -23,9 +23,10 @@ import { SuccessAssignBanner } from "../../../../../../components/core/sussecc-a
 export const ProgramDetailsForAssignView =
   ProgramDetailsForAssignModel.modelClient((props) => {
     const navigation = useNavigation<any>();
-    const [showAll, setShowAll] = useState(false);
+    const [reviewsVisible, setReviewsVisible] = useState(false);
     const [isOpen, setOpen] = useState(false);
     const [clientData, setClientData] = useState<ClientResponse>();
+    const [showAll, setShowAll] = useState(false);
 
     const sheetRef = useRef<BottomSheet>(null);
     const snapPoints = ["70%"];
@@ -77,34 +78,40 @@ export const ProgramDetailsForAssignView =
                 })
               }
             />
-            <ScrollView
+            <Text
               style={{
-                marginBottom: 50,
+                color: "#1E1E1E",
+                fontSize: 24,
+                lineHeight: 28,
+                fontWeight: "600",
               }}
-              showsVerticalScrollIndicator={false}
             >
-              <Text
-                style={{
-                  color: "#1E1E1E",
-                  fontSize: 24,
-                  lineHeight: 28,
-                  fontWeight: "600",
-                }}
-              >
-                {props.model.name}
-              </Text>
+              {props.model.name}
+            </Text>
 
-              <Text
+            <TouchableOpacity
+              style={{
+                marginTop: 20,
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}
+              activeOpacity={0.7}
+              onPress={() => {
+                setReviewsVisible(!reviewsVisible);
+              }}
+            >
+              {reviewsVisible && (
+                <Description>{props.model.description}</Description>
+              )}
+              <View
                 style={{
-                  fontWeight: "400",
-                  lineHeight: 20,
-                  fontSize: 16,
-                  color: "#6f6f6f",
-                  marginTop: 12,
+                  alignItems: "center",
+                  width: "100%",
                 }}
               >
-                {props.model.description}
-              </Text>
+                {!reviewsVisible ? <ArrowDown /> : <ArrowUp />}
+              </View>
+            </TouchableOpacity>
 
               <View style={{ marginTop: 30 }} />
               <ProgramsGoalsBlock
@@ -152,53 +159,19 @@ export const ProgramDetailsForAssignView =
                 </TouchableOpacity>
               </View>
 
-              <View style={{ marginTop: 32 }} />
-              {showAll ? (
-                <View style={{ marginTop: 32 }}>
-                  {props.model.tasks.type === "HAS_DATA" &&
-                    props.model.tasks.data.map((task) => {
-                      return (
-                        <React.Fragment key={task.id}>
-                          <AllTasksBlock
-                            key={task.id}
-                            onPress={() =>
-                              navigation.navigate("TaskDetails", {
-                                task: task,
-                                // clientId: props.model.client,
-                              })
-                            }
-                            title={task.name}
-                            duration={
-                              task.date !== 0
-                                ? `В течение ${task.date} дней`
-                                : `В течение всей программы`
-                            }
-                          />
-                        </React.Fragment>
-                      );
-                    })}
-                </View>
-              ) : (
-                <View style={{ marginTop: 32 }}>
-                  {props.model.tasks.type === "HAS_DATA" &&
-                    props.model.tasks.data.slice(0, 4).map((task) => {
-                      console.log(task);
-                      return (
-                        <AllTasksBlock
-                          key={task.id}
-                          onPress={() =>
-                            navigation.navigate("TaskDetails", {
-                              task: task,
-                              // clientId: props.model.client,
-                            })
-                          }
-                          title={task.name}
-                          duration={`В течение ${task.date} дней`}
-                        />
-                      );
-                    })}
-                </View>
-              )}
+            <View style={{ marginTop: 32 }} />
+            <ScrollView showsVerticalScrollIndicator={false}>
+              {props.model.tasks.type === "HAS_DATA" &&
+                props.model.tasks.data.map((task) => {
+                  return (
+                    <AllTasksBlock
+                      key={task.id}
+                      onPress={() => navigation.navigate("TaskDetails")}
+                      title={task.name}
+                      duration={`В течение ${task.date} дней`}
+                    />
+                  );
+                })}
             </ScrollView>
           </View>
         </SafeAreaView>

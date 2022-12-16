@@ -28,6 +28,7 @@ import { PersonSvg } from "./icons/person";
 import { GoalsClientDetails } from "../../screens/ClientScreens/MainScreens/HomeScreen/goals-screen";
 import { DetailsProgramClient } from "../../screens/ClientScreens/MainScreens/HomeScreen/program-details-screen";
 import { TaskDetailsScreen } from "../../screens/CoacheScreens/AuthScreens/ConstructorScreen/task-details-screen";
+import { TaskDetailsClientScreen } from "../../screens/CoacheScreens/MainScreens/client-programs/task-details-screen";
 
 function Home() {
   return <HomeScreen />;
@@ -250,6 +251,15 @@ export default function ClientMain() {
       <Tab.Screen
         name={"TaskDetails"}
         component={TaskDetailsScreen}
+        options={({ route }) => ({
+          tabBarButton: () => null,
+          tabBarStyle: { display: "none" },
+        })}
+      />
+
+      <Tab.Screen
+        name={"TaskDetailsClientScreen"}
+        component={TaskDetailsClientScreen}
         options={({ route }) => ({
           tabBarButton: () => null,
           tabBarStyle: { display: "none" },

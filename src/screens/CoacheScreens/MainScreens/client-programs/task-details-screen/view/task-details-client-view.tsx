@@ -40,7 +40,7 @@ export const TaskDetailsClientView: FC<TaskDetailsViewProps> =
         onPressButton={handlePress}
         buttonTitle={props.task.button_text}
         onPressBack={() =>
-          navigation.navigate("ProgramDetailsClient", {
+          navigation.navigate("DetailsProgramClient", {
             programId: props.model.programDetailForClient,
             assignedProgram: props.model.programDetailForClient,
             clientID: props.model.client,

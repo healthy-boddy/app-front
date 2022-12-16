@@ -23,7 +23,6 @@ export class ClientsProgramsModel {
   }
 
   public getProgramAssignedById() {
-    console.log("getProgramAssignedById", this._client);
     try {
       this._httpService
         .get<ProgramAssignedToClientArray>(

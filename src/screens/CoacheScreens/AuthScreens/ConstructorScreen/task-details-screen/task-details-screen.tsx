@@ -5,7 +5,7 @@ import { TaskResponse } from "../program-details-screen/editing-screen/interface
 
 export const TaskDetailsScreen = ({ route: { params } }: any) => {
   const taskData: any = params?.task;
-  console.log("taskData", taskData);
+  console.log("taskData", params?.task);
   return (
     <TaskDetailModel.Provider taskData={taskData}>
       <TaskDetailsView task={taskData} />
