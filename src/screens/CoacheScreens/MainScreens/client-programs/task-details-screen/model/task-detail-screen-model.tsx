@@ -40,7 +40,8 @@ export class TaskDetailClientModel {
         })
         .then((res) => {
           console.log("RES completeTask", res.status);
-        });
+        })
+        .catch((error) => console.log("ERROR", error.response.data));
     } catch (e: any) {
       console.log(e.response);
     }
@@ -81,7 +82,7 @@ export class TaskDetailClientModel {
         model._programDetailForClient = programAssignedToClient;
         model._client = clientID;
       });
-    }, [model]);
+    });
 
     return model;
   }

@@ -35,10 +35,10 @@ export class GoalsModel {
     this._client = clientData;
   }
 
-  public getGlobalGoals() {
+  public getGlobalGoals(client: ClientResponse) {
     try {
       this._httpService
-        .get<GlobalGoalsResArray>(`/global_goal/`)
+        .get<GlobalGoalsResArray>(`/global_goal?client=${client}`)
         .then((res) => {
           runInAction(() => {
             this._globalGoals = stateCreator.getHasDataState(res.data);

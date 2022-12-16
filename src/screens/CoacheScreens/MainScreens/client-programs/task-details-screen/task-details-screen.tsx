@@ -10,6 +10,8 @@ export const TaskDetailsClientScreen = ({ route: { params } }: any) => {
   const programId = params?.programId;
   const clientID = params?.clientID;
 
+  console.log("TASK ID", taskData.id);
+
   return (
     <TaskDetailClientModel.Provider
       programId={programId}

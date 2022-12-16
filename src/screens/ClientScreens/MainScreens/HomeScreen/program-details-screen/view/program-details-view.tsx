@@ -183,7 +183,7 @@ export const ProgramDetailsView = ProgramDetailsModel.modelClient((props) => {
                     fontWeight: "400",
                   }}
                 >
-                  Показать все
+                  {showAll ? "Скрыть" : "Показать все"}
                 </Text>
               </TouchableOpacity>
             </View>
@@ -197,8 +197,12 @@ export const ProgramDetailsView = ProgramDetailsModel.modelClient((props) => {
                         <AllTasksBlock
                           key={task.id}
                           onPress={() =>
-                            navigation.navigate("TaskDetails", {
-                              ...task,
+                            navigation.navigate("TaskDetailsClientScreen", {
+                              task: task,
+                              programId: props.model.programDetailForClient,
+                              assignedProgram:
+                                props.model.programDetailForClient,
+                              clientID: props.model.client,
                             })
                           }
                           title={task.name}
@@ -216,13 +220,15 @@ export const ProgramDetailsView = ProgramDetailsModel.modelClient((props) => {
               <View style={{ marginTop: 32 }}>
                 {props.model.tasks.type === "HAS_DATA" &&
                   props.model.tasks.data.slice(0, 4).map((task) => {
-                    console.log(task);
                     return (
                       <AllTasksBlock
                         key={task.id}
                         onPress={() =>
-                          navigation.navigate("TaskDetails", {
-                            ...task,
+                          navigation.navigate("TaskDetailsClientScreen", {
+                            task: task,
+                            programId: props.model.programDetailForClient,
+                            assignedProgram: props.model.programDetailForClient,
+                            clientID: props.model.client,
                           })
                         }
                         title={task.name}

@@ -42,7 +42,11 @@ const BackButton = (props: any) => {
         </Text>
       )}
 
-      <View />
+      <View
+        style={{
+          width: 90,
+        }}
+      />
 
       {props.latter && (
         <TouchableOpacity onPress={props.onPressLetter} style={styles.back}>
@@ -86,7 +90,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     // marginTop: Platform.OS === "android" ? 35 : 0,
     alignItems: "center",
-    marginRight: 16
+    marginRight: 16,
   },
   title: {
     color: "#7454CF",

@@ -16,6 +16,7 @@ import * as WebBrowser from "expo-web-browser";
 import { WebBrowserResult } from "expo-web-browser";
 import { CloseIcon } from "../../view/components/icons/close-icon";
 import { IconSearch } from "../../view/components/icons/icon-search";
+import VideoPreViewVector from "../../../TutorialScreens/TutorialScreensIcons/VideoPreViewVector";
 
 interface TaskDetailsViewProps {
   task: TaskResponse;
@@ -42,13 +43,11 @@ export const TaskDetailsView: FC<TaskDetailsViewProps> =
       await Linking.openURL(pdf);
     }
 
-    console.log("PROPS", props);
-
     return (
       <WrapperPage
         onPressButton={handleShowBrowser}
         buttonTitle={props.task.button_text}
-        onPressBack={() => navigation.navigate("ProgramDetails")}
+        onPressBack={() => navigation.goBack()}
       >
         <View
           style={[
@@ -83,24 +82,35 @@ export const TaskDetailsView: FC<TaskDetailsViewProps> =
               </Text>
 
               {props.task.document && (
-                <TouchableOpacity
-                  onPress={() => openPdf(props.task.document)}
+                <View
                   style={{
-                    alignSelf: "flex-start",
+                    width: "100%",
+                    height: 200,
+                    borderRadius: 20,
+                    backgroundColor: "#8C64FF",
+                    flexDirection: "row",
+                    justifyContent: "space-between",
                     marginTop: 16,
                   }}
                 >
-                  <Text
+                  <View>
+                    <VideoPreViewVector />
+                  </View>
+                  <TouchableOpacity
+                    onPress={() => openPdf(props.task.document)}
                     style={{
-                      color: "black",
-                      fontSize: 20,
-                      lineHeight: 24,
-                      fontWeight: "500",
+                      alignSelf: "flex-end",
+                      marginBottom: 20,
+                      backgroundColor: "rgba(255, 255, 255, 0.4)",
+                      paddingVertical: 8,
+                      paddingHorizontal: 15,
+                      borderRadius: 20,
+                      right: 35,
                     }}
                   >
-                    Открыть документ
-                  </Text>
-                </TouchableOpacity>
+                    <Text style={{ color: "#FFFFFF" }}>Открыть документ</Text>
+                  </TouchableOpacity>
+                </View>
               )}
             </>
           )}

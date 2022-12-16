@@ -1,5 +1,11 @@
 import React, { useEffect } from "react";
-import { SafeAreaView, Text, TouchableOpacity, View } from "react-native";
+import {
+  SafeAreaView,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { ProgramBlock } from "./components/program-block";
 import { ClientProgramsModel } from "../model";
@@ -66,25 +72,32 @@ export const ClientProgramsView = ClientProgramsModel.modelClient((props) => {
             Конструктор программ
           </Text>
         </View>
-
-        {props.model.programs.type === "HAS_DATA" &&
-          props.model.programs.data?.map((programs) => {
-            return (
-              <ProgramBlock
-                taskQuantity={programs.tasks_quantity}
-                key={programs.id}
-                onPress={() =>
-                  navigation.navigate("ProgramDetailsForAssign", {
-                    programId: programs.id,
-                    clientID: props.model.client,
-                  })
-                }
-                title={programs.name}
-                subtitle={programs.description}
-                duration={`Длительность - ${programs.duration} год`}
-              />
-            );
-          })}
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          scrollEnabled={
+            props.model.programs.type === "HAS_DATA" &&
+            props.model.programs.data?.length > 4
+          }
+        >
+          {props.model.programs.type === "HAS_DATA" &&
+            props.model.programs.data?.map((programs) => {
+              return (
+                <ProgramBlock
+                  taskQuantity={programs.tasks_quantity}
+                  key={programs.id}
+                  onPress={() =>
+                    navigation.navigate("ProgramDetailsForAssign", {
+                      programId: programs.id,
+                      clientID: props.model.client,
+                    })
+                  }
+                  title={programs.name}
+                  subtitle={programs.description}
+                  duration={`Длительность - ${programs.duration} год`}
+                />
+              );
+            })}
+        </ScrollView>
       </View>
     </SafeAreaView>
   );

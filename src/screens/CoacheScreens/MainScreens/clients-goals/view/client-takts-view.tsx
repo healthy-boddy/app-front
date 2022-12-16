@@ -24,11 +24,14 @@ export const ClientGoalsView: FC<ClientGoalsViewProps> = GoalsModel.modelClient(
     const [goalData, setGoal] = useState<Goals>();
     const dataClient = props.client;
 
-    if (dataClient?.user && dataClient?.total_global_goals_count) {
+    //todo: add navigation to model
+
+    if (props?.client !== undefined) {
       runInAction(() => {
-        props.model.setClientsRouteData(dataClient);
+        props.model.getGlobalGoals(props.client.user.id);
       });
     }
+
     const snapPoints = ["40%"];
     const sheetRef = useRef<BottomSheet>(null);
     const handleSnapPressDelete = useCallback((index: number) => {
@@ -41,8 +44,6 @@ export const ClientGoalsView: FC<ClientGoalsViewProps> = GoalsModel.modelClient(
         sheetRef.current?.close();
       }
     }, [goalData && goalData?.successesAssigned]);
-
-    console.log("props.model.clientsRouteData", props.model.clientsRouteData);
 
     return (
       <>
@@ -57,19 +58,19 @@ export const ClientGoalsView: FC<ClientGoalsViewProps> = GoalsModel.modelClient(
           onPressBack={() =>
             navigation.navigate("ClientDetailsPage", {
               data: {
-                avatar: props.model.clientsRouteData?.user.avatar_thumbnail,
-                name: props.model.clientsRouteData?.user.username,
+                avatar: props.client.user.avatar_thumbnail,
+                name: props.client.user.username,
                 subscription: "Индивидуальный",
                 subscriptionDuration: "12",
-                clientID: props.model.clientsRouteData?.user.id,
-                client: props.model.clientsRouteData,
+                clientID: props.client.user.id,
+                client: props.client,
               },
             })
           }
           onPressButton={() =>
             navigation.navigate("GlobalGoalsEditing", {
               data: {
-                client: dataClient,
+                client: props?.client,
               },
             })
           }
@@ -77,7 +78,7 @@ export const ClientGoalsView: FC<ClientGoalsViewProps> = GoalsModel.modelClient(
           onPressEdit={() =>
             navigation.navigate("GlobalGoalsEditing", {
               data: {
-                client: dataClient,
+                client: props?.client,
               },
             })
           }
@@ -101,6 +102,7 @@ export const ClientGoalsView: FC<ClientGoalsViewProps> = GoalsModel.modelClient(
                 const handlePress = (data: Goals) => {
                   setGoal(data), handleSnapPressDelete(0);
                 };
+
                 return (
                   <GoalsBlock
                     id={goal.id}

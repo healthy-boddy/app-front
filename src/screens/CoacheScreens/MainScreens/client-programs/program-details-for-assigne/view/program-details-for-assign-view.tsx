@@ -26,6 +26,7 @@ export const ProgramDetailsForAssignView =
     const [reviewsVisible, setReviewsVisible] = useState(false);
     const [isOpen, setOpen] = useState(false);
     const [clientData, setClientData] = useState<ClientResponse>();
+    const [showAll, setShowAll] = useState(false);
 
     const sheetRef = useRef<BottomSheet>(null);
     const snapPoints = ["70%"];
@@ -112,51 +113,51 @@ export const ProgramDetailsForAssignView =
               </View>
             </TouchableOpacity>
 
-            <View style={{ marginTop: 30 }} />
-            <ProgramsGoalsBlock
-              onPress={() =>
-                navigation.navigate("Goals", {
-                  programId: props.model.currentProgramId,
-                })
-              }
-              number={props.model.goalsQuantity}
-              title={"Цели программы"}
-            />
+              <View style={{ marginTop: 30 }} />
+              <ProgramsGoalsBlock
+                onPress={() =>
+                  navigation.navigate("Goals", {
+                    programId: props.model.currentProgramId,
+                  })
+                }
+                number={props.model.goalsQuantity}
+                title={"Цели программы"}
+              />
 
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "space-between",
-                marginTop: 36,
-                borderBottomWidth: 1,
-                borderColor: "#E2E2E2",
-                paddingVertical: 12,
-              }}
-            >
-              <Text
+              <View
                 style={{
-                  color: "#1E1E1E",
-                  fontSize: 19,
-                  lineHeight: 22.67,
-                  fontWeight: "600",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  marginTop: 36,
+                  borderBottomWidth: 1,
+                  borderColor: "#E2E2E2",
+                  paddingVertical: 12,
                 }}
               >
-                Задачи
-              </Text>
-              <TouchableOpacity onPress={() => console.log("Press")}>
                 <Text
                   style={{
-                    color: "#7454CF",
-                    fontSize: 16,
-                    lineHeight: 20,
-                    fontWeight: "400",
+                    color: "#1E1E1E",
+                    fontSize: 19,
+                    lineHeight: 22.67,
+                    fontWeight: "600",
                   }}
                 >
-                  Показать все
+                  Задачи
                 </Text>
-              </TouchableOpacity>
-            </View>
+                <TouchableOpacity onPress={() => setShowAll((data) => !data)}>
+                  <Text
+                    style={{
+                      color: "#7454CF",
+                      fontSize: 16,
+                      lineHeight: 20,
+                      fontWeight: "400",
+                    }}
+                  >
+                    {showAll ? "Скрыть" : "Показать все"}
+                  </Text>
+                </TouchableOpacity>
+              </View>
 
             <View style={{ marginTop: 32 }} />
             <ScrollView showsVerticalScrollIndicator={false}>

@@ -26,17 +26,6 @@ const ConditionScreen = () => {
   let AuthStr = "Bearer " + tokenFromReducer;
   const isFocused = useIsFocused();
 
-  let [characteristics, setCharacteristics] = useState([
-    { number: 1.9, state: "Нужна помощь", organ: "Кости" },
-    { number: 4.8, state: "Отлично", organ: "Гормоны" },
-    { number: 2.3, state: "Хорошо", organ: "Нервная система" },
-    { number: 4.8, state: "Отлично", organ: "ЖКТ" },
-    { number: 1.8, state: "Нужна помощь", organ: "Дыхание" },
-    { number: 2.3, state: "Хорошо", organ: "Сердце" },
-    { number: 2.3, state: "Хорошо", organ: "Кровь" },
-    { number: 4.8, state: "Отлично", organ: "Печень" },
-  ]);
-
   let [conditions, setConditions] = useState<any>([]);
   const format3 = "YYYY-MM-DD";
 
@@ -52,7 +41,6 @@ const ConditionScreen = () => {
             },
           })
           .then((response) => {
-            //  console.log(response.data, 'state')
             setConditions(response.data);
           });
       })();
@@ -70,7 +58,7 @@ const ConditionScreen = () => {
           style={{
             width: "50%",
             alignItems: "center",
-            paddingHorizontal: 8,
+            paddingHorizontal: 6,
           }}
         >
           <View
@@ -80,7 +68,7 @@ const ConditionScreen = () => {
               backgroundColor: "#F5F4F8",
               borderRadius: 24,
               width: "100%",
-              height: 270,
+              height: 230,
               marginVertical: 15,
               alignItems: "flex-start",
             }}
@@ -203,7 +191,7 @@ const ConditionScreen = () => {
             renderItem={renderConditions}
             extraData={conditions}
             showsVerticalScrollIndicator={false}
-            keyExtractor={(item) => item.max}
+            keyExtractor={(item, index) => index.toString()}
             numColumns={2}
             style={{ marginBottom: 60 }}
             contentContainerStyle={{
@@ -289,7 +277,7 @@ const styles = StyleSheet.create({
     lineHeight: 23,
     color: "#1E1E1E",
     marginTop: 20,
-    width: 120,
+    // width: 120,
   },
   content_item_day: {
     marginTop: 8,
