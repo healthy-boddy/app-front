@@ -20,14 +20,14 @@ export class GlobalGoalsEditingModel {
 
   private _arrayForDelete: Array<number> = [];
 
-  private _client: ClientResponse | undefined = undefined;
+  private _clientData: ClientResponse | undefined = undefined;
 
   public get goals() {
     return this._goals;
   }
 
   public get client() {
-    return this._client;
+    return this._clientData;
   }
 
   public addObjectsForDelete(arr: Array<number>, id: number) {
@@ -86,15 +86,18 @@ export class GlobalGoalsEditingModel {
           const addFilteredArray = {
             description: el.source.description,
             status: GlobalStatus.New,
-            client: this._client?.user.id,
+            client: this._clientData?.user.id,
           };
 
           console.log("addFilteredArray", addFilteredArray);
 
           this._httpService
-            .post<GlobalGoalResponse>("/global_goal/", {
-              data: addFilteredArray,
-            })
+            .post<GlobalGoalResponse>(
+              `/global_goal/?client=${this._clientData?.user.id}`,
+              {
+                data: addFilteredArray,
+              }
+            )
             .then((res) => {
               console.log("createNewGoal GLOBAL", res.status);
               this.getGoals();
@@ -116,7 +119,9 @@ export class GlobalGoalsEditingModel {
   public getGoals() {
     try {
       this._httpService
-        .get<GlobalGoalsResArray>("/global_goal/")
+        .get<GlobalGoalsResArray>(
+          `/global_goal/?client=${this._clientData?.user.id}`
+        )
         .then((res) => {
           console.log("GET: data goals", res.data);
           runInAction(() => {
@@ -141,12 +146,9 @@ export class GlobalGoalsEditingModel {
   private static makeModel(client: ClientResponse) {
     const model = React.useMemo(() => new GlobalGoalsEditingModel(client), []);
     useEffect(() => {
-      if (client) {
-        console.log("INCOME CLIENT", client);
-        model._client = client;
-      }
+      model._clientData = client;
       model.getGoals();
-    }, [model]);
+    });
 
     return model;
   }

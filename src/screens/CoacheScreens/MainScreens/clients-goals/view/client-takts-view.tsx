@@ -12,7 +12,7 @@ import BottomSheet from "@gorhom/bottom-sheet";
 import { SuccessAssignBanner } from "../../../../../components/core/sussecc-assigne-bunner";
 
 interface ClientGoalsViewProps {
-  client: any;
+  // client: any;
 }
 
 const imageGoals = require("../../image/no_goals.png");
@@ -22,15 +22,14 @@ export const ClientGoalsView: FC<ClientGoalsViewProps> = GoalsModel.modelClient(
     const navigation: any = useNavigation();
     const [isOpen, setOpen] = useState(false);
     const [goalData, setGoal] = useState<Goals>();
-    const dataClient = props.client;
 
     //todo: add navigation to model
 
-    if (props?.client !== undefined) {
-      runInAction(() => {
-        props.model.getGlobalGoals(props.client.user.id);
-      });
-    }
+    // if (props?.client !== undefined) {
+    //   runInAction(() => {
+    //     props.model.getGlobalGoals();
+    //   });
+    // }
 
     const snapPoints = ["40%"];
     const sheetRef = useRef<BottomSheet>(null);
@@ -58,19 +57,19 @@ export const ClientGoalsView: FC<ClientGoalsViewProps> = GoalsModel.modelClient(
           onPressBack={() =>
             navigation.navigate("ClientDetailsPage", {
               data: {
-                avatar: props.client.user.avatar_thumbnail,
-                name: props.client.user.username,
+                avatar: props.model.clientsRouteData?.user.avatar_thumbnail,
+                name: props.model.clientsRouteData?.user.username,
                 subscription: "Индивидуальный",
                 subscriptionDuration: "12",
-                clientID: props.client.user.id,
-                client: props.client,
+                clientID: props.model.clientsRouteData?.user.id,
+                client: props.model.clientsRouteData,
               },
             })
           }
           onPressButton={() =>
             navigation.navigate("GlobalGoalsEditing", {
               data: {
-                client: props?.client,
+                client: props.model.clientsRouteData,
               },
             })
           }
@@ -78,7 +77,7 @@ export const ClientGoalsView: FC<ClientGoalsViewProps> = GoalsModel.modelClient(
           onPressEdit={() =>
             navigation.navigate("GlobalGoalsEditing", {
               data: {
-                client: props?.client,
+                client: props.model.clientsRouteData,
               },
             })
           }

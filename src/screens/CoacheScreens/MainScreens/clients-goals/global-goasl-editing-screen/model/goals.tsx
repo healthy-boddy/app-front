@@ -15,9 +15,8 @@ export class Goals {
     goalId: number,
     client: ClientResponse | null
   ) {
-    console.log("goal id", goalId);
     this._httpService
-      .put(`/global_goal/${goalId}/`, {
+      .put(`/global_goal/${goalId}/?client=${client?.user.id}`, {
         data: {
           description: data,
           client: client?.user.id,
