@@ -13,7 +13,7 @@ export class GoalsModel {
 
   private _globalGoals: ConstructorState = stateCreator.getInitialState();
 
-  private _client: ClientResponse | undefined = undefined;
+  private _clientData: ClientResponse | undefined = undefined;
 
   private _successesAssigned = false;
 
@@ -29,16 +29,18 @@ export class GoalsModel {
   }
 
   public get clientsRouteData() {
-    return this._client;
+    return this._clientData;
   }
   public setClientsRouteData(clientData: ClientResponse) {
-    this._client = clientData;
+    this._clientData = clientData;
   }
 
-  public getGlobalGoals(client: ClientResponse) {
+  public getGlobalGoals() {
     try {
       this._httpService
-        .get<GlobalGoalsResArray>(`/global_goal?client=${client}`)
+        .get<GlobalGoalsResArray>(
+          `/global_goal/?client=${this._clientData?.user.id}`
+        )
         .then((res) => {
           runInAction(() => {
             this._globalGoals = stateCreator.getHasDataState(res.data);
@@ -49,14 +51,15 @@ export class GoalsModel {
     }
   }
 
-  private constructor() {
+  private constructor(private readonly client: ClientResponse) {
     this._httpService = new HttpService({});
     makeAutoObservable(this, {}, { autoBind: true });
   }
 
-  private static makeModel() {
-    const model = React.useMemo(() => new GoalsModel(), []);
+  private static makeModel(client: ClientResponse) {
+    const model = React.useMemo(() => new GoalsModel(client), []);
     useEffect(() => {
+      model._clientData = client;
       model.getGlobalGoals();
     });
 
@@ -66,8 +69,12 @@ export class GoalsModel {
   private static MedicalCardPageContext =
     React.createContext<GoalsModel | null>(null);
 
-  public static Provider(props: React.PropsWithChildren<{}>) {
-    const model = GoalsModel.makeModel();
+  public static Provider(
+    props: React.PropsWithChildren<{
+      client: ClientResponse;
+    }>
+  ) {
+    const model = GoalsModel.makeModel(props.client);
 
     return (
       <GoalsModel.MedicalCardPageContext.Provider value={model}>

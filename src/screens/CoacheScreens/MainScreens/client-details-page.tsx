@@ -166,6 +166,7 @@ export const ClientDetailsPage = ({ route: { params } }: any) => {
           title={"Анкеты"}
           icon={<FormIcon />}
         />
+
         <ClientsDetailsBlockProfile
           onPress={() =>
             navigation.navigate("ClientGoals", {
