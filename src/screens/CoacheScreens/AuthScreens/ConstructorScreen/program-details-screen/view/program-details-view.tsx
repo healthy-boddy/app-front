@@ -28,7 +28,7 @@ export const ProgramDetailsView = ProgramDetailsModel.modelClient((props) => {
 
   const sheetRef = useRef<BottomSheet>(null);
   const sheetRefClients = useRef<BottomSheet>(null);
-  const snapPoints = ["80%"];
+  const snapPoints = ["50%", "80%"];
 
   const handleSnapPressOneClient = useCallback((index: number) => {
     sheetRef.current?.snapToIndex(index);
