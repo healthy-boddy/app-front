@@ -112,7 +112,6 @@ const WelcomeScreen = () => {
           return res.json();
         })
         .then((res) => {
-          navigation.navigate("Greetings4");
           console.log(res, "res");
         });
     }
@@ -149,6 +148,7 @@ const WelcomeScreen = () => {
     } catch (error) {
       console.log(error);
     }
+    navigation.navigate("Greetings4");
     setSpecialisationError(false);
     await handleSendCertificates();
     await getUserNewData();

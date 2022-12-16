@@ -18,6 +18,7 @@ import { color1 } from "../../../../../helpers/colors";
 import Title from "../../../../../components/Title";
 import Modal from "react-native-modal";
 import Description from "../../../../../components/Description";
+import ErrorPopUp from "../../../../../components/ErrorPopUp";
 
 type Answer = {
   other_answer?: string;
@@ -120,6 +121,9 @@ const SecondThirdTutorialScreen = () => {
   const onNextPress = () => {
     if (checkedAnswer.length < level + 1) {
       setIsVisible(true)
+      setTimeout(()=>{
+        setIsVisible(false)
+      },1500)
       return false
     }
     if (level < questions.length - 1) {
@@ -193,17 +197,18 @@ const SecondThirdTutorialScreen = () => {
 
   return (
     <MainContainer>
-      <BackButton
-        onPressLetter={() => {
-          navigation.navigate("Greetings4");
-        }}
-        latter
-        onPress={() => {
-          if (level >= 1) {
-            setLevel(level - 1);
-          }
-        }}
-      />
+      {!isVisible && <BackButton
+          onPressLetter={() => {
+            navigation.navigate("Greetings4");
+          }}
+          latter
+          onPress={() => {
+            if (level >= 1) {
+              setLevel(level - 1);
+            }
+          }}
+      />}
+      {isVisible && <ErrorPopUp error={'Необходимо выбрать ответ'}/>}
       <View style={{ flex: 1 }}>
         <Title titlePropStyle={styles.question_level}>
           {level + 1} из {questions?.length}
@@ -276,31 +281,6 @@ const SecondThirdTutorialScreen = () => {
               </View>
             )}
           </ScrollView>
-          <Modal useNativeDriver={true} isVisible={isVisible}>
-            <View style={styles.modal}>
-              <Text style={{
-                textAlign: 'center',
-                fontStyle: 'normal',
-                fontWeight: '600',
-                fontSize: 19,
-                lineHeight: 22,
-                flex: 1
-              }}>
-                Необходимо выбрать 1 из вариантов ответа
-              </Text>
-              <CustomButton
-                  title={'Продолжить'}
-                  onPress={()=>{setIsVisible(false)}}
-               >
-                <Text style={{
-                  fontSize: 16,
-                  fontWeight: '600'
-                }}>
-                  Продолжить
-                </Text>
-              </CustomButton>
-            </View>
-          </Modal>
         </View>
       </View>
       <View style={{ marginBottom: 25 }}>

@@ -70,9 +70,6 @@ const AnalyseSingleScreen = ({ routes }) => {
         setAnalyse(res);
         console.log(res, "handleGetAnalyse");
       })
-      .catch((e) => {
-        console.log("error", e.response);
-      });
   }
 
   useEffect(() => {

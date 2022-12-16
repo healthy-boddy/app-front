@@ -16,8 +16,8 @@ import {ProgressBar} from "react-native-paper";
 import CheckBox from "../../../../../assets/Icons/CheckBox";
 import Title from "../../../../../components/Title";
 import {color1} from "../../../../../helpers/colors";
-import Modal from "react-native-modal";
 import Description from "../../../../../components/Description";
+import ErrorPopUp from "../../../../../components/ErrorPopUp";
 
 type Answer = {
     other_answer?: string;
@@ -119,6 +119,9 @@ const TutorialQuestionsScreen = () => {
     const onNextPress = () => {
         if (checkedAnswer.length < level + 1) {
             setIsVisible(true)
+            setTimeout(()=>{
+                setIsVisible(false)
+            },1500)
             return false
         }
         if (level < questions.length - 1) {
@@ -193,7 +196,7 @@ const TutorialQuestionsScreen = () => {
 
     return (
         <MainContainer>
-            <BackButton
+            {!isVisible && <BackButton
                 onPressLetter={() => {
                     navigation.navigate("Greetings4");
                 }}
@@ -203,7 +206,8 @@ const TutorialQuestionsScreen = () => {
                         setLevel(level - 1);
                     }
                 }}
-            />
+            />}
+            {isVisible && <ErrorPopUp error={'Необходимо выбрать ответ'}/>}
             <View style={{flex: 1}}>
                 <Title titlePropStyle={styles.question_level}>
                     {level + 1} из {questions?.length}
@@ -276,31 +280,6 @@ const TutorialQuestionsScreen = () => {
                             </View>
                         )}
                     </ScrollView>
-                    <Modal useNativeDriver={true} isVisible={isVisible}>
-                        <View style={styles.modal}>
-                            <Text style={{
-                                textAlign: 'center',
-                                fontStyle: 'normal',
-                                fontWeight: '600',
-                                fontSize: 19,
-                                lineHeight: 22,
-                                flex: 1
-                            }}>
-                                Необходимо выбрать 1 из вариантов ответа
-                            </Text>
-                            <CustomButton
-                                title={'Продолжить'}
-                                onPress={()=>{setIsVisible(false)}}
-                            >
-                                <Text style={{
-                                    fontSize: 16,
-                                    fontWeight: '600'
-                                }}>
-                                    Продолжить
-                                </Text>
-                            </CustomButton>
-                        </View>
-                    </Modal>
                 </View>
             </View>
             <View style={{marginBottom: 25}}>
@@ -350,12 +329,4 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         borderWidth: 2,
     },
-    modal: {
-        backgroundColor: 'white',
-        width: '100%',
-        height: 220,
-        borderRadius: 30,
-        paddingVertical: 40,
-        paddingHorizontal: 16
-    }
 });
