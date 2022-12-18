@@ -22,7 +22,7 @@ const LoginWithEmailScreen = (props: any) => {
     const [email, setEmail] = useState("");
     const [error, setError] = useState(false)
     const [loading, setLoading] = useState(false)
-
+    let [errorMessage, setErrorMessage] = useState('')
     async function handleSendEmail() {
         setLoading(true)
         let form = new FormData();
@@ -39,14 +39,25 @@ const LoginWithEmailScreen = (props: any) => {
                 console.log("OK");
                 setError(false)
                 setLoading(false)
+                setErrorMessage('')
                 navigation.navigate("LoginPin", {
                     email: email,
                 });
             }
         } catch (error: any) {
+            setLoading(false)
             console.log(error.request.response, 'error');
             if (error.request.response === '{"non_field_errors":["User not found"]}') {
                 setError(true)
+                setErrorMessage('Пользователь с таким email не найден')
+            }
+            if (error.request.response === "{\"non_field_errors\":[\"Phone number or email are required\"]}"){
+                setError(true)
+                setErrorMessage('Необходимо заполнить поле')
+            }
+            if (error.request.response === '{"email":["Enter a valid email address."]}'){
+                setError(true)
+                setErrorMessage('Введите действительный электронный адрес')
             }
         }
     }
@@ -94,7 +105,7 @@ const LoginWithEmailScreen = (props: any) => {
                         color: 'red',
                         fontWeight: '400'
                     }}>
-                        Пользователь с таким email не найден
+                        {errorMessage}
                     </Text>}
                 </View>
                 <View style={{marginBottom: 40}}>
