@@ -32,6 +32,7 @@ import BackButton from "../../../../components/BackButton";
 import { File } from "../../../../components/icon/file";
 import Delete from "../../../../assets/Icons/Delete";
 import { color1 } from "../../../../helpers/colors";
+import ErrorPopUp from "../../../../components/ErrorPopUp";
 
 type ParameterType = {
   name: string;
@@ -65,6 +66,8 @@ const AddManualAnalyze = () => {
   const [photo, setPhoto] = useState<any>(null);
   const form = new FormData();
   const [loading, setLoading] = useState(false);
+  let [errorMessage, setErrorMessage] = useState('')
+  let [error, setError] = useState(false)
   function setBirthDate(date: Date) {
     setAnaliseDate(date);
   }
@@ -87,6 +90,14 @@ const AddManualAnalyze = () => {
   }
 
   async function handleSaveAnalyzes() {
+    if (!lab){
+      setError(true)
+      setErrorMessage('Необходимо заполнить поле')
+      setTimeout(()=>{
+        setError(false)
+      },1500)
+      return false
+    }
     setLoading(true);
     form.append("date", moment(analiseDate).format("YYYY-MM-DD"));
     form.append("laboratory", +labId);
@@ -398,9 +409,12 @@ const AddManualAnalyze = () => {
           width: "100%",
         }}
       >
-        <View>
-          <BackButton onPress={() => navigation.navigate("AddAnalyzes")} />
-        </View>
+        {!error ? <View>
+          <BackButton onPress={() => navigation.navigate("AddAnalyzes")}/>
+        </View> :
+            <View>
+              <ErrorPopUp error={errorMessage}/>
+            </View>}
         <KeyboardAvoidingView style={{ flex: 1 }}>
           {parameterArray !== undefined && (
             <View style={{ flex: 1, marginVertical: 20 }}>

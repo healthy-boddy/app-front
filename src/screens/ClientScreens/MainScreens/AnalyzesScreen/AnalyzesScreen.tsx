@@ -53,8 +53,10 @@ const AnalyzesScreen = () => {
         return res.json();
       })
       .then((res) => {
-        console.log(res, "analyses");
-        setAnalyses(res);
+        console.log(res, "analyses errori momenty");
+        if (Array.isArray(res)) {
+          setAnalyses(res);
+        }
       });
   }
 
@@ -100,7 +102,7 @@ const AnalyzesScreen = () => {
               lineHeight: 20,
             }}
           >
-            {item.date}
+            {item?.date}
           </Text>
         </View>
       </TouchableOpacity>
@@ -180,7 +182,6 @@ const AnalyzesScreen = () => {
               showsVerticalScrollIndicator={false}
               data={analyses}
               renderItem={renderAnalyses}
-              extraData={analyses}
               refreshing={refreshing}
               onRefresh={onRefresh}
             />

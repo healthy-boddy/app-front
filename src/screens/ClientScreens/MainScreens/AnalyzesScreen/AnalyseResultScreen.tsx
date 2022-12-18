@@ -30,7 +30,7 @@ const AnalyseResultScreen = () => {
     console.log(analyseId, 'singl')
 
     function handleGetAnalyseIndicators() {
-        fetch(baseUrl2 + `/analysis/indicator?analysis=${analyseId}`, {
+        fetch(baseUrl2 + `/analysis/indicator/?analysis=${analyseId}`, {
             method: 'get',
             headers: {
                 "accept": "application/json",
@@ -49,7 +49,7 @@ const AnalyseResultScreen = () => {
     }, [savedAnalyseId])
 
     function handleGetAnalyse() {
-        fetch(baseUrl2 + `/analysis/${activeAnalyzeId}`, {
+        fetch(baseUrl2 + `/analysis/${activeAnalyzeId}/`, {
             method: 'get',
             headers: {
                 "accept": "application/json",

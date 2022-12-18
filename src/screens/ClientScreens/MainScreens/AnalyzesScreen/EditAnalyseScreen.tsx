@@ -100,7 +100,7 @@ const EditAnalyseScreen = ({}) => {
     }
     function handleGetAnalyseIndicators() {
         // console.log(baseUrl2 + `/analysis/indicator?analysis=${activeAnalyzeId}`, '333')
-        fetch(baseUrl2 + `/analysis/indicator?analysis=${activeAnalyzeId}`, {
+        fetch(baseUrl2 + `/analysis/indicator/?analysis=${activeAnalyzeId}`, {
             method: 'get',
             headers: {
                 "accept": "application/json",
@@ -156,7 +156,7 @@ const EditAnalyseScreen = ({}) => {
     const saveAnalyz = () => {
         for (let index = 0; index < firstIndicators.length; index++) {
             const el = firstIndicators[index];
-            fetch(`http://92.53.97.238/analysis/indicator/${el.id}/`, {
+            fetch(baseUrl2 + `/analysis/indicator/?analysis=${el.id}`, {
                 method: 'delete',
                 headers: {
                     Authorization: AuthStr,
