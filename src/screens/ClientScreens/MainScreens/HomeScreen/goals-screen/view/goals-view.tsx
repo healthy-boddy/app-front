@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import { ScrollView, View } from "react-native";
 import BackButton from "../../../../../../components/BackButton";
 import MainContainer from "../../../../../../components/MainContainer";
@@ -8,6 +8,7 @@ import { GoalsBlock } from "./goals-block";
 
 export const GoalsView = GoalsDetailsClientModel.modelClient((props) => {
   const navigation: any = useNavigation();
+
   return (
     <MainContainer>
       <BackButton

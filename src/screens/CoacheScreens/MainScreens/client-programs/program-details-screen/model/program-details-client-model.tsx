@@ -24,6 +24,8 @@ export class ProgramDetailsClientModel {
   private _description = "";
   private _goals_quantity: number | null = null;
 
+  private _tasksComplete: ConstructorStates = stateCreator.getInitialState();
+
   public get currentProgramId() {
     return this._programId;
   }
@@ -56,6 +58,10 @@ export class ProgramDetailsClientModel {
 
   public setDescription(data: string) {
     this._description = data;
+  }
+
+  public get tasksComplete() {
+    return this._tasksComplete;
   }
 
   private getProgramById() {
@@ -154,6 +160,28 @@ export class ProgramDetailsClientModel {
     }
   }
 
+  private getCompleteTasks() {
+    try {
+      this._httpService
+        .get<TaskResponseArray>(
+          `program/task/complete/?program=${this._programId}`
+        )
+        .then((res) => {
+          console.log("getCompleteTasks res data", res.data);
+          if (res.data) {
+            runInAction(() => {
+              this._tasksComplete = stateCreator.getHasDataState(res.data);
+            });
+          }
+        });
+    } catch (e: any) {
+      alert(e.response.data);
+      runInAction(() => {
+        this._tasks = stateCreator.getErrorState(e.response.data);
+      });
+    }
+  }
+
   private constructor(
     private readonly programId: number | undefined,
     private readonly programAssignedToClient:
@@ -186,7 +214,8 @@ export class ProgramDetailsClientModel {
       model.getProgramById();
       model.getTasks();
       model.getAvailableClients();
-    }, [model, programId]);
+      model.getCompleteTasks();
+    });
 
     return model;
   }

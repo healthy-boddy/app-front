@@ -41,16 +41,14 @@ const CalendarScreen = UserListModel.modelClient((props) => {
         flex: 1,
       }}
     >
-      <View
-        style={{
-
-        }}
-      >
+      <View>
         <View style={styles.header}>
           {/*<View>*/}
           {/*  <BellIcon />*/}
           {/*</View>*/}
         </View>
+
+        <Text style={styles.myClients}>Мои клиенты</Text>
         <ScrollView
           style={{
             marginBottom: 80,
@@ -63,10 +61,6 @@ const CalendarScreen = UserListModel.modelClient((props) => {
             />
           }
         >
-          <Text style={styles.myClients}>Мои клиенты</Text>
-
-          {/*<View style={{ marginTop: 16 }} />*/}
-
           {props.model.users.type === "HAS_DATA" &&
             props.model.users.data.map((client) => {
               console.log("CLIENT", client);

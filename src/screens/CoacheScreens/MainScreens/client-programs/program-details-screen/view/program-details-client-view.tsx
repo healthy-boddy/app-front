@@ -2,30 +2,23 @@ import React, { useCallback, useRef, useState } from "react";
 import {
   SafeAreaView,
   ScrollView,
-  StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from "react-native";
 import BackButton from "../../../../../../components/BackButton";
-import ArrowDown from "../../../../../ClientScreens/MainScreens/CoachSingle/CoachSingleIcons/ArrowDown";
-import ArrowUp from "../../../../../ClientScreens/MainScreens/CoachSingle/CoachSingleIcons/ArrowUp";
 import CustomButton from "../../../../../../components/CustomButton";
 import { useNavigation } from "@react-navigation/native";
 import { ProgramDetailsClientModel } from "../model";
-import Description from "../../../../../../components/Description";
 import { ProgramsGoalsBlock } from "../../../../AuthScreens/ConstructorScreen/view/components/programs-goals-block";
 import { AllTasksBlock } from "../../../../AuthScreens/ConstructorScreen/view/components/all-tasks-block";
 import { color1 } from "../../../../../../helpers/colors";
 import { BottomSheetDeleteProgram } from "./bottom-sheet-clients/bottom-sheet-delete-program";
 import BottomSheet from "@gorhom/bottom-sheet";
-import MaskedView from "@react-native-masked-view/masked-view";
-import { LinearGradient } from "expo-linear-gradient";
 
 export const ProgramDetailsClientView = ProgramDetailsClientModel.modelClient(
   (props) => {
     const navigation = useNavigation<any>();
-    const [reviewsVisible, setReviewsVisible] = useState(false);
     const [isOpen, setOpen] = useState(false);
     const [showAll, setShowAll] = useState(false);
 
@@ -35,6 +28,11 @@ export const ProgramDetailsClientView = ProgramDetailsClientModel.modelClient(
       sheetRef.current?.snapToIndex(index);
       setOpen(true);
     }, []);
+
+    let taskArrayDone: Array<number> = [];
+    props.model.tasksComplete.data?.map((data: any) =>
+      taskArrayDone.push(data?.task)
+    );
 
     return (
       <>
@@ -61,6 +59,9 @@ export const ProgramDetailsClientView = ProgramDetailsClientModel.modelClient(
                 props.model.tasks.data && props.model.tasks.data.length > 4
               }
               showsVerticalScrollIndicator={false}
+              style={{
+                marginBottom: 50,
+              }}
             >
               <Text
                 style={{
@@ -191,8 +192,14 @@ export const ProgramDetailsClientView = ProgramDetailsClientModel.modelClient(
                 <View style={{ marginTop: 32 }}>
                   {props.model.tasks.type === "HAS_DATA" &&
                     props.model.tasks.data.map((task) => {
+                      const check = props.model.tasks.data?.filter((elem) =>
+                        taskArrayDone.includes(elem?.id)
+                      );
                       return (
                         <AllTasksBlock
+                          checkForDone={check
+                            ?.map((data) => data.id === task.id)
+                            .toString()}
                           key={task.id}
                           onPress={() =>
                             navigation.navigate("TaskDetailsClientScreen", {
@@ -210,8 +217,14 @@ export const ProgramDetailsClientView = ProgramDetailsClientModel.modelClient(
                 <View style={{ marginTop: 32 }}>
                   {props.model.tasks.type === "HAS_DATA" &&
                     props.model.tasks.data.slice(0, 4).map((task) => {
+                      const check = props.model.tasks.data?.filter((elem) =>
+                        taskArrayDone.includes(elem?.id)
+                      );
                       return (
                         <AllTasksBlock
+                          checkForDone={check
+                            ?.map((data) => data.id === task.id)
+                            .toString()}
                           key={task.id}
                           onPress={() =>
                             navigation.navigate("TaskDetailsClientScreen", {

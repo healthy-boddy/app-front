@@ -7,14 +7,14 @@ import { ConstructorState } from "./constructor-state";
 import { HttpService } from "../../../../../../service/http-service";
 import { GoalsResArray } from "../../../../../CoacheScreens/AuthScreens/ConstructorScreen/goasl-editing-screen/interface/interface";
 
-export class GoalsDetailsClientModel {
+export class ProgramDetailGoalsModel {
   private readonly _httpService = new HttpService();
 
   private _goals: ConstructorState = stateCreator.getInitialState();
 
   private _program: number | null = null;
 
-  private _clientId: number | undefined = undefined;
+  private _clientID: number | undefined = undefined;
 
   public get goals() {
     return this._goals;
@@ -24,6 +24,10 @@ export class GoalsDetailsClientModel {
     return this._program;
   }
 
+  public get clientId() {
+    return this._clientID;
+  }
+
   public setProgram(programId: number) {
     this._program = programId;
   }
@@ -31,7 +35,7 @@ export class GoalsDetailsClientModel {
   public getGoals() {
     try {
       this._httpService
-        .get<GoalsResArray>(`/global_goal/?client=${this._clientId}`)
+        .get<GoalsResArray>(`/program/goal/?program=${this._program}`)
         .then((res) => {
           runInAction(() => {
             this._goals = stateCreator.getHasDataState(res.data);
@@ -42,47 +46,60 @@ export class GoalsDetailsClientModel {
     }
   }
 
-  private constructor(private readonly clientID: number | undefined) {
+  private constructor(
+    private readonly programId: number,
+    private readonly clientID: number
+  ) {
     this._httpService = new HttpService({});
     makeAutoObservable(this, {}, { autoBind: true });
   }
 
-  private static makeModel(clientID: number | undefined) {
+  private static makeModel(programId: number, clientID: number) {
     const model = React.useMemo(
-      () => new GoalsDetailsClientModel(clientID),
+      () => new ProgramDetailGoalsModel(programId, clientID),
       []
     );
     useEffect(() => {
-      model._clientId = clientID;
+      model._program = programId;
+      model._clientID = clientID;
       model.getGoals();
     });
+
+    useEffect(() => {
+      model.getGoals();
+    });
+
     return model;
   }
 
   private static MedicalCardPageContext =
-    React.createContext<GoalsDetailsClientModel | null>(null);
+    React.createContext<ProgramDetailGoalsModel | null>(null);
 
   public static Provider(
     props: React.PropsWithChildren<{
-      clientID: number | undefined;
+      programId: number;
+      clientID: number;
     }>
   ) {
-    const model = GoalsDetailsClientModel.makeModel(props.clientID);
+    const model = ProgramDetailGoalsModel.makeModel(
+      props.programId,
+      props.clientID
+    );
 
     return (
-      <GoalsDetailsClientModel.MedicalCardPageContext.Provider value={model}>
+      <ProgramDetailGoalsModel.MedicalCardPageContext.Provider value={model}>
         {props.children}
-      </GoalsDetailsClientModel.MedicalCardPageContext.Provider>
+      </ProgramDetailGoalsModel.MedicalCardPageContext.Provider>
     );
   }
 
   public static modelClient<P extends object>(
-    Component: (props: P & { model: GoalsDetailsClientModel }) => JSX.Element
+    Component: (props: P & { model: ProgramDetailGoalsModel }) => JSX.Element
   ) {
     const WrappedComponent = observer(Component);
     return function ModelClient(props: P) {
       const model = React.useContext(
-        GoalsDetailsClientModel.MedicalCardPageContext
+        ProgramDetailGoalsModel.MedicalCardPageContext
       );
       if (!model) {
         throw new Error("No model provider");
