@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
-import { GlobalStatus } from "../../../../MainScreens/clients-goals/global-goasl-editing-screen/interface/interface";
 import { DoneGoalsSvg } from "../../../../../../components/icon/done-goals-svg";
+import { GlobalStatus } from "../../../../../CoacheScreens/MainScreens/clients-goals/global-goasl-editing-screen/interface/interface";
 
 interface GoalsBlockProfile {
   title: string;

@@ -29,6 +29,7 @@ import { GoalsClientDetails } from "../../screens/ClientScreens/MainScreens/Home
 import { DetailsProgramClient } from "../../screens/ClientScreens/MainScreens/HomeScreen/program-details-screen";
 import { TaskDetailsScreen } from "../../screens/CoacheScreens/AuthScreens/ConstructorScreen/task-details-screen";
 import { TaskDetailsClientScreen } from "../../screens/CoacheScreens/MainScreens/client-programs/task-details-screen";
+import { ProgramDetailGoals } from "../../screens/ClientScreens/MainScreens/HomeScreen/program-details-goals-screen";
 
 function Home() {
   return <HomeScreen />;
@@ -260,6 +261,15 @@ export default function ClientMain() {
       <Tab.Screen
         name={"TaskDetailsClientScreen"}
         component={TaskDetailsClientScreen}
+        options={({ route }) => ({
+          tabBarButton: () => null,
+          tabBarStyle: { display: "none" },
+        })}
+      />
+
+      <Tab.Screen
+        name={"ProgramDetailGoals"}
+        component={ProgramDetailGoals}
         options={({ route }) => ({
           tabBarButton: () => null,
           tabBarStyle: { display: "none" },

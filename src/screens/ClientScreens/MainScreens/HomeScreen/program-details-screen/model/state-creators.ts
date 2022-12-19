@@ -5,7 +5,7 @@ import {
   StateInitial,
   StateLoading,
 } from "./constructor-state";
-import { TaskResponseArray } from "../editing-screen/interface";
+import { TaskResponseArray } from "../../../../../CoacheScreens/MainScreens/client-programs/editing-screen/interface";
 
 export function getInitialState(): StateInitial {
   return { type: "INITIAL", data: null, error: null };

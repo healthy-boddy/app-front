@@ -8,7 +8,6 @@ import { ConstructorStates } from "./constructor-state";
 import { ProgramAssignedToClient } from "../../../../../CoacheScreens/MainScreens/client-programs/interface/interface";
 import { UsersStates } from "../../../../../CoacheScreens/MainScreens/client-programs/model/constructor-state";
 import * as clientState from "./state-creators";
-import { ProgramResponse } from "../../../../../CoacheScreens/AuthScreens/ConstructorScreen/interfaces";
 import { TaskResponseArray } from "../../../../../CoacheScreens/MainScreens/client-programs/editing-screen/interface";
 
 export class ProgramDetailsModel {
@@ -22,6 +21,9 @@ export class ProgramDetailsModel {
     undefined;
   private _programId: number | undefined = undefined;
   private _client: number | undefined = undefined;
+  private _program: number | undefined = undefined;
+
+  private _tasksComplete: ConstructorStates = stateCreator.getInitialState();
 
   private _successesAssigned = false;
 
@@ -41,6 +43,9 @@ export class ProgramDetailsModel {
 
   public get currentProgramId() {
     return this._programId;
+  }
+  public get program() {
+    return this._program;
   }
 
   private _users: UsersStates = clientState.getInitialState();
@@ -72,21 +77,26 @@ export class ProgramDetailsModel {
     this._description = data;
   }
 
+  public get tasksComplete() {
+    return this._tasksComplete;
+  }
+
   private getProgramById() {
     console.log("this._client", this._client);
     try {
       this._httpService
-        .get<Array<ProgramResponse>>(
+        .get<Array<ProgramAssignedToClient>>(
           `/program/assign/?assigned_to=${this._client}`
         )
         .then((res) => {
           res.data.map((response) => {
-            console.log("NAME getProgramById", response);
+            console.log("NAME CLIENT PROGRAM DETAIL", response);
             runInAction(() => {
               this._name = response?.program_info?.name;
               this._description = response?.program_info?.description;
               this._goals_quantity = response?.program_info?.goals_quantity;
               this._programId = response.id;
+              this._program = response.program;
             });
           });
         });
@@ -101,10 +111,32 @@ export class ProgramDetailsModel {
         .get<TaskResponseArray>(`program/task/?program=${this._programId}`)
         .then((res) => {
           if (res.data) {
-            console.log("Response data get tasks", res.data);
+            console.log("Response data get tasks", res.status);
             runInAction(() => {
               this._programId = res.data[0].program;
               this._tasks = stateCreator.getHasDataState(res.data);
+            });
+          }
+        });
+    } catch (e: any) {
+      alert(e.response.data);
+      runInAction(() => {
+        this._tasks = stateCreator.getErrorState(e.response.data);
+      });
+    }
+  }
+
+  private getCompleteTasks() {
+    try {
+      this._httpService
+        .get<TaskResponseArray>(
+          `program/task/complete/?program=${this._programId}`
+        )
+        .then((res) => {
+          console.log("getCompleteTasks res data", res.data);
+          if (res.data) {
+            runInAction(() => {
+              this._tasksComplete = stateCreator.getHasDataState(res.data);
             });
           }
         });
@@ -157,6 +189,7 @@ export class ProgramDetailsModel {
       model._client = clientID;
       model.getProgramById();
       model.getTasks();
+      model.getCompleteTasks();
     });
 
     return model;

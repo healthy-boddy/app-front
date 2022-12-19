@@ -330,7 +330,9 @@ const HomeScreen = () => {
                       number={goals.length}
                       title={"Мои цели"}
                       onPress={() => {
-                        navigation.navigate("GoalsClientDetails");
+                        navigation.navigate("GoalsClientDetails", {
+                          clientID: user_data.user.id,
+                        });
                       }}
                     />
                   </View>

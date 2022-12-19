@@ -27,6 +27,12 @@ export const ProgramDetailsView = ProgramDetailsModel.modelClient((props) => {
     }
   }, [props.model.successesAssigned]);
 
+  let taskArrayDone: Array<number> = [];
+
+  props.model.tasksComplete.data?.map((data: any) =>
+    taskArrayDone.push(data?.task)
+  );
+
   return (
     <>
       {props.model.successesAssigned && (
@@ -72,8 +78,6 @@ export const ProgramDetailsView = ProgramDetailsModel.modelClient((props) => {
             >
               {props.model.name}
             </Text>
-
-            {console.log("NAME", props.model.name)}
 
             {/*<TouchableOpacity*/}
             {/*  style={{*/}
@@ -145,8 +149,9 @@ export const ProgramDetailsView = ProgramDetailsModel.modelClient((props) => {
             <View style={{ marginTop: 30 }} />
             <ProgramsGoalsBlock
               onPress={() =>
-                navigation.navigate("Goals", {
-                  programId: props.model.currentProgramId,
+                navigation.navigate("ProgramDetailGoals", {
+                  programId: props.model.program,
+                  clientID: props.model.client,
                 })
               }
               number={props.model.goalsQuantity}
@@ -192,10 +197,15 @@ export const ProgramDetailsView = ProgramDetailsModel.modelClient((props) => {
               <View style={{ marginTop: 32 }}>
                 {props.model.tasks.type === "HAS_DATA" &&
                   props.model.tasks.data.map((task) => {
+                    const check = props.model.tasks.data?.filter((elem) =>
+                      taskArrayDone.includes(elem?.id)
+                    );
                     return (
-                      <>
+                      <React.Fragment key={task.id}>
                         <AllTasksBlock
-                          key={task.id}
+                          checkForDone={check
+                            ?.map((data) => data.id === task.id)
+                            .toString()}
                           onPress={() =>
                             navigation.navigate("TaskDetailsClientScreen", {
                               task: task,
@@ -212,7 +222,7 @@ export const ProgramDetailsView = ProgramDetailsModel.modelClient((props) => {
                               : `В течение всей программы`
                           }
                         />
-                      </>
+                      </React.Fragment>
                     );
                   })}
               </View>
@@ -220,8 +230,14 @@ export const ProgramDetailsView = ProgramDetailsModel.modelClient((props) => {
               <View style={{ marginTop: 32 }}>
                 {props.model.tasks.type === "HAS_DATA" &&
                   props.model.tasks.data.slice(0, 4).map((task) => {
+                    const check = props.model.tasks.data?.filter((elem) =>
+                      taskArrayDone.includes(elem?.id)
+                    );
                     return (
                       <AllTasksBlock
+                        checkForDone={check
+                          ?.map((data) => data.id === task.id)
+                          .toString()}
                         key={task.id}
                         onPress={() =>
                           navigation.navigate("TaskDetailsClientScreen", {

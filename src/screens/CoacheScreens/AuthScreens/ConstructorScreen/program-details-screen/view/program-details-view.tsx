@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
   SafeAreaView,
   ScrollView,
@@ -56,6 +56,12 @@ export const ProgramDetailsView = ProgramDetailsModel.modelClient((props) => {
       sheetRefClients.current?.close();
     }
   }, [props.model.successesAssigned]);
+
+  let taskArrayDone: Array<number> = [];
+
+  props.model.tasksComplete.data?.map((data: any) =>
+    taskArrayDone.push(data?.task)
+  );
 
   return (
     <>
@@ -229,9 +235,15 @@ export const ProgramDetailsView = ProgramDetailsModel.modelClient((props) => {
               <View style={{ marginTop: 32 }}>
                 {props.model.tasks.type === "HAS_DATA" &&
                   props.model.tasks.data.map((task) => {
+                    const check = props.model.tasks.data?.filter((elem) =>
+                      taskArrayDone.includes(elem.id)
+                    );
                     return (
                       <React.Fragment key={task.id}>
                         <AllTasksBlock
+                          checkForDone={check
+                            ?.map((data) => data.id === task.id)
+                            .toString()}
                           key={task.id}
                           onPress={() =>
                             navigation.navigate("TaskDetails", {
@@ -254,9 +266,15 @@ export const ProgramDetailsView = ProgramDetailsModel.modelClient((props) => {
               <View style={{ marginTop: 32 }}>
                 {props.model.tasks.type === "HAS_DATA" &&
                   props.model.tasks.data.slice(0, 4).map((task) => {
-                    console.log(task);
+                    const check = props.model.tasks.data?.filter((elem) =>
+                      taskArrayDone.includes(elem?.id)
+                    );
+
                     return (
                       <AllTasksBlock
+                        checkForDone={check
+                          ?.map((data) => data.id === task.id)
+                          .toString()}
                         key={task.id}
                         onPress={() =>
                           navigation.navigate("TaskDetails", {

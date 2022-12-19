@@ -3,15 +3,15 @@ import { ScrollView, View } from "react-native";
 import BackButton from "../../../../../../components/BackButton";
 import MainContainer from "../../../../../../components/MainContainer";
 import { useNavigation } from "@react-navigation/native";
-import { GoalsModel } from "../model";
+import { ProgramDetailGoalsModel } from "../model";
 import { GoalsBlock } from "./goals-block";
 
 interface EditingScreenViewProps {
   programId: number | undefined;
 }
 
-export const GoalsView: FC<EditingScreenViewProps> = GoalsModel.modelClient(
-  (props) => {
+export const ProgramDetailGoalsView: FC<EditingScreenViewProps> =
+  ProgramDetailGoalsModel.modelClient((props) => {
     const navigation: any = useNavigation();
 
     if (props.programId) {
@@ -22,13 +22,12 @@ export const GoalsView: FC<EditingScreenViewProps> = GoalsModel.modelClient(
       <MainContainer>
         <BackButton
           title={"Цели программы"}
-          onPressEdit={() =>
-            navigation.navigate("GoalsEditing", {
-              programId: props.programId,
-            })
-          }
           onPress={() => {
-            navigation.navigate("ProgramDetails");
+            navigation.navigate("DetailsProgramClient", {
+              programId: props.model.program,
+              assignedProgram: props.model.program,
+              clientID: props.model.clientId,
+            });
           }}
         />
 
@@ -56,5 +55,4 @@ export const GoalsView: FC<EditingScreenViewProps> = GoalsModel.modelClient(
         </ScrollView>
       </MainContainer>
     );
-  }
-);
+  });
