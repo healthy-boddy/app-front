@@ -76,93 +76,94 @@ export const EditingScreenClientView: FC<EditingScreenViewProps> =
         {/*  <Text style={styles.headerTitle}>Сохранить</Text>*/}
         {/*</View>*/}
 
-        <Text style={styles.mainTitle}>Название программы</Text>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <Text style={styles.mainTitle}>Название программы</Text>
 
-        <View
-          style={{
-            marginTop: 12,
-          }}
-        />
-        <View
-          style={{
-            backgroundColor: "#F5F4F8",
-            paddingVertical: 14,
-            paddingHorizontal: 16,
-            borderRadius: 12,
-          }}
-        >
-          <TextInput
+          <View
+            style={{
+              marginTop: 12,
+            }}
+          />
+          <View
+            style={{
+              backgroundColor: "#F5F4F8",
+              paddingVertical: 14,
+              paddingHorizontal: 16,
+              borderRadius: 12,
+            }}
+          >
+            <TextInput
+              style={{
+                color: "#1E1E1E",
+                fontWeight: "400",
+                lineHeight: 22,
+                fontSize: 16,
+              }}
+              value={props.model.name}
+              onChangeText={props.model.setName}
+              placeholder={"Введите название программы"}
+            />
+          </View>
+
+          <Text style={styles.mainTitle}>Описание программы</Text>
+
+          <View
+            style={{
+              backgroundColor: "#F5F4F8",
+              paddingVertical: 14,
+              paddingHorizontal: 16,
+              borderRadius: 12,
+              marginTop: 12,
+              height: 140,
+            }}
+          >
+            <TextInput
+              style={{
+                color: "#1E1E1E",
+                fontWeight: "400",
+                lineHeight: 22,
+                fontSize: 16,
+              }}
+              value={props.model.description}
+              numberOfLines={20}
+              multiline={true}
+              onChangeText={props.model.setDescription}
+              placeholder={"Введите описание"}
+            />
+          </View>
+
+          <View style={{ marginTop: 30 }} />
+          <ProgramsGoalsBlock
+            number={props.model.goalsQuantity}
+            title={"Цели программы"}
+            onPress={() => {
+              navigation.navigate("GoalsEditingClient", {
+                programId: props.model.currentProgramId,
+                clientId: props.model.client,
+                assignedProgram: props.model.programDetailForClient,
+              });
+            }}
+          />
+          <View style={{ marginTop: 36 }} />
+          <Text
             style={{
               color: "#1E1E1E",
-              fontWeight: "400",
-              lineHeight: 22,
-              fontSize: 16,
+              fontSize: 19,
+              lineHeight: 22.67,
+              fontWeight: "600",
             }}
-            value={props.model.name}
-            onChangeText={props.model.setName}
-            placeholder={"Введите название программы"}
-          />
-        </View>
+          >
+            Задачи
+          </Text>
 
-        <Text style={styles.mainTitle}>Описание программы</Text>
-
-        <View
-          style={{
-            backgroundColor: "#F5F4F8",
-            paddingVertical: 14,
-            paddingHorizontal: 16,
-            borderRadius: 12,
-            marginTop: 12,
-            height: 140,
-          }}
-        >
-          <TextInput
-            style={{
-              color: "#1E1E1E",
-              fontWeight: "400",
-              lineHeight: 22,
-              fontSize: 16,
-            }}
-            value={props.model.description}
-            numberOfLines={20}
-            multiline={true}
-            onChangeText={props.model.setDescription}
-            placeholder={"Введите описание"}
-          />
-        </View>
-
-        <View style={{ marginTop: 30 }} />
-        <ProgramsGoalsBlock
-          number={props.model.goalsQuantity}
-          title={"Цели программы"}
-          onPress={() => {
-            navigation.navigate("GoalsEditingClient", {
-              programId: props.model.currentProgramId,
-              clientId: props.model.client,
-              assignedProgram: props.model.programDetailForClient,
-            });
-          }}
-        />
-        <View style={{ marginTop: 36 }} />
-        <Text
-          style={{
-            color: "#1E1E1E",
-            fontSize: 19,
-            lineHeight: 22.67,
-            fontWeight: "600",
-          }}
-        >
-          Задачи
-        </Text>
-        <ScrollView>
           {props.model.tasks.type === "HAS_DATA" &&
             props.model.tasks.data.map((task) => {
               return (
                 <AllTasksBlock
                   key={task.id}
                   onPress={() => {
-                    navigation.navigate("TaskEditing", {
-                      taskId: task.id,
+                    navigation.navigate("TaskEditingForAssign", {
+                      task,
                     });
                   }}
                   title={task.name}

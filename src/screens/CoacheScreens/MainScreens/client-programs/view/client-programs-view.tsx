@@ -1,7 +1,6 @@
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import { Image, Text, TouchableOpacity, View } from "react-native";
-import { ClientsEmptyPrograms } from "../../../icon/clients-empty-programms";
 import { WrapperWithTitlePage } from "../../../../../components/core/wrapper/wrapper-with-title";
 import { ClientsProgramsModel } from "../model";
 import { ProgramBlock } from "../../../AuthScreens/ConstructorScreen/view/components/program-block";

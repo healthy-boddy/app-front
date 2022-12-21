@@ -49,6 +49,11 @@ import { ClientQuiz } from "../../screens/CoacheScreens/MainScreens/client-quiz"
 import { ClientQuizDetails } from "../../screens/CoacheScreens/MainScreens/client-quiz/quiz-details";
 import { ClientCondition } from "../../screens/CoacheScreens/MainScreens/client-condition";
 import { TaskDetailsClientScreen } from "../../screens/CoacheScreens/MainScreens/client-programs/task-details-screen";
+import { TaskDetailsForAssign } from "../../screens/CoacheScreens/MainScreens/client-programs/program-details-for-assigne/task-for-assigne";
+import { GoalsForAssign } from "../../screens/CoacheScreens/MainScreens/client-programs/program-details-for-assigne/goals-for-assigne/goals-screen";
+import { GoalsEditingForAssign } from "../../screens/CoacheScreens/MainScreens/client-programs/program-details-for-assigne/goals-for-assigne/goasl-editing-screen";
+import { EditingScreenForAssign } from "../../screens/CoacheScreens/MainScreens/client-programs/program-details-for-assigne/editing-screen-for-assign";
+import { TaskEditingForAssign } from "../../screens/CoacheScreens/MainScreens/client-programs/task-editing-screen-for-assign";
 
 let Tab = createBottomTabNavigator();
 
@@ -542,6 +547,51 @@ export default function CoachVerify() {
       <Tab.Screen
         name="EducationAndSpecialisationsScreen"
         component={EducationAndSpecialisationsScreen}
+        options={({ route }) => ({
+          tabBarButton: () => null,
+          tabBarStyle: { display: "none" },
+        })}
+      />
+
+      <Tab.Screen
+        name="TaskDetailsForAssign"
+        component={TaskDetailsForAssign}
+        options={({ route }) => ({
+          tabBarButton: () => null,
+          tabBarStyle: { display: "none" },
+        })}
+      />
+
+      <Tab.Screen
+        name="GoalsForAssign"
+        component={GoalsForAssign}
+        options={({ route }) => ({
+          tabBarButton: () => null,
+          tabBarStyle: { display: "none" },
+        })}
+      />
+
+      <Tab.Screen
+        name="GoalsEditingForAssign"
+        component={GoalsEditingForAssign}
+        options={({ route }) => ({
+          tabBarButton: () => null,
+          tabBarStyle: { display: "none" },
+        })}
+      />
+
+      <Tab.Screen
+        name="EditingScreenForAssign"
+        component={EditingScreenForAssign}
+        options={({ route }) => ({
+          tabBarButton: () => null,
+          tabBarStyle: { display: "none" },
+        })}
+      />
+
+      <Tab.Screen
+        name="TaskEditingForAssign"
+        component={TaskEditingForAssign}
         options={({ route }) => ({
           tabBarButton: () => null,
           tabBarStyle: { display: "none" },

@@ -12,16 +12,29 @@ export class TaskDetailModel {
 
   private _taskElement: TaskResponse | undefined = undefined;
 
-  private constructor(private readonly taskData: TaskResponse) {
+  private _program: number | undefined = undefined;
+
+  public get program() {
+    return this._program;
+  }
+
+  private constructor(
+    private readonly taskData: TaskResponse,
+    private readonly programID: number
+  ) {
     this._httpService = new HttpService({});
     makeAutoObservable(this, {}, { autoBind: true });
   }
 
-  private static makeModel(taskData: TaskResponse) {
-    const model = React.useMemo(() => new TaskDetailModel(taskData), []);
+  private static makeModel(taskData: TaskResponse, programID: number) {
+    const model = React.useMemo(
+      () => new TaskDetailModel(taskData, programID),
+      []
+    );
     useEffect(() => {
       model._taskElement = taskData;
-    }, [model]);
+      model._program = programID;
+    });
 
     return model;
   }
@@ -32,9 +45,10 @@ export class TaskDetailModel {
   public static Provider(
     props: React.PropsWithChildren<{
       taskData: TaskResponse;
+      programID: number;
     }>
   ) {
-    const model = TaskDetailModel.makeModel(props.taskData);
+    const model = TaskDetailModel.makeModel(props.taskData, props.programID);
 
     return (
       <TaskDetailModel.MedicalCardPageContext.Provider value={model}>

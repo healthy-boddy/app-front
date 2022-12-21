@@ -17,6 +17,7 @@ import BottomSheet from "@gorhom/bottom-sheet";
 import { BottomSheetClients } from "./bottom-sheet-clients/bottom-sheet-clients";
 import { ClientResponse } from "../../../CalendarScreen/user-list-screen/interface";
 import { SuccessAssignBanner } from "../../../../../../components/core/sussecc-assigne-bunner";
+import { color1 } from "../../../../../../helpers/colors";
 
 export const ProgramDetailsView = ProgramDetailsModel.modelClient((props) => {
   const navigation = useNavigation<any>();
@@ -28,7 +29,7 @@ export const ProgramDetailsView = ProgramDetailsModel.modelClient((props) => {
 
   const sheetRef = useRef<BottomSheet>(null);
   const sheetRefClients = useRef<BottomSheet>(null);
-  const snapPoints = ["50%", "80%"];
+  const snapPoints = ["90%"];
 
   const handleSnapPressOneClient = useCallback((index: number) => {
     sheetRef.current?.snapToIndex(index);
@@ -62,6 +63,8 @@ export const ProgramDetailsView = ProgramDetailsModel.modelClient((props) => {
   props.model.tasksComplete.data?.map((data: any) =>
     taskArrayDone.push(data?.task)
   );
+
+  console.log("props.model.currentProgramId", props.model.currentProgramId);
 
   return (
     <>
@@ -279,7 +282,7 @@ export const ProgramDetailsView = ProgramDetailsModel.modelClient((props) => {
                         onPress={() =>
                           navigation.navigate("TaskDetails", {
                             task: task,
-                            // clientId: props.model.client,
+                            programID: props.model.currentProgramId,
                           })
                         }
                         title={task.name}
@@ -289,16 +292,20 @@ export const ProgramDetailsView = ProgramDetailsModel.modelClient((props) => {
                   })}
               </View>
             )}
+            <View
+              style={{
+                marginBottom: 40,
+                marginTop: 32,
+              }}
+            >
+              <CustomButton
+                title={"Назначить клиенту"}
+                onPress={() => handleSnapPressClients(0)}
+              />
+            </View>
           </ScrollView>
         </View>
       </SafeAreaView>
-
-      <View style={{ marginBottom: 40, paddingHorizontal: 16 }}>
-        <CustomButton
-          title={"Назначить клиенту"}
-          onPress={() => handleSnapPressClients(0)}
-        />
-      </View>
 
       <BottomSheetClients
         snapPoints={snapPoints}

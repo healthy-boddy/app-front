@@ -1,10 +1,9 @@
 import React, { FC, RefObject, useState } from "react";
-import { Text, View } from "react-native";
+import { Dimensions, Text, View } from "react-native";
 import BottomSheet from "@gorhom/bottom-sheet";
 import { BottomSheetComponent } from "../../../../../../../components/core/bottom-sheet";
 import CustomButton from "../../../../../../../components/CustomButton";
 import { ClientBlockForCoach } from "../../../../../../../components/core/client-block-for-coach/client-block-for-coach";
-import { useNavigation } from "@react-navigation/native";
 import { ProgramDetailsModel } from "../../model";
 import { ClientResponse } from "../../../../CalendarScreen/user-list-screen/interface";
 
@@ -77,7 +76,7 @@ export const BottomSheetClients: FC<ButtonSheetPersonalDoctorProps> =
 
           <View
             style={{
-              marginTop: 46,
+              marginTop: Dimensions.get("screen").height / 3,
             }}
           />
           <CustomButton

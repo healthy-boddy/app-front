@@ -60,7 +60,7 @@ export const ProgramDetailsClientView = ProgramDetailsClientModel.modelClient(
               }
               showsVerticalScrollIndicator={false}
               style={{
-                marginBottom: 50,
+                paddingBottom: 50,
               }}
             >
               <Text
@@ -183,7 +183,7 @@ export const ProgramDetailsClientView = ProgramDetailsClientModel.modelClient(
                       fontWeight: "400",
                     }}
                   >
-                    Показать все
+                    {!showAll ? "Показать все" : "Скрыть"}
                   </Text>
                 </TouchableOpacity>
               </View>
@@ -242,22 +242,26 @@ export const ProgramDetailsClientView = ProgramDetailsClientModel.modelClient(
                     })}
                 </View>
               )}
+              <View
+                style={{
+                  marginBottom: 40,
+                  marginTop: 16,
+                }}
+              >
+                <CustomButton
+                  buttonTitle={{ color: color1 }}
+                  buttonStyles={{
+                    backgroundColor: "transparent",
+                    borderWidth: 2,
+                    borderColor: color1,
+                  }}
+                  title={"Удалить программу"}
+                  onPress={() => handleSnapPressDelete(0)}
+                />
+              </View>
             </ScrollView>
           </View>
         </SafeAreaView>
-
-        <View style={{ marginBottom: 40, paddingHorizontal: 16 }}>
-          <CustomButton
-            buttonTitle={{ color: color1 }}
-            buttonStyles={{
-              backgroundColor: "transparent",
-              borderWidth: 2,
-              borderColor: color1,
-            }}
-            title={"Удалить программу"}
-            onPress={() => handleSnapPressDelete(0)}
-          />
-        </View>
 
         <BottomSheetDeleteProgram
           snapPoints={snapPoints}

@@ -1,6 +1,6 @@
-import React, { FC, ReactNode, Ref } from 'react';
-import BottomSheet, { BottomSheetScrollView } from '@gorhom/bottom-sheet';
-import { styles } from './bottom-sheet-styles';
+import React, { FC, ReactNode, Ref } from "react";
+import BottomSheet, { BottomSheetScrollView } from "@gorhom/bottom-sheet";
+import { styles } from "./bottom-sheet-styles";
 
 interface BottomSheetProps {
   children: ReactNode;
@@ -22,7 +22,7 @@ export const BottomSheetComponent: FC<BottomSheetProps> = ({
     ref={sheetRef}
     snapPoints={snapPoints}
     index={-1}
-    style={styles.container}
+    style={[styles.container]}
   >
     <BottomSheetScrollView showsVerticalScrollIndicator={false}>
       {children}
