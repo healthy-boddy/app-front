@@ -78,7 +78,7 @@ const EnterAgeScreen = () => {
               lineHeight: 28,
             }}
           >
-            Ваш возраст
+            Дата рождения
           </Text>
           <Text style={{ fontWeight: "bold", marginTop: 10, fontSize: 28 }}>
             {moment(date).format(format2)}

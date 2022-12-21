@@ -62,7 +62,7 @@ const BackButton = (props: any) => {
       {props.editAnalyse && (
         <TouchableOpacity
           onPress={props.onPressEditAnalyse}
-          style={[styles.back, { top: 7 }]}
+          style={[styles.back, { top: 5 }]}
         >
           <Text style={styles.latterTitle}>Изменить</Text>
         </TouchableOpacity>
@@ -70,7 +70,7 @@ const BackButton = (props: any) => {
       {props.saveAnalyse && (
         <TouchableOpacity
           onPress={props.onPressSave}
-          style={[styles.back, { top: 7 }]}
+          style={[styles.back, { top: 5 }]}
         >
           <Text style={styles.latterTitle}>Сохранить</Text>
         </TouchableOpacity>

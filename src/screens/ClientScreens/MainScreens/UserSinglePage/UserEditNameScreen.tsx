@@ -15,15 +15,14 @@ const UserEditNameScreen = () => {
     const userData = useSelector((store: any) => store.user_data?.user_data);
     let tokenFromReducer = useSelector((store: any) => store.user_token.user_token);
     const form = new FormData()
-    const [name, setName] = useState('')
-    const [phone, setPhone] = useState('')
-    const [email, setEmail] = useState('')
+    const [name, setName] = useState(userData?.user?.username)
+    const [phone, setPhone] = useState(userData?.user?.phone_number)
+    const [email, setEmail] = useState(userData?.user?.email)
 
     async function updateUserDate() {
         name ? form.append('username', name) : null
         phone ? form.append('phone_number', phone) : null
         email ? form.append('email', email) : null
-
         fetch(baseUrl2 + '/user/client/update_me/', {
             method: 'put',
             headers: {

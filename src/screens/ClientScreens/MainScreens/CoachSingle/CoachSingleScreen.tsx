@@ -158,8 +158,6 @@ const CoachSingleScreen = () => {
                             {educationVisible ? <ArrowDown/> : <ArrowUp/>}
                         </Text>
                     </TouchableOpacity>
-                    <View style={styles.line}/>
-
                     <View>
                         {educationVisible && (
                             <View>
@@ -178,6 +176,8 @@ const CoachSingleScreen = () => {
                                 </View>
                             </View>
                         )}
+                        <View style={styles.line}/>
+
                     </View>
                     <TouchableOpacity
                         style={[styles.education_btn, {marginBottom: 50}]}

@@ -150,8 +150,6 @@ const LoginPin = (props: any) => {
                                 fontSize: 16,
                                 fontWeight: "500",
                                 lineHeight: 20,
-                                paddingTop: 3,
-
                             }}
                         >
                             {" "}

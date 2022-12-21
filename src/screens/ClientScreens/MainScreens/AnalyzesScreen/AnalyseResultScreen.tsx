@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, StyleSheet, FlatList} from "react-native";
+import {View, Image, Text, StyleSheet, FlatList} from "react-native";
 import {useSelector} from "react-redux";
 import {baseUrl2} from "../../../../helpers/url";
 import {useIsFocused, useNavigation} from "@react-navigation/native";
 import MainContainer from "../../../../components/MainContainer";
 import BackButton from "../../../../components/BackButton";
 import Description from "../../../../components/Description";
+import Title from "../../../../components/Title";
 
 const AnalyseResultScreen = () => {
     let tokenFromReducer = useSelector((store: any) => store.user_token.user_token);
@@ -26,7 +27,7 @@ const AnalyseResultScreen = () => {
     const savedAnalyseId = useSelector(store => store.laboratory.analyseId);
     const [analyseId, setAnalyseId] = useState(savedAnalyseId)
     const [activeAnalyzeId, setActiveAnalyzeId] = useState(analyzeFromStorage?.id);
-    const [analyse, setAnalyse] = useState([])
+    const [analyse, setAnalyse] = useState<any>([])
     console.log(analyseId, 'singl')
 
     function handleGetAnalyseIndicators() {
@@ -44,6 +45,7 @@ const AnalyseResultScreen = () => {
             console.log(res, 'response 2')
         })
     }
+
     useEffect(() => {
         setAnalyseId(savedAnalyseId)
     }, [savedAnalyseId])
@@ -64,7 +66,7 @@ const AnalyseResultScreen = () => {
         })
     }
 
-    console.log(analysesIndicators, 'ex')
+    console.log(analyse, 'ex')
 
     useEffect(() => {
         if (isFocused) {
@@ -80,13 +82,25 @@ const AnalyseResultScreen = () => {
             </View>
         )
     }
+    const flatFooter = ()=>{
+        return(
+            <View>
+                <Title titlePropStyle={{marginBottom: 10, fontSize: 16}}>Оцифровано по документу</Title>
+                <View>
+                    <Image
+                        style={{width: 126, height: 168, borderRadius: 7}}
+                        source={{uri: analyse?.photo}}/>
+                </View>
+            </View>
+        )
+    }
     return (
         <MainContainer>
             <View>
                 <BackButton
-                    onPress={()=>{
-                    navigation.navigate('Analyzes')
-                }} editAnalyse/>
+                    onPress={() => {
+                        navigation.navigate('Analyzes')
+                    }} editAnalyse/>
             </View>
             <View style={{flex: 1}}>
                 <Text style={{fontSize: 18, fontWeight: '400', fontStyle: 'normal'}}>
@@ -99,11 +113,10 @@ const AnalyseResultScreen = () => {
                     <FlatList
                         data={analysesIndicators}
                         renderItem={renderItem}
+                        ListFooterComponent={flatFooter}
                     />
                 </View>
-
             </View>
-
         </MainContainer>
     );
 };
