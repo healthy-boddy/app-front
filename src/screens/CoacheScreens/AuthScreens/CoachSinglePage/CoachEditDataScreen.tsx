@@ -14,9 +14,9 @@ const CoachEditDataScreen = () => {
     const userData = useSelector((store: any) => store.user_data?.user_data);
     let tokenFromReducer = useSelector((store: any) => store.user_token.user_token);
     const form = new FormData()
-    const [name, setName] = useState('')
-    const [phone, setPhone] = useState('')
-    const [email, setEmail] = useState('')
+    const [name, setName] = useState(userData?.user?.username)
+    const [phone, setPhone] = useState(userData?.user?.phone_number)
+    const [email, setEmail] = useState(userData?.user?.email)
 
     async function updateUserDate() {
         name ? form.append('username', name) : null

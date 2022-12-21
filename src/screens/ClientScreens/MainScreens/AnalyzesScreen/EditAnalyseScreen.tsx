@@ -13,6 +13,8 @@ import {DatePicker} from "../../../../components/core/date-picker-modal";
 import {CalendarSvg} from "../../../../components/icon/calendar";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import moment from "moment";
+import {File} from "../../../../components/icon/file";
+import * as ImagePicker from "expo-image-picker";
 
 type ParameterType = {
     name: string;
@@ -41,7 +43,8 @@ const EditAnalyseScreen = ({}) => {
     const [analiseDate, setAnaliseDate] = useState<Date>(new Date());
     let [labId, setLabId] = useState('')
     const [labUnits, setLabUnits] = useState([]);
-
+    const [photo, setPhoto] = useState<any>(null);
+    const form = new FormData();
     const analyzeFromStorage = useSelector(store => store.laboratory.lab);
     const [activeAnalyzeId, setActiveAnalyzeId] = useState(analyzeFromStorage?.id);
     const [isLabChanged, setIsLabChanged] = useState(false);
@@ -170,27 +173,44 @@ const EditAnalyseScreen = ({}) => {
         if (isLabChanged) {
             console.log('lab name has changed')
             deleteAnalyze();
+            form.append("date", moment(analiseDate).format("YYYY-MM-DD"));
+            form.append("laboratory", +labId);
+            photo ? form.append("photo", photo) : null;
             fetch(baseUrl2 + '/analysis/', {
                 method: 'post',
                 headers: {
                     Authorization: AuthStr,
-                    "accept": "application/json",
-                    "Content-Type": "application/json"
+                    "Content-Type": "multipart/form-data",
                 },
-                body: JSON.stringify({
-                    date: moment(analiseDate).format("YYYY-MM-DD"),
-                    laboratory: +labId,
-                })
+                body: form,
             }).then((res) => {
                 return res.json()
             }).then(res => {
                 createIndicators(res.id)
+                setPhoto(null)
             })
         } else {
             createIndicators(activeAnalyzeId)
         }
     }
+    const pickImage = async () => {
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.All,
+            allowsEditing: true,
+            aspect: [4, 3],
+            quality: 1,
+        });
 
+        if (!result.cancelled) {
+            setPhoto({
+                uri: result.uri,
+                name: `IMG_` + Date.now() + `.JPG`,
+                type: result.type + "/jpeg",
+                id: Date.now(),
+                lastModified: Date.now(),
+            });
+        }
+    };
     const deleteAnalyze = () => {
         fetch(baseUrl2 + `/analysis/${activeAnalyzeId}/`, {
             method: 'delete',
@@ -291,6 +311,49 @@ const EditAnalyseScreen = ({}) => {
                             + Добавить показатель
                         </Text>
                     </TouchableOpacity>
+                    <TouchableOpacity onPress={pickImage}>
+                        <Text
+                            style={{
+                                color: "#7454CF",
+                                fontSize: 16,
+                                lineHeight: 20,
+                                fontWeight: "500",
+                                marginTop: 32,
+                            }}
+                        >
+                            + Добавить фото анализа
+                        </Text>
+                    </TouchableOpacity>
+                    {photo !== null && (
+                        <View
+                            style={{
+                                flexDirection: "row",
+                                justifyContent: "space-between",
+                                marginTop: 15,
+                            }}
+                        >
+                            <View style={{flexDirection: "row"}}>
+                                <Text>
+                                    <File/>
+                                </Text>
+                                <Text
+                                    style={{
+                                        marginLeft: 10,
+                                    }}
+                                >
+                                    {photo?.name}
+                                </Text>
+                            </View>
+                            <TouchableOpacity
+                                onPress={() => {
+                                    setPhoto(null);
+                                }}
+                                style={{top: 3}}
+                            >
+                                <IconDelete/>
+                            </TouchableOpacity>
+                        </View>
+                    )}
                 </View>
             </View>
         )

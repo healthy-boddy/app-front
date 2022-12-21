@@ -210,11 +210,14 @@ const styles = StyleSheet.create({
         fontWeight: "400",
         lineHeight: 20,
         fontStyle: "normal",
+        width: '75%'
     },
     item_indicator: {
         fontSize: 16,
         fontWeight: "600",
         fontStyle: "normal",
         lineHeight: 19,
+        width: '25%',
+        textAlign: 'right'
     },
 });

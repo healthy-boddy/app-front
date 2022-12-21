@@ -187,7 +187,7 @@ const UserSinglePage = () => {
           {userData.user.username}
         </Title>
       </View>
-      <View style={{ marginTop: 40, flex: 1 }} />
+      <View style={{marginTop: 40}}/>
       <TouchableOpacity
         style={styles.button}
         onPress={() => {
