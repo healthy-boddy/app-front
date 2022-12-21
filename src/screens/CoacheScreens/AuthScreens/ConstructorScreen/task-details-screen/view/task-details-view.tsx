@@ -47,7 +47,11 @@ export const TaskDetailsView: FC<TaskDetailsViewProps> =
       <WrapperPage
         onPressButton={handleShowBrowser}
         buttonTitle={props.task.button_text}
-        onPressBack={() => navigation.goBack()}
+        onPressBack={() =>
+          navigation.navigate("ProgramDetails", {
+            programId: props.model.program,
+          })
+        }
       >
         <View
           style={[

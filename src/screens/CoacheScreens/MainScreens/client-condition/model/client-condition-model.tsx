@@ -26,7 +26,7 @@ export class ClientConditionModel {
     console.log("getProgramAssignedById", this._client);
     try {
       this._httpService
-        .get<ConditionsStateArray>("/user/condition/")
+        .get<ConditionsStateArray>(`/user/condition/?client=${this._client}`)
         .then((res) => {
           runInAction(() => {
             console.log("RES DATA getProgramAssignedById", res.data);

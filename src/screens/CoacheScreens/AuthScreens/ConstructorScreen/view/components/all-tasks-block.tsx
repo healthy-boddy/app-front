@@ -15,7 +15,6 @@ export const AllTasksBlock: React.FC<AllTasksBlockProps> = ({
   onPress,
   checkForDone,
 }) => {
-  console.log("title", title);
   return (
     <TouchableOpacity
       onPress={onPress}

@@ -124,13 +124,14 @@ export class GoalsEditingModelClient {
 
   public getGoals() {
     try {
-      this._httpService.get<GoalsResArray>("/program/goal/").then((res) => {
-        console.log("GET: data goals", res.data);
-        runInAction(() => {
-          this._goals = stateCreator.getHasDataState(res.data);
-          this._program = res.data[0].program;
+      this._httpService
+        .get<GoalsResArray>(`/program/goal/?program=${this._programId}`)
+        .then((res) => {
+          console.log("GET: data goals", res.data);
+          runInAction(() => {
+            this._goals = stateCreator.getHasDataState(res.data);
+          });
         });
-      });
     } catch (e: any) {
       console.log("Error:", e.response.data);
     }
@@ -139,6 +140,7 @@ export class GoalsEditingModelClient {
   public handlePress() {
     this.createNewGoal();
     this.deleteGoal();
+    this.getGoals();
   }
 
   private constructor(
@@ -171,7 +173,7 @@ export class GoalsEditingModelClient {
       model._programDetailForClient = programAssignedToClient;
       model._client = clientID;
       model.getGoals();
-    }, [model]);
+    });
 
     return model;
   }

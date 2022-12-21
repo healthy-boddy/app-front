@@ -44,7 +44,7 @@ const BackButton = (props: any) => {
 
       <View
         style={{
-          width: 90,
+          width: props.title?.length === 4 ? 0 : 90,
         }}
       />
 

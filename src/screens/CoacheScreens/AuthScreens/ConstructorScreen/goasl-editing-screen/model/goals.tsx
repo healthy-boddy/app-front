@@ -9,7 +9,7 @@ export class Goals {
     makeAutoObservable(this, {}, { autoBind: true });
   }
 
-  public editGoals(data: string, goalId: number, program: number | null) {
+  public editGoals(data: string, goalId: number, program: number | undefined) {
     console.log("goal id", goalId);
     this._httpService
       .put(`/program/goal/${goalId}/`, {

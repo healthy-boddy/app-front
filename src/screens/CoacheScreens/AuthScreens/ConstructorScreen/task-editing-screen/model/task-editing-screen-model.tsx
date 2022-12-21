@@ -3,12 +3,12 @@ import React, { useEffect } from "react";
 import { makeAutoObservable, runInAction } from "mobx";
 import { observer } from "mobx-react-lite";
 import { HttpService } from "../../../../../../service/http-service";
-import { TaskResponseArray } from "../../program-details-screen/editing-screen/interface";
+import { TaskResponse } from "../../program-details-screen/editing-screen/interface";
 
 export class TaskEditingModel {
   private readonly _httpService = new HttpService();
 
-  private _taskId: number | undefined = undefined;
+  private _taskData: TaskResponse | undefined = undefined;
 
   private _name = "";
   private _description = "";
@@ -33,6 +33,10 @@ export class TaskEditingModel {
     return this._button_link;
   }
 
+  public get program() {
+    return this._button_link;
+  }
+
   public setName(data: string) {
     this._name = data;
   }
@@ -48,21 +52,23 @@ export class TaskEditingModel {
   }
 
   public deleteProgramById() {
-    console.log("TASK ID", this._taskId);
+    console.log("TASK ID", this.task);
     try {
-      this._httpService.delete(`/program/task/${this._taskId}/`).then((res) => {
-        console.log(`successfully deleted task ${this._taskId}`);
-      });
+      this._httpService
+        .delete(`/program/task/${this._taskData?.id}/`)
+        .then((res) => {
+          console.log(`successfully deleted task ${this._taskData}`);
+        });
     } catch (er: any) {
       console.log("Error", er.response.data.message);
     }
   }
 
   public saveTask() {
-    console.log("this.this._taskId()", this._taskId);
+    console.log("this.this._taskId()", this._taskData);
     try {
       this._httpService
-        .put(`/program/task/${this._taskId}/`, {
+        .put(`/program/task/${this._taskData?.id}/`, {
           data: this.formatData(),
         })
         .then((res) => {
@@ -85,37 +91,46 @@ export class TaskEditingModel {
     };
   }
 
-  private getTasks() {
-    try {
-      this._httpService
-        .get<TaskResponseArray>(`/program/task/?program=${this._taskId}`)
-        .then((responseArray) => {
-          responseArray.data.map((res) => {
-            runInAction(() => {
-              this._name = res.name;
-              this._description = res.description;
-              this._date = res.date;
-              this._button_text = res.button_text;
-              this._button_link = res.button_link;
-              this._program = res.program;
-            });
-          });
-        });
-    } catch (e: any) {
-      alert(e.response.data);
-    }
-  }
+  // private getTasks() {
+  //   try {
+  //     this._httpService
+  //       .get<TaskResponseArray>(`/program/task/?task=${this._taskId?.id}`)
+  //       .then((responseArray) => {
+  //         responseArray.data.map((res) => {
+  //           runInAction(() => {
+  //             this._name = res.name;
+  //             this._description = res.description;
+  //             this._date = res.date;
+  //             this._button_text = res.button_text;
+  //             this._button_link = res.button_link;
+  //             this._program = res.program;
+  //           });
+  //         });
+  //       });
+  //   } catch (e: any) {
+  //     alert(e.response.data);
+  //   }
+  // }
 
-  private constructor(private readonly taskId: number | undefined) {
+  private constructor(private readonly task: TaskResponse | undefined) {
     this._httpService = new HttpService({});
     makeAutoObservable(this, {}, { autoBind: true });
   }
 
-  private static makeModel(taskId: number | undefined) {
-    const model = React.useMemo(() => new TaskEditingModel(taskId), []);
+  private static makeModel(task: TaskResponse | undefined) {
+    const model = React.useMemo(() => new TaskEditingModel(task), []);
     useEffect(() => {
-      model._taskId = taskId;
-      model.getTasks();
+      runInAction(() => {
+        if (task) {
+          model._taskData = task;
+          model._name = task.name;
+          model._description = task.description;
+          model._date = task.date;
+          model._button_text = task.button_text;
+          model._button_link = task.button_link;
+          model._program = task.program;
+        }
+      });
     });
 
     return model;
@@ -126,10 +141,10 @@ export class TaskEditingModel {
 
   public static Provider(
     props: React.PropsWithChildren<{
-      taskId: number | undefined;
+      task: TaskResponse | undefined;
     }>
   ) {
-    const model = TaskEditingModel.makeModel(props.taskId);
+    const model = TaskEditingModel.makeModel(props.task);
 
     return (
       <TaskEditingModel.MedicalCardPageContext.Provider value={model}>

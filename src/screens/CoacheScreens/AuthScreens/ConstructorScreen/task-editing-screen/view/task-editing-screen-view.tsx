@@ -44,7 +44,7 @@ export const TaskEditingScreenView = TaskEditingModel.modelClient((props) => {
         flex: 1,
       }}
     >
-      <View style={{ paddingHorizontal: 16, top: 30 }}>
+      <View style={{ paddingHorizontal: 16 }}>
         <View
           style={{
             flexDirection: "row",
@@ -54,9 +54,11 @@ export const TaskEditingScreenView = TaskEditingModel.modelClient((props) => {
         >
           <TouchableOpacity
             activeOpacity={0.6}
-            onPress={() => {
-              navigation.navigate("EditingScreen");
-            }}
+            onPress={() =>
+              navigation.navigate("EditingScreen", {
+                programId: props.model.program,
+              })
+            }
             style={{
               flexDirection: "row",
               marginTop: Platform.OS === "android" ? 35 : 0,

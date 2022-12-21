@@ -24,7 +24,7 @@ export const GoalsView: FC<EditingScreenViewProps> = GoalsModel.modelClient(
           title={"Цели программы"}
           onPressEdit={() =>
             navigation.navigate("GoalsEditing", {
-              programId: props.programId,
+              programId: props.model.program,
             })
           }
           onPress={() => {

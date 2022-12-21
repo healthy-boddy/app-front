@@ -40,7 +40,9 @@ export const GoalsViewClient: FC<EditingScreenViewProps> =
 
         <View style={{ marginTop: 16 }} />
         <ScrollView
-          scrollEnabled={props.model.goals && props.model.goals.data.length > 5}
+          scrollEnabled={
+            props.model.goals && props?.model?.goals?.data?.length > 4
+          }
           showsVerticalScrollIndicator={false}
           style={{
             marginBottom: 50,

@@ -1,5 +1,5 @@
 import React, { FC, RefObject, useEffect } from "react";
-import { Image, Text, View } from "react-native";
+import { Dimensions, Image, Text, View } from "react-native";
 import BottomSheet from "@gorhom/bottom-sheet";
 import { BottomSheetComponent } from "../../../../../../../components/core/bottom-sheet";
 import CustomButton from "../../../../../../../components/CustomButton";
@@ -13,7 +13,7 @@ interface ButtonSheetPersonalDoctorProps {
   snapPoints: (string | number)[];
   onClose: () => void;
   onPressToPick: (data: number | null) => void;
-  clientData: ClientResponse;
+  clientData?: ClientResponse;
   programName: string;
 }
 
@@ -36,12 +36,11 @@ export const BottomSheetClientPicked: FC<ButtonSheetPersonalDoctorProps> = ({
     >
       <View
         style={{
-          height: 212,
           backgroundColor: "#fff",
           borderTopLeftRadius: 24,
           borderTopRightRadius: 24,
           paddingHorizontal: 16,
-          width: "100%",
+          marginTop: Dimensions.get("screen").height / 5,
         }}
       >
         {clientData?.user?.avatar_thumbnail !== null ? (
@@ -119,7 +118,7 @@ export const BottomSheetClientPicked: FC<ButtonSheetPersonalDoctorProps> = ({
         </Description>
         <View
           style={{
-            marginTop: 46,
+            marginTop: Dimensions.get("screen").height / 6,
           }}
         />
         {clientData?.user && (
