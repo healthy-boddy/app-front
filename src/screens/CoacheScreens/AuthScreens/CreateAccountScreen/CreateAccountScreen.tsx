@@ -5,6 +5,7 @@ import {
   StyleSheet,
   Pressable,
   TouchableOpacity,
+  Keyboard,
 } from "react-native";
 import PhoneInput from "react-native-phone-input";
 import { useNavigation } from "@react-navigation/native";

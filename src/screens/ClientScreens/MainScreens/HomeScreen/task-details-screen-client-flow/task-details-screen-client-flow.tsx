@@ -4,9 +4,9 @@ import { TaskDetailsView } from "./view";
 
 export const TaskDetailsScreenClientFlow = ({ route: { params } }: any) => {
   const taskData: any = params?.task;
-  const programID: number = params.programID;
+  const programID: number = params.task.program;
   const clientID: number = params.clientID;
-  console.log("programID", programID);
+  console.log("programID 12", programID);
   return (
     <TaskDetailModelClientFlow.Provider
       programID={programID}

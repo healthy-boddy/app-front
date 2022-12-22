@@ -4,6 +4,7 @@ import { makeAutoObservable, runInAction } from "mobx";
 import { observer } from "mobx-react-lite";
 import { HttpService } from "../../../../../../service/http-service";
 import { TaskResponse } from "../../../../../CoacheScreens/MainScreens/client-programs/editing-screen/interface";
+import { ProgramAssignedToClient } from "../../../../../CoacheScreens/MainScreens/client-programs/interface/interface";
 
 export class TaskDetailModelClientFlow {
   private readonly _httpService = new HttpService();
@@ -13,12 +14,43 @@ export class TaskDetailModelClientFlow {
   private _program: number | undefined = undefined;
   private _client: number | undefined = undefined;
 
+  private _programId: number | undefined = undefined;
+  private _programDetailForClient: ProgramAssignedToClient | undefined =
+    undefined;
+
   public get program() {
     return this._program;
   }
 
+  public get currentProgramId() {
+    return this._programId;
+  }
   public get client() {
     return this._client;
+  }
+
+  public get programDetailForClient() {
+    return this._programDetailForClient;
+  }
+
+  public completeTask() {
+    const dataArray = {
+      task: this._taskElement?.id,
+      client: this._client,
+    };
+    console.log("dataArray", dataArray);
+    try {
+      this._httpService
+        .post("program/task/complete/", {
+          data: dataArray,
+        })
+        .then((res) => {
+          console.log("RES completeTask", res.status);
+        })
+        .catch((error) => console.log("ERROR", error.response.data));
+    } catch (e: any) {
+      console.log(e.response);
+    }
   }
 
   private constructor(

@@ -54,19 +54,21 @@ export const BottomSheetClients: FC<ButtonSheetPersonalDoctorProps> =
             Какому клиенту назначить программу {props.programName}?
           </Text>
 
-          <View style={{ marginTop: 40 }} />
+          <View style={{ marginTop: 20 }} />
 
           {props.model.users.type === "HAS_DATA" &&
             props.model.users.data.map((client) => {
+              console.log("CLIENT", client);
               return (
                 <React.Fragment key={client.user.id}>
                   <View style={{ marginTop: 16 }} />
                   <ClientBlockForCoach
+                    chevronRight={false}
                     clientData={clientData ?? null}
                     onPress={() => senClientData(client)}
                     url={client.user.avatar_thumbnail}
                     name={client.user.username}
-                    progress={"5/6"}
+                    progress={`${client.done_global_goals_count} / ${client.total_global_goals_count}`}
                     subscriptionType={"Индивидуальный"}
                     subscriptionDuration={"12"}
                   />

@@ -8,6 +8,7 @@ import {
   View,
   TouchableOpacity,
   Linking,
+  Dimensions,
 } from "react-native";
 import Description from "../../../../../../components/Description";
 import { TaskDetailModelClientFlow } from "../model";
@@ -21,6 +22,8 @@ import { IconSearch } from "../../../../../CoacheScreens/AuthScreens/Constructor
 interface TaskDetailsViewProps {
   task: TaskResponse;
 }
+
+const { width, height } = Dimensions.get("screen");
 
 export const TaskDetailsView: FC<TaskDetailsViewProps> =
   TaskDetailModelClientFlow.modelClient((props) => {
@@ -43,9 +46,14 @@ export const TaskDetailsView: FC<TaskDetailsViewProps> =
       await Linking.openURL(pdf);
     }
 
+    const handlePress = () => {
+      props.model.completeTask();
+      handleShowBrowser();
+    };
+
     return (
       <WrapperPage
-        onPressButton={handleShowBrowser}
+        onPressButton={handlePress}
         buttonTitle={props.task.button_text}
         onPressBack={() =>
           navigation.navigate("DetailsProgramClient", {
@@ -143,8 +151,8 @@ export const TaskDetailsView: FC<TaskDetailsViewProps> =
                   </TouchableOpacity>
                   <View
                     style={{
-                      width: 350,
-                      height: 600,
+                      width: width / 1.7,
+                      height: height / 1.4,
                     }}
                   >
                     <Image
@@ -152,7 +160,7 @@ export const TaskDetailsView: FC<TaskDetailsViewProps> =
                         width: "100%",
                         height: "100%",
                       }}
-                      resizeMode="stretch"
+                      resizeMode="contain"
                       source={{ uri: props?.task.image }}
                     />
                   </View>

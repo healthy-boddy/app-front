@@ -109,7 +109,7 @@ export const TaskDetailsView: FC<TaskDetailsViewProps> =
                       paddingVertical: 8,
                       paddingHorizontal: 15,
                       borderRadius: 20,
-                      right: 35,
+                      right: 14,
                     }}
                   >
                     <Text style={{ color: "#FFFFFF" }}>Открыть документ</Text>

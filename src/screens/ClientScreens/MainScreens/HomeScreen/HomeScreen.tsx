@@ -214,7 +214,11 @@ const HomeScreen = () => {
             style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
           >
             <PicCheck />
-            <View style={{}}>
+            <View
+              style={{
+                marginTop: 24,
+              }}
+            >
               <Title titlePropStyle={{ textAlign: "center" }}>
                 Ваш Health Buddy найден!
               </Title>
@@ -235,7 +239,7 @@ const HomeScreen = () => {
                 onPress={() => {
                   navigation.navigate("PaidQuizzes");
                 }}
-                style={{ alignItems: "center", marginVertical: 40 }}
+                style={{ alignItems: "center", marginTop: 24 }}
               >
                 <Text
                   style={{
