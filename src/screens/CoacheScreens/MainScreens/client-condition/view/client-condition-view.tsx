@@ -16,7 +16,7 @@ export const ClientConditionView = ClientConditionModel.modelClient((props) => {
           style={{
             width: "50%",
             alignItems: "center",
-            paddingHorizontal: 8,
+            paddingHorizontal: 6,
           }}
         >
           <View
@@ -26,7 +26,7 @@ export const ClientConditionView = ClientConditionModel.modelClient((props) => {
               backgroundColor: "#F5F4F8",
               borderRadius: 24,
               width: "100%",
-              height: 240,
+              height: 230,
               marginVertical: 15,
               alignItems: "flex-start",
             }}
@@ -125,27 +125,11 @@ export const ClientConditionView = ClientConditionModel.modelClient((props) => {
   const navigation = useNavigation<any>();
   return (
     <MainContainer>
-      <View
-        style={{
-          paddingVertical: 16,
+      <BackButton
+        onPress={() => {
+          navigation.navigate("Greetings4");
         }}
-      >
-        <BackButton
-          onPress={() => {
-            navigation.navigate("Greetings4");
-          }}
-        />
-        <Text
-          style={{
-            fontSize: 32,
-            fontWeight: "600",
-            lineHeight: 34,
-            color: "#000",
-          }}
-        >
-          {/*Мое состояние*/}
-        </Text>
-      </View>
+      />
 
       {props.model.clientCondition.type === "HAS_DATA" && (
         <View>
@@ -212,7 +196,7 @@ const styles = StyleSheet.create({
     lineHeight: 23,
     color: "#1E1E1E",
     marginTop: 20,
-    width: 120,
+    // width: 120,
   },
   content_item_day: {
     marginTop: 8,

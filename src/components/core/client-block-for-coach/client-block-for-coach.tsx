@@ -17,6 +17,7 @@ interface ClientBlockForCoachProps {
   subscriptionDuration: string;
   subscriptionType: string;
   clientData?: ClientResponse | null;
+  chevronRight?: boolean;
 }
 
 export const ClientBlockForCoach: FC<ClientBlockForCoachProps> = ({
@@ -27,6 +28,7 @@ export const ClientBlockForCoach: FC<ClientBlockForCoachProps> = ({
   subscriptionType,
   subscriptionDuration,
   clientData,
+  chevronRight = true,
 }) => {
   return (
     <TouchableOpacity
@@ -111,7 +113,7 @@ export const ClientBlockForCoach: FC<ClientBlockForCoachProps> = ({
             alignItems: "center",
           }}
         >
-          <ChevronRight color={"#1E1E1E"} />
+          {chevronRight && <ChevronRight color={"#1E1E1E"} />}
         </View>
       </View>
     </TouchableOpacity>

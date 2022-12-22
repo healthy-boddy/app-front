@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { TextInput, StyleSheet, View, TouchableOpacity } from "react-native";
+import {
+  TextInput,
+  StyleSheet,
+  View,
+  TouchableOpacity,
+  Keyboard,
+} from "react-native";
 import { color2 } from "../helpers/colors";
 import Delete from "../assets/Icons/Delete";
 
@@ -15,6 +21,11 @@ const CustomInput = (props: any) => {
     >
       <View style={[{ width: "90%" }]}>
         <TextInput
+          returnKeyType={"done"}
+          autoCapitalize="none"
+          onSubmitEditing={() => {
+            Keyboard.dismiss();
+          }}
           value={value}
           onChangeText={onChangeText}
           placeholder={placeholder}
@@ -24,7 +35,6 @@ const CustomInput = (props: any) => {
           }
           textContentType="emailAddress"
           keyboardType="email-address"
-          autoCapitalize="none"
           autoCorrect={false}
         />
       </View>

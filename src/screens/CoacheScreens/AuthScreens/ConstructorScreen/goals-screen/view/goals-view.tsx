@@ -45,6 +45,7 @@ export const GoalsView: FC<EditingScreenViewProps> = GoalsModel.modelClient(
           {props?.model?.goals &&
             props?.model?.goals?.type === "HAS_DATA" &&
             props.model.goals.data.map((data, index) => {
+              console.log("data goals", index);
               return (
                 <GoalsBlock
                   key={data.id}
