@@ -200,12 +200,14 @@ export const ProgramDetailsView = ProgramDetailsModel.modelClient((props) => {
                     const check = props.model.tasks.data?.filter((elem) =>
                       taskArrayDone.includes(elem?.id)
                     );
+
                     return (
                       <React.Fragment key={task.id}>
                         <AllTasksBlock
-                          checkForDone={check
-                            ?.map((data) => data.id === task.id)
-                            .toString()}
+                          checkForDone={
+                            check &&
+                            check.map((data) => data.id).includes(task.id)
+                          }
                           onPress={() =>
                             navigation.navigate("TaskDetailsScreenClientFlow", {
                               task: task,
@@ -235,9 +237,10 @@ export const ProgramDetailsView = ProgramDetailsModel.modelClient((props) => {
                     );
                     return (
                       <AllTasksBlock
-                        checkForDone={check
-                          ?.map((data) => data.id === task.id)
-                          .toString()}
+                        checkForDone={
+                          check &&
+                          check.map((data) => data.id).includes(task.id)
+                        }
                         key={task.id}
                         onPress={() =>
                           navigation.navigate("TaskDetailsScreenClientFlow", {

@@ -6,7 +6,7 @@ interface AllTasksBlockProps {
   title: string;
   duration: string;
   onPress: () => void;
-  checkForDone?: string;
+  checkForDone?: boolean;
 }
 
 export const AllTasksBlock: React.FC<AllTasksBlockProps> = ({
@@ -24,8 +24,9 @@ export const AllTasksBlock: React.FC<AllTasksBlockProps> = ({
           borderColor: "#E2E2E2",
           paddingVertical: 16,
           paddingHorizontal: 16,
+          marginVertical: 3,
         },
-        checkForDone === "true" && {
+        checkForDone && {
           backgroundColor: "#E5DDFD",
           borderRadius: 12,
         },
@@ -48,7 +49,7 @@ export const AllTasksBlock: React.FC<AllTasksBlockProps> = ({
         >
           {title}
         </Text>
-        {checkForDone === "true" && <DoneGoalsSvg />}
+        {checkForDone && <DoneGoalsSvg />}
       </View>
       <Text
         style={{

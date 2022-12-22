@@ -197,9 +197,10 @@ export const ProgramDetailsClientView = ProgramDetailsClientModel.modelClient(
                       );
                       return (
                         <AllTasksBlock
-                          checkForDone={check
-                            ?.map((data) => data.id === task.id)
-                            .toString()}
+                          checkForDone={
+                            check &&
+                            check.map((data) => data.id).includes(task.id)
+                          }
                           key={task.id}
                           onPress={() =>
                             navigation.navigate("TaskDetailsClientScreen", {
@@ -222,9 +223,10 @@ export const ProgramDetailsClientView = ProgramDetailsClientModel.modelClient(
                       );
                       return (
                         <AllTasksBlock
-                          checkForDone={check
-                            ?.map((data) => data.id === task.id)
-                            .toString()}
+                          checkForDone={
+                            check &&
+                            check.map((data) => data.id).includes(task.id)
+                          }
                           key={task.id}
                           onPress={() =>
                             navigation.navigate("TaskDetailsClientScreen", {
