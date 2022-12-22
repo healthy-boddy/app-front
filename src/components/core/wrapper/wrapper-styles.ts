@@ -21,7 +21,7 @@ export const styles = StyleSheet.create({
   footerContainer: {
     alignItems: "center",
     justifyContent: "center",
-    // marginBottom: 40,
+    marginBottom: 40,
     paddingHorizontal: 16,
   },
   twoButtonsBottomContainer: {
