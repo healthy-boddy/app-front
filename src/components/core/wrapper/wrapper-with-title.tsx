@@ -19,6 +19,7 @@ interface ButtonWrapperPageInterface {
   title: string;
   onPressEdit?: () => void;
   editButton?: boolean;
+  isOpen?: boolean;
 }
 
 export const WrapperWithTitlePage: FC<ButtonWrapperPageInterface> = ({
@@ -29,9 +30,10 @@ export const WrapperWithTitlePage: FC<ButtonWrapperPageInterface> = ({
   title,
   onPressEdit,
   editButton,
+  isOpen,
 }) => {
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={[styles.container]}>
       <View
         style={{
           flexDirection: "row",

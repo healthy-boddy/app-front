@@ -184,9 +184,11 @@ export class ProgramDetailsModel {
       []
     );
     useEffect(() => {
-      model._programId = programId;
-      model._programDetailForClient = programAssignedToClient;
-      model._client = clientID;
+      runInAction(() => {
+        model._programId = programId;
+        model._programDetailForClient = programAssignedToClient;
+        model._client = clientID;
+      });
       model.getProgramById();
       model.getTasks();
       model.getCompleteTasks();

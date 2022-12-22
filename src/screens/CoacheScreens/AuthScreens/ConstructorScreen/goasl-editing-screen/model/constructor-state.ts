@@ -1,4 +1,7 @@
-import { GoalsResArray, GoalsResponseProps } from "../interface/interface";
+import {
+  GlobalGoalsResArray,
+  GoalsResponseProps,
+} from "../interface/interface";
 import { Goals } from "./goals";
 
 export interface StateInitial {
@@ -9,7 +12,7 @@ export interface StateInitial {
 
 export interface StateLoading {
   type: "LOADING";
-  data: GoalsResArray | null;
+  data: GlobalGoalsResArray | null;
   error: null;
 }
 

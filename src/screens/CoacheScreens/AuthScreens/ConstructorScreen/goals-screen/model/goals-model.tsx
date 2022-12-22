@@ -5,7 +5,7 @@ import { observer } from "mobx-react-lite";
 import * as stateCreator from "./state-creators";
 import { ConstructorState } from "./constructor-state";
 import { HttpService } from "../../../../../../service/http-service";
-import { GoalsResArray } from "../../goasl-editing-screen/interface/interface";
+import { GlobalGoalsResArray } from "../../goasl-editing-screen/interface/interface";
 
 export class GoalsModel {
   private readonly _httpService = new HttpService();
@@ -29,7 +29,7 @@ export class GoalsModel {
   public getGoals() {
     try {
       this._httpService
-        .get<GoalsResArray>(`/program/goal/?program=${this._program}`)
+        .get<GlobalGoalsResArray>(`/program/goal/?program=${this._program}`)
         .then((res) => {
           runInAction(() => {
             this._goals = stateCreator.getHasDataState(res.data);

@@ -7,7 +7,7 @@ import {
 } from "./constructor-state";
 import { Goals } from "./goals";
 import {
-  GoalsResArray,
+  GlobalGoalsResArray,
   GoalsResponseProps,
 } from "../../../../../CoacheScreens/AuthScreens/ConstructorScreen/goasl-editing-screen/interface/interface";
 
@@ -15,7 +15,9 @@ export function getInitialState(): StateInitial {
   return { type: "INITIAL", data: null, error: null };
 }
 
-export function getLoadingState(data: GoalsResArray | null): StateLoading {
+export function getLoadingState(
+  data: GlobalGoalsResArray | null
+): StateLoading {
   return { type: "LOADING", data, error: null };
 }
 

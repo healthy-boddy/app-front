@@ -5,14 +5,19 @@ import {
   StateInitial,
   StateLoading,
 } from "./constructor-state";
-import { GoalsResArray, GoalsResponseProps } from "../interface/interface";
+import {
+  GlobalGoalsResArray,
+  GoalsResponseProps,
+} from "../interface/interface";
 import { Goals } from "./goals";
 
 export function getInitialState(): StateInitial {
   return { type: "INITIAL", data: null, error: null };
 }
 
-export function getLoadingState(data: GoalsResArray | null): StateLoading {
+export function getLoadingState(
+  data: GlobalGoalsResArray | null
+): StateLoading {
   return { type: "LOADING", data, error: null };
 }
 
