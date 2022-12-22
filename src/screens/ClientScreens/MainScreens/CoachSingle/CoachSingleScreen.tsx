@@ -27,7 +27,7 @@ const CoachSingleScreen = () => {
     const [coach, setCoach] = useState<any>([]);
     const [educationVisible, setEducationVisible] = useState(false);
     const [reviewsVisible, setReviewsVisible] = useState(false);
-
+    const [reviews, setReviews] = useState<any>([])
     useEffect(() => {
         axios
             .get(baseUrl + "/client/quiz_status/", {
@@ -38,8 +38,18 @@ const CoachSingleScreen = () => {
             .then((status) => {
                 setCoach(status.data.coach);
             });
+        axios.get(baseUrl + "/coach_review/", {
+            headers: {
+                Authorization: "Bearer " + tokenFromReducer,
+            },
+        }).then((res) => {
+            setReviews(res.data)
+            console.log(res.data, '/coach_review/618')
+        })
     }, []);
+
     console.log(coach, "coach");
+
     return (
         <SafeAreaView
             style={{
@@ -177,7 +187,6 @@ const CoachSingleScreen = () => {
                             </View>
                         )}
                         <View style={styles.line}/>
-
                     </View>
                     <TouchableOpacity
                         style={[styles.education_btn, {marginBottom: 50}]}
@@ -194,7 +203,31 @@ const CoachSingleScreen = () => {
                             {reviewsVisible ? <ArrowDown/> : <ArrowUp/>}
                         </Text>
                     </TouchableOpacity>
-                    <View style={styles.line}/>
+                    {reviewsVisible && (
+                        <View>
+                            <ScrollView style={{height: 120, width: '100%', marginTop: 16}}>
+                                {reviews?.map((item) => (
+                                    <TouchableOpacity key={item.id} style={{marginRight: 16}}>
+                                        {coach?.user.id === item.coach &&
+                                            <View style={{flex: 1}}>
+                                                <Text style={{
+                                                    fontWeight: '600',
+                                                    fontSize: 16,
+                                                    lineHeight: 20
+                                                }}>
+                                                    {item.name}
+                                                </Text>
+                                                <Text style={{
+                                                    marginVertical: 5,
+                                                    fontSize: 16
+                                                }}>{item.text}</Text>
+                                            </View>}
+                                    </TouchableOpacity>
+                                ))}
+                            </ScrollView>
+                        </View>
+                    )}
+                    <View style={[styles.line, {marginTop: 0}]}/>
                 </ScrollView>
             </View>
         </SafeAreaView>
