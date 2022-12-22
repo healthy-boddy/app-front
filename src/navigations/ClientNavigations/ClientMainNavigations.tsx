@@ -30,6 +30,7 @@ import { DetailsProgramClient } from "../../screens/ClientScreens/MainScreens/Ho
 import { TaskDetailsScreen } from "../../screens/CoacheScreens/AuthScreens/ConstructorScreen/task-details-screen";
 import { TaskDetailsClientScreen } from "../../screens/CoacheScreens/MainScreens/client-programs/task-details-screen";
 import { ProgramDetailGoals } from "../../screens/ClientScreens/MainScreens/HomeScreen/program-details-goals-screen";
+import { TaskDetailsScreenClientFlow } from "../../screens/ClientScreens/MainScreens/HomeScreen/task-details-screen-client-flow";
 
 function Home() {
   return <HomeScreen />;
@@ -270,6 +271,15 @@ export default function ClientMain() {
       <Tab.Screen
         name={"ProgramDetailGoals"}
         component={ProgramDetailGoals}
+        options={({ route }) => ({
+          tabBarButton: () => null,
+          tabBarStyle: { display: "none" },
+        })}
+      />
+
+      <Tab.Screen
+        name={"TaskDetailsScreenClientFlow"}
+        component={TaskDetailsScreenClientFlow}
         options={({ route }) => ({
           tabBarButton: () => null,
           tabBarStyle: { display: "none" },

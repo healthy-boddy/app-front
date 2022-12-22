@@ -20,12 +20,8 @@ const BackButton = (props: any) => {
         onPress={onPress}
         style={styles.back}
       >
-        <View>
-          <BackIcon />
-        </View>
-        <View>
-          <Text style={styles.title}>Назад</Text>
-        </View>
+        <BackIcon />
+        <Text style={styles.title}>Назад</Text>
       </TouchableOpacity>
 
       {props.title && (
@@ -36,6 +32,7 @@ const BackButton = (props: any) => {
             fontWeight: "600",
             lineHeight: 21.48,
             color: "#1E1E1E",
+            paddingRight: props.onPressEdit ? 0 : 90,
           }}
         >
           {props.title}

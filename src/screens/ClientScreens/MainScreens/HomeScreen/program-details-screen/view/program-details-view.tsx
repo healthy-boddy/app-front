@@ -207,7 +207,7 @@ export const ProgramDetailsView = ProgramDetailsModel.modelClient((props) => {
                             ?.map((data) => data.id === task.id)
                             .toString()}
                           onPress={() =>
-                            navigation.navigate("TaskDetailsClientScreen", {
+                            navigation.navigate("TaskDetailsScreenClientFlow", {
                               task: task,
                               programId: props.model.programDetailForClient,
                               assignedProgram:
@@ -240,7 +240,7 @@ export const ProgramDetailsView = ProgramDetailsModel.modelClient((props) => {
                           .toString()}
                         key={task.id}
                         onPress={() =>
-                          navigation.navigate("TaskDetailsClientScreen", {
+                          navigation.navigate("TaskDetailsScreenClientFlow", {
                             task: task,
                             programId: props.model.programDetailForClient,
                             assignedProgram: props.model.programDetailForClient,

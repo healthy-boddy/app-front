@@ -26,7 +26,7 @@ import PeoplesIcon from "./HomeScreenIcons/PeoplesIcon";
 import { ProgramBlock } from "../../../CoacheScreens/AuthScreens/ConstructorScreen/view/components/program-block";
 import { ProgramAssignedToClientArray } from "../../../CoacheScreens/MainScreens/client-programs/interface/interface";
 import { ProgramsGoalsBlock } from "../../../CoacheScreens/MainScreens/client-programs/client-programs/view/components/programs-goals-block";
-import { GoalsResArray } from "../../../CoacheScreens/AuthScreens/ConstructorScreen/goasl-editing-screen/interface/interface";
+import { GlobalGoalsResArray } from "../../../CoacheScreens/AuthScreens/ConstructorScreen/goasl-editing-screen/interface/interface";
 
 const wait = (timeout) => {
   return new Promise((resolve) => setTimeout(resolve, timeout));
@@ -45,7 +45,7 @@ const HomeScreen = () => {
   const [programs, setPrograms] = useState<ProgramAssignedToClientArray>([]);
 
   // goals
-  const [goals, setGoals] = useState<GoalsResArray>([]);
+  const [goals, setGoals] = useState<GlobalGoalsResArray>([]);
 
   let tokenFromReducer = useSelector(
     (store: any) => store.user_token.user_token
@@ -120,7 +120,7 @@ const HomeScreen = () => {
 
   function getGoals() {
     axios
-      .get<GoalsResArray>("http://92.53.97.238/global_goal/", {
+      .get<GlobalGoalsResArray>("http://92.53.97.238/global_goal/", {
         headers: {
           Authorization: "Bearer " + tokenFromReducer,
         },
@@ -139,7 +139,7 @@ const HomeScreen = () => {
   }, [isFocused]);
 
   //console.log(userCoach?.user?.avatar_thumbnail, 'userCoach?.user?.avatar_thumbnail')
-    console.log(userCoach)
+  console.log(userCoach);
   const returnViews = () => {
     if (!freeQuizStatus) {
       return (

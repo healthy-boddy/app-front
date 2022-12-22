@@ -1,10 +1,16 @@
-import React, { FC, useCallback, useEffect, useRef, useState } from "react";
+import React, {
+  FC,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { useNavigation } from "@react-navigation/native";
 import { Image, Text, View } from "react-native";
 import { WrapperWithTitlePage } from "../../../../../components/core/wrapper/wrapper-with-title";
 import { GoalsModel } from "../global-goals-screen/model";
 import { GoalsBlock } from "../../../AuthScreens/ConstructorScreen/goals-screen/view/goals-block";
-import { runInAction } from "mobx";
 import { GlobalStatus } from "../global-goasl-editing-screen/interface/interface";
 import { Goals } from "../global-goals-screen/model/goals";
 import { BottomSheetGoalStatus } from "./bottom-sheet-goal-status/bottom-sheet-goal-status";
@@ -48,11 +54,28 @@ export const ClientGoalsView: FC<ClientGoalsViewProps> = GoalsModel.modelClient(
       <>
         {goalData && goalData.successesAssigned && (
           <SuccessAssignBanner
-            title={"Цели успешно назначены!"}
+            title={"Статус цели успешно изменен!"}
             onPress={() => goalData?.setAssessAssigned(false)}
           />
         )}
+
+        {/*{isOpen && (*/}
+        {/*  <View*/}
+        {/*    style={[*/}
+        {/*      {*/}
+        {/*        position: "absolute",*/}
+        {/*        backgroundColor: "black",*/}
+        {/*        opacity: 0.5,*/}
+        {/*        zIndex: 1,*/}
+        {/*        height: "100%",*/}
+        {/*        width: "100%",*/}
+        {/*      },*/}
+        {/*    ]}*/}
+        {/*  />*/}
+        {/*)}*/}
+
         <WrapperWithTitlePage
+          isOpen={isOpen}
           title={"Цели"}
           onPressBack={() =>
             navigation.navigate("ClientDetailsPage", {

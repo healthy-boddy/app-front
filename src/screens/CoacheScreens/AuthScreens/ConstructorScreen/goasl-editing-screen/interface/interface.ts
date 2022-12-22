@@ -1,7 +1,8 @@
-export type GoalsResArray = Array<GoalsResponseProps>;
+export type GlobalGoalsResArray = Array<GlobalGoalsResponse>;
 
-export type GoalsResponseProps = {
+export type GlobalGoalsResponse = {
   id: number;
-  program: number | null;
+  client: string;
+  status: string;
   description: string;
 };

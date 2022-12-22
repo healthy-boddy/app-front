@@ -27,11 +27,13 @@ export const GoalsView = GoalsDetailsClientModel.modelClient((props) => {
       >
         {props.model.goals.type === "HAS_DATA" &&
           props.model.goals.data.map((data, index) => {
+            console.log("DATA GGOALS", data.source.status);
             return (
               <GoalsBlock
                 key={data.id}
                 title={`Цель ${index + 1}`}
                 description={data.goalsDescription}
+                status={data?.source?.status}
               />
             );
           })}

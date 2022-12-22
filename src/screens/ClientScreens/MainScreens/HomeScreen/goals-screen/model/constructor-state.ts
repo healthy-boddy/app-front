@@ -1,5 +1,5 @@
-import { GoalsResArray, GoalsResponseProps } from "../interface/interface";
 import { Goals } from "./goals";
+import { GlobalGoalsResArray } from "../../../../../CoacheScreens/AuthScreens/ConstructorScreen/goasl-editing-screen/interface/interface";
 
 export interface StateInitial {
   type: "INITIAL";
@@ -9,7 +9,7 @@ export interface StateInitial {
 
 export interface StateLoading {
   type: "LOADING";
-  data: GoalsResArray | null;
+  data: GlobalGoalsResArray | null;
   error: null;
 }
 

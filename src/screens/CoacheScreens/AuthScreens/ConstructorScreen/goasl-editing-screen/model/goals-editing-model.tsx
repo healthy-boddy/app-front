@@ -5,7 +5,10 @@ import { observer } from "mobx-react-lite";
 import * as stateCreator from "./state-creators";
 import { ConstructorState } from "./constructor-state";
 import { HttpService } from "../../../../../../service/http-service";
-import { GoalsResArray, GoalsResponseProps } from "../interface/interface";
+import {
+  GlobalGoalsResArray,
+  GoalsResponseProps,
+} from "../interface/interface";
 import { Goals } from "./goals";
 
 export class GoalsEditingModel {
@@ -113,7 +116,7 @@ export class GoalsEditingModel {
   public getGoals() {
     try {
       this._httpService
-        .get<GoalsResArray>(`/program/goal/?program=${this._program}`)
+        .get<GlobalGoalsResArray>(`/program/goal/?program=${this._program}`)
         .then((res) => {
           runInAction(() => {
             this._goals = stateCreator.getHasDataState(res.data);

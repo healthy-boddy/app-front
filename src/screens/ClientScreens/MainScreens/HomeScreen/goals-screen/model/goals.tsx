@@ -1,11 +1,11 @@
 import { makeAutoObservable } from "mobx";
 import { HttpService } from "../../../../../../service/http-service";
-import { GoalsResponseProps } from "../../../../../CoacheScreens/AuthScreens/ConstructorScreen/goasl-editing-screen/interface/interface";
+import { GlobalGoalsResponse } from "../../../../../CoacheScreens/AuthScreens/ConstructorScreen/goasl-editing-screen/interface/interface";
 
 export class Goals {
   private readonly _httpService = new HttpService();
 
-  public constructor(public source: GoalsResponseProps) {
+  public constructor(public source: GlobalGoalsResponse) {
     makeAutoObservable(this, {}, { autoBind: true });
   }
 

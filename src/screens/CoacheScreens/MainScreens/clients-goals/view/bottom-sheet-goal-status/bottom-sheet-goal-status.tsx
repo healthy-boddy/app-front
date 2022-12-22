@@ -1,5 +1,5 @@
 import React, { FC, RefObject } from "react";
-import { Image, Text, View } from "react-native";
+import { Dimensions, Image, Text, View } from "react-native";
 import BottomSheet from "@gorhom/bottom-sheet";
 import { BottomSheetComponent } from "../../../../../../components/core/bottom-sheet";
 import Description from "../../../../../../components/Description";
@@ -14,6 +14,8 @@ interface ButtonSheetPersonalDoctorProps {
   onPressInProgress: () => void;
   description: string;
 }
+
+const { width, height } = Dimensions.get("screen");
 
 export const BottomSheetGoalStatus: FC<ButtonSheetPersonalDoctorProps> = ({
   sheetRef,
@@ -45,6 +47,7 @@ export const BottomSheetGoalStatus: FC<ButtonSheetPersonalDoctorProps> = ({
           borderTopRightRadius: 24,
           paddingHorizontal: 16,
           width: "100%",
+          // marginTop: width / 2,
         }}
       >
         <Text
@@ -73,7 +76,8 @@ export const BottomSheetGoalStatus: FC<ButtonSheetPersonalDoctorProps> = ({
 
         <View
           style={{
-            marginTop: 48,
+            // marginTop: width / 1.5,
+            marginTop: 46,
           }}
         />
         <CustomButton
