@@ -67,6 +67,7 @@ const CoachEditDataScreen = () => {
                 </View>
                 <View>
                     <CustomInput
+                        editable={false}
                         input_style={{borderBottomLeftRadius: 0, borderBottomRightRadius: 0}}
                         placeholder={'Номер телефона'}
                         value={phone}
@@ -76,6 +77,7 @@ const CoachEditDataScreen = () => {
                     />
                     <View style={{height: 1, backgroundColor: '#E2E2E2'}}/>
                     <CustomInput
+                        editable={false}
                         input_style={{borderTopLeftRadius: 0, borderTopRightRadius: 0}}
                         placeholder={'Email'}
                         value={email}
