@@ -190,6 +190,26 @@ export class ProgramDetailsModel {
   //   }
   // }
 
+  public updateProgram(navigate: () => void) {
+    const data = {
+      name: this._name,
+      description: this._description,
+    };
+    try {
+      this._httpService
+        .put(`/program/${this._programId}/`, {
+          data,
+        })
+        .then((res) => {
+          console.log("Successfully updated", this._programId, res.status);
+          this.getProgramById();
+          navigate();
+        });
+    } catch (e: any) {
+      alert(e.response.data);
+    }
+  }
+
   private constructor(
     private readonly programId: number | undefined,
     private readonly programAssignedToClient:
@@ -212,9 +232,11 @@ export class ProgramDetailsModel {
       []
     );
     useEffect(() => {
-      model._programId = programId;
-      model._programDetailForClient = programAssignedToClient;
-      model._client = clientID;
+      runInAction(() => {
+        model._programId = programId;
+        model._programDetailForClient = programAssignedToClient;
+        model._client = clientID;
+      });
       model.getProgramById();
       model.getTasks();
       model.getAvailableClients();

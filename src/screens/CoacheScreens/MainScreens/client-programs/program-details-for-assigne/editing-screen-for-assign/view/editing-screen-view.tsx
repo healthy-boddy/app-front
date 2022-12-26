@@ -52,7 +52,18 @@ export const EditingScreenView: FC<EditingScreenViewProps> =
               <Text style={styles.headerTitle}>Назад</Text>
             </View>
           </TouchableOpacity>
-          <Text style={styles.headerTitle}>Сохранить</Text>
+          <TouchableOpacity
+            onPress={() =>
+              props.model.updateProgram(
+                navigation.navigate("ProgramDetailsForAssign", {
+                  programId: props.model.currentProgramId,
+                  clientID: props.model.client,
+                })
+              )
+            }
+          >
+            <Text style={styles.headerTitle}>Сохранить</Text>
+          </TouchableOpacity>
         </View>
 
         <ScrollView

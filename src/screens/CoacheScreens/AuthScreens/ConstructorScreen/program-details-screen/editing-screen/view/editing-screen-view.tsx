@@ -36,8 +36,6 @@ export const EditingScreenView: FC<EditingScreenViewProps> =
             onPress={() =>
               navigation.navigate("ProgramDetails", {
                 programId: props.model.currentProgramId,
-                // assignedProgram: props.model.programDetailForClient,
-                // clientID: props.model.client,
               })
             }
             style={{
@@ -53,7 +51,17 @@ export const EditingScreenView: FC<EditingScreenViewProps> =
               <Text style={styles.headerTitle}>Назад</Text>
             </View>
           </TouchableOpacity>
-          <Text style={styles.headerTitle}>Сохранить</Text>
+          <TouchableOpacity
+            onPress={() =>
+              props.model.updateProgram(
+                navigation.navigate("ProgramDetails", {
+                  programId: props.model.currentProgramId,
+                })
+              )
+            }
+          >
+            <Text style={styles.headerTitle}>Сохранить</Text>
+          </TouchableOpacity>
         </View>
         <ScrollView showsVerticalScrollIndicator={false}>
           <Text style={styles.mainTitle}>Название программы</Text>
