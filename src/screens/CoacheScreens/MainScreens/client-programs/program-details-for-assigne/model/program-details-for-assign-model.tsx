@@ -190,11 +190,11 @@ export class ProgramDetailsForAssignModel {
       runInAction(() => {
         model._programId = programId;
         model._programDetailForClient = programAssignedToClient;
-        model.getProgramById();
         model.getTasks();
         model.getAvailableClients();
       });
-    }, [model, programId]);
+      model.getProgramById();
+    });
 
     return model;
   }
