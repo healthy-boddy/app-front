@@ -1,5 +1,5 @@
 import React from "react";
-import { Image, Platform, Text, View } from "react-native";
+import { Image, Text, View } from "react-native";
 import { WrapperTwoButtons } from "../../../components/core/wrapper/wrapper-two-buttons";
 import { useNavigation } from "@react-navigation/native";
 import { WrapperClientData } from "../../../components/core/wrapper-client-data";
@@ -11,10 +11,30 @@ import { ProgramsIcons } from "../icon/programms";
 import MoneySvg from "../../../assets/Icons/MoneySvg";
 import { color1 } from "../../../helpers/colors";
 import { LinearGradient } from "expo-linear-gradient";
+import { formatDuration, intervalToDuration } from "date-fns";
+import { ru } from "date-fns/locale";
 
 export const ClientDetailsPage = ({ route: { params } }: any) => {
   const navigation: any = useNavigation();
   const userId = params?.data?.client?.user?.id;
+  const client = params?.data?.client;
+
+  const handleShowDate = () => {
+    let duration = intervalToDuration({
+      start: new Date(),
+      end: new Date(),
+    });
+    if (client?.birthday) {
+      duration = intervalToDuration({
+        start: new Date(client?.birthday),
+        end: new Date(),
+      });
+    }
+    return duration;
+  };
+
+  console.log("CLIENT", client);
+
   return (
     <WrapperTwoButtons
       onPressBack={() => navigation.navigate("Greetings4")}
@@ -118,6 +138,23 @@ export const ClientDetailsPage = ({ route: { params } }: any) => {
           }}
         >
           {params.data.name}
+        </Text>
+
+        <Text
+          style={{
+            color: "#797979",
+            fontWeight: "600",
+            lineHeight: 21.48,
+            fontSize: 18,
+            textAlign: "center",
+            marginTop: 8,
+          }}
+        >
+          {`${formatDuration(handleShowDate(), {
+            format: ["years", "months", "days"],
+            delimiter: ", ",
+            locale: ru,
+          })}, ${client?.weight} кг`}
         </Text>
 
         <View
