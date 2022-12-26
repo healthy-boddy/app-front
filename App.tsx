@@ -14,7 +14,6 @@ import {baseUrl} from "./src/helpers/url";
 import Main from "./src/navigations/CoachNavigations/CoachMainNavigations";
 import ClientVerifyNavigations from "./src/navigations/ClientNavigations/ClientVerifyNavigations";
 import ClientMain from "./src/navigations/ClientNavigations/ClientMainNavigations";
-//LogBox.ignoreAllLogs(true)
 const AppWrapper = () => {
     return (
         <Provider store={store}>

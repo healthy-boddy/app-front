@@ -1,7 +1,6 @@
 import * as React from "react";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
-let Tab = createBottomTabNavigator();
+let Stack = createStackNavigator();
 
 import {
   WelcomeScreen,
@@ -14,6 +13,7 @@ import {
   LoginWithEmailScreen,
     IsNotTrustedEmailScreen
 } from "../screens/CoacheScreens/AuthScreens";
+import {createStackNavigator} from "@react-navigation/stack";
 
 function Welcome() {
   return <WelcomeScreen />;
@@ -55,85 +55,49 @@ function IsNotTrustedEmail() {
 
 export default function SignInFlow() {
   return (
-    <Tab.Navigator
+    <Stack.Navigator
       initialRouteName="First"
       screenOptions={{
         headerShown: false,
       }}
     >
-      <Tab.Screen
+      <Stack.Screen
         name="Welcome"
         component={Welcome}
-        options={({ route }) => ({
-          tabBarButton: () => null,
-          tabBarStyle: { display: "none" },
-        })}
       />
-      <Tab.Screen
+      <Stack.Screen
         name="EnterName"
         component={EnterName}
-        options={({ route }) => ({
-          tabBarButton: () => null,
-          tabBarStyle: { display: "none" },
-        })}
       />
-      <Tab.Screen
+      <Stack.Screen
         name="CreateAccount"
         component={CreateAccount}
-        options={({ route }) => ({
-          tabBarButton: () => null,
-          tabBarStyle: { display: "none" },
-        })}
       />
 
-      <Tab.Screen
+      <Stack.Screen
         name="PinCode"
         component={PinCode}
-        options={({ route }) => ({
-          tabBarButton: () => null,
-          tabBarStyle: { display: "none" },
-        })}
       />
-      <Tab.Screen
+      <Stack.Screen
         name="Login"
         component={Login}
-        options={({ route }) => ({
-          tabBarButton: () => null,
-          tabBarStyle: { display: "none" },
-        })}
       />
-      <Tab.Screen
+      <Stack.Screen
         name="LoginPin"
         component={LoginPin}
-        options={({ route }) => ({
-          tabBarButton: () => null,
-          tabBarStyle: { display: "none" },
-        })}
       />
-      <Tab.Screen
+      <Stack.Screen
         name="EmailReg"
         component={EmailReg}
-        options={({ route }) => ({
-          tabBarButton: () => null,
-          tabBarStyle: { display: "none" },
-        })}
       />
-      <Tab.Screen
+      <Stack.Screen
         name="LoginEmail"
         component={LoginEmail}
-        options={({ route }) => ({
-          tabBarButton: () => null,
-          tabBarStyle: { display: "none" },
-        })}
       />
-        <Tab.Screen
+        <Stack.Screen
         name="IsNotTrustedEmail"
         component={IsNotTrustedEmail}
-        options={({ route }) => ({
-          tabBarButton: () => null,
-          tabBarStyle: { display: "none" },
-        })}
       />
-    </Tab.Navigator>
+    </Stack.Navigator>
   );
 }

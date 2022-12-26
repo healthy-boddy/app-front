@@ -10,7 +10,7 @@ import { color2 } from "../helpers/colors";
 import Delete from "../assets/Icons/Delete";
 
 const CustomInput = (props: any) => {
-  const { onChangeText, placeholder, value } = props;
+  const { onChangeText, editable, placeholder, value } = props;
   return (
     <View
       style={[
@@ -36,6 +36,7 @@ const CustomInput = (props: any) => {
           textContentType="emailAddress"
           keyboardType="email-address"
           autoCorrect={false}
+          editable={editable}
         />
       </View>
       {props.delete && (

@@ -3,6 +3,7 @@ import * as React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 let Tab = createBottomTabNavigator();
+let Stack = createStackNavigator();
 
 import {
   HomeScreen,
@@ -31,6 +32,7 @@ import { TaskDetailsScreen } from "../../screens/CoacheScreens/AuthScreens/Const
 import { TaskDetailsClientScreen } from "../../screens/CoacheScreens/MainScreens/client-programs/task-details-screen";
 import { ProgramDetailGoals } from "../../screens/ClientScreens/MainScreens/HomeScreen/program-details-goals-screen";
 import { TaskDetailsScreenClientFlow } from "../../screens/ClientScreens/MainScreens/HomeScreen/task-details-screen-client-flow";
+import {createStackNavigator} from "@react-navigation/stack";
 
 function Home() {
   return <HomeScreen />;
@@ -79,212 +81,153 @@ function UserEditName() {
   return <UserEditNameScreen />;
 }
 
+function ReturnTabs(){
+    return(
+        <Tab.Navigator
+            initialRouteName="Main"
+            screenOptions={{
+                headerShown: false,
+                tabBarStyle: {
+                    borderTopWidth: 0,
+                },
+            }}
+        >
+            <Tab.Screen
+                name="Main"
+                component={Home}
+                options={{
+                    tabBarIcon: ({ focused }) => (
+                        <TabNavigatorElem
+                            colorItem={focused ? "#7454CF" : "#797979"}
+                            icon={<HomeSvg color={focused ? "#7454CF" : "#797979"} />}
+                            navigatorName="Главная"
+                        />
+                    ),
+                    tabBarShowLabel: false,
+                }}
+            />
+
+            <Tab.Screen
+                name="Analyzes"
+                component={Analyzes}
+                options={{
+                    tabBarIcon: ({ focused }) => (
+                        <TabNavigatorElem
+                            colorItem={focused ? "#7454CF" : "#797979"}
+                            icon={<AnalyzesSvg color={focused ? "#7454CF" : "#797979"} />}
+                            navigatorName="Анализы"
+                        />
+                    ),
+                    tabBarShowLabel: false,
+                }}
+            />
+
+            <Tab.Screen
+                name="Person"
+                component={Condition}
+                options={{
+                    tabBarIcon: ({ focused }) => (
+                        <TabNavigatorElem
+                            colorItem={focused ? "#7454CF" : "#797979"}
+                            icon={<PersonSvg color={focused ? "#7454CF" : "#797979"} />}
+                            navigatorName="Состояние"
+                        />
+                    ),
+                    tabBarShowLabel: false,
+                }}
+            />
+        </Tab.Navigator>
+    )
+}
 export default function ClientMain() {
   return (
-    <Tab.Navigator
-      initialRouteName="Main"
-      screenOptions={{
-        headerShown: false,
-        tabBarStyle: {
-          borderTopWidth: 0,
-        },
-      }}
-    >
-      <Tab.Screen
-        name="Main"
-        component={Home}
-        options={{
-          tabBarIcon: ({ focused }) => (
-            <TabNavigatorElem
-              colorItem={focused ? "#7454CF" : "#797979"}
-              icon={<HomeSvg color={focused ? "#7454CF" : "#797979"} />}
-              navigatorName="Главная"
-            />
-          ),
-          tabBarShowLabel: false,
+    <Stack.Navigator
+        screenOptions={{
+            headerShown: false,
         }}
-      />
+      initialRouteName="Main">
 
-      <Tab.Screen
-        name="Analyzes"
-        component={Analyzes}
-        options={{
-          tabBarIcon: ({ focused }) => (
-            <TabNavigatorElem
-              colorItem={focused ? "#7454CF" : "#797979"}
-              icon={<AnalyzesSvg color={focused ? "#7454CF" : "#797979"} />}
-              navigatorName="Анализы"
-            />
-          ),
-          tabBarShowLabel: false,
-        }}
-      />
+      <Stack.Screen name={'Home'} component={ReturnTabs}/>
 
-      <Tab.Screen
-        name="Person"
-        component={Condition}
-        options={{
-          tabBarIcon: ({ focused }) => (
-            <TabNavigatorElem
-              colorItem={focused ? "#7454CF" : "#797979"}
-              icon={<PersonSvg color={focused ? "#7454CF" : "#797979"} />}
-              navigatorName="Состояние"
-            />
-          ),
-          tabBarShowLabel: false,
-        }}
-      />
-      <Tab.Screen
+      <Stack.Screen
         name="Questions"
         component={Questions}
-        options={({ route }) => ({
-          tabBarButton: () => null,
-          tabBarStyle: { display: "none" },
-        })}
       />
 
-      <Tab.Screen
+      <Stack.Screen
         name="UserSingle"
         component={UserSingle}
-        options={({ route }) => ({
-          tabBarButton: () => null,
-          tabBarStyle: { display: "none" },
-        })}
       />
-      <Tab.Screen
+      <Stack.Screen
         name="CoachSingleScreen"
         component={CoachSingleScreen}
-        options={({ route }) => ({
-          tabBarButton: () => null,
-          tabBarStyle: { display: "none" },
-        })}
       />
-      <Tab.Screen
+      <Stack.Screen
         name="PaidQuizzes"
         component={PaidQuizzes}
-        options={({ route }) => ({
-          tabBarButton: () => null,
-          tabBarStyle: { display: "none" },
-        })}
       />
-      <Tab.Screen
+      <Stack.Screen
         name="TyPage"
         component={TyPage}
-        options={({ route }) => ({
-          tabBarButton: () => null,
-          tabBarStyle: { display: "none" },
-        })}
       />
-      <Tab.Screen
+      <Stack.Screen
         name="AddAnalyzes"
         component={AddAnalyzesScreen}
-        options={({ route }) => ({
-          tabBarButton: () => null,
-          tabBarStyle: { display: "none" },
-        })}
       />
-      <Tab.Screen
+      <Stack.Screen
         name="AddManual"
         component={AddManual}
-        options={({ route }) => ({
-          tabBarButton: () => null,
-          tabBarStyle: { display: "none" },
-        })}
       />
-      <Tab.Screen
+      <Stack.Screen
         name="SaveAnalyzesScreen"
         component={SaveAnalyzes}
-        options={({ route }) => ({
-          tabBarButton: () => null,
-          tabBarStyle: { display: "none" },
-        })}
       />
-      <Tab.Screen
+      <Stack.Screen
         name="AnalyseSingle"
         component={AnalyseSingle}
-        options={({ route }) => ({
-          tabBarButton: () => null,
-          tabBarStyle: { display: "none" },
-        })}
       />
-      <Tab.Screen
+      <Stack.Screen
         name="EditAnalyse"
         component={EditAnalyse}
-        options={({ route }) => ({
-          tabBarButton: () => null,
-          tabBarStyle: { display: "none" },
-        })}
       />
       <Tab.Screen
         name="AnalyseResult"
         component={AnalyseResult}
-        options={({ route }) => ({
-          tabBarButton: () => null,
-          tabBarStyle: { display: "none" },
-        })}
       />
-      <Tab.Screen
+      <Stack.Screen
         name="UserEditName"
         component={UserEditName}
-        options={({ route }) => ({
-          tabBarButton: () => null,
-          tabBarStyle: { display: "none" },
-        })}
       />
 
-      <Tab.Screen
+      <Stack.Screen
         name="GoalsClientDetails"
         component={GoalsClientDetails}
-        options={({ route }) => ({
-          tabBarButton: () => null,
-          tabBarStyle: { display: "none" },
-        })}
       />
 
-      <Tab.Screen
+      <Stack.Screen
         name="DetailsProgramClient"
         component={DetailsProgramClient}
-        options={({ route }) => ({
-          tabBarButton: () => null,
-          tabBarStyle: { display: "none" },
-        })}
       />
 
-      <Tab.Screen
+      <Stack.Screen
         name={"TaskDetails"}
         component={TaskDetailsScreen}
-        options={({ route }) => ({
-          tabBarButton: () => null,
-          tabBarStyle: { display: "none" },
-        })}
       />
 
-      <Tab.Screen
+      <Stack.Screen
         name={"TaskDetailsClientScreen"}
         component={TaskDetailsClientScreen}
-        options={({ route }) => ({
-          tabBarButton: () => null,
-          tabBarStyle: { display: "none" },
-        })}
       />
 
-      <Tab.Screen
+      <Stack.Screen
         name={"ProgramDetailGoals"}
         component={ProgramDetailGoals}
-        options={({ route }) => ({
-          tabBarButton: () => null,
-          tabBarStyle: { display: "none" },
-        })}
       />
 
-      <Tab.Screen
+      <Stack.Screen
         name={"TaskDetailsScreenClientFlow"}
         component={TaskDetailsScreenClientFlow}
-        options={({ route }) => ({
-          tabBarButton: () => null,
-          tabBarStyle: { display: "none" },
-        })}
       />
-    </Tab.Navigator>
+    </Stack.Navigator>
   );
 }
