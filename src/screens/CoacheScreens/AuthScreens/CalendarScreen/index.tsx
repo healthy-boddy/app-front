@@ -1,1 +1,1 @@
-export { default as CalendarScreen } from "./user-list-screen/view/CalendarScreen";
+export { default as CalendarScreen } from "./user-list-screen/view/MainPageScreen";

@@ -34,7 +34,7 @@ export class TaskEditingModel {
   }
 
   public get program() {
-    return this._button_link;
+    return this._program;
   }
 
   public setName(data: string) {
@@ -64,7 +64,7 @@ export class TaskEditingModel {
     }
   }
 
-  public saveTask() {
+  public saveTask(navigate: () => void) {
     console.log("this.this._taskId()", this._taskData);
     try {
       this._httpService
@@ -72,7 +72,7 @@ export class TaskEditingModel {
           data: this.formatData(),
         })
         .then((res) => {
-          console.log("success!", res.status);
+          navigate();
         })
         .catch((e) => {
           console.warn("ERROR", e.response);
