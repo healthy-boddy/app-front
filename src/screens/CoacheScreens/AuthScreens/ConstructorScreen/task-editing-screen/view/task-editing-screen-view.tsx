@@ -72,7 +72,15 @@ export const TaskEditingScreenView = TaskEditingModel.modelClient((props) => {
               <Text style={styles.headerTitle}>Назад</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity onPress={props.model.saveTask}>
+          <TouchableOpacity
+            onPress={() =>
+              props.model.saveTask(() =>
+                navigation.navigate("EditingScreen", {
+                  programId: props.model.program,
+                })
+              )
+            }
+          >
             <Text style={styles.headerTitle}>Сохранить</Text>
           </TouchableOpacity>
         </View>

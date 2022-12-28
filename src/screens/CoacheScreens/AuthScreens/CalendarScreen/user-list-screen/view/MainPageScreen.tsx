@@ -1,12 +1,10 @@
 import React from "react";
 import {
-  Image,
   RefreshControl,
   SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
@@ -20,7 +18,7 @@ import { deleteUserData } from "../../../../../../store/actions/user_data";
 import { ClientBlockForCoach } from "../../../../../../components/core/client-block-for-coach/client-block-for-coach";
 import { UserListModel } from "../model";
 
-const CalendarScreen = UserListModel.modelClient((props) => {
+const MainPageScreen = UserListModel.modelClient((props) => {
   const navigation: any = useNavigation();
   const dispatch = useDispatch();
   let user_data = useSelector((store: any) => store.user_data?.user_data);
@@ -94,7 +92,7 @@ const CalendarScreen = UserListModel.modelClient((props) => {
     </SafeAreaView>
   );
 });
-export default CalendarScreen;
+export default MainPageScreen;
 
 const styles = StyleSheet.create({
   header: {

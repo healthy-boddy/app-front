@@ -51,7 +51,7 @@ export const ConstructorScreenView = ConstructorScreenModel.modelClient(
                     }
                     title={programs.name}
                     subtitle={programs.description}
-                    duration={`Длительность - ${programs.duration} год`}
+                    duration={`Длительность - ${programs.duration} мес.`}
                   />
                 );
               })}

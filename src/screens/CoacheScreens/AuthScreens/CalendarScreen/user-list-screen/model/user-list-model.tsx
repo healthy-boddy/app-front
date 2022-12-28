@@ -39,7 +39,7 @@ export class UserListModel {
     const model = React.useMemo(() => new UserListModel(programId), []);
     useEffect(() => {
       model.getUsers();
-    }, [model]);
+    });
 
     return model;
   }

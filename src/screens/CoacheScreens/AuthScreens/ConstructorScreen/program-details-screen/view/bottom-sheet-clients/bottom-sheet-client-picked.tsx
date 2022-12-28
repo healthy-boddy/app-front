@@ -107,15 +107,18 @@ export const BottomSheetClientPicked: FC<ButtonSheetPersonalDoctorProps> = ({
         </Text>
 
         <View style={{ marginTop: 16 }} />
-        <Description>
-          <Text
-            style={{
-              textAlign: "center",
-            }}
-          >
-            Эта программа сразу отобразится в аккаунте клиента
-          </Text>
-        </Description>
+        <Text
+          style={{
+            textAlign: "center",
+            color: "#797979",
+            fontSize: 15,
+            fontWeight: "400",
+            lineHeight: 20,
+            paddingHorizontal: 44,
+          }}
+        >
+          Эта программа сразу отобразится в аккаунте клиента
+        </Text>
         <View
           style={{
             marginTop: Dimensions.get("screen").height / 6,

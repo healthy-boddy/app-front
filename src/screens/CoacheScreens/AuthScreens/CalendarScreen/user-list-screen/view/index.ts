@@ -1,1 +1,1 @@
-export * from "./CalendarScreen";
+export * from "./MainPageScreen";
