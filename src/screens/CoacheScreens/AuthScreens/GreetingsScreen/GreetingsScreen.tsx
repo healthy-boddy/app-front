@@ -56,12 +56,14 @@ const GreetingsScreen = (props: any) => {
       <View style={styles.image_box}>
         <Doctor />
       </View>
-      <CustomButton
-        onPress={() => {
-          navigation.navigate("Greetings2");
-        }}
-        title={"Отлично! Продолжить"}
-      />
+        <View style={{marginBottom: 50}}>
+            <CustomButton
+                onPress={() => {
+                    navigation.navigate("Greetings2");
+                }}
+                title={"Отлично! Продолжить"}
+            />
+        </View>
     </MainContainer>
   );
 };

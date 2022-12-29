@@ -10,11 +10,12 @@ import { useNavigation } from "@react-navigation/native";
 import { QuestionsWrapper } from "../QustionsScreen/questions-wrapper";
 import { ActivityIndicator, ProgressBar } from "react-native-paper";
 import { color1 } from "../../../../helpers/colors";
-import { useSelector } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import axios from "axios";
 import Title from "../../../../components/Title";
 import CheckBox from "../../../../assets/Icons/CheckBox";
 import Description from "../../../../components/Description";
+import {setPaidQuize} from "../../../../store/actions/paid_quize";
 
 type Answer = {
   question: number;
@@ -26,13 +27,16 @@ const PaidQuizzesScreen = () => {
   let tokenFromReducer = useSelector(
     (store: any) => store.user_token.user_token
   );
+  let savedQuestionAndLevel = useSelector((store: any)=> store?.paid_quize?.quize)
   let AuthStr = "Bearer " + tokenFromReducer;
-  const [level, setLevel] = useState(0);
+  const [level, setLevel] = useState(savedQuestionAndLevel[0]?.level ? savedQuestionAndLevel[0]?.level : 0);
   let [questions, setQuestions] = useState<any>([]);
   let [loading, setLoading] = useState(true);
   const [questionsCount, setQuestionsCount] = useState(1)
   let [progress, setProgress] = useState(1)
-  let [checkedAnswer, setCheckedAnswer] = useState<Array<Answer>>([]);
+  let [checkedAnswer, setCheckedAnswer] = useState<Array<Answer>>(savedQuestionAndLevel[0]?.checkedAnswer ? savedQuestionAndLevel[0]?.checkedAnswer : []);
+  const dispatch = useDispatch()
+  // console.log(savedQuestionAndLevel[0]?.checkedAnswer , 'savedQuestionAndLevel')
 
   useEffect(()=>{
     console.log(questionsCount, level)
@@ -151,6 +155,7 @@ const PaidQuizzesScreen = () => {
         }
       }}
       onPressLetter={() => {
+        dispatch(setPaidQuize([{checkedAnswer: checkedAnswer, level: level}]))
         navigation.navigate("Main");
       }}
     >

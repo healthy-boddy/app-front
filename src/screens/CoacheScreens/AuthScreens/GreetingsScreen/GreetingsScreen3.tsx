@@ -10,7 +10,7 @@ const GreetingsScreen3 = () => {
     return (
         <WrapperPage
             onPressBack={() => navigation.navigate("Greetings2")}
-            onPressButton={() => navigation.navigate("Greetings4")}
+            onPressButton={() => navigation.navigate("Coach")}
             buttonTitle={"Вперед!"}
         >
             <View style={{width: '100%', flex: 1, paddingHorizontal: 16, marginTop: 16}}>

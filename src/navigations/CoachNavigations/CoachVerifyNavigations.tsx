@@ -218,186 +218,97 @@ function ReturnTabs() {
 export default function CoachVerify() {
     return (
         <Stack.Navigator
-            initialRouteName="Coach"
+            initialRouteName="First"
             screenOptions={{
                 headerShown: false,
             }}
         >
+            <Stack.Screen name="First" component={First}/>
+
             <Stack.Screen name={'Coach'} component={ReturnTabs}/>
-            <Stack.Screen
-                name="First"
-                component={First}/>
-            <Stack.Screen
-                name="Greetings"
-                component={Greetings}/>
-            <Stack.Screen
-                name="Greetings2"
-                component={Greetings2}/>
-            <Stack.Screen
-                name="Greetings3"
-                component={Greetings3}/>
 
-            <Stack.Screen
-                name="Greetings5"
-                component={Greetings5}/>
+            <Stack.Screen name="Greetings" component={Greetings}/>
 
-            <Stack.Screen
-                name="FirstTutorial"
-                component={FirstTutorial}/>
+            <Stack.Screen name="Greetings2" component={Greetings2}/>
 
-            <Stack.Screen
-                name={"ClientDetailsPage"}
-                component={ClientDetailsPage}/>
-            <Stack.Screen
-                name={"ClientProgramsClient"}
-                component={ClientProgramsClient}/>
+            <Stack.Screen name="Greetings3" component={Greetings3}/>
 
-            <Stack.Screen
-                name={"TaskDetails"}
-                component={TaskDetailsScreen}/>
-            <Stack.Screen
-                name={"TaskDetailsClientScreen"}
-                component={TaskDetailsClientScreen}/>
+            <Stack.Screen name="Greetings5" component={Greetings5}/>
 
-            <Stack.Screen
-                name="SecondTutorial"
-                component={SecondTutorial}/>
-            <Stack.Screen
-                name="TutorialQuestions"
-                component={TutorialQuestions}/>
-            <Stack.Screen
-                name="EditingScreen"
-                component={EditingScreen}/>
+            <Stack.Screen name="FirstTutorial" component={FirstTutorial}/>
+
+            <Stack.Screen name={"ClientDetailsPage"} component={ClientDetailsPage}/>
+
+            <Stack.Screen name={"ClientProgramsClient"} component={ClientProgramsClient}/>
+
+            <Stack.Screen name={"TaskDetails"} component={TaskDetailsScreen}/>
+
+            <Stack.Screen name={"TaskDetailsClientScreen"} component={TaskDetailsClientScreen}/>
+
+            <Stack.Screen name="SecondTutorial" component={SecondTutorial}/>
+
+            <Stack.Screen name="TutorialQuestions" component={TutorialQuestions}/>
+
+            <Stack.Screen name="EditingScreen" component={EditingScreen}/>
 
             {/*DONT DELETE - PAGE WITH DETAILS CLIENT, JUST COPY THIS CODE AND ENTER TO YOURS IN CASE OF CONFLICTS*/}
 
-            <Stack.Screen
-                name="ClientsPrograms"
-                component={TaskDetailsScreen}/>
-            <Stack.Screen
-                name="ClientGoals"
-                component={ClientGoals}/>
+            <Stack.Screen name="ClientsPrograms" component={TaskDetailsScreen}/>
 
-            <Stack.Screen
-                name="ClientQuiz"
-                component={ClientQuiz}/>
-            <Stack.Screen
-                name="ClientCondition"
-                component={ClientCondition}/>
+            <Stack.Screen name="ClientGoals" component={ClientGoals}/>
 
-            <Stack.Screen
-                name="ClientQuizDetails"
-                component={ClientQuizDetails}/>
+            <Stack.Screen name="ClientQuiz" component={ClientQuiz}/>
 
-            <Stack.Screen
-                name="TaskEditing"
-                component={TaskEditing}/>
+            <Stack.Screen name="ClientCondition" component={ClientCondition}/>
+
+            <Stack.Screen name="ClientQuizDetails" component={ClientQuizDetails}/>
+
+            <Stack.Screen name="TaskEditing" component={TaskEditing}/>
 
             {/*DONT DELETE - PAGE WITH DETAILS CLIENT, JUST COPY THIS CODE AND ENTER TO YOURS IN CASE OF CONFLICTS*/}
 
-            <Stack.Screen
-                name="ThirdTutorial"
-                component={ThirdTutorial}/>
-            <Stack.Screen
-                name="SecondFirstTutorial"
-                component={SecondFirstTutorial}/>
-            <Stack.Screen
-                name="SecondTwoTutorial"
-                component={SecondTwoTutorial}/>
-            <Stack.Screen
-                name="SecondThirdTutorial"
-                component={SecondThirdTutorial}/>
-            <Stack.Screen
-                name="ThirdDayTutorial"
-                component={ThirdDayTutorial}/>
+            <Stack.Screen name="ThirdTutorial" component={ThirdTutorial}/>
+            <Stack.Screen name="SecondFirstTutorial" component={SecondFirstTutorial}/>
+            <Stack.Screen name="SecondTwoTutorial" component={SecondTwoTutorial}/>
+            <Stack.Screen name="SecondThirdTutorial" component={SecondThirdTutorial}/>
+            <Stack.Screen name="ThirdDayTutorial" component={ThirdDayTutorial}/>
 
-            <Stack.Screen
-                name="ProgramDetails"
-                component={ProgramDetails}/>
-            <Stack.Screen
-                name="GoalsEditing"
-                component={GoalsEditing}/>
+            <Stack.Screen name="ProgramDetails" component={ProgramDetails}/>
+            <Stack.Screen name="GoalsEditing" component={GoalsEditing}/>
 
-            <Stack.Screen
-                name="Goals"
-                component={Goals}/>
+            <Stack.Screen name="Goals" component={Goals}/>
 
-            <Stack.Screen
-                name="ConstructorScreen"
-                component={ConstructorScreen}/>
+            <Stack.Screen name="ConstructorScreen" component={ConstructorScreen}/>
 
-            <Stack.Screen
-                name="TyFormTutorials"
-                component={TyFormTutorials}/>
-            <Stack.Screen
-                name="CoachSingleScreen"
-                component={CoachSingleScreen}/>
-            <Stack.Screen
-                name="TyScreenFromSecondDayPage"
-                component={TyScreenFromSecondDayPage}/>
+            <Stack.Screen name="TyFormTutorials" component={TyFormTutorials}/>
+            <Stack.Screen name="CoachSingleScreen" component={CoachSingleScreen}/>
+            <Stack.Screen name="TyScreenFromSecondDayPage" component={TyScreenFromSecondDayPage}/>
 
             {/*client details page*/}
 
-            <Stack.Screen
-                name="ClientGoalsDetailsPage"
-                component={ClientGoalsDetailsPage}/>
+            <Stack.Screen name="ClientGoalsDetailsPage" component={ClientGoalsDetailsPage}/>
 
-            <Stack.Screen
-                name="GlobalGoalsEditing"
-                component={GlobalGoalsEditing}/>
+            <Stack.Screen name="GlobalGoalsEditing" component={GlobalGoalsEditing}/>
 
-            <Stack.Screen
-                name="ClientsDetailPageWithPrograms"
-                component={ClientProgramsClient}
+            <Stack.Screen name="ClientsDetailPageWithPrograms" component={ClientProgramsClient}
             />
-            <Stack.Screen
-                name="ProgramDetailsClient"
-                component={ProgramDetailsClient}/>
+            <Stack.Screen name="ProgramDetailsClient" component={ProgramDetailsClient}/>
 
-            <Stack.Screen
-                name="ClientProgramsScreen"
-                component={ClientProgramsScreen} />
+            <Stack.Screen name="ClientProgramsScreen" component={ClientProgramsScreen}/>
 
-            <Stack.Screen
-                name="ProgramDetailsForAssign"
-                component={ProgramDetailsForAssign}/>
+            <Stack.Screen name="ProgramDetailsForAssign" component={ProgramDetailsForAssign}/>
 
-            <Stack.Screen
-                name="EditingScreenClient"
-                component={EditingScreenClient}/>
+            <Stack.Screen name="EditingScreenClient" component={EditingScreenClient}/>
 
-            <Stack.Screen
-                name="GoalsEditingClient"
-                component={GoalsEditingClient}/>
-            <Stack.Screen
-                name="GoalsClient"
-                component={GoalsClient}/>
-            <Stack.Screen
-                name="CoachEditData"
-                component={CoachEditData}/>
-            <Stack.Screen
-                name="EducationAndSpecialisationsScreen"
-                component={EducationAndSpecialisationsScreen}/>
-
-            <Stack.Screen
-                name="TaskDetailsForAssign"
-                component={TaskDetailsForAssign}/>
-
-            <Stack.Screen
-                name="GoalsForAssign"
-                component={GoalsForAssign}/>
-
-            <Stack.Screen
-                name="GoalsEditingForAssign"
-                component={GoalsEditingForAssign}/>
-
-            <Stack.Screen
-                name="EditingScreenForAssign"
-                component={EditingScreenForAssign}/>
-
-            <Stack.Screen
-                name="TaskEditingForAssign"
-                component={TaskEditingForAssign}/>
+            <Stack.Screen name="GoalsEditingClient" component={GoalsEditingClient}/>
+            <Stack.Screen name="GoalsClient" component={GoalsClient}/>
+            <Stack.Screen name="CoachEditData" component={CoachEditData}/>
+            <Stack.Screen name="EducationAndSpecialisationsScreen" component={EducationAndSpecialisationsScreen}/>
+            <Stack.Screen name="TaskDetailsForAssign" component={TaskDetailsForAssign}/>
+            <Stack.Screen name="GoalsForAssign" component={GoalsForAssign}/>
+            <Stack.Screen name="GoalsEditingForAssign" component={GoalsEditingForAssign}/>
+            <Stack.Screen name="EditingScreenForAssign" component={EditingScreenForAssign}/>
+            <Stack.Screen name="TaskEditingForAssign" component={TaskEditingForAssign}/>
 
             {/*client details page*/}
         </Stack.Navigator>

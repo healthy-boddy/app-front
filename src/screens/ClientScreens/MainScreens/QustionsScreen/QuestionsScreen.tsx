@@ -15,6 +15,8 @@ import {ActivityIndicator, ProgressBar, RadioButton} from "react-native-paper";
 import {color1} from "../../../../helpers/colors";
 import CheckBox from "../../../../assets/Icons/CheckBox";
 import Description from "../../../../components/Description";
+import {useDispatch, useSelector} from "react-redux";
+import {setFreeQuize} from "../../../../store/actions/paid_quize";
 
 type Answer = {
     question: number;
@@ -23,14 +25,16 @@ type Answer = {
 
 const QuestionsScreen = () => {
     const navigation: any = useNavigation();
+    let savedQuestionAndLevel = useSelector((store: any)=> store?.paid_quize?.free_quize)
     const [questions, setQuestions] = useState<any>([]);
     const [userToken, setUserToken] = useState<any>("");
     let [loading, setLoading] = useState<boolean>(true);
-    const [level, setLevel] = useState(0);
+    const [level, setLevel] = useState(savedQuestionAndLevel[0]?.level ? savedQuestionAndLevel[0]?.level : 0);
     const [questionsCount, setQuestionsCount] = useState(1)
     let [progress, setProgress] = useState(1)
-    let [checkedAnswer, setCheckedAnswer] = useState<Array<Answer>>([])
-
+    let [checkedAnswer, setCheckedAnswer] = useState<Array<Answer>>(savedQuestionAndLevel[0]?.checkedAnswer ? savedQuestionAndLevel[0]?.checkedAnswer : [])
+    const dispatch = useDispatch()
+    // console.log(savedQuestionAndLevel, 'savedQuestionAndLevel free')
     useEffect(()=>{
         console.log(questionsCount, level)
         setProgress((1 / questionsCount) * level)
@@ -146,6 +150,7 @@ const QuestionsScreen = () => {
                 }
             }}
             onPressLetter={() => {
+                dispatch(setFreeQuize([{checkedAnswer: checkedAnswer, level: level}]))
                 navigation.navigate("Main")
             }}>
             <View style={styles.container}>

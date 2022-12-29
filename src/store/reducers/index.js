@@ -4,11 +4,13 @@ import is_logged from './is_logged';
 import user_data from './user_data'
 import user_token from './user_token'
 import laboratory from './laboratory'
+import paid_quize from './paid_quize'
 
 export default combineReducers({
     auth_data,
     is_logged,
     user_data,
     user_token,
-    laboratory
+    laboratory,
+    paid_quize,
 })
