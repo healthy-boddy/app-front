@@ -12,7 +12,7 @@ export class TaskEditingModel {
 
   private _name = "";
   private _description = "";
-  private _date: number | null = null;
+  private _date: string | null = null;
   private _button_text = "";
   private _button_link = "";
   private _program: number | null = null;
@@ -43,16 +43,18 @@ export class TaskEditingModel {
   public setDescription(desc: string) {
     this._description = desc;
   }
-
   public setButtonText(buttonText: string) {
     this._button_text = buttonText;
   }
   public setButtonLink(buttonLink: string) {
     this._button_link = buttonLink;
   }
+  public setDate(date: string) {
+    this._date = date;
+  }
 
   public deleteProgramById() {
-    console.log("TASK ID", this.task);
+    console.log("TASK ID", this._taskData?.id);
     try {
       this._httpService
         .delete(`/program/task/${this._taskData?.id}/`)
@@ -65,7 +67,7 @@ export class TaskEditingModel {
   }
 
   public saveTask(navigate: () => void) {
-    console.log("this.this._taskId()", this._taskData);
+    console.log("formatData", this.formatData());
     try {
       this._httpService
         .put(`/program/task/${this._taskData?.id}/`, {
