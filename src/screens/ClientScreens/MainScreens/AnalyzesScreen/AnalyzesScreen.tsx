@@ -53,7 +53,7 @@ const AnalyzesScreen = () => {
         return res.json();
       })
       .then((res) => {
-        console.log(res, "analyses errori momenty");
+       // console.log(res, "analyses");
         if (Array.isArray(res)) {
           setAnalyses(res);
         }

@@ -117,6 +117,7 @@ const AnalyseSingleScreen = ({routes}) => {
                             height: "100%",
                             justifyContent: "center",
                             alignItems: "center",
+                            marginBottom: 150
                         }}
                     >
                         <View
@@ -128,7 +129,7 @@ const AnalyseSingleScreen = ({routes}) => {
                             }}
                         >
                             <TouchableOpacity onPress={handleShareImage}>
-                                <ShareIcon/>
+                                {/*<ShareIcon/>*/}
                             </TouchableOpacity>
                             <TouchableOpacity
                                 onPress={() => {
