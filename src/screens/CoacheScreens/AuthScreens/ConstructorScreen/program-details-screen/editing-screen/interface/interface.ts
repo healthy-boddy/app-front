@@ -6,7 +6,7 @@ export type TaskResponse = {
   name: string;
   description: string;
   document: string;
-  date: number;
+  date: string;
   button_text: string;
   button_link: string;
   image: string;

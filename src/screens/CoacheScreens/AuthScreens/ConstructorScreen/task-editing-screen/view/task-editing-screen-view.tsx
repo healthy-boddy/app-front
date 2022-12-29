@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Alert,
   Platform,
@@ -11,20 +11,15 @@ import {
 } from "react-native";
 import BackIcon from "../../../../../../assets/Icons/BackIcon";
 import { useNavigation } from "@react-navigation/native";
-import { DatePicker } from "../../../../../../components/core/date-picker-modal";
 import { CalendarSvg } from "../../../../../../components/icon/calendar";
 import { InputTasks } from "../../view/components/input-tasks";
 import CustomButton from "../../../../../../components/CustomButton";
 import { color1 } from "../../../../../../helpers/colors";
 import { TaskEditingModel } from "../model";
+import { DaysModalPicker } from "../../../../../../components/core/days-modal-picker";
 
 export const TaskEditingScreenView = TaskEditingModel.modelClient((props) => {
   const navigation = useNavigation<any>();
-  const [analiseDate, setAnaliseDate] = useState<Date>(new Date());
-
-  function setBirthDate(date: Date) {
-    setAnaliseDate(date);
-  }
 
   function createAlertMessageForDelete() {
     Alert.alert("Внимание!", "Хотите выйти удалить объявление?", [
@@ -127,9 +122,10 @@ export const TaskEditingScreenView = TaskEditingModel.modelClient((props) => {
 
         <Text style={styles.mainTitle}>Даты</Text>
         <View style={{ marginTop: 8 }} />
-        <DatePicker
-          date={analiseDate}
-          onDateChange={setBirthDate}
+
+        <DaysModalPicker
+          setDate={props.model.setDate}
+          date={props.model.date}
           placeholder="Выбрать дату"
           icon={<CalendarSvg />}
         />
