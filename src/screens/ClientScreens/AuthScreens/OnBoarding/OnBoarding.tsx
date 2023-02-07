@@ -194,11 +194,12 @@ const OnBoarding = () => {
                     style={{
                       fontSize: 16,
                       fontWeight: "400",
-                      lineHeight: 24,
+                      lineHeight: 20,
                       marginTop: 12,
                       color: "black",
                       paddingHorizontal: 36,
                       textAlign: "center",
+                        height: 60
                     }}
                   >
                     {item.description}

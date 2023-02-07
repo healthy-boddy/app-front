@@ -199,8 +199,8 @@ const AnalyzesScreen = () => {
     </MainContainer>
   );
 };
-
 export default AnalyzesScreen;
+
 const styles = StyleSheet.create({
   analyzes_box: {
     width: "100%",

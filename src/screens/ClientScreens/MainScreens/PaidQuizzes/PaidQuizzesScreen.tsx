@@ -208,7 +208,7 @@ const PaidQuizzesScreen = () => {
                       lineHeight: 20,
                       color: "#1E1E1E",
                       textAlign: "left",
-                      maxWidth: 303,
+                      width: '90%'
                     }}
                   >
                     {item?.text.toString()[0].toUpperCase() + item?.text.slice(1)}

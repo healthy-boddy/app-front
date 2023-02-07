@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {
     View,
     Text,
@@ -183,7 +183,7 @@ const QuestionsScreen = () => {
                         :
                         'Выберите один вариант'}
                 </Description>
-                <View style={{flex: 1}}>
+                <View style={{flex: 1, width: '100%'}}>
                     <ScrollView showsVerticalScrollIndicator={false}>
                         {questions[level]?.answers?.map((item: any, index: number) => (
                             <View key={`${item.id}-${index}`}>
@@ -202,7 +202,7 @@ const QuestionsScreen = () => {
                                             lineHeight: 20,
                                             color: "#1E1E1E",
                                             textAlign: "left",
-                                            maxWidth: 303
+                                            width: '90%'
                                         }}>
                                         {item?.text.toString()[0].toUpperCase() + item?.text.slice(1)}
                                     </Text>
@@ -234,7 +234,7 @@ const styles = StyleSheet.create({
         borderRadius: 30,
         flexDirection: 'row',
         alignItems: "center",
-        marginVertical: 6
+        marginVertical: 6,
     },
     line: {
         height: 1,
