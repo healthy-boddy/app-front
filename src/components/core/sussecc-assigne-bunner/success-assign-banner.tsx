@@ -29,7 +29,7 @@ export const SuccessAssignBanner: FC<SuccessAssignBannerProps> = ({
         style={{
           paddingHorizontal: 22,
           flexDirection: "row",
-          marginTop: 65,
+          marginTop: 45,
         }}
       >
         <TouchableOpacity

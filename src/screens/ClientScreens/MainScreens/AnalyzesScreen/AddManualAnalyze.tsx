@@ -294,7 +294,7 @@ const AddManualAnalyze = () => {
                     </View>
                     <View style={[styles.inputView, {width: '49%'}]}>
                         <TextInput
-                            placeholder={"Ввести результат"}
+                            placeholder={"Единицы"}
                             value={parameterArray[index]?.unitName}
                             onChangeText={(val) => handleParameters(index, val, "value")}
                             style={styles.input}

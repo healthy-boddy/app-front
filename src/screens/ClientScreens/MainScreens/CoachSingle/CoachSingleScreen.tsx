@@ -59,61 +59,61 @@ const CoachSingleScreen = () => {
         >
             <View
                 style={{
+                    justifyContent: "space-between",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    height: 48,
+                    paddingHorizontal: 16
+                }}
+            >
+                <TouchableOpacity
+                    activeOpacity={0.6}
+                    onPress={() => {
+                        navigation.navigate("Main");
+                    }}
+                    style={{
+                        alignItems: "center",
+                        justifyContent: "center",
+                        flexDirection: "row",
+                    }}
+                >
+                    <BackIcon/>
+                    <Text
+                        style={{
+                            color: "#7454CF",
+                            marginLeft: 10,
+                            fontSize: 18,
+                            fontWeight: "400",
+                            lineHeight: 21.48,
+                        }}
+                    >
+                        Назад
+                    </Text>
+                </TouchableOpacity>
+                <Text
+                    style={{
+                        color: "#1E1E1E",
+                        fontWeight: "400",
+                        fontSize: 18,
+                        lineHeight: 21.48,
+                    }}
+                >
+                    My Health Buddy
+                </Text>
+                <View
+                    style={{
+                        width: 50,
+                        height: 30,
+                    }}
+                />
+            </View>
+            <ScrollView
+                style={{
                     width: "100%",
                     paddingHorizontal: 16,
                 }}
             >
-                <View
-                    style={{
-                        justifyContent: "space-between",
-                        flexDirection: "row",
-                        alignItems: "center",
-                        height: 48,
-                    }}
-                >
-                    <TouchableOpacity
-                        activeOpacity={0.6}
-                        onPress={() => {
-                            navigation.navigate("Main");
-                        }}
-                        style={{
-                            alignItems: "center",
-                            justifyContent: "center",
-                            flexDirection: "row",
-                        }}
-                    >
-                        <BackIcon/>
-                        <Text
-                            style={{
-                                color: "#7454CF",
-                                marginLeft: 10,
-                                fontSize: 18,
-                                fontWeight: "400",
-                                lineHeight: 21.48,
-                            }}
-                        >
-                            Назад
-                        </Text>
-                    </TouchableOpacity>
-                    <Text
-                        style={{
-                            color: "#1E1E1E",
-                            fontWeight: "400",
-                            fontSize: 18,
-                            lineHeight: 21.48,
-                        }}
-                    >
-                        My Health Buddy
-                    </Text>
-                    <View
-                        style={{
-                            width: 50,
-                            height: 30,
-                        }}
-                    />
-                </View>
                 <ScrollView
-                    contentContainerStyle={{flexGrow: 1, justifyContent: 'center'}}
                     style={{width: '100%'}}
                     showsVerticalScrollIndicator={false}>
                     <View
@@ -178,9 +178,9 @@ const CoachSingleScreen = () => {
                                     <ScrollView showsHorizontalScrollIndicator={false} horizontal={true}
                                                 style={{flexDirection: 'row'}}>
                                         {coach?.certificates.map((item) => (
-                                            <TouchableOpacity key={item.id} style={{marginRight: 16}}>
+                                            <View key={item.id} style={{marginRight: 16}}>
                                                 <Image style={{width: 150, height: 105}} source={{uri: item.file}}/>
-                                            </TouchableOpacity>
+                                            </View>
                                         ))}
                                     </ScrollView>
                                 </View>
@@ -189,7 +189,7 @@ const CoachSingleScreen = () => {
                         <View style={styles.line}/>
                     </View>
                     <TouchableOpacity
-                        style={[styles.education_btn, {marginBottom: 50}]}
+                        style={[styles.education_btn, {marginBottom: 5}]}
                         activeOpacity={0.7}
                         onPress={() => {
                             setReviewsVisible(!reviewsVisible);
@@ -205,7 +205,7 @@ const CoachSingleScreen = () => {
                     </TouchableOpacity>
                     {reviewsVisible && (
                         <View>
-                            <ScrollView style={{height: 120, width: '100%', marginTop: 16}}>
+                            <View style={{height: '100%', width: '100%', marginTop: 16}}>
                                 {reviews?.map((item) => (
                                     <TouchableOpacity key={item.id} style={{marginRight: 16}}>
                                         {coach?.user.id === item.coach &&
@@ -224,12 +224,12 @@ const CoachSingleScreen = () => {
                                             </View>}
                                     </TouchableOpacity>
                                 ))}
-                            </ScrollView>
+                            </View>
                         </View>
                     )}
                     <View style={[styles.line, {marginTop: 0}]}/>
                 </ScrollView>
-            </View>
+            </ScrollView>
         </SafeAreaView>
     );
 };
