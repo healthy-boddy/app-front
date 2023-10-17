@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Health Buddy App",
-    "version": "0.0.13",
+    "version": "0.0.61",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -25,10 +25,33 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.sizze.healthbuddyapp"
+      "package": "com.sizze.healthbuddyapp",
+      "versionCode": 61
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "8514b3d0-0bc9-40c8-a221-33c6645ef936"
+      }
+    },
+    "plugins": [
+      [
+      "expo-build-properties",
+      {
+        "android": {
+          "compileSdkVersion": 33,
+          "targetSdkVersion": 33,
+          "minSdkVersion": 26,
+          "buildToolsVersion": "33.0.0",
+          "kotlinVersion": "1.8.0",
+          "defaultConfig" :{
+            "targetSdkVersion": 33
+          }
+        }
+      }
+    ]
+    ]
   }
 }
